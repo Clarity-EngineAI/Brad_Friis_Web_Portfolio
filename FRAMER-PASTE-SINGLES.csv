@@ -1,0 +1,46 @@
+section,slot,limit,text
+Navigation,Logo,,Brad Friis
+Navigation,Nav 1,,About
+Navigation,Nav 2,,Projects
+Navigation,Nav 3,,Career
+Navigation,Nav 4,,Insights
+Navigation,Nav 5,,Contact
+Hero,H1,2w,Brad Friis
+Hero,CTA,2w,Let's connect
+Hero,Trust line,3w,Trusted by businesses
+Hero,Tag 1,3w,Sales Strategy
+Hero,Tag 2,3w,SaaS Consultant
+Hero,Tag 3,3w,AI for Business
+Hero,Tag 4,3w,Marketing & Identity
+Hero,Tag 5,3w,Website Strategy
+About,Eyebrow,2w,About Me
+About,H2,3w,"Hello, I'm Brad"
+About,Intro,14w,Here you'll find detailed descriptions of what I do and how I can help.
+About,Card 1 title,3w,SaaS Business Consultant
+About,Card 1 body,26w,"I work with SaaS businesses to build and scale operations from concept to market, turning ideas into measurable processes through clear strategy, strong execution and innovation."
+About,Card 2 title,3w,Marketing & Identity
+About,Card 2 body,26w,"I question owners on who, what and why until the answer is customer-ready, then turn it into a strategy the whole team can use."
+About,Card 3 title,3w,AI Business Consultant
+About,Card 4 title,2w,Business Partner
+About,Card 4 body,22w,"I work closely with founders and teams, offering experience, structure and long-term commitment to help businesses grow stronger and reach shared ambitions."
+About,Closing,15w,"My mission is to support those who dare to take risks, lift their people, and build something that matters."
+Projects,Eyebrow,1w,Projects
+Projects,H2,4w,What I'm Proud Of
+Projects,Intro,18w,"Businesses and projects I've invested in, actively contributed to, or supported as a consultant or business partner."
+Career,Eyebrow,1w,Career
+Career,H2,2w,My Way
+Career,Intro,24w,"Thirty years, one job: work out what a business actually needs, then build the thing that delivers it. Only the tools changed."
+References,Eyebrow,1w,References
+References,H2,2w,People Say
+Insights,Eyebrow,1w,Insights
+Insights,H2,3w,What I Share
+Insights,Intro,27w,"News, business insights, creative musings and learning experiences. Sharing knowledge with people on the same path matters."
+Contact,Eyebrow,2w,Contact Me
+Contact,H2,3w,Ways to Connect
+Contact,Name,2w,Brad Friis
+Contact,Tags,5w,Sales Strategy · SaaS · AI · Marketing · Web
+Contact,Email,1w,brad@clarityengine.co
+Contact,Form heading,2w,Message me
+Contact,Submit,2w,Send message
+Contact,Privacy,13w,Your information stays private and will not be shared without your permission.
+Footer,Copyright,,© 2026 Brad Friis. All rights reserved.

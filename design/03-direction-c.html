@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direction C — Confident Minimal · Brad Friis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  /* ── compare bar ───────────────────────────────────────────── */
+  .bar {
+    position: sticky; top: 0; z-index: 50;
+    background: #16161a; color: #d8d8dc;
+    font: 400 12px/1 ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+    letter-spacing: .06em; text-transform: uppercase;
+    display: flex; flex-wrap: wrap; gap: 4px 20px; align-items: center;
+    padding: 13px 22px;
+  }
+  .bar strong { color: #fff; font-weight: 500; letter-spacing: .06em; }
+  .bar nav { margin-left: auto; display: flex; gap: 18px; }
+  .bar a { color: #8f8f98; text-decoration: none; }
+  .bar a:hover { color: #fff; }
+  .bar a.on { color: #fff; border-bottom: 1px solid #fff; padding-bottom: 2px; }
+
+  /* ── the direction ───────────────────────────────────────────
+     C — Confident Minimal. One family, one ground, no ornament.
+     Everything is carried by size, weight and the distance between things. */
+  :root {
+    --gnd:   #fcfcfb;
+    --ink:   #0a0a0a;
+    --ink-2: #3d3d3b;
+    --ink-3: #8b8b87;
+    --rule:  #e5e5e1;
+
+    --sans: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  body { margin: 0; background: var(--gnd); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+  .page { max-width: 1320px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 76px); }
+
+  /* header — as small as it can be and still work */
+  .site { display: flex; align-items: center; gap: 40px; padding: 40px 0 0; }
+  .wordmark { font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
+  .site nav { margin-left: auto; display: flex; gap: 28px; }
+  .site nav a { font-size: 14px; font-weight: 400; color: var(--ink-2); text-decoration: none; }
+  .site nav a:hover { color: var(--ink); }
+
+  /* hero */
+  .hero { padding: clamp(80px, 14vh, 168px) 0 clamp(72px, 11vh, 132px); }
+  h1.display {
+    font-size: clamp(42px, 8.4vw, 122px); font-weight: 500; line-height: .96;
+    letter-spacing: -.043em; margin: 0; max-width: 13ch; text-wrap: balance;
+  }
+  .hero-foot {
+    display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 7vw, 110px);
+    margin-top: clamp(48px, 6vh, 76px); align-items: start;
+  }
+  .support { font-size: 18px; line-height: 1.58; color: var(--ink-2); max-width: 46ch; margin: 0; }
+  .names { margin: 30px 0 0; font-size: 15px; line-height: 1.9; color: var(--ink-3); }
+  .names b { font-weight: 500; color: var(--ink); }
+  .actions { display: flex; flex-wrap: wrap; gap: 34px; margin-top: 42px; }
+  a.action {
+    font-size: 19px; font-weight: 500; color: var(--ink); text-decoration: none;
+    border-bottom: 1.5px solid var(--ink); padding-bottom: 5px; letter-spacing: -.012em;
+  }
+  a.action.quiet { color: var(--ink-3); border-bottom-color: var(--rule); font-weight: 400; }
+  a.action:hover { border-bottom-width: 3px; }
+
+  figure.portrait { margin: 0; }
+  figure.portrait img { width: 100%; max-width: 460px; aspect-ratio: 4/5; object-fit: cover; object-position: 50% 20%; display: block; }
+
+  /* case study — evidence first, narrative second */
+  .case { padding: 0 0 clamp(90px, 16vh, 190px); }
+  .case-eyebrow { font-size: 14px; color: var(--ink-3); margin: 0 0 clamp(30px, 5vh, 56px); }
+  h2.case-title {
+    font-size: clamp(32px, 5.4vw, 78px); font-weight: 500; line-height: 1.02;
+    letter-spacing: -.036em; margin: 0; max-width: 17ch; text-wrap: balance;
+  }
+  blockquote.pull {
+    margin: clamp(56px, 9vh, 112px) 0 0; padding: 0; max-width: 27ch;
+  }
+  blockquote.pull p {
+    font-size: clamp(24px, 2.9vw, 42px); font-weight: 400; line-height: 1.18;
+    letter-spacing: -.026em; color: var(--ink); margin: 0; max-width: 22ch;
+  }
+  blockquote.pull cite {
+    display: block; font-style: normal; font-size: 15px; line-height: 1.62;
+    color: var(--ink-3); margin-top: clamp(26px, 4vh, 40px);
+  }
+  blockquote.pull cite b { display: block; font-weight: 500; color: var(--ink); }
+  .case-narrative {
+    display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 7vw, 110px);
+    margin-top: clamp(56px, 9vh, 104px); padding-top: clamp(40px, 6vh, 64px); border-top: 1px solid var(--rule);
+  }
+  .case-narrative p { font-size: 17px; line-height: 1.66; color: var(--ink-2); margin: 0 0 20px; max-width: 50ch; }
+  .case-narrative p:last-of-type { margin-bottom: 0; }
+  a.readmore { font-size: 17px; font-weight: 500; color: var(--ink); text-decoration: none; border-bottom: 1.5px solid var(--ink); padding-bottom: 4px; }
+  a.readmore:hover { border-bottom-width: 3px; }
+
+  /* ── specification appendix ─────────────────────────────────── */
+  .spec { background: #101012; color: #c9c9cf; font-family: var(--sans); padding: 70px 0 90px; }
+  .spec .page { max-width: 1040px; }
+  .spec h3 { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #6e6e78; font-weight: 500; margin: 0 0 22px; }
+  .spec h4 { font-size: 15px; color: #fff; font-weight: 600; margin: 0 0 9px; }
+  .spec p, .spec li { font-size: 14px; line-height: 1.68; color: #a9a9b2; max-width: 74ch; }
+  .spec p { margin: 0 0 14px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px; padding-top: 26px; border-top: 1px solid #26262c; }
+  .grid3 + .grid3 { margin-top: 46px; }
+  .sw { display: flex; align-items: center; gap: 11px; margin-bottom: 9px; font-size: 13px; }
+  .sw i { width: 26px; height: 26px; border: 1px solid #34343c; flex: none; }
+  .sw code, .spec code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: #dedee4; }
+  .sw span { color: #7f7f89; font-size: 12.5px; }
+  .spec ul { margin: 0; padding-left: 17px; }
+  .spec li { margin-bottom: 8px; }
+  .spec code.url { display: block; font-size: 11.5px; color: #9fb5d6; background: #17171b; border: 1px solid #26262c; padding: 10px 12px; margin-top: 10px; word-break: break-all; line-height: 1.55; }
+  .cost { margin-top: 46px; padding: 26px 30px; border: 1px solid #3a2f24; background: #221b15; }
+  .cost h4 { color: #e8b87e; }
+  .cost p:last-child { margin-bottom: 0; }
+
+  @media (max-width: 940px) {
+    .hero-foot, .case-narrative { grid-template-columns: 1fr; }
+    .hero-foot { align-items: start; }
+    figure.portrait img { max-width: 320px; }
+    .grid3 { grid-template-columns: 1fr; gap: 30px; }
+    .site nav { display: none; }
+    blockquote.pull { max-width: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <strong>Stage 3 · Direction C</strong> <span>Confident Minimal</span>
+  <nav>
+    <a href="03-direction-a.html">A Editorial</a>
+    <a href="03-direction-b.html">B Technical</a>
+    <a class="on" href="03-direction-c.html">C Confident Minimal</a>
+    <a href="index.html">Contact sheet</a>
+  </nav>
+</div>
+
+<div class="page">
+
+  <header class="site">
+    <div class="wordmark">Brad Friis</div>
+    <nav><a href="#">Career</a><a href="#">Proof</a><a href="#">Writing</a><a href="#">About</a><a href="#">Contact</a></nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1 class="display">Three customers wrote references I never asked for.</h1>
+    <div class="hero-foot">
+      <div>
+        <p class="support">Twenty-five years in software, media and agency work. Ten of them running a United States vendor's New Zealand and Australian business as its only local partner, where the licensed base went from 2,800 to 24,500 and an account that was actively evaluating a competitor stayed and expanded.</p>
+        <p class="names">
+          <b>Adrian Pilgrim</b>, The Industry School<br>
+          <b>Dr Andrew Bergh</b>, high school principal<br>
+          <b>Pranesh Lad</b>, Rototuna High Schools
+        </p>
+        <div class="actions">
+          <a class="action" href="#">Read the references</a>
+          <a class="action quiet" href="#">Resume (PDF)</a>
+        </div>
+      </div>
+      <figure class="portrait">
+        <img src="../Brad%20Friis%20Resumes/B%20Friis.jpg" alt="Brad Friis">
+      </figure>
+    </div>
+  </section>
+
+  <!-- CASE STUDY -->
+  <section class="case">
+    <p class="case-eyebrow">The Industry School · five campuses</p>
+    <h2 class="case-title">The account that was leaving stayed, then spent more.</h2>
+
+    <blockquote class="pull">
+      <p>At a time when we were considering moving away from Schoology, Brad helped us see the platform's potential.</p>
+      <cite><b>Adrian Pilgrim</b>Teaching and Learning Manager, The Industry School</cite>
+    </blockquote>
+
+    <div class="case-narrative">
+      <div>
+        <p>Five campuses, one organisation, and an active evaluation of a competing platform underway. I started with the leadership team to agree what the organisation was actually trying to achieve, then went campus by campus to understand what each one needed and where the platform was failing them.</p>
+      </div>
+      <div>
+        <p>The result was a single unified strategy instead of five local ones, custom workarounds for the gaps that mattered, and less duplicated effort across sites. They stayed, and then increased their investment.</p>
+        <p style="margin-top:28px"><a class="readmore" href="#">Read Adrian Pilgrim's full reference →</a></p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- SPECIFICATION -->
+<div class="spec">
+  <div class="page">
+    <h3>Direction C — Confident Minimal · specification</h3>
+
+    <div class="grid3">
+      <div>
+        <h4>Type pairing</h4>
+        <p>There is no pairing. <b style="color:#fff">Schibsted Grotesk</b> sets everything — display, body, navigation, attribution — at four weights. A Norwegian newspaper grotesque with enough character in the <code>a</code>, <code>g</code> and <code>R</code> to survive 122px, and enough neutrality to disappear at 17px.</p>
+        <p>Chosen over Inter, which is the default of this entire category, and over Geist, which is legible as Vercel's house face. A single-family system is the whole idea here: if the type has to carry the page alone, the family has to be good enough to be interesting twice.</p>
+        <code class="url">https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&amp;display=swap</code>
+      </div>
+      <div>
+        <h4>Colour</h4>
+        <div class="sw"><i style="background:#fcfcfb"></i><code>#fcfcfb</code><span>Ground</span></div>
+        <div class="sw"><i style="background:#0a0a0a"></i><code>#0a0a0a</code><span>Ink</span></div>
+        <div class="sw"><i style="background:#3d3d3b"></i><code>#3d3d3b</code><span>Body</span></div>
+        <div class="sw"><i style="background:#8b8b87"></i><code>#8b8b87</code><span>Secondary</span></div>
+        <div class="sw"><i style="background:#e5e5e1"></i><code>#e5e5e1</code><span>Rule, used once</span></div>
+        <p style="margin-top:14px">Five values and no accent colour anywhere. The ground is a fractionally warm off-white so the photograph's studio background reads as part of the page rather than a cut-out. There is one hairline in the entire layout, above the narrative, and it is there to mark the change from evidence to explanation.</p>
+        <p>Removing the accent removes the easiest way to guide the eye. That work moves entirely to size and spacing, which is the direction's premise and also its risk.</p>
+      </div>
+      <div>
+        <h4>Scale and spacing</h4>
+        <ul>
+          <li>Display <code>clamp(42px, 8.4vw, 122px)</code>, line-height 0.96, tracking −0.043em</li>
+          <li>Case title <code>clamp(32px, 5.4vw, 78px)</code>, line-height 1.02</li>
+          <li>Pull-quote <code>clamp(24px, 2.9vw, 42px)</code>, weight 400</li>
+          <li>Body 17–18px, line-height 1.58–1.66</li>
+          <li>Secondary 14–15px. Nothing on the page is smaller.</li>
+        </ul>
+        <p style="margin-top:14px">The ratio between the largest and smallest type is roughly 8:1, against 6:1 in A and 5.6:1 in B. Everything is either very large or ordinary, with nothing in between, and that gap is what the direction sells.</p>
+        <p>Spacing is viewport-relative rather than fixed — <code>clamp(80px, 14vh, 168px)</code> above the hero — so the whitespace stays proportionally extreme on a large monitor instead of collapsing into an ordinary page.</p>
+      </div>
+    </div>
+
+    <div class="grid3">
+      <div>
+        <h4>Component treatment</h4>
+        <p>There are almost no components. No buttons, no cards, no panels, no shadows, no radius, one rule. Actions are text links with a 1.5px underline that thickens to 3px on hover. Measures are held short — 46ch in the hero support, 50ch in the narrative — because short measures inside large empty space read as deliberate, while long ones read as unstyled.</p>
+      </div>
+      <div>
+        <h4>Photography</h4>
+        <p>Untouched. No filter, no crop beyond 4:5, no frame or caption. Capped at 460px so it sits as a quiet object beside the type rather than competing with it. This is the only direction that shows the photograph as it is, and with a portrait this good that is an argument in its favour.</p>
+      </div>
+      <div>
+        <h4>How it handles the hero claim</h4>
+        <p>Two decisions. In the hero the three names are stacked on three lines at 15px directly under the support paragraph, so they read as a short list rather than a run-on credit. In the case study the order is inverted against the other directions: Adrian Pilgrim's words come immediately after the heading and the narrative follows underneath. Evidence first, explanation second, which is the site's rule taken literally.</p>
+      </div>
+    </div>
+
+    <div class="cost">
+      <h4>What it costs</h4>
+      <p><b style="color:#fff">It is the least differentiated at a glance.</b> Very large grotesque display over extreme whitespace is the most-copied premium look on the web right now. It is not a template, but a hiring manager who has seen four agency sites this month has seen this shape, and the thing that makes it distinctive — the type family, the exact scale ratio, the restraint — is invisible at a glance.</p>
+      <p><b style="color:#fff">It fights the site's governing rule.</b> Extreme whitespace pushes content apart, and the rule from Stage 1 is that no claim appears without its evidence in the same viewport. This artefact solves it in two sections by inverting the order and stacking the names, but the homepage has six sections, and every one of them will need that problem solved again. On a 13-inch laptop the hero line alone fills most of the screen.</p>
+      <p><b style="color:#fff">The page runs long, and it says less.</b> Same content, more scrolling — this direction's hero occupies roughly 1.6 times the vertical space of B's. With no accent colour and no ornament, every single decision has to be right, because there is nothing on the page to hide behind.</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

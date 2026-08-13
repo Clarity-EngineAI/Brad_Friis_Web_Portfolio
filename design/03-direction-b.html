@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direction B — Technical · Brad Friis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  /* ── compare bar ───────────────────────────────────────────── */
+  .bar {
+    position: sticky; top: 0; z-index: 50;
+    background: #16161a; color: #d8d8dc;
+    font: 400 12px/1 ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+    letter-spacing: .06em; text-transform: uppercase;
+    display: flex; flex-wrap: wrap; gap: 4px 20px; align-items: center;
+    padding: 13px 22px;
+  }
+  .bar strong { color: #fff; font-weight: 500; letter-spacing: .06em; }
+  .bar nav { margin-left: auto; display: flex; gap: 18px; }
+  .bar a { color: #8f8f98; text-decoration: none; }
+  .bar a:hover { color: #fff; }
+  .bar a.on { color: #fff; border-bottom: 1px solid #fff; padding-bottom: 2px; }
+
+  /* ── the direction ───────────────────────────────────────────
+     B — Technical. Near-monochrome, one signal colour, visible grid. */
+  :root {
+    --gnd:    #ffffff;
+    --gnd-2:  #f7f7f8;   /* recessed panels */
+    --ink:    #0f0f12;
+    --ink-2:  #46464e;
+    --ink-3:  #8a8a94;   /* mono metadata */
+    --rule:   #e4e4e8;   /* hairline, the workhorse */
+    --rule-2: #0f0f12;   /* structural rule, full ink */
+    --signal: #e0330f;   /* vermilion. four appearances per screen, no more */
+
+    --sans: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  body { margin: 0; background: var(--gnd); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+
+  /* the grid is declared, not implied: outer hairlines and a tick strip */
+  .page {
+    max-width: 1240px; margin: 0 auto; padding: 0 44px;
+    border-left: 1px solid var(--rule); border-right: 1px solid var(--rule);
+  }
+  .ticks { display: grid; grid-template-columns: repeat(12, 1fr); height: 9px; border-bottom: 1px solid var(--rule); }
+  .ticks i { border-left: 1px solid var(--rule); }
+  .ticks i:first-child { border-left: 0; }
+
+  .mono {
+    font-family: var(--mono); font-size: 11px; font-weight: 400;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3);
+  }
+  .idx { color: var(--signal); }
+
+  /* header */
+  .site { display: flex; align-items: center; gap: 32px; padding: 20px 0; border-bottom: 1px solid var(--rule-2); }
+  .wordmark { font-family: var(--sans); font-size: 15.5px; font-weight: 600; letter-spacing: -.005em; }
+  .wordmark::after { content: ""; display: inline-block; width: 6px; height: 6px; background: var(--signal); margin-left: 8px; vertical-align: 2px; }
+  .site nav { margin-left: auto; display: flex; gap: 26px; }
+  .site nav a { font-family: var(--mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); text-decoration: none; }
+  .site nav a:hover { color: var(--signal); }
+
+  /* section label */
+  .seclabel { display: flex; align-items: baseline; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+
+  /* hero */
+  .hero { display: grid; grid-template-columns: 1.5fr 1fr; }
+  .hero > div { padding: 60px 44px 56px 0; }
+  .hero > figure { padding: 60px 0 56px 44px; border-left: 1px solid var(--rule); margin: 0; }
+  h1.display {
+    font-size: clamp(36px, 4.7vw, 62px); font-weight: 600; line-height: 1.05;
+    letter-spacing: -.032em; margin: 0; max-width: 16ch; text-wrap: balance;
+  }
+  h1.display span { color: var(--signal); }
+  .support { font-size: 16.5px; line-height: 1.6; color: var(--ink-2); max-width: 58ch; margin: 26px 0 0; }
+
+  /* evidence table — the claim's proof, structured as data */
+  table.evidence { width: 100%; border-collapse: collapse; margin-top: 34px; max-width: 640px; }
+  table.evidence th { text-align: left; font-family: var(--mono); font-size: 10px; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); padding: 0 14px 7px 0; border-bottom: 1px solid var(--rule-2); }
+  table.evidence td { font-size: 13.5px; color: var(--ink-2); padding: 10px 14px 10px 0; border-bottom: 1px solid var(--rule); vertical-align: baseline; }
+  table.evidence td:first-child { color: var(--ink); font-weight: 500; white-space: nowrap; }
+  table.evidence td:last-child { padding-right: 0; text-align: right; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--signal); }
+  table.evidence a { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 34px; }
+  .btn {
+    font-family: var(--mono); font-size: 11.5px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+    padding: 13px 20px; text-decoration: none; display: inline-block; border-radius: 0;
+    transition: background .16s ease, color .16s ease;
+  }
+  .btn.solid { background: var(--ink); color: #fff; border: 1px solid var(--ink); }
+  .btn.solid:hover { background: var(--signal); border-color: var(--signal); }
+  .btn.ghost { border: 1px solid var(--rule-2); color: var(--ink); }
+  .btn.ghost:hover { background: var(--gnd-2); }
+
+  figure.portrait img { width: 100%; aspect-ratio: 1/1; object-fit: cover; object-position: 50% 20%; display: block; filter: grayscale(1) contrast(1.06); }
+  figure.portrait figcaption { margin-top: 12px; border-top: 1px solid var(--rule); padding-top: 10px; }
+  figure.portrait dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 5px 16px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; }
+  figure.portrait dt { color: var(--ink-3); text-transform: uppercase; }
+  figure.portrait dd { margin: 0; color: var(--ink-2); text-align: right; }
+
+  /* case study */
+  .case { border-top: 1px solid var(--rule-2); }
+  h2.case-title { font-size: clamp(25px, 3vw, 38px); font-weight: 600; line-height: 1.14; letter-spacing: -.025em; margin: 30px 0 0; max-width: 20ch; }
+  .case-body { display: grid; grid-template-columns: 1.15fr 1fr; margin-top: 40px; padding-bottom: 80px; }
+  .case-body > div { padding-right: 44px; }
+  .case-body p { font-size: 16px; line-height: 1.66; color: var(--ink-2); margin: 0 0 20px; max-width: 62ch; }
+  a.readmore { font-family: var(--mono); font-size: 11.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--signal); text-decoration: none; border-bottom: 1px solid var(--signal); padding-bottom: 3px; }
+  a.readmore:hover { background: #fdece8; }
+
+  blockquote.pull {
+    margin: 0; padding: 26px 28px 24px; background: var(--gnd-2);
+    border: 1px solid var(--rule); border-left: 3px solid var(--signal);
+  }
+  blockquote.pull .qmeta { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 14px; margin-bottom: 16px; border-bottom: 1px solid var(--rule); }
+  blockquote.pull p { font-size: 17px; line-height: 1.52; color: var(--ink); margin: 0; letter-spacing: -.007em; }
+  blockquote.pull cite { display: block; font-style: normal; margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--rule); }
+  blockquote.pull cite b { display: block; font-size: 13.5px; font-weight: 600; color: var(--ink); }
+  blockquote.pull cite span { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; color: var(--ink-3); margin-top: 4px; line-height: 1.6; }
+
+  /* ── specification appendix ─────────────────────────────────── */
+  .spec { background: #0f0f12; color: #c9c9cf; font-family: var(--sans); padding: 70px 0 90px; margin-top: 0; }
+  .spec .page { max-width: 1060px; border-color: #26262c; }
+  .spec h3 { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #6e6e78; font-weight: 400; margin: 0 0 22px; }
+  .spec h4 { font-size: 15px; color: #fff; font-weight: 600; margin: 0 0 9px; }
+  .spec p, .spec li { font-size: 14px; line-height: 1.68; color: #a9a9b2; max-width: 74ch; }
+  .spec p { margin: 0 0 14px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px; padding-top: 26px; border-top: 1px solid #26262c; }
+  .grid3 + .grid3 { margin-top: 46px; }
+  .sw { display: flex; align-items: center; gap: 11px; margin-bottom: 9px; font-size: 13px; }
+  .sw i { width: 26px; height: 26px; border: 1px solid #34343c; flex: none; }
+  .sw code { font-family: var(--mono); font-size: 12px; color: #dedee4; }
+  .sw span { color: #7f7f89; font-size: 12.5px; }
+  .spec ul { margin: 0; padding-left: 17px; }
+  .spec li { margin-bottom: 8px; }
+  .spec code.url { display: block; font-family: var(--mono); font-size: 11.5px; color: #ff7d5c; background: #17171b; border: 1px solid #26262c; padding: 10px 12px; margin-top: 10px; word-break: break-all; line-height: 1.55; }
+  .cost { margin-top: 46px; padding: 26px 30px; border: 1px solid #3a2f24; background: #221b15; }
+  .cost h4 { color: #e8b87e; }
+  .cost p:last-child { margin-bottom: 0; }
+
+  @media (max-width: 940px) {
+    .page { padding: 0 20px; border-left: 0; border-right: 0; }
+    .hero, .case-body { grid-template-columns: 1fr; }
+    .hero > div { padding: 40px 0 32px; }
+    .hero > figure { padding: 0 0 44px; border-left: 0; }
+    figure.portrait { max-width: 340px; }
+    .case-body > div { padding-right: 0; padding-bottom: 32px; }
+    .grid3 { grid-template-columns: 1fr; gap: 30px; }
+    .site nav { display: none; }
+    .ticks { grid-template-columns: repeat(6, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <strong>Stage 3 · Direction B</strong> <span>Technical</span>
+  <nav>
+    <a href="03-direction-a.html">A Editorial</a>
+    <a class="on" href="03-direction-b.html">B Technical</a>
+    <a href="03-direction-c.html">C Confident Minimal</a>
+    <a href="index.html">Contact sheet</a>
+  </nav>
+</div>
+
+<div class="page">
+  <div class="ticks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <header class="site">
+    <div class="wordmark">Brad Friis</div>
+    <nav><a href="#">Career</a><a href="#">Proof</a><a href="#">Writing</a><a href="#">About</a><a href="#">Contact</a></nav>
+  </header>
+
+  <!-- HERO -->
+  <div class="seclabel"><span class="mono idx">01</span><span class="mono">Auckland, New Zealand · account management, customer success, channel</span></div>
+  <section class="hero">
+    <div>
+      <h1 class="display">Three customers wrote references I never asked for<span>.</span></h1>
+      <p class="support">Twenty-five years in software, media and agency work. Ten of them running a United States vendor's New Zealand and Australian business as its only local partner, where the licensed base went from 2,800 to 24,500 and an account that was actively evaluating a competitor stayed and expanded.</p>
+
+      <table class="evidence">
+        <tr>
+          <th>Reference</th><th>Role</th><th>Document</th>
+        </tr>
+        <tr>
+          <td>Adrian Pilgrim</td>
+          <td>Teaching and Learning Manager, The Industry School</td>
+          <td><a href="#">Full text →</a></td>
+        </tr>
+        <tr>
+          <td>Dr Andrew Bergh</td>
+          <td>High school principal, nine-year working relationship</td>
+          <td><a href="#">Full text →</a></td>
+        </tr>
+        <tr>
+          <td>Pranesh Lad</td>
+          <td>IT Systems Engineer, Rototuna High Schools</td>
+          <td><a href="#">Full text →</a></td>
+        </tr>
+      </table>
+
+      <div class="actions">
+        <a class="btn solid" href="#">Read the references</a>
+        <a class="btn ghost" href="#">Resume (PDF)</a>
+      </div>
+    </div>
+    <figure class="portrait">
+      <img src="../Brad%20Friis%20Resumes/B%20Friis.jpg" alt="Brad Friis">
+      <figcaption>
+        <dl>
+          <dt>Based</dt><dd>Auckland, NZ</dd>
+          <dt>Seat</dt><dd>Retention and expansion</dd>
+          <dt>Available</dt><dd>Now</dd>
+        </dl>
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- CASE STUDY -->
+  <section class="case">
+    <div class="seclabel"><span class="mono idx">02</span><span class="mono">Case study · The Industry School · five campuses</span></div>
+    <h2 class="case-title">The account that was leaving stayed, then spent more.</h2>
+    <div class="case-body">
+      <div>
+        <p>Five campuses, one organisation, and an active evaluation of a competing platform underway. I started with the leadership team to agree what the organisation was actually trying to achieve, then went campus by campus to understand what each one needed and where the platform was failing them.</p>
+        <p>The result was a single unified strategy instead of five local ones, custom workarounds for the gaps that mattered, and less duplicated effort across sites. They stayed, and then increased their investment.</p>
+        <a class="readmore" href="#">Read Adrian Pilgrim's full reference →</a>
+      </div>
+      <blockquote class="pull">
+        <div class="qmeta"><span class="mono">Reference 01 of 03</span><span class="mono">Unsolicited</span></div>
+        <p>At a time when we were considering moving away from Schoology, Brad helped us see the platform's potential. He created custom strategies and workarounds that fit our operations, giving us the confidence to invest in the platform further.</p>
+        <cite><b>Adrian Pilgrim</b><span>Teaching and Learning Manager · The Industry School</span></cite>
+      </blockquote>
+    </div>
+  </section>
+</div>
+
+<!-- SPECIFICATION -->
+<div class="spec">
+  <div class="page">
+    <h3>Direction B — Technical · specification</h3>
+
+    <div class="grid3">
+      <div>
+        <h4>Type pairing</h4>
+        <p><b style="color:#fff">IBM Plex Sans</b> — display and body, 600 at display with −0.032em tracking so the hero sets tight and square. Plex has engineered detail without the neutrality problem: it is one of the few free grotesques that does not read as Inter, Helvetica or the default.</p>
+        <p><b style="color:#fff">IBM Plex Mono</b> — every piece of metadata on the page. Section indices, navigation, buttons, table headers, image data, quote framing. One superfamily, two voices, which is what makes the system feel designed rather than assembled.</p>
+        <code class="url">https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap</code>
+      </div>
+      <div>
+        <h4>Colour</h4>
+        <div class="sw"><i style="background:#ffffff"></i><code>#ffffff</code><span>Ground</span></div>
+        <div class="sw"><i style="background:#f7f7f8"></i><code>#f7f7f8</code><span>Recessed</span></div>
+        <div class="sw"><i style="background:#0f0f12"></i><code>#0f0f12</code><span>Ink</span></div>
+        <div class="sw"><i style="background:#46464e"></i><code>#46464e</code><span>Body</span></div>
+        <div class="sw"><i style="background:#8a8a94"></i><code>#8a8a94</code><span>Mono metadata</span></div>
+        <div class="sw"><i style="background:#e4e4e8"></i><code>#e4e4e8</code><span>Hairline</span></div>
+        <div class="sw"><i style="background:#e0330f"></i><code>#e0330f</code><span>Signal, vermilion</span></div>
+        <p style="margin-top:14px">Near-monochrome with a hard budget on the signal: four appearances per screen. Here they are the wordmark square, the section index, the full-stop at the end of the hero line, and the link to the letter. Vermilion rather than blue because blue is the default of every template in this category, and the point of a signal colour is that it signals.</p>
+      </div>
+      <div>
+        <h4>Scale and spacing</h4>
+        <ul>
+          <li>Display <code>clamp(36px, 4.7vw, 62px)</code>, line-height 1.05, tracking −0.032em</li>
+          <li>Case title <code>clamp(25px, 3vw, 38px)</code>, line-height 1.14</li>
+          <li>Pull-quote 17px, tracking −0.007em</li>
+          <li>Body 16–16.5px, line-height 1.60–1.66</li>
+          <li>Mono 10–11.5px, tracking +0.06 to +0.12em</li>
+        </ul>
+        <p style="margin-top:14px">A tighter overall scale than the other two directions — the largest type here is 62px against 74px in A and 128px in C. Confidence is carried by structure rather than size. Twelve-column grid on a 44px gutter, declared at the top of the page as a tick strip and enforced by the hairlines between the hero columns.</p>
+      </div>
+    </div>
+
+    <div class="grid3">
+      <div>
+        <h4>Component treatment</h4>
+        <p>Square corners everywhere, no shadows, no radius. Structure is a two-weight rule system: full ink at section boundaries, <code>#e4e4e8</code> hairlines everywhere else. The pull-quote is a bordered panel with its own metadata header, because in this system a quote is a record with provenance rather than a decorative flourish.</p>
+      </div>
+      <div>
+        <h4>Photography</h4>
+        <p>Cropped square rather than 4:5, fully desaturated, contrast up 6 percent, with a mono data block beneath instead of a caption. The greyscale is doing real work: it stops the studio warmth from breaking a near-monochrome page, and it means any future photograph drops in without a colour-matching problem.</p>
+      </div>
+      <div>
+        <h4>How it handles the hero claim</h4>
+        <p>This is the direction's strongest move. The claim is <em style="color:#dedee4">three customers wrote references</em>, so the evidence is a three-row table of names, roles and links — the assertion and its receipts in one object. No other direction can make the proof this literal, and the table doubles as a second navigation route into <code>/proof</code>.</p>
+      </div>
+    </div>
+
+    <div class="cost">
+      <h4>What it costs</h4>
+      <p><b style="color:#fff">It is cold, and the brief says warmth is the differentiator.</b> Section indices, mono metadata and a greyscale portrait describe a systems engineer. Adrian Pilgrim's actual words are about warmth, patience and humour, and this system puts them in a bordered panel labelled <em>Reference 01 of 03</em>. That tension is real and it is the main argument against this direction.</p>
+      <p><b style="color:#fff">It borrows a house style.</b> Mono metadata, tick strips and one signal colour is the current developer-tool visual language — Linear, Vercel, Resend. It is not a template, but it is a recognisable dialect, and Brad has already rejected two things for converging on a known look.</p>
+      <p><b style="color:#fff">The greyscale portrait costs the photograph.</b> The single warmest asset on the site is the expression in that picture, and desaturating it removes about half of what it does.</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

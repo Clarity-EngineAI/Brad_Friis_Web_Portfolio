@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hybrid direction — proof page + app-like panels · Brad Friis</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  :root {
+    --judge: #16161a;
+    --gnd: #e6e4df;
+    --gnd-2: #f3f1ec;
+    --surface: #ffffff;
+    --ink: #1c1917;
+    --ink-2: #4a4540;
+    --ink-3: #7a746c;
+    --rule: rgba(28, 25, 23, 0.10);
+    --rule-2: rgba(28, 25, 23, 0.06);
+    --blue: #0b57d0;
+    --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+    --display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  html, body { margin: 0; }
+  body {
+    background: var(--gnd);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── judge chrome ── */
+  .bar {
+    position: sticky; top: 0; z-index: 80;
+    background: var(--judge); color: #d8d8dc;
+    font: 400 12px/1 var(--mono);
+    letter-spacing: .06em; text-transform: uppercase;
+    display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center;
+    padding: 13px 22px;
+  }
+  .bar strong { color: #fff; font-weight: 500; }
+  .bar nav { margin-left: auto; display: flex; gap: 16px; align-items: center; }
+  .bar a { color: #8f8f98; text-decoration: none; }
+  .bar a:hover, .bar a.on { color: #fff; }
+  .toggles { display: flex; gap: 6px; }
+  .toggles button {
+    font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase;
+    color: #8f8f98; background: transparent; border: 1px solid #3a3a42;
+    padding: 6px 10px; border-radius: 999px; cursor: pointer;
+  }
+  .toggles button[aria-pressed="true"] { color: #fff; border-color: #fff; }
+
+  .brief {
+    max-width: 820px; margin: 0 auto; padding: 28px 24px 8px;
+    color: var(--ink-2); font-size: 14.5px; line-height: 1.55;
+  }
+  .brief .meta { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .brief h1 { font-size: 22px; margin: 8px 0 10px; letter-spacing: -0.02em; color: var(--ink); }
+  .brief p { margin: 0 0 10px; max-width: 68ch; }
+  .caption {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .04em;
+    text-transform: uppercase; color: var(--ink-3); margin: 36px auto 10px;
+    max-width: 1180px; padding: 0 24px;
+  }
+
+  /* ── stage ── */
+  .stage { padding: 0 24px 80px; }
+  .desktop-stage { max-width: 1180px; margin: 0 auto; }
+  .mobile-stage { display: none; justify-content: center; padding-bottom: 90px; }
+
+  body.view-mobile .desktop-stage { display: none; }
+  body.view-mobile .mobile-stage { display: flex; }
+  body.view-mobile { background: #d8d5cf; }
+
+  /* ── shared site pieces ── */
+  .site {
+    background: var(--gnd-2);
+    border: 1px solid var(--rule);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 18px 50px rgba(28, 25, 23, 0.08);
+  }
+
+  .nav {
+    display: flex; align-items: center; gap: 28px;
+    padding: 16px 28px;
+    background: rgba(243, 241, 236, 0.82);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .wordmark { font-weight: 600; letter-spacing: -0.03em; font-size: 16px; }
+  .nav-links { margin-left: auto; display: flex; gap: 22px; }
+  .nav-links a { color: var(--ink-2); text-decoration: none; font-size: 13.5px; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    background: var(--ink); color: #fff; text-decoration: none;
+    font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 999px;
+  }
+
+  .hero {
+    display: grid; grid-template-columns: 1.35fr 0.85fr; gap: 48px;
+    padding: 56px 40px 40px; align-items: end;
+  }
+  .eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--ink-3);
+  }
+  .hero h1 {
+    font-family: var(--display);
+    font-size: clamp(44px, 6vw, 72px);
+    font-weight: 650; letter-spacing: -0.045em; line-height: 0.95;
+    margin: 10px 0 16px;
+  }
+  .subhead {
+    font-size: 20px; line-height: 1.35; color: var(--ink-2);
+    max-width: 28ch; margin: 0 0 22px; letter-spacing: -0.02em;
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+  .tag {
+    font-size: 12.5px; color: var(--ink-2);
+    background: var(--surface); border: 1px solid var(--rule);
+    padding: 6px 10px; border-radius: 999px;
+  }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--ink); color: #fff; text-decoration: none;
+    font-size: 14px; font-weight: 600; padding: 11px 18px; border-radius: 999px;
+  }
+  .btn-ghost { color: var(--blue); background: transparent; font-weight: 600; text-decoration: none; font-size: 14px; }
+  .trust { margin-top: 18px; font-size: 13.5px; color: var(--ink-3); }
+
+  .portrait {
+    background: #d9d4cc;
+    border-radius: 22px;
+    min-height: 340px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 22px;
+    border: 1px solid var(--rule);
+  }
+  .portrait .ph {
+    font-family: var(--display); font-size: 64px; font-weight: 650;
+    letter-spacing: -0.05em; color: rgba(28,25,23,0.22); margin-bottom: auto;
+  }
+  .status-chip {
+    align-self: flex-start;
+    background: rgba(255,255,255,0.86);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  .status-chip strong { display: block; font-size: 13.5px; }
+  .status-chip span { color: var(--ink-3); font-size: 12px; }
+
+  .strip {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--rule);
+    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  }
+  .stat { background: var(--gnd-2); padding: 18px 24px; }
+  .stat b { display: block; font-size: 18px; letter-spacing: -0.03em; }
+  .stat span { font-size: 12.5px; color: var(--ink-3); }
+
+  .section { padding: 28px 28px 8px; }
+  .section-label {
+    font-size: 11.5px; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px;
+  }
+
+  /* ── workspace window ── */
+  .window {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 0 28px 28px;
+  }
+  .chrome {
+    display: flex; align-items: center; gap: 8px;
+    padding: 11px 14px;
+    background: #f6f4ef;
+    border-bottom: 1px solid var(--rule);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: #d4d0c8; }
+  .chrome-title { margin-left: 8px; font-size: 12.5px; color: var(--ink-3); }
+  .window-intro { padding: 22px 22px 8px; }
+  .window-intro h2 { margin: 0 0 6px; font-size: 28px; letter-spacing: -0.035em; }
+  .window-intro p { margin: 0; color: var(--ink-2); max-width: 56ch; font-size: 15px; }
+
+  .split { display: grid; grid-template-columns: 240px 1fr; min-height: 280px; }
+  .side { border-right: 1px solid var(--rule); padding: 10px; background: #faf9f6; }
+  .row {
+    width: 100%; text-align: left; cursor: pointer;
+    background: transparent; border: 0; border-radius: 10px;
+    padding: 11px 12px; font: 600 14px/1.2 var(--sans); color: var(--ink);
+    display: block;
+  }
+  .row small { display: block; font-weight: 400; color: var(--ink-3); margin-top: 3px; font-size: 12px; }
+  .row[aria-selected="true"] { background: #fff; box-shadow: 0 0 0 1px var(--rule); }
+  .detail { padding: 24px 26px 28px; }
+  .detail h3 { margin: 0 0 8px; font-size: 22px; letter-spacing: -0.03em; }
+  .detail p { margin: 0 0 16px; color: var(--ink-2); font-size: 15px; max-width: 52ch; }
+  .proof {
+    background: #faf9f6; border: 1px solid var(--rule); border-radius: 12px;
+    padding: 14px 16px; font-size: 14px; color: var(--ink-2);
+  }
+  .proof strong { color: var(--ink); }
+  .proof a { color: var(--blue); text-decoration: none; font-size: 13px; }
+
+  .work-grid {
+    display: grid; grid-template-columns: 1fr 1.15fr; gap: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .work-list { padding: 10px; background: #faf9f6; }
+  .work-detail { padding: 24px 26px; }
+  .meta-line { font-size: 12.5px; color: var(--ink-3); margin-bottom: 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .chip {
+    font-size: 11.5px; color: var(--ink-2); background: #fff;
+    border: 1px solid var(--rule); padding: 4px 8px; border-radius: 999px;
+  }
+
+  .letters {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    padding: 0 28px 28px;
+  }
+  .letter {
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 14px;
+    padding: 18px 16px 16px; min-height: 210px; display: flex; flex-direction: column;
+    text-decoration: none; color: inherit;
+  }
+  .letter q { font-size: 14px; line-height: 1.45; color: var(--ink); quotes: "“" "”"; }
+  .letter cite { margin-top: auto; padding-top: 16px; font-style: normal; font-size: 12px; color: var(--ink-3); }
+
+  .range { padding: 0 28px 28px; }
+  .years {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;
+  }
+  .year {
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 12px;
+    padding: 12px 10px; min-height: 108px;
+  }
+  .year b { display: block; font-size: 11.5px; color: var(--ink-3); font-weight: 600; }
+  .year span { display: block; margin-top: 6px; font-size: 13px; letter-spacing: -0.02em; }
+
+  .contact {
+    margin: 0 28px 28px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 16px; overflow: hidden;
+  }
+  .contact-copy { padding: 28px; }
+  .contact-copy h2 { margin: 8px 0 10px; font-size: 28px; letter-spacing: -0.035em; }
+  .contact-copy p { margin: 0 0 14px; color: var(--ink-2); }
+  .contact-copy a { color: var(--blue); text-decoration: none; }
+  .form { padding: 28px; background: #faf9f6; border-left: 1px solid var(--rule); }
+  .field { margin-bottom: 12px; }
+  .field span { display: block; font-size: 12px; color: var(--ink-3); margin-bottom: 5px; }
+  .field input, .field textarea {
+    width: 100%; border: 1px solid var(--rule); border-radius: 10px;
+    padding: 10px 12px; font: 14px var(--sans); background: #fff; color: var(--ink);
+  }
+  .field textarea { min-height: 88px; resize: vertical; }
+  .privacy { font-size: 12px; color: var(--ink-3); margin: 8px 0 0; }
+
+  .site-foot {
+    padding: 18px 28px 24px; color: var(--ink-3); font-size: 12.5px;
+  }
+
+  /* ── phone ── */
+  .phone {
+    width: 390px;
+    background: #1c1917;
+    border-radius: 42px;
+    padding: 12px;
+    box-shadow: 0 24px 60px rgba(28, 25, 23, 0.18);
+  }
+  .phone-screen {
+    background: #f2f1ed;
+    border-radius: 32px;
+    overflow: hidden;
+    min-height: 760px;
+    position: relative;
+    padding-bottom: 78px;
+  }
+  .notch {
+    height: 28px; display: flex; align-items: flex-end; justify-content: space-between;
+    padding: 8px 22px 0; font-size: 12px; font-weight: 600;
+  }
+  .m-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 18px 12px;
+  }
+  .m-nav .wordmark { font-size: 15px; }
+  .m-hero { padding: 8px 18px 18px; }
+  .m-hero h1 { font-size: 40px; letter-spacing: -0.045em; margin: 6px 0 10px; line-height: 0.95; }
+  .m-hero .subhead { font-size: 17px; max-width: none; margin-bottom: 14px; }
+  .m-hero .tags { gap: 6px; margin-bottom: 16px; }
+  .m-hero .tag { font-size: 11.5px; }
+  .m-portrait {
+    margin: 0 18px 16px; height: 180px; border-radius: 18px;
+    background: #d9d4cc; display: flex; align-items: flex-end; padding: 14px;
+  }
+  .m-strip { display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--rule); margin-bottom: 8px; }
+  .m-strip .stat { padding: 12px 18px; background: #f2f1ed; }
+  .group {
+    margin: 12px 14px; background: #fff; border-radius: 14px; overflow: hidden;
+    border: 1px solid var(--rule);
+  }
+  .group h2 { font-size: 13px; margin: 0; padding: 12px 14px 4px; color: var(--ink-3); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+  .cell {
+    width: 100%; text-align: left; background: #fff; border: 0;
+    border-top: 1px solid var(--rule-2); padding: 12px 14px;
+    font: 600 15px/1.25 var(--sans); color: var(--ink); cursor: pointer;
+    display: flex; justify-content: space-between; gap: 12px; align-items: baseline;
+  }
+  .cell:first-of-type { border-top: 0; }
+  .cell span { font-weight: 400; color: var(--ink-3); font-size: 13px; }
+  .m-quote { padding: 14px; font-size: 14px; color: var(--ink-2); }
+  .m-quote cite { display: block; margin-top: 8px; font-style: normal; font-size: 12px; color: var(--ink-3); }
+  .tabbar {
+    position: absolute; left: 12px; right: 12px; bottom: 10px;
+    background: rgba(255,255,255,0.92); backdrop-filter: blur(16px);
+    border: 1px solid var(--rule); border-radius: 18px;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    padding: 8px 4px 10px;
+  }
+  .tab {
+    text-align: center; font-size: 10px; color: var(--ink-3); text-decoration: none; font-weight: 600;
+  }
+  .tab.on { color: var(--ink); }
+  .tab i {
+    display: block; width: 18px; height: 18px; margin: 0 auto 4px;
+    border: 1.5px solid currentColor; border-radius: 5px; font-style: normal;
+  }
+  .tab:nth-child(1) i { border-radius: 6px; }
+  .tab:nth-child(2) i { border-radius: 3px; }
+  .tab:nth-child(3) i { border-radius: 2px 2px 8px 8px; }
+  .tab:nth-child(4) i { border-radius: 50%; }
+
+  @media (max-width: 900px) {
+    body:not(.view-mobile) .hero,
+    body:not(.view-mobile) .split,
+    body:not(.view-mobile) .work-grid,
+    body:not(.view-mobile) .letters,
+    body:not(.view-mobile) .years,
+    body:not(.view-mobile) .contact { grid-template-columns: 1fr; }
+    body:not(.view-mobile) .nav-links { display: none; }
+    body:not(.view-mobile) .form { border-left: 0; border-top: 1px solid var(--rule); }
+  }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <strong>06 · Hybrid</strong>
+    Proof-led first screen + iPort panels
+    <nav>
+      <div class="toggles" role="group" aria-label="Viewport">
+        <button type="button" id="btn-desktop" aria-pressed="true">Desktop</button>
+        <button type="button" id="btn-mobile" aria-pressed="false">Mobile</button>
+      </div>
+      <a href="index.html">Contact sheet</a>
+      <a href="03-direction-a.html">A</a>
+      <a href="03-direction-b.html">B</a>
+      <a href="03-direction-c.html">C</a>
+      <a href="06-hybrid-direction.md">Notes</a>
+    </nav>
+  </div>
+
+  <div class="brief">
+    <div class="meta">13 August 2026, 2:12 PM NZST · Direction test, not production</div>
+    <h1>A commercial proof page that uses app-like panels after the fold</h1>
+    <p>First screen still answers who, hire-for, proof and contact. The iPort borrow is limited to one workspace window, a split list/detail for work, and an iOS grouped list on mobile. No dock, no fake desktop, no dashboard widgets. Copy is from the Framer paste sheet.</p>
+  </div>
+
+  <p class="caption" id="desktop-caption">Desktop homepage · first screen must work without metaphor</p>
+
+  <div class="stage">
+    <div class="desktop-stage">
+      <div class="site">
+        <header class="nav">
+          <div class="wordmark">Brad Friis</div>
+          <nav class="nav-links" aria-label="Primary">
+            <a href="#work">Work</a>
+            <a href="#letters">Letters</a>
+            <a href="#cv">CV</a>
+          </nav>
+          <a class="nav-cta" href="#contact">Contact</a>
+        </header>
+
+        <section class="hero">
+          <div>
+            <div class="eyebrow">Auckland · commercial roles</div>
+            <h1>Brad Friis</h1>
+            <p class="subhead">Commercial operator for SaaS growth: sales, revenue systems, product adoption and AI enablement.</p>
+            <div class="tags">
+              <span class="tag">Sales Growth</span>
+              <span class="tag">SaaS Strategy</span>
+              <span class="tag">Revenue Systems</span>
+              <span class="tag">Product Adoption</span>
+              <span class="tag">AI Enablement</span>
+            </div>
+            <div class="actions">
+              <a class="btn" href="#contact">Contact Brad</a>
+              <a class="btn-ghost" href="#cv">View CV</a>
+            </div>
+            <p class="trust">Six written references · letters in full, named</p>
+          </div>
+          <aside class="portrait" aria-label="Portrait placeholder">
+            <div class="ph">BF</div>
+            <div class="status-chip">
+              <strong>Available for commercial roles</strong>
+              <span>Employment first. Consulting stays off this screen.</span>
+            </div>
+          </aside>
+        </section>
+
+        <div class="strip">
+          <div class="stat"><b>2,800 → 24,500</b><span>Licensed users, NZ and Australia, ten years</span></div>
+          <div class="stat"><b>Six letters</b><span>Two bosses and four customers, 2003–2025</span></div>
+          <div class="stat"><b>Full-cycle sales</b><span>Prospect, propose, close, adopt, renew</span></div>
+        </div>
+
+        <div class="section">
+          <div class="section-label">Below the fold · one window, not a desktop</div>
+        </div>
+
+        <section class="window" id="capabilities" aria-label="Capabilities workspace">
+          <div class="chrome" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="chrome-title">Sell, Build, Enable</span></div>
+          <div class="window-intro">
+            <h2>Sell, Build, Enable</h2>
+            <p>I turn customer understanding into pipeline, proposals, adoption strategy and practical AI-enabled systems.</p>
+          </div>
+          <div class="split">
+            <div class="side" role="tablist" aria-label="Capabilities">
+              <button class="row" role="tab" aria-selected="true" data-cap="sales">Sales Growth <small>Pipeline, proposals, close</small></button>
+              <button class="row" role="tab" aria-selected="false" data-cap="adoption">Product Adoption <small>Signed contract to everyday use</small></button>
+              <button class="row" role="tab" aria-selected="false" data-cap="ai">AI &amp; Product <small>Workflows, not shipped products</small></button>
+              <button class="row" role="tab" aria-selected="false" data-cap="ux">Product &amp; UX <small>Commercial judgement, not hire-a-designer</small></button>
+            </div>
+            <div class="detail" id="cap-detail"></div>
+          </div>
+        </section>
+
+        <section class="window" id="work">
+          <div class="chrome" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="chrome-title">The Commercial System</span></div>
+          <div class="window-intro">
+            <h2>The Commercial System</h2>
+            <p>Proof across the whole revenue path: demand, pipeline, proposals, adoption, AI, product and UX.</p>
+          </div>
+          <div class="work-grid">
+            <div class="work-list" role="tablist" aria-label="Work">
+              <button class="row" role="tab" aria-selected="true" data-work="saas">PowerSchool and Schoology <small>SaaS Territory Growth · 2015–2025</small></button>
+              <button class="row" role="tab" aria-selected="false" data-work="pikle">Pikle commercial and UX build <small>AI Product Consulting · 2025–now</small></button>
+              <button class="row" role="tab" aria-selected="false" data-work="ninetynine">99 Corporation revenue system <small>Sales Operations · 2013–2015</small></button>
+              <button class="row" role="tab" aria-selected="false" data-work="media">Canwest and Xplore growth years <small>Media and Web Growth · 2005–2013</small></button>
+            </div>
+            <div class="work-detail" id="work-detail"></div>
+          </div>
+        </section>
+
+        <div class="section" id="letters">
+          <div class="section-label">References · documents, not a carousel</div>
+          <h2 style="margin:0 0 14px; font-size:28px; letter-spacing:-0.035em;">People Say</h2>
+        </div>
+        <div class="letters">
+          <a class="letter" href="../COPY/letters/letters-page.md">
+            <q>At a time when we were considering moving away from Schoology, Brad helped us see the platform's potential and gave us the confidence to invest further.</q>
+            <cite>Adrian Pilgrim, The Industry School</cite>
+          </a>
+          <a class="letter" href="../COPY/letters/letters-page.md">
+            <q>Brad's most remarkable quality is his ability to support teachers resistant to change. Even the most hesitant became confident users.</q>
+            <cite>Andrew Bergh, High School Principal</cite>
+          </a>
+          <a class="letter" href="../COPY/letters/letters-page.md">
+            <q>Several of Brad's past clients have mentioned his ability a number of years on from his departure.</q>
+            <cite>Phillip Lemon, CanWest Media</cite>
+          </a>
+          <a class="letter" href="../COPY/letters/letters-page.md">
+            <q>Brad has assisted with a significant improvement in tourism industry buy-in to the core marketing activities of Hawke's Bay Tourism.</q>
+            <cite>Hamish Lowry, Hawke's Bay Tourism</cite>
+          </a>
+        </div>
+
+        <div class="section">
+          <div class="section-label">Career · compact range, not a memoir</div>
+        </div>
+        <div class="range">
+          <div class="years">
+            <div class="year"><b>1999</b><span>Sell the idea before it exists</span></div>
+            <div class="year"><b>2001</b><span>Build the market, not just the sale</span></div>
+            <div class="year"><b>2005</b><span>Turn ideas into proposals that win</span></div>
+            <div class="year"><b>2009</b><span>Design the path to the buyer</span></div>
+            <div class="year"><b>2013</b><span>Build the system behind sellers</span></div>
+            <div class="year"><b>2015</b><span>Grow the territory, then keep it growing</span></div>
+            <div class="year"><b>2025</b><span>Turn AI into commercial systems</span></div>
+          </div>
+        </div>
+
+        <section class="contact" id="contact">
+          <div class="contact-copy">
+            <div class="section-label">Contact Me</div>
+            <h2>Start a Conversation</h2>
+            <p>Brad Friis · Sales Growth · SaaS · Revenue Systems · Product Adoption · AI</p>
+            <p><a href="mailto:brad@clarityengine.co">brad@clarityengine.co</a></p>
+            <p id="cv"><a href="#cv">View CV</a> · <a href="#letters">Read the letters</a></p>
+          </div>
+          <form class="form" action="#" method="post">
+            <div class="field"><span>Name</span><input type="text" name="name" autocomplete="name"></div>
+            <div class="field"><span>Email</span><input type="email" name="email" autocomplete="email"></div>
+            <div class="field"><span>Message</span><textarea name="message"></textarea></div>
+            <button class="btn" type="button">Send message</button>
+            <p class="privacy">Your information stays private and will not be shared without your permission.</p>
+          </form>
+        </section>
+
+        <div class="site-foot">© 2026 Brad Friis. All rights reserved.</div>
+      </div>
+    </div>
+
+    <div class="mobile-stage">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="notch"><span>9:41</span><span>iPhone</span></div>
+          <div class="m-nav">
+            <div class="wordmark">Brad Friis</div>
+            <a class="nav-cta" href="#contact" style="padding:7px 12px; font-size:12px;">Contact</a>
+          </div>
+          <div class="m-hero">
+            <div class="eyebrow">Auckland</div>
+            <h1>Brad Friis</h1>
+            <p class="subhead">Commercial operator for SaaS growth: sales, revenue systems, product adoption and AI enablement.</p>
+            <div class="tags">
+              <span class="tag">Sales Growth</span>
+              <span class="tag">SaaS Strategy</span>
+              <span class="tag">Revenue Systems</span>
+              <span class="tag">Product Adoption</span>
+              <span class="tag">AI Enablement</span>
+            </div>
+            <div class="actions">
+              <a class="btn" href="#contact">Contact Brad</a>
+              <a class="btn-ghost" href="#cv">View CV</a>
+            </div>
+            <p class="trust">Six written references</p>
+          </div>
+          <div class="m-portrait"><div class="status-chip"><strong>Available for commercial roles</strong><span>Employment first</span></div></div>
+          <div class="m-strip">
+            <div class="stat"><b>2,800 → 24,500 licensed users</b><span>NZ and Australia, ten years</span></div>
+          </div>
+          <div class="group">
+            <h2>Capabilities</h2>
+            <button class="cell" type="button">Sales Growth <span>Pipeline</span></button>
+            <button class="cell" type="button">Product Adoption <span>Everyday use</span></button>
+            <button class="cell" type="button">AI &amp; Product <span>Workflows</span></button>
+            <button class="cell" type="button">Product &amp; UX <span>Judgement</span></button>
+          </div>
+          <div class="group">
+            <h2>Work</h2>
+            <button class="cell" type="button">SaaS territory <span>2015–2025</span></button>
+            <button class="cell" type="button">Pikle commercial <span>2025</span></button>
+            <button class="cell" type="button">Revenue system <span>2013–2015</span></button>
+            <button class="cell" type="button">Media and web <span>2005–2013</span></button>
+          </div>
+          <div class="group">
+            <h2>People say</h2>
+            <div class="m-quote">
+              <q>Brad helped us see the platform's potential and gave us the confidence to invest further.</q>
+              <cite>Adrian Pilgrim</cite>
+            </div>
+          </div>
+          <nav class="tabbar" aria-label="Mobile">
+            <a class="tab on" href="#"><i></i>Home</a>
+            <a class="tab" href="#"><i></i>Work</a>
+            <a class="tab" href="#"><i></i>Letters</a>
+            <a class="tab" href="#"><i></i>Contact</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const caps = {
+    sales: {
+      title: "Sales Growth",
+      body: "Full-cycle selling from prospecting to close: lead generation, demos, written proposals, conference selling, Pipedrive pipeline management and renewal forecasting.",
+      proof: "<strong>In the same viewport.</strong> Walker, 2003: an extraordinarily high strike rate with little or no material backup. <a href='#letters'>Read the letter</a>"
+    },
+    adoption: {
+      title: "Product Adoption",
+      body: "Built adoption strategy, enablement workshops and stakeholder communication so software moved from signed contract to everyday use. Workshops are enablement, not a training role.",
+      proof: "<strong>In the same viewport.</strong> Bergh: even the most hesitant became confident users. <a href='#letters'>Read the letter</a>"
+    },
+    ai: {
+      title: "AI & Product",
+      body: "Apply AI tooling to commercial workflows, customer experience and product audits, including Pikle positioning, CRM stages, sales assets and UX priorities. No shipped AI product is claimed.",
+      proof: "<strong>Evidence, not a product launch.</strong> Positioning, proposal templates, four lead channels and a sales kit already exist."
+    },
+    ux: {
+      title: "Product & UX",
+      body: "Create messaging, brand governance, UI direction and practical kits so teams sell, present and build from one standard. This is commercial product judgement, not a designer-for-hire offer.",
+      proof: "<strong>Keep sales in the frame.</strong> UX here is how the offer, the path and the kit help a buyer say yes."
+    }
+  };
+
+  const works = {
+    saas: {
+      title: "PowerSchool and Schoology, NZ & Australia",
+      meta: "SaaS Territory Growth · 2015–2025",
+      body: "Ten years selling, demoing, proposing, forecasting, enabling and supporting a SaaS platform. Licensed users grew from 2,800 to 24,500 while key accounts stayed and expanded.",
+      tags: ["Sales", "Product Adoption", "Vendor Enablement", "Proposals", "Forecasting"]
+    },
+    pikle: {
+      title: "Pikle commercial and UX build",
+      meta: "AI Product Consulting · 2025–now",
+      body: "Built positioning, pricing, proposal templates, CRM stages, four lead channels, a sales asset kit, UX audit priorities and brand/design governance for early-stage software work.",
+      tags: ["Positioning", "Lead Channels", "CRM Stages", "Sales Kit", "UX Audit"]
+    },
+    ninetynine: {
+      title: "99 Corporation revenue system",
+      meta: "Sales Operations · 2013–2015",
+      body: "Fourteen telemarketers needed more than scripts. I built the process behind the calls, national-account scoping and the billing structure that held cash flow together. Sales revenue up 400 per cent.",
+      tags: ["Lead Generation", "Telemarketing", "Billing", "National Accounts"]
+    },
+    media: {
+      title: "Canwest and Xplore growth years",
+      meta: "Media and Web Growth · 2005–2013",
+      body: "Proposals, presentations and pipeline in media, then web strategy where positioning, usability, search and conversion had to line up. A page is not the asset. The path is.",
+      tags: ["Proposals", "Presentations", "Pipeline", "UX Strategy", "Major Accounts"]
+    }
+  };
+
+  const capDetail = document.getElementById("cap-detail");
+  const workDetail = document.getElementById("work-detail");
+
+  function renderCap(key) {
+    const item = caps[key];
+    capDetail.innerHTML = "<h3>" + item.title + "</h3><p>" + item.body + "</p><div class='proof'>" + item.proof + "</div>";
+  }
+  function renderWork(key) {
+    const item = works[key];
+    workDetail.innerHTML = "<div class='meta-line'>" + item.meta + "</div><h3>" + item.title + "</h3><p>" + item.body + "</p><div class='chips'>" +
+      item.tags.map(function (t) { return "<span class='chip'>" + t + "</span>"; }).join("") + "</div>";
+  }
+
+  function bindTabs(selector, attr, render) {
+    document.querySelectorAll(selector).forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll(selector).forEach(function (other) { other.setAttribute("aria-selected", "false"); });
+        btn.setAttribute("aria-selected", "true");
+        render(btn.getAttribute(attr));
+      });
+    });
+  }
+
+  renderCap("sales");
+  renderWork("saas");
+  bindTabs('[data-cap]', "data-cap", renderCap);
+  bindTabs('[data-work]', "data-work", renderWork);
+
+  const desktopBtn = document.getElementById("btn-desktop");
+  const mobileBtn = document.getElementById("btn-mobile");
+  const caption = document.getElementById("desktop-caption");
+  desktopBtn.addEventListener("click", function () {
+    document.body.classList.remove("view-mobile");
+    desktopBtn.setAttribute("aria-pressed", "true");
+    mobileBtn.setAttribute("aria-pressed", "false");
+    caption.textContent = "Desktop homepage · first screen must work without metaphor";
+  });
+  mobileBtn.addEventListener("click", function () {
+    document.body.classList.add("view-mobile");
+    desktopBtn.setAttribute("aria-pressed", "false");
+    mobileBtn.setAttribute("aria-pressed", "true");
+    caption.textContent = "Mobile homepage · iOS grouped lists, not a cramped desktop";
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stage 2 — Information architecture and wireframes — Brad Friis</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  :root {
+    --ink: #111;
+    --ink-2: #444;
+    --ink-3: #767676;
+    --ink-4: #9a9a9a;
+    --rule: #d4d4d4;
+    --rule-2: #e4e4e4;
+    --box: #ededed;
+    --box-2: #f5f5f5;
+    --page: #fff;
+    --ground: #fafafa;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 60px; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- document header ---------- */
+
+  .doc-head { padding: 56px 0 36px; border-bottom: 1px solid var(--rule); }
+  .doc-head h1 { font-size: 26px; line-height: 1.2; margin: 0 0 6px; font-weight: 650; letter-spacing: -0.01em; }
+  .doc-head .meta { font-family: var(--mono); font-size: 12px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.06em; }
+  .doc-head p { max-width: 62ch; color: var(--ink-2); margin: 16px 0 0; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 26px; font-size: 12.5px; color: var(--ink-3); }
+  .legend span { display: flex; align-items: center; gap: 8px; }
+  .swatch { width: 26px; height: 14px; border: 1px solid var(--rule); display: inline-block; }
+  .swatch.filled { background: var(--box); }
+  .swatch.dashed { border-style: dashed; background: transparent; }
+  .swatch.text { background: repeating-linear-gradient(180deg, var(--ink-4) 0 1px, transparent 1px 4px); border-color: transparent; }
+
+  /* ---------- sticky page nav ---------- */
+
+  nav.jump {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(250,250,250,0.94);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--rule);
+  }
+  nav.jump ul { display: flex; flex-wrap: wrap; gap: 2px; list-style: none; margin: 0; padding: 9px 0; max-width: 1180px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+  nav.jump a {
+    font-family: var(--mono); font-size: 11.5px; color: var(--ink-2);
+    text-decoration: none; padding: 4px 9px; border: 1px solid transparent; border-radius: 2px;
+  }
+  nav.jump a:hover { border-color: var(--rule); background: #fff; color: var(--ink); }
+
+  /* ---------- page blocks ---------- */
+
+  .page { padding: 64px 0 8px; }
+  .page-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 6px; }
+  .page-head h2 { font-size: 19px; margin: 0; font-weight: 650; letter-spacing: -0.01em; }
+  .route { font-family: var(--mono); font-size: 12px; color: #fff; background: var(--ink); padding: 3px 8px; border-radius: 2px; }
+  .page-purpose { color: var(--ink-2); max-width: 74ch; margin: 4px 0 26px; font-size: 14.5px; }
+  .page-purpose strong { font-weight: 600; color: var(--ink); }
+
+  /* browser frame */
+  .frame { background: var(--page); border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; }
+  .frame-bar { display: flex; align-items: center; gap: 7px; padding: 8px 12px; border-bottom: 1px solid var(--rule-2); background: var(--box-2); }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--rule); }
+  .url { font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); margin-left: 8px; }
+  .viewport-tag { margin-left: auto; font-family: var(--mono); font-size: 10.5px; color: var(--ink-4); text-transform: uppercase; letter-spacing: 0.08em; }
+  .frame-body { padding: 0; }
+
+  /* section inside a wireframe */
+  .sec { border-bottom: 1px dashed var(--rule); padding: 26px 30px 30px; position: relative; }
+  .sec:last-child { border-bottom: 0; }
+  .sec-label {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.09em; text-transform: uppercase;
+    color: var(--ink-4); margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+  }
+  .sec-label .n {
+    background: var(--ink); color: #fff; width: 18px; height: 18px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 10px; letter-spacing: 0; flex: none;
+  }
+  .sec-label .note { color: var(--ink-4); text-transform: none; letter-spacing: 0; font-size: 11px; }
+
+  /* generic wireframe primitives */
+  .box { background: var(--box); border: 1px solid var(--rule-2); }
+  .box.o { background: transparent; border-style: dashed; border-color: var(--rule); }
+  .pad { padding: 16px; }
+  .center { display: flex; align-items: center; justify-content: center; text-align: center; }
+  .imgbox { background: var(--box); border: 1px dashed var(--rule); display: flex; align-items: center; justify-content: center; color: var(--ink-4); font-family: var(--mono); font-size: 11px; text-align: center; padding: 8px; }
+
+  .row { display: flex; gap: 18px; }
+  .col { flex: 1; min-width: 0; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .stack > * + * { margin-top: 12px; }
+
+  h3.wf { font-size: 27px; line-height: 1.15; margin: 0 0 10px; font-weight: 600; letter-spacing: -0.015em; max-width: 20ch; }
+  h3.wf.big { font-size: 38px; max-width: 17ch; }
+  h4.wf { font-size: 17px; margin: 0 0 8px; font-weight: 600; }
+  h5.wf { font-size: 14px; margin: 0 0 6px; font-weight: 600; }
+  p.wf { margin: 0 0 10px; color: var(--ink-2); max-width: 58ch; font-size: 14px; }
+  p.wf.lead { font-size: 15.5px; color: var(--ink); }
+  .eyebrow { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); margin-bottom: 12px; }
+
+  .btn { display: inline-block; border: 1px solid var(--ink); padding: 9px 16px; font-size: 13.5px; border-radius: 2px; }
+  .btn.solid { background: var(--ink); color: #fff; }
+  .btn.ghost { border-color: var(--rule); color: var(--ink-2); }
+  .btns { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+  .pill { display: inline-block; border: 1px solid var(--rule); border-radius: 100px; padding: 4px 12px; font-size: 12.5px; color: var(--ink-2); }
+  .pill.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .pills { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .stat { border-left: 2px solid var(--ink); padding-left: 14px; }
+  .stat .fig { font-size: 25px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+  .stat .cap { font-size: 12.5px; color: var(--ink-3); margin-top: 5px; }
+
+  blockquote.wf { margin: 0; padding-left: 16px; border-left: 2px solid var(--rule); font-size: 15.5px; color: var(--ink); max-width: 56ch; }
+  blockquote.wf cite { display: block; font-style: normal; font-size: 12.5px; color: var(--ink-3); margin-top: 10px; }
+
+  .lines { display: block; }
+  .lines i { display: block; height: 9px; background: var(--box); margin-bottom: 8px; border-radius: 1px; }
+  .lines i:nth-child(3n) { width: 88%; }
+  .lines i:last-child { width: 54%; margin-bottom: 0; }
+
+  .site-nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .site-nav .links { display: flex; gap: 20px; font-size: 13.5px; color: var(--ink-2); }
+  .wordmark { font-weight: 650; font-size: 16px; }
+
+  table.wfdata { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.wfdata th, table.wfdata td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--rule-2); vertical-align: top; }
+  table.wfdata th { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-3); font-weight: 400; }
+
+  /* annotations */
+  .annos { margin: 22px 0 0; padding: 22px 26px; background: #fff; border: 1px solid var(--rule); border-left: 3px solid var(--ink); border-radius: 3px; }
+  .annos h6 { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); margin: 0 0 14px; font-weight: 400; }
+  .annos ol { margin: 0; padding-left: 0; list-style: none; counter-reset: a; }
+  .annos li { position: relative; padding-left: 32px; margin-bottom: 13px; font-size: 14px; color: var(--ink-2); max-width: 88ch; counter-increment: a; }
+  .annos li:last-child { margin-bottom: 0; }
+  .annos li::before {
+    content: counter(a); position: absolute; left: 0; top: 1px;
+    width: 20px; height: 20px; border-radius: 50%; background: var(--ink); color: #fff;
+    font-family: var(--mono); font-size: 10.5px; display: flex; align-items: center; justify-content: center;
+  }
+  .annos li strong { color: var(--ink); font-weight: 600; }
+  .annos li.q::before { content: "?"; background: #fff; color: var(--ink); border: 1px solid var(--ink); }
+  .annos li.cut::before { content: "\00d7"; background: #fff; color: var(--ink); border: 1px solid var(--ink); }
+
+  /* mobile frames */
+  .mobiles { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 22px; }
+  .mframe { width: 300px; border: 1px solid var(--rule); border-radius: 3px; background: #fff; overflow: hidden; }
+  .mframe .frame-bar { padding: 6px 10px; }
+  .mframe .sec { padding: 18px 16px 20px; }
+  .mframe h3.wf { font-size: 21px; max-width: none; }
+  .mframe h3.wf.big { font-size: 25px; }
+  .mframe .grid-3, .mframe .grid-2, .mframe .grid-4 { grid-template-columns: 1fr; }
+  .mframe .row { flex-direction: column; }
+
+  /* IA map */
+  .ia { background: #fff; border: 1px solid var(--rule); border-radius: 3px; padding: 26px 30px; margin-top: 26px; }
+  .ia pre { font-family: var(--mono); font-size: 12.5px; line-height: 1.75; margin: 0; color: var(--ink-2); overflow-x: auto; }
+  .ia pre b { color: var(--ink); font-weight: 600; }
+
+  .callout { background: #fff; border: 1px solid var(--rule); border-radius: 3px; padding: 24px 28px; margin-top: 26px; }
+  .callout h3 { font-size: 16px; margin: 0 0 12px; font-weight: 650; }
+  .callout p { color: var(--ink-2); max-width: 84ch; margin: 0 0 10px; font-size: 14px; }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout ul { margin: 0; padding-left: 20px; color: var(--ink-2); font-size: 14px; }
+  .callout li { margin-bottom: 7px; max-width: 84ch; }
+
+  footer.doc { margin: 72px 0 0; padding: 30px 0 70px; border-top: 1px solid var(--rule); color: var(--ink-3); font-size: 13px; }
+  footer.doc a { color: var(--ink); }
+
+  @media (max-width: 820px) {
+    .grid-3, .grid-4, .grid-2 { grid-template-columns: 1fr; }
+    .row { flex-direction: column; }
+    .sec { padding: 20px 18px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="jump">
+  <ul>
+    <li><a href="#ia">Site map</a></li>
+    <li><a href="#home">/</a></li>
+    <li><a href="#career">/career</a></li>
+    <li><a href="#proof">/proof</a></li>
+    <li><a href="#writing">/writing</a></li>
+    <li><a href="#post">/writing/[slug]</a></li>
+    <li><a href="#about">/about</a></li>
+    <li><a href="#contact">/contact</a></li>
+    <li><a href="#resume">/resume</a></li>
+    <li><a href="#decisions">Decisions</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+  <header class="doc-head">
+    <div class="meta">Stage 2 of 4 · Information architecture and wireframes</div>
+    <h1>Brad Friis — structure, before surface</h1>
+    <p>Low fidelity on purpose. Grey boxes, real copy, no colour, no photography, no type personality. Everything here is an argument about what goes where and in what order. Art direction is Stage 3, and none of it should influence what gets agreed in this document.</p>
+    <p>Copy shown is the recommended Stage 1 output: hero option C, the account-save story leading, no lens control. Reading it as real text is the point — placeholder text hides bad structure.</p>
+    <div class="legend">
+      <span><i class="swatch filled"></i> Content block</span>
+      <span><i class="swatch dashed"></i> Image or media</span>
+      <span><i class="swatch text"></i> Body copy, not yet written</span>
+      <span><i class="swatch" style="background:#111;border-color:#111"></i> Numbered annotation below each page</span>
+    </div>
+  </header>
+
+  <!-- ============================================================ SITE MAP -->
+  <section class="page" id="ia">
+    <div class="page-head"><h2>Site map</h2></div>
+    <p class="page-purpose">Eight routes, seven of them in the primary navigation. Two changes from the proposed set: <strong>`/resume` gains lens variants</strong> and <strong>the homepage "What I'm proud of" section is cut</strong>. Both are argued in the Stage 1 brief and flagged again at the bottom of this document.</p>
+
+    <div class="ia">
+<pre><b>/</b>                        home — one position, all four audiences
+├── <b>/career</b>              the timeline, 1999 to now. Narrative.
+├── <b>/proof</b>               three complete written references. Anchor targets for every quote on the site.
+│     ├── #pilgrim         The Industry School — the five-campus save
+│     ├── #bergh           Dr Andrew Bergh — nine years, adoption, COVID readiness
+│     └── #rototuna        Pranesh Lad — unsolicited, verbatim, email framing intact
+├── <b>/writing</b>             blog index, topic filter as query param (?topic=ai-for-business)
+│     └── <b>/writing/[slug]</b>  the post. Its own front door — the cold-traffic entry point.
+├── <b>/about</b>               the person. How he works, community and governance, what he's looking for.
+├── <b>/contact</b>             form plus direct details. Canonical URL for links inside PDFs.
+└── <b>/resume</b>              printable, ATS-shaped document. Not a browsing page.
+      └── <b>/resume/[lens]</b>   master · b2b-saas · channel · customer-success
+                            Set by Brad on outbound links. No visible switcher.
+
+Utility, not in navigation:
+      /writing/rss.xml · /sitemap.xml · /studio (Sanity) · /404
+
+<b>Navigation:</b>   Career · Proof · Writing · About · Contact          [ Download resume ]
+<b>Footer:</b>       compressed contact form · direct email · LinkedIn · RSS · copyright</pre>
+    </div>
+
+    <div class="callout">
+      <h3>Two structural rules this IA enforces</h3>
+      <ul>
+        <li><strong>No claim without its evidence in the same viewport.</strong> Every testimonial pull-quote sits beside the claim it supports, and links to its complete letter at <code>/proof#anchor</code>. Quotes are never collected into a decorative carousel.</li>
+        <li><strong>`/career` is the story, `/resume` is the document.</strong> They cover the same twenty-five years and would be redundant if that distinction blurred. `/career` gets context, scale and links out to proof; `/resume` gets dates, bullets, print styles and a PDF.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================ HOME -->
+  <section class="page" id="home">
+    <div class="page-head"><h2>Home</h2><span class="route">/</span></div>
+    <p class="page-purpose">Read by all four audiences. Holds <strong>one position</strong> rather than switching between four. Order is set by the Stage 1 proof ranking: the save leads, the scale number supports, the vendor relationship contextualises. Nine sections, and the page ends at contact — there is no "What I'm proud of".</p>
+
+    <div class="frame">
+      <div class="frame-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">bradfriis.co</span><span class="viewport-tag">desktop 1280</span></div>
+      <div class="frame-body">
+
+        <!-- header -->
+        <div class="sec">
+          <div class="sec-label"><span class="n">1</span> Header · sticky after 80px</div>
+          <div class="site-nav">
+            <div class="wordmark">Brad Friis</div>
+            <div class="links"><span>Career</span><span>Proof</span><span>Writing</span><span>About</span><span>Contact</span></div>
+            <span class="btn">Download resume</span>
+          </div>
+        </div>
+
+        <!-- hero -->
+        <div class="sec">
+          <div class="sec-label"><span class="n">2</span> Hero <span class="note">— hero option C, Stage 1 §5</span></div>
+          <div class="row" style="gap:48px; align-items:flex-start">
+            <div class="col" style="flex:1.45">
+              <div class="eyebrow">Auckland, New Zealand</div>
+              <h3 class="wf big">Twenty-five years selling software.<br>Ten years keeping it sold.</h3>
+              <p class="wf lead">I ran a United States vendor's New Zealand and Australian business as its only local partner. The licensed base went from 2,800 to 24,500, an account that was actively evaluating a competitor stayed and expanded, and three customers wrote references I never asked for.</p>
+              <div class="btns" style="margin-top:22px">
+                <span class="btn solid">Read the references</span>
+                <span class="btn ghost">Download the resume (PDF)</span>
+              </div>
+            </div>
+            <div class="col" style="flex:1">
+              <div class="imgbox" style="aspect-ratio:4/5">Hero photograph<br>portrait, 4:5<br><em style="font-style:normal;color:#b5b5b5">still required from Brad</em></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- proof strip -->
+        <div class="sec">
+          <div class="sec-label"><span class="n">3</span> Proof strip <span class="note">— first thing below the fold, no heading</span></div>
+          <div class="grid-4">
+            <div class="stat"><div class="fig">2,800 → 24,500</div><div class="cap">Licensed users, grown over a decade</div></div>
+            <div class="stat"><div class="fig">10 years</div><div class="cap">One vendor relationship, held exclusively</div></div>
+            <div class="stat"><div class="fig">5 campuses</div><div class="cap">Retained mid-competitor-evaluation, then expanded</div></div>
+            <div class="stat"><div class="fig">3 references</div><div class="cap">Written, signed, unsolicited</div></div>
+          </div>
+        </div>
+
+        <!-- what I'm here for -->
+        <div class="sec">
+          <div class="sec-label"><span class="n">4</span> What I'm here for <span class="note">— replaces the rejected lens control</span></div>
+          <div class="grid-3">
+            <div class="box pad stack">
+              <h5 class="wf">Account management and customer success</h5>
+              <p class="wf" style="font-size:13.5px">Retention and expansion as the number. Strongest with commercially motivated, non-technical customers.</p>
+              <span style="font-size:13px">See the career →</span>
+            </div>
+            <div class="box pad stack">
+              <h5 class="wf">Channel and partnership</h5>
+              <p class="wf" style="font-size:13.5px">Ten years as a United States vendor's only local partner. Contracts, pricing matrices and international negotiation.</p>
+              <span style="font-size:13px">See the career →</span>
+            </div>
+            <div class="box pad stack">
+              <h5 class="wf">AI and product consulting</h5>
+              <p class="wf" style="font-size:13.5px">Positioning, pricing and customer experience for early-stage New Zealand software companies.</p>
+              <span style="font-size:13px">See the writing →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- case study -->
+        <div class="sec">
+          <div class="sec-label"><span class="n">5</span> The account save <span class="note">— highest-leverage block on the site</span></div>
+          <div class="eyebrow">Case study · The Industry School</div>
+          <h3 class="wf">The account that was leaving stayed, then spent more.</h3>
+          <div class="row" style="gap:48px; align-items:flex-start; margin-top:16px">
+            <div class="col" style="flex:1.2">
+              <p class="wf">Five campuses, one organisation, and an active evaluation of a competing platform underway. I started with the leadership team to agree what the organisation was actually trying to achieve, then went campus by campus to understand what each one needed and where the platform was failing them.</p>
+              <p class="wf">The result was a single unified strategy instead of five local ones, custom workarounds for the gaps that mattered, and less duplicated effort across sites. They stayed, and then increased their investment.</p>
+              <span style="font-size:13.5px; border-bottom:1px solid var(--ink)">Read Adrian Pilgrim's full reference →</span>
+            </div>
+            <div class="col box pad" style="flex:1">
+              <blockquote class="wf">"At a time when we were considering moving away from Schoology, Brad helped us see the platform's potential. He created custom strategies and workarounds that fit our operations, giving us the confidence to invest in the platform further."
+              <cite>Adrian Pilgrim<br>Teaching and Learning Manager, The Industry School</cite></blockquote>
+            </div>
+          </div>
+        </div>
+
+        <!-- adoption -->
+        <div class="sec">
+          <div class="sec-label"><span class="n">6</span> Adoption <span class="note">— hero candidate E survives here as the section heading</span></div>
+          <div class="row" style="gap:48px; align-items:flex-start">
+            <div class="col box pad" style="flex:1">
+              <blockquote class="wf">"One of Brad's most remarkable qualities is his ability to support teachers, particularly those resistant to change… His empathetic and proactive approach ensures that even the most hesitant team members became confident users."
+              <cite>Dr Andrew Bergh<br>High School Principal · nine-year working relationship</cite></blockquote>
+            </div>
+            <div class="col" style="flex:1.2">
+              <h3 class="wf">I get non-technical people to actually use the software they paid for.</h3>
+              <p class="wf">I built the onboarding, training and adoption programme from nothing and ran it hands-on and remote across the whole customer base. Accounts held through a platform migration, sector reform and the shift to remote delivery, with no loss of service continuity reported.</p>
+              <span style="font-size:13.5px; border-bottom:1px solid var(--ink)">Read Dr Bergh's full reference →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- career preview -->
+        <div class="sec">
+          <div class="sec-label"><span class="n">7</span> Career preview <span class="note">— three entries, then out to /career</span></div>
+          <h4 class="wf">Where the twenty-five years went</h4>
+          <div class="stack" style="margin-top:16px">
+            <div class="box pad row" style="gap:24px; align-items:baseline">
+              <span style="font-family:var(--mono); font-size:12.5px; color:var(--ink-3); flex:none; width:130px">2025 — now</span>
+              <div><h5 class="wf">Independent Consultant · Clarity Engine AI</h5><p class="wf" style="margin:0; font-size:13.5px">Positioning, pricing and customer experience for Pikle and other early-stage NZ software companies.</p></div>
+            </div>
+            <div class="box pad row" style="gap:24px; align-items:baseline">
+              <span style="font-family:var(--mono); font-size:12.5px; color:var(--ink-3); flex:none; width:130px">2015 — 2025</span>
+              <div><h5 class="wf">General Manager, New Zealand and Australia</h5><p class="wf" style="margin:0; font-size:13.5px">Local channel partner for PowerSchool Schoology and itslearning. Sole territory responsibility across New Zealand and Australia.</p></div>
+            </div>
+            <div class="box pad row" style="gap:24px; align-items:baseline">
+              <span style="font-family:var(--mono); font-size:12.5px; color:var(--ink-3); flex:none; width:130px">1999 — 2015</span>
+              <div><h5 class="wf">Sales and account roles · advertising, direct marketing and web agencies</h5><p class="wf" style="margin:0; font-size:13.5px">National accounts at 99 Corporation. Before that, Adplus Advertising and Adplus Online.</p></div>
+            </div>
+          </div>
+          <div class="btns" style="margin-top:18px"><span class="btn ghost">See the full timeline</span></div>
+        </div>
+
+        <!-- companies -->
+        <div class="sec">
+          <div class="sec-label"><span class="n">8</span> Platforms and companies <span class="note">— logos, greyscale, no cards</span></div>
+          <div class="grid-4" style="gap:18px">
+            <div class="imgbox" style="height:52px">PowerSchool Schoology</div>
+            <div class="imgbox" style="height:52px">itslearning</div>
+            <div class="imgbox" style="height:52px">Schoology / itslearning</div>
+            <div class="imgbox" style="height:52px">Pikle</div>
+          </div>
+        </div>
+
+        <!-- writing -->
+        <div class="sec">
+          <div class="sec-label"><span class="n">9</span> Selected writing <span class="note">— three most recent, no images</span></div>
+          <div class="row" style="gap:48px; align-items:flex-start">
+            <div class="col" style="flex:0.8">
+              <h4 class="wf">What I'm working out in public</h4>
+              <p class="wf" style="font-size:13.5px">AI for business, sales, marketing, customer onboarding, design and website strategy.</p>
+              <span style="font-size:13.5px; border-bottom:1px solid var(--ink)">All writing →</span>
+            </div>
+            <div class="col stack" style="flex:1.4">
+              <div style="border-top:1px solid var(--rule-2); padding-top:12px">
+                <div style="font-family:var(--mono); font-size:11.5px; color:var(--ink-3)">10 August 2026 · AI for business</div>
+                <h5 class="wf" style="margin-top:6px">Post title, roughly this length, two lines at most on desktop</h5>
+              </div>
+              <div style="border-top:1px solid var(--rule-2); padding-top:12px">
+                <div style="font-family:var(--mono); font-size:11.5px; color:var(--ink-3)">Date · Topic</div>
+                <h5 class="wf" style="margin-top:6px">Second post title</h5>
+              </div>
+              <div style="border-top:1px solid var(--rule-2); padding-top:12px">
+                <div style="font-family:var(--mono); font-size:11.5px; color:var(--ink-3)">Date · Topic</div>
+                <h5 class="wf" style="margin-top:6px">Third post title</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- contact -->
+        <div class="sec">
+          <div class="sec-label"><span class="n">10</span> Contact <span class="note">— compressed form, full version at /contact</span></div>
+          <div class="row" style="gap:48px; align-items:flex-start">
+            <div class="col">
+              <h3 class="wf">Worth a conversation?</h3>
+              <p class="wf">I reply to everything. If it's a role, tell me the company and the number I'd be carrying. If it's consulting, tell me what's stuck.</p>
+              <p class="wf" style="font-size:13.5px">brad@clarityengine.co · +64 22 854 9696 · linkedin.com/in/bradfriis</p>
+            </div>
+            <div class="col stack">
+              <div class="box" style="height:38px"></div>
+              <div class="box" style="height:38px"></div>
+              <div class="box" style="height:96px"></div>
+              <span class="btn solid">Send</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">11</span> Footer</div>
+          <div class="site-nav" style="color:var(--ink-3); font-size:13px">
+            <span>© 2026 Brad Friis</span>
+            <div class="links"><span>Career</span><span>Proof</span><span>Writing</span><span>About</span><span>Contact</span><span>RSS</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="mobiles">
+      <div class="mframe">
+        <div class="frame-bar"><i class="dot"></i><span class="url">bradfriis.co</span><span class="viewport-tag">375</span></div>
+        <div class="sec">
+          <div class="sec-label"><span class="n">2</span> Hero, mobile</div>
+          <div class="eyebrow">Auckland, New Zealand</div>
+          <h3 class="wf big">Twenty-five years selling software. Ten years keeping it sold.</h3>
+          <p class="wf" style="font-size:13.5px">I ran a United States vendor's New Zealand and Australian business as its only local partner. The licensed base went from 2,800 to 24,500…</p>
+          <div class="btns" style="margin-top:14px"><span class="btn solid" style="width:100%; text-align:center">Read the references</span></div>
+          <div class="imgbox" style="aspect-ratio:4/5; margin-top:16px">Photograph moves below the copy</div>
+        </div>
+        <div class="sec">
+          <div class="sec-label"><span class="n">3</span> Proof strip, mobile</div>
+          <div class="stack">
+            <div class="stat"><div class="fig" style="font-size:21px">2,800 → 24,500</div><div class="cap">Licensed users, grown over a decade</div></div>
+            <div class="stat"><div class="fig" style="font-size:21px">10 years</div><div class="cap">One vendor relationship, held exclusively</div></div>
+          </div>
+          <p class="wf" style="font-size:12.5px; color:var(--ink-4); margin-top:14px">Stacks to a single column, does not become a horizontal scroller. Four figures, four scroll-reveals.</p>
+        </div>
+      </div>
+
+      <div class="mframe">
+        <div class="frame-bar"><i class="dot"></i><span class="url">bradfriis.co</span><span class="viewport-tag">375</span></div>
+        <div class="sec">
+          <div class="sec-label"><span class="n">5</span> Case study, mobile</div>
+          <div class="eyebrow">Case study · The Industry School</div>
+          <h3 class="wf">The account that was leaving stayed, then spent more.</h3>
+          <div class="box pad" style="margin:14px 0">
+            <blockquote class="wf" style="font-size:14px">"At a time when we were considering moving away from Schoology, Brad helped us see the platform's potential…"<cite>Adrian Pilgrim, The Industry School</cite></blockquote>
+          </div>
+          <p class="wf" style="font-size:13.5px">Five campuses, one organisation, and an active evaluation of a competing platform underway…</p>
+          <p class="wf" style="font-size:12.5px; color:var(--ink-4)">Quote moves <em>above</em> the body copy on mobile so the evidence is still in the first viewport of the section.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="annos">
+      <h6>Annotations — home</h6>
+      <ol>
+        <li><strong>Header.</strong> Five links and one button. "Download resume" is a button rather than a link because it is the single most likely action for the primary audience, and it must not require a form. It serves <code>/resume/master.pdf</code> directly and does not navigate.</li>
+        <li><strong>Hero.</strong> Two-line display, so the line break is a design decision rather than a wrapping accident and is authored, not left to the browser. The support paragraph carries all three proof assets in one sentence, which means a reader who leaves after the hero still leaves with the argument. Two CTAs only: "Read the references" is deliberately the primary, because proof is the differentiator and sending people to <code>/proof</code> first is the whole strategy.</li>
+        <li><strong>Proof strip.</strong> No heading, no card borders, no icons. Four figures on a rule. It sits immediately under the hero because the hero makes four claims and this is where they get numbers. Note the third figure carries the qualifier "then expanded" — retention alone undersells it.</li>
+        <li><strong>What I'm here for.</strong> This is what replaces the lens control. Three cards that <em>route</em> rather than re-render, so every audience is told within one scroll that they are in the right place, and nobody is asked to classify themselves. Cards are links; no expand or accordion behaviour.</li>
+        <li><strong>The account save.</strong> The most important block on the page and it is given the most space. Hero candidate B survives as the section heading. Body copy on the left, evidence on the right, both in the same viewport — this is the rule from the brief made literal. The link is labelled with what the reader gets, never "Learn more".</li>
+        <li><strong>Adoption.</strong> Quote and copy swap sides from section 5, so the page has a rhythm rather than two identical two-column blocks in a row. Hero candidate E becomes the heading here, where the Bergh letter can back it up immediately.</li>
+        <li><strong>Career preview.</strong> Three rows, not a visual timeline. The animated timeline lives at <code>/career</code> and duplicating it here would give the homepage two career sections' worth of weight for one section's worth of value.</li>
+        <li><strong>Platforms and companies.</strong> Four marks. Recognition value for the education-sector and channel readers, and it quietly evidences the vendor relationship. Greyscale, no cards, no hover states.</li>
+        <li><strong>Selected writing.</strong> No cover images. The Prolens reference uses a thumbnail per post; at three posts that is three pieces of stock photography competing with the one real photograph on the page. Titles and dates only. Full images are earned at <code>/writing</code>.</li>
+        <li><strong>Contact.</strong> Three fields — name, email, message. Every additional field costs conversions and the phone field in the reference template earns nothing. The copy tells the reader what to include, which improves the quality of what arrives.</li>
+        <li class="cut"><strong>"What I'm proud of" is cut.</strong> The reference template fills this with family and side projects. There is no material and inventing some would be the only slop on an otherwise evidenced page. Community and governance move to <code>/about</code>. See decision 3.</li>
+        <li class="cut"><strong>The lens pill row is cut.</strong> Prolens puts four coloured pills around the hero portrait. Rejected with the mechanism behind it — Stage 1 §6. Nothing replaces it visually; the space becomes whitespace.</li>
+        <li class="q"><strong>Open:</strong> does the homepage need a one-line availability statement near the hero — "Open to account management and channel roles in Auckland or remote"? It converts, it dates quickly, and it reads differently to the consulting audience. Recommend yes, as small text under the CTAs, editable in Sanity so it can be switched off in an hour.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================ CAREER -->
+  <section class="page" id="career">
+    <div class="page-head"><h2>Career</h2><span class="route">/career</span></div>
+    <p class="page-purpose">The narrative version of twenty-five years. <strong>Not the resume</strong> — this page has room for context, scale and links out to proof, and it is read on screen rather than printed. Earlier years compress; the channel-partner decade gets the space.</p>
+
+    <div class="frame">
+      <div class="frame-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">bradfriis.co/career</span><span class="viewport-tag">desktop 1280</span></div>
+      <div class="frame-body">
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">1</span> Page head</div>
+          <div class="eyebrow">Career</div>
+          <h3 class="wf big">1999 to now</h3>
+          <p class="wf lead">Advertising, then direct marketing, then websites, then software. The through-line is the same in all of it: someone had to keep the customer.</p>
+          <div class="btns" style="margin-top:16px"><span class="btn ghost">Download the resume (PDF)</span></div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">2</span> Timeline <span class="note">— sticky year rail left, entries right</span></div>
+          <div class="row" style="gap:40px; align-items:flex-start">
+            <div class="col" style="flex:none; width:150px">
+              <div class="box o pad" style="position:sticky; top:0">
+                <div style="font-family:var(--mono); font-size:11.5px; line-height:2.1; color:var(--ink-3)">
+                  <div style="color:var(--ink); font-weight:600">2025</div>
+                  <div>2015</div><div>2013</div><div>2008</div><div>1999</div>
+                </div>
+                <p class="wf" style="font-size:11px; color:var(--ink-4); margin:12px 0 0">Sticky rail. Current year highlights on scroll. Click to jump.</p>
+              </div>
+            </div>
+            <div class="col stack" style="gap:22px">
+              <div class="box pad stack">
+                <div style="font-family:var(--mono); font-size:12px; color:var(--ink-3)">September 2025 — present</div>
+                <h4 class="wf">Independent Consultant</h4>
+                <div style="font-size:13.5px; color:var(--ink-2)">Clarity Engine AI · Auckland</div>
+                <p class="wf">Consultancy for Pikle, an ecommerce product discovery platform, alongside positioning and customer experience engagements with early-stage New Zealand software companies.</p>
+                <div class="lines"><i></i><i></i><i></i></div>
+              </div>
+
+              <div class="box pad stack" style="border-left:2px solid var(--ink)">
+                <div style="font-family:var(--mono); font-size:12px; color:var(--ink-3)">June 2015 — September 2025 · ten years</div>
+                <h4 class="wf">General Manager, New Zealand and Australia</h4>
+                <div style="font-size:13.5px; color:var(--ink-2)">Local channel partner for PowerSchool Schoology and itslearning</div>
+                <p class="wf">The decade the rest of the site is about. Sole responsibility for the territory: pricing, forecasting, and the reporting line back to the vendor.</p>
+                <div class="grid-2" style="margin-top:6px">
+                  <div class="stat"><div class="fig" style="font-size:20px">2,800 → 24,500</div><div class="cap">Licensed users</div></div>
+                  <div class="stat"><div class="fig" style="font-size:20px">+30%</div><div class="cap">Initial client investment, via tiered licensing</div></div>
+                </div>
+                <div class="lines" style="margin-top:8px"><i></i><i></i><i></i><i></i><i></i></div>
+                <div class="box o pad" style="margin-top:6px">
+                  <blockquote class="wf" style="font-size:14px; border:0; padding:0">"As the sole representative of Schoology in New Zealand, Brad has earned the nickname 'Mister Schoology'…"<cite>Dr Andrew Bergh · read the full reference →</cite></blockquote>
+                </div>
+              </div>
+
+              <div class="box pad stack">
+                <div style="font-family:var(--mono); font-size:12px; color:var(--ink-3)">May 2013 — June 2015</div>
+                <h4 class="wf">National Sales Manager</h4>
+                <div style="font-size:13.5px; color:var(--ink-2)">99 Corporation Ltd · New Zealand and Australia</div>
+                <div class="lines"><i></i><i></i></div>
+              </div>
+
+              <div class="box o pad stack">
+                <div style="font-family:var(--mono); font-size:12px; color:var(--ink-3)">1999 — 2013 · compressed</div>
+                <h4 class="wf">Advertising, direct marketing and web agencies</h4>
+                <p class="wf" style="font-size:13.5px">Sales Manager at Adplus Advertising, promoted from Adplus Online after growing the Hawke's Bay Visitor Guide by over 30 percent a year for three consecutive years and lifting portal advertisers by 60 percent. Sales roles selling ecommerce and SaaS web projects and B2B campaigns.</p>
+                <span style="font-size:13px; color:var(--ink-3)">Expand the earlier years ↓</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">3</span> Tools, training and governance</div>
+          <div class="grid-3">
+            <div class="stack"><h5 class="wf">Systems</h5><p class="wf" style="font-size:13px">Salesforce, HubSpot, Pipedrive, Asana, Workflow Max, Microsoft 365, Adobe Creative Suite.</p></div>
+            <div class="stack"><h5 class="wf">Training</h5><p class="wf" style="font-size:13px">Solution Selling, Sales Impact Group. Winning with Relationship Selling, Dale Carnegie.</p></div>
+            <div class="stack"><h5 class="wf">Governance</h5><p class="wf" style="font-size:13px">Board member, Foodbank Hawke's Bay and Volunteering New Zealand.</p></div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">4</span> Next step</div>
+          <div class="btns"><span class="btn solid">Read the references</span><span class="btn ghost">Get in touch</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="annos">
+      <h6>Annotations — career</h6>
+      <ol>
+        <li><strong>Page head, not a hero.</strong> No photograph. The reader arrived here having already met Brad on the homepage, or from a CV link, and either way they want the dates.</li>
+        <li><strong>The channel-partner entry is deliberately oversized.</strong> Ten of twenty-five years, and all four proof assets, sit inside one role. Giving it the same visual weight as the two-year 99 Corporation role would flatten the story. It carries its own stat pair and its own pull-quote. Earlier years collapse behind a disclosure so a reader can get 1999 to 2013 in one paragraph or in full.</li>
+        <li><strong>Sticky year rail.</strong> Cheap orientation on a long page and it is the honest version of the Prolens animated timeline, which is a decorative zig-zag with no wayfinding value. Motion specification is Stage 4; structurally this only needs scroll-spy.</li>
+        <li><strong>Governance sits here as facts, and again on `/about` as character.</strong> Same information, different job. Not a duplication problem.</li>
+        <li class="q"><strong>Open:</strong> should <code>/career</code> carry role-level achievements in full, given <code>/resume</code> already does? Recommend no — three or four per role here, complete lists on the resume. Otherwise the two pages converge and the resume loses its reason to exist.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================ PROOF -->
+  <section class="page" id="proof">
+    <div class="page-head"><h2>Proof</h2><span class="route">/proof</span></div>
+    <p class="page-purpose">The page nobody else in this market has. Three complete written references, named and dated, plus the source documents. It is in the primary navigation because it is the differentiator, and every pull-quote elsewhere on the site is a link into an anchor on this page. <strong>Blocked on decision 5:</strong> written permission from all three authors.</p>
+
+    <div class="frame">
+      <div class="frame-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">bradfriis.co/proof</span><span class="viewport-tag">desktop 1280</span></div>
+      <div class="frame-body">
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">1</span> Page head</div>
+          <div class="eyebrow">Proof</div>
+          <h3 class="wf big">Three people wrote these without being asked.</h3>
+          <p class="wf lead">A principal I worked with for nine years, a teaching and learning manager whose five campuses were evaluating a move away from the platform, and an IT engineer who sent an email on a Monday morning. Full text, real names, original documents. Nothing trimmed.</p>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">2</span> Contents <span class="note">— sticky on desktop, anchor targets for the whole site</span></div>
+          <div class="grid-3">
+            <div class="box pad stack"><h5 class="wf">Adrian Pilgrim</h5><p class="wf" style="font-size:13px; margin:0">Teaching and Learning Manager, The Industry School · the five-campus save</p></div>
+            <div class="box pad stack"><h5 class="wf">Dr Andrew Bergh</h5><p class="wf" style="font-size:13px; margin:0">High School Principal · nine years, adoption and COVID readiness · 16 June 2025</p></div>
+            <div class="box pad stack"><h5 class="wf">Pranesh Lad</h5><p class="wf" style="font-size:13px; margin:0">IT System Engineer, Rototuna High Schools · 26 May 2025</p></div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">3</span> Reference one <span class="note">— #pilgrim · ordered by proof rank, not by date</span></div>
+          <div class="row" style="gap:40px; align-items:flex-start">
+            <div class="col" style="flex:none; width:190px">
+              <div class="imgbox" style="aspect-ratio:1/1; margin-bottom:12px">Organisation mark<br>or blank</div>
+              <h5 class="wf">Adrian Pilgrim</h5>
+              <p class="wf" style="font-size:12.5px">Teaching and Learning Manager, Professional Services<br>The Industry School, Years 10–12</p>
+              <span style="font-size:12.5px; border-bottom:1px solid var(--rule)">Download the original (PDF)</span>
+            </div>
+            <div class="col">
+              <blockquote class="wf" style="font-size:19px; border-left-width:2px; margin-bottom:20px">"Working with Brad has been a game-changer for our organisation."</blockquote>
+              <p class="wf">Full text of the reference, rendered as prose with its original headings intact — strategic alignment, communication and collaboration, support and professionalism.</p>
+              <div class="lines"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <div class="box o pad" style="margin-top:14px">
+                <p class="wf" style="margin:0; font-size:14px">"We would not hesitate in recommending Brad to any educational organisation that needs a trusted expert in digital learning — someone who not only understands the tools, but knows how to bring people together and deliver lasting change."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">4</span> Reference two <span class="note">— #bergh · longest document, gets a pull-quote rail</span></div>
+          <div class="row" style="gap:40px; align-items:flex-start">
+            <div class="col" style="flex:none; width:190px">
+              <div class="imgbox" style="aspect-ratio:1/1; margin-bottom:12px">Blank</div>
+              <h5 class="wf">Dr Andrew Bergh</h5>
+              <p class="wf" style="font-size:12.5px">High School Principal, international school, Hong Kong<br>Formerly senior leader, multi-campus New Zealand school<br>16 June 2025</p>
+              <span style="font-size:12.5px; border-bottom:1px solid var(--rule)">Download the original (PDF)</span>
+            </div>
+            <div class="col">
+              <blockquote class="wf" style="font-size:19px; border-left-width:2px; margin-bottom:20px">"It is difficult to overstate the impact Brad has had on my previous school and the broader community of Schoology schools in New Zealand."</blockquote>
+              <div class="lines"><i></i><i></i><i></i><i></i></div>
+              <div class="box o pad" style="margin:14px 0">
+                <p class="wf" style="margin:0; font-size:14px">"Thanks to Brad's long-term planning and foresight, our school was exceptionally well-prepared for the challenges of COVID-19… yielding impressive results, including a 95% pass rate in the 2024 school year, despite many students requiring learning support."</p>
+              </div>
+              <div class="lines"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">5</span> Reference three <span class="note">— #rototuna · rendered as the email it is</span></div>
+          <div class="box o pad" style="max-width:660px">
+            <table class="wfdata" style="margin-bottom:14px">
+              <tr><th style="width:60px">From</th><td>Pranesh Lad, IT System Engineer, Rototuna High Schools</td></tr>
+              <tr><th>To</th><td>Brad Friis</td></tr>
+              <tr><th>Date</th><td>Monday 26 May 2025, 11:56 AM</td></tr>
+              <tr><th>Subject</th><td>A Big Thank You from Rototuna High Schools</td></tr>
+            </table>
+            <p class="wf" style="font-size:14.5px">Hi Brad,</p>
+            <p class="wf" style="font-size:14.5px">I wanted to send a personal note from Rototuna High Schools to express our sincere gratitude for all your fantastic support with our Schoology queries…</p>
+            <div class="lines"><i></i><i></i><i></i></div>
+            <p class="wf" style="font-size:14.5px; margin-top:12px">You're a real star, Brad :)</p>
+          </div>
+          <p class="wf" style="font-size:12.5px; color:var(--ink-4); margin-top:12px">Verbatim, including the smiley. The email chrome is the proof — a testimonial card would remove exactly the thing that makes it credible.</p>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">6</span> Close</div>
+          <p class="wf lead">All three are contactable on request.</p>
+          <div class="btns"><span class="btn solid">Get in touch</span><span class="btn ghost">Download the resume</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="annos">
+      <h6>Annotations — proof</h6>
+      <ol>
+        <li><strong>Heading does the arguing.</strong> "Three people wrote these without being asked" is the entire value proposition of the page in eight words. "Testimonials" or "People Say" would waste the strongest headline on the site.</li>
+        <li><strong>Ordered by proof rank, not chronology.</strong> Pilgrim first because the five-campus save is the lead asset. Bergh second because it is the longest and warmest. Lad last because it is the shortest and it closes the page on a human note.</li>
+        <li><strong>Full text, not extracts.</strong> The instinct will be to trim these to their best paragraphs. Resist it. Length is part of the evidence — a two-page unsolicited reference from a doctoral candidate is a different artefact to a pull-quote, and a reader who scrolls past most of it has still registered how much there is.</li>
+        <li><strong>Original PDFs downloadable.</strong> Signed documents on letterhead beat re-typed HTML for a sceptical reader. Both are offered.</li>
+        <li><strong>The Rototuna email keeps its chrome.</strong> From, to, date, subject, and the sign-off intact. Do not restyle it into the same card as the other two.</li>
+        <li class="q"><strong>Open, and it is a real risk:</strong> Dr Bergh's letter names his employer and includes his email address and phone number. Publishing those invites unsolicited contact. Recommend publishing name and role, withholding contact details, and replacing them with "contactable on request". Needs Brad's confirmation alongside decision 5.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================ WRITING -->
+  <section class="page" id="writing">
+    <div class="page-head"><h2>Writing index</h2><span class="route">/writing</span></div>
+    <p class="page-purpose">The thought-leadership half of the site and the only asset that works on a stranger. Topic filtering as a query parameter rather than a route, so a filtered view is linkable without generating thin pages for topics with two posts in them.</p>
+
+    <div class="frame">
+      <div class="frame-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">bradfriis.co/writing?topic=ai-for-business</span><span class="viewport-tag">desktop 1280</span></div>
+      <div class="frame-body">
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">1</span> Page head</div>
+          <div class="eyebrow">Writing</div>
+          <h3 class="wf big">Working it out in public</h3>
+          <p class="wf lead">AI applied to real commercial work: sales, marketing, customer onboarding, design and website strategy. Mostly what I have actually tried, including the parts that did not work.</p>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">2</span> Topic filter <span class="note">— writes to ?topic=, no page reload</span></div>
+          <div class="pills">
+            <span class="pill on">All</span>
+            <span class="pill">AI for business</span>
+            <span class="pill">Sales</span>
+            <span class="pill">Marketing</span>
+            <span class="pill">Customer onboarding</span>
+            <span class="pill">Design</span>
+            <span class="pill">Website strategy</span>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">3</span> Featured post <span class="note">— most recent only, one per index</span></div>
+          <div class="row" style="gap:32px; align-items:flex-start">
+            <div class="col imgbox" style="flex:1; aspect-ratio:16/10">Cover image 16:10</div>
+            <div class="col" style="flex:1.1">
+              <div style="font-family:var(--mono); font-size:11.5px; color:var(--ink-3)">10 August 2026 · AI for business · 7 min read</div>
+              <h3 class="wf" style="margin-top:10px">Featured post title, two lines at desktop width</h3>
+              <p class="wf">Standfirst of roughly thirty words. Not the first paragraph of the post — a written summary, authored separately in Sanity, because the two jobs are different.</p>
+              <span style="font-size:13.5px; border-bottom:1px solid var(--ink)">Read →</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">4</span> Post list <span class="note">— rows, not a card grid</span></div>
+          <div class="stack" style="gap:0">
+            <div style="border-top:1px solid var(--rule-2); padding:18px 0" class="row">
+              <div class="imgbox" style="width:120px; height:80px; flex:none">Thumb</div>
+              <div class="col">
+                <div style="font-family:var(--mono); font-size:11.5px; color:var(--ink-3)">Date · Topic · N min read</div>
+                <h5 class="wf" style="margin:6px 0">Post title</h5>
+                <p class="wf" style="font-size:13.5px; margin:0">Standfirst, one line at desktop.</p>
+              </div>
+            </div>
+            <div style="border-top:1px solid var(--rule-2); padding:18px 0" class="row">
+              <div class="imgbox" style="width:120px; height:80px; flex:none">Thumb</div>
+              <div class="col">
+                <div style="font-family:var(--mono); font-size:11.5px; color:var(--ink-3)">Date · Topic · N min read</div>
+                <h5 class="wf" style="margin:6px 0">Post title</h5>
+                <p class="wf" style="font-size:13.5px; margin:0">Standfirst, one line at desktop.</p>
+              </div>
+            </div>
+            <div style="border-top:1px solid var(--rule-2); border-bottom:1px solid var(--rule-2); padding:18px 0" class="row">
+              <div class="imgbox" style="width:120px; height:80px; flex:none">Thumb</div>
+              <div class="col">
+                <div style="font-family:var(--mono); font-size:11.5px; color:var(--ink-3)">Date · Topic · N min read</div>
+                <h5 class="wf" style="margin:6px 0">Post title</h5>
+                <p class="wf" style="font-size:13.5px; margin:0">Standfirst, one line at desktop.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">5</span> Empty state <span class="note">— required at launch: this index starts with zero posts</span></div>
+          <div class="box o pad center" style="min-height:120px">
+            <div>
+              <p class="wf" style="margin:0 0 10px">Nothing published yet. The first pieces are on AI in customer onboarding and what actually moves a stalled account.</p>
+              <span class="btn ghost">Subscribe by RSS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">6</span> Subscribe</div>
+          <div class="row" style="gap:32px; align-items:center">
+            <div class="col"><h4 class="wf">New pieces, occasionally</h4><p class="wf" style="font-size:13.5px; margin:0">No schedule and no newsletter software. RSS, or follow on LinkedIn.</p></div>
+            <div class="col btns" style="flex:none"><span class="btn ghost">RSS</span><span class="btn ghost">LinkedIn</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="annos">
+      <h6>Annotations — writing index</h6>
+      <ol>
+        <li><strong>Topics as a query parameter, not a route.</strong> <code>?topic=sales</code> is linkable and shareable without creating six near-empty pages that compete with the posts themselves for search. Revisit if any single topic passes roughly fifteen posts.</li>
+        <li><strong>One featured post, and only the most recent.</strong> Manual "featured" flags rot the moment Brad forgets to unset one.</li>
+        <li><strong>Rows, not a card grid.</strong> A three-across card grid looks empty below nine posts and this blog starts at zero. Rows read correctly at one post and at eighty.</li>
+        <li><strong>Standfirsts are authored, not truncated.</strong> A separate Sanity field. Auto-excerpting the first thirty words produces the "In today's landscape…" opening on every card.</li>
+        <li><strong>The empty state is a real requirement.</strong> The site will launch before the blog has content, and a bare index reads as abandoned. Naming the first two pieces is honest and sets an expectation.</li>
+        <li class="q"><strong>Open:</strong> is an email subscribe wanted at launch? It needs a provider, a privacy notice and a double opt-in. Recommend RSS and LinkedIn only for v1, and add email once there are six posts to show a new subscriber.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================ POST -->
+  <section class="page" id="post">
+    <div class="page-head"><h2>Post</h2><span class="route">/writing/[slug]</span></div>
+    <p class="page-purpose">Designed for the cold reader from LinkedIn, who is the largest audience on the site and has never heard of Brad. <strong>Not a funnel into the resume.</strong> One honest author card, one clear next action, and a reading experience good enough to earn a second visit.</p>
+
+    <div class="frame">
+      <div class="frame-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">bradfriis.co/writing/onboarding-is-not-training</span><span class="viewport-tag">desktop 1280</span></div>
+      <div class="frame-body">
+
+        <div class="sec" style="padding-bottom:10px">
+          <div class="sec-label"><span class="n">1</span> Reading progress <span class="note">— 2px rule under the sticky header</span></div>
+          <div style="height:2px; background:var(--box)"><div style="width:38%; height:2px; background:var(--ink)"></div></div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">2</span> Post head <span class="note">— measure capped, no cover image above the title</span></div>
+          <div style="max-width:660px">
+            <div style="font-family:var(--mono); font-size:11.5px; color:var(--ink-3)">Writing / AI for business</div>
+            <h3 class="wf big" style="margin-top:12px">Onboarding is not training, and treating it as training is why adoption stalls</h3>
+            <p class="wf lead">Standfirst, one or two sentences, doing the job of telling a stranger whether this is for them.</p>
+            <div style="font-family:var(--mono); font-size:11.5px; color:var(--ink-3); border-top:1px solid var(--rule-2); padding-top:12px; margin-top:18px">10 August 2026 · 7 min read · Brad Friis</div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">3</span> Body and table of contents <span class="note">— ToC sticky right, ScrewFast pattern</span></div>
+          <div class="row" style="gap:48px; align-items:flex-start">
+            <div class="col" style="flex:none; max-width:660px; width:660px">
+              <div class="lines"><i></i><i></i><i></i><i></i><i></i></div>
+              <h4 class="wf" style="margin:24px 0 10px">A section heading</h4>
+              <div class="lines"><i></i><i></i><i></i><i></i></div>
+              <div class="box o pad" style="margin:20px 0">
+                <blockquote class="wf" style="border:0; padding:0; font-size:16px">A pull-quote inside the article body.</blockquote>
+              </div>
+              <div class="lines"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <div class="imgbox" style="aspect-ratio:16/9; margin:20px 0">Inline figure with caption</div>
+              <div class="lines"><i></i><i></i><i></i></div>
+            </div>
+            <div class="col" style="flex:none; width:200px">
+              <div class="box o pad" style="position:sticky; top:0">
+                <div style="font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-3); margin-bottom:10px">Contents</div>
+                <div style="font-size:12.5px; line-height:2; color:var(--ink-3)">
+                  <div style="color:var(--ink); border-left:2px solid var(--ink); padding-left:8px; margin-left:-10px">A section heading</div>
+                  <div style="padding-left:8px; margin-left:-10px">Second heading</div>
+                  <div style="padding-left:8px; margin-left:-10px">Third heading</div>
+                </div>
+                <div style="border-top:1px solid var(--rule-2); margin-top:14px; padding-top:12px; font-size:12.5px; color:var(--ink-3)">Share · LinkedIn · X · Copy link</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">4</span> Author card <span class="note">— honest, not a pitch</span></div>
+          <div class="box pad row" style="max-width:660px; gap:20px; align-items:flex-start">
+            <div class="imgbox" style="width:72px; height:72px; flex:none; border-radius:50%">Photo</div>
+            <div>
+              <h5 class="wf">Brad Friis</h5>
+              <p class="wf" style="font-size:13.5px; margin:0 0 8px">Twenty-five years in software, media and agency work, ten of them running a US vendor's New Zealand and Australian business. Now consulting on positioning and customer experience from Auckland.</p>
+              <span style="font-size:13px">More about Brad → · All writing →</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">5</span> Related posts <span class="note">— shared topic, most recent two</span></div>
+          <div class="grid-2" style="max-width:660px">
+            <div class="box pad"><div style="font-family:var(--mono); font-size:11px; color:var(--ink-3)">Topic · N min</div><h5 class="wf" style="margin-top:6px">Related post title</h5></div>
+            <div class="box pad"><div style="font-family:var(--mono); font-size:11px; color:var(--ink-3)">Topic · N min</div><h5 class="wf" style="margin-top:6px">Related post title</h5></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="annos">
+      <h6>Annotations — post</h6>
+      <ol>
+        <li><strong>Reading progress as a 2px rule</strong> under the sticky header. Ported from ScrewFast. No percentage number, no circular indicator.</li>
+        <li><strong>No cover image above the headline.</strong> The title and standfirst have to do the work of holding a cold reader; a stock image above them pushes both below the fold and signals content marketing. Cover images appear on the index and in OG cards, where they earn the click.</li>
+        <li><strong>Measure capped at roughly 660px, around 68 characters.</strong> Non-negotiable, and the reason the ToC is a narrow sticky rail rather than a second column that would steal from the measure.</li>
+        <li><strong>Share sits inside the ToC rail</strong> rather than as floating buttons over the text. LinkedIn first — it is where this audience comes from.</li>
+        <li><strong>The author card is a bio, not a call to action.</strong> No "hire me", no availability line, no resume download. A reader who wants Brad's career will click through; a reader who wanted an article and got a pitch will not come back. This is the one page on the site that does not sell.</li>
+        <li><strong>Related posts by shared topic, most recent two.</strong> Needs a graceful zero and one state at launch — hide the section entirely rather than showing a lonely card.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================ ABOUT -->
+  <section class="page" id="about">
+    <div class="page-head"><h2>About</h2><span class="route">/about</span></div>
+    <p class="page-purpose">The person rather than the record. Read by someone who has already decided Brad is competent and is now deciding whether they want to work with him. Absorbs the community and governance material that the cut "What I'm proud of" section would have held.</p>
+
+    <div class="frame">
+      <div class="frame-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">bradfriis.co/about</span><span class="viewport-tag">desktop 1280</span></div>
+      <div class="frame-body">
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">1</span> Opening</div>
+          <div class="row" style="gap:48px; align-items:flex-start">
+            <div class="col" style="flex:1.3">
+              <div class="eyebrow">About</div>
+              <h3 class="wf big">I started in advertising in Hawke's Bay and ended up being called Mister Schoology.</h3>
+              <p class="wf lead">Twenty-five years of selling things that only work if somebody actually uses them. That is most of what I know.</p>
+              <div class="lines" style="margin-top:16px"><i></i><i></i><i></i><i></i><i></i></div>
+            </div>
+            <div class="col imgbox" style="flex:1; aspect-ratio:3/4">Second photograph<br>working, not portrait</div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">2</span> How I work <span class="note">— three principles, each with evidence</span></div>
+          <div class="grid-3">
+            <div class="stack">
+              <h5 class="wf">Start with the leadership, then go site by site</h5>
+              <p class="wf" style="font-size:13.5px">Agree what the organisation is trying to do, then find out what each part of it actually needs. Five campuses taught me the second half.</p>
+            </div>
+            <div class="stack">
+              <h5 class="wf">The resistant people are the account</h5>
+              <p class="wf" style="font-size:13.5px">The staff who do not want the new system are the ones who decide whether it renews. They are worth more of your time than the enthusiasts.</p>
+            </div>
+            <div class="stack">
+              <h5 class="wf">Answer quickly</h5>
+              <p class="wf" style="font-size:13.5px">Most of what looks like account management is being reachable when something breaks.</p>
+            </div>
+          </div>
+          <div class="box o pad" style="margin-top:20px; max-width:620px">
+            <blockquote class="wf" style="border:0; padding:0; font-size:14.5px">"We really appreciate your quick responses… we always appreciate your patience and the proactive tips you offer."<cite>Pranesh Lad, Rototuna High Schools · read the full note →</cite></blockquote>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">3</span> Outside the job <span class="note">— absorbs the cut "What I'm proud of" material</span></div>
+          <div class="row" style="gap:48px; align-items:flex-start">
+            <div class="col">
+              <h4 class="wf">Board work</h4>
+              <p class="wf">Board member at Foodbank Hawke's Bay and at Volunteering New Zealand. Both are governance seats rather than volunteering, and both are the reason I am comfortable in a room where the numbers and the mission have to be argued at the same time.</p>
+            </div>
+            <div class="col">
+              <h4 class="wf">Why education stuck</h4>
+              <p class="wf">Ten years selling into schools is ten years of watching whether the thing you sold actually reduced anyone's workload. That is a useful habit to pick up early and it is hard to unlearn.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">4</span> What I'm looking for <span class="note">— editable in Sanity, dates quickly</span></div>
+          <div class="box pad" style="max-width:660px">
+            <p class="wf" style="margin:0">An account management, customer success or channel seat where retention and expansion are the number. Auckland-based, comfortable remote, comfortable with Australian travel. Consulting work continues alongside.</p>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-label"><span class="n">5</span> Close</div>
+          <div class="btns"><span class="btn solid">Get in touch</span><span class="btn ghost">Read the references</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="annos">
+      <h6>Annotations — about</h6>
+      <ol>
+        <li><strong>The opening line is the one place on the site where voice leads over evidence.</strong> "Mister Schoology" is a real nickname from a real reference letter, it is self-deprecating, and it is the single most human sentence available. It only works here — on the homepage it would undercut the proposition.</li>
+        <li><strong>Three principles, each earned.</strong> Every one traces to something documented: the five-campus consultation, the Bergh letter on change-resistant staff, the Rototuna note on responsiveness. No principle that cannot point at evidence gets to be on this page.</li>
+        <li><strong>Governance framed as governance.</strong> Board seats, not volunteering. It reads as commercial judgement rather than as a personality section.</li>
+        <li><strong>"What I'm looking for" will date.</strong> Sanity field, and it disappears entirely when empty rather than falling back to something generic.</li>
+        <li class="q"><strong>Open, decision 3:</strong> if Brad wants family on the site, this page's section 3 is where it goes — bottom of <code>/about</code>, no photographs of children, one sentence. Recommend leaving it out. Awaiting his call.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================ CONTACT -->
+  <section class="page" id="contact">
+    <div class="page-head"><h2>Contact</h2><span class="route">/contact</span></div>
+    <p class="page-purpose">Exists as a page rather than only a footer block because it needs a canonical URL that can be printed inside a PDF resume and typed into a browser. Three fields, a stated response time, and the direct details in plain text for anyone who would rather use their own mail client.</p>
+
+    <div class="frame">
+      <div class="frame-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">bradfriis.co/contact</span><span class="viewport-tag">desktop 1280</span></div>
+      <div class="frame-body">
+        <div class="sec">
+          <div class="sec-label"><span class="n">1</span> Page head and form</div>
+          <div class="row" style="gap:56px; align-items:flex-start">
+            <div class="col">
+              <div class="eyebrow">Contact</div>
+              <h3 class="wf">Tell me what you're trying to fix.</h3>
+              <p class="wf">If it's a role, the company and the number I'd be carrying is enough to start. If it's consulting, tell me what has stalled. I reply to everything, usually within a day.</p>
+              <table class="wfdata" style="margin-top:20px; max-width:400px">
+                <tr><th>Email</th><td>brad@clarityengine.co</td></tr>
+                <tr><th>Phone</th><td>+64 22 854 9696</td></tr>
+                <tr><th>LinkedIn</th><td>linkedin.com/in/bradfriis</td></tr>
+                <tr><th>Based</th><td>Auckland, New Zealand (NZST)</td></tr>
+              </table>
+            </div>
+            <div class="col stack" style="max-width:440px">
+              <div><div style="font-size:12.5px; color:var(--ink-3); margin-bottom:5px">Your name</div><div class="box" style="height:40px"></div></div>
+              <div><div style="font-size:12.5px; color:var(--ink-3); margin-bottom:5px">Email</div><div class="box" style="height:40px"></div></div>
+              <div><div style="font-size:12.5px; color:var(--ink-3); margin-bottom:5px">Message</div><div class="box" style="height:130px"></div></div>
+              <div class="btns"><span class="btn solid">Send</span></div>
+              <p class="wf" style="font-size:12px; color:var(--ink-4); margin:0">Honeypot field, hidden. Rate limited. Success and error states render in place — no redirect to a thank-you page.</p>
+            </div>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="sec-label"><span class="n">2</span> Resume shortcut</div>
+          <div class="box o pad row" style="align-items:center; gap:20px">
+            <div class="col"><h5 class="wf" style="margin:0">Just after the CV?</h5></div>
+            <div class="btns" style="flex:none"><span class="btn ghost">Download the resume (PDF)</span><span class="btn ghost">Read it on the web</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="annos">
+      <h6>Annotations — contact</h6>
+      <ol>
+        <li><strong>Three fields.</strong> The reference template has four including phone. Phone is dropped — nobody types a phone number into a personal site's contact form, and every field costs completions.</li>
+        <li><strong>The copy sets the brief.</strong> Telling people what to include raises the quality of what arrives and costs nothing.</li>
+        <li><strong>States render in place.</strong> Success, error and a disabled sending state on the same page. No thank-you route, which also keeps the analytics honest.</li>
+        <li><strong>Resume shortcut at the bottom.</strong> A hiring manager who reached <code>/contact</code> may only have wanted the file. Give it to them rather than making the form the toll gate.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================ RESUME -->
+  <section class="page" id="resume">
+    <div class="page-head"><h2>Resume</h2><span class="route">/resume</span> <span class="route">/resume/[lens]</span></div>
+    <p class="page-purpose">A document, not a browsing page. Single column, print stylesheet, no navigation chrome in print, PDF download in the corner. <strong>This is where the lens hypothesis survives</strong> — four variants at four URLs, chosen by Brad on outbound links, with no switcher shown to the reader.</p>
+
+    <div class="frame">
+      <div class="frame-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">bradfriis.co/resume/channel</span><span class="viewport-tag">desktop 1280 · print A4</span></div>
+      <div class="frame-body">
+        <div class="sec">
+          <div class="sec-label"><span class="n">1</span> Document head <span class="note">— screen only, hidden in print</span></div>
+          <div class="box o pad row" style="align-items:center; gap:16px">
+            <div class="col" style="font-size:13px; color:var(--ink-2)">Partner and channel management variant · last updated 6 August 2026</div>
+            <div class="btns" style="flex:none"><span class="btn ghost">Download PDF</span><span class="btn ghost">Print</span></div>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="sec-label"><span class="n">2</span> The document <span class="note">— max 780px, single column</span></div>
+          <div style="max-width:780px">
+            <h3 class="wf" style="margin-bottom:4px">Brad Friis</h3>
+            <p class="wf" style="margin-bottom:4px"><strong>Partner and Channel Management · Vendor Relationships · SaaS</strong></p>
+            <p class="wf" style="font-size:13px">Auckland, New Zealand · +64 22 854 9696 · brad@clarityengine.co · linkedin.com/in/bradfriis</p>
+            <h5 class="wf" style="margin-top:22px; text-transform:uppercase; font-family:var(--mono); font-size:11px; letter-spacing:0.08em; color:var(--ink-3)">Profile</h5>
+            <p class="wf" style="max-width:none">Channel and partnership manager with ten years running a United States software vendor's New Zealand and Australian business as its exclusive local partner…</p>
+            <h5 class="wf" style="margin-top:22px; text-transform:uppercase; font-family:var(--mono); font-size:11px; letter-spacing:0.08em; color:var(--ink-3)">Professional experience</h5>
+            <div class="stack">
+              <div><h5 class="wf" style="margin:0">General Manager, New Zealand and Australia</h5><div style="font-family:var(--mono); font-size:11.5px; color:var(--ink-3)">June 2015 — September 2025</div><div class="lines" style="margin-top:8px"><i></i><i></i><i></i><i></i><i></i></div></div>
+              <div><h5 class="wf" style="margin:0">Independent Consultant — Clarity Engine AI</h5><div style="font-family:var(--mono); font-size:11.5px; color:var(--ink-3)">September 2025 — present</div><div class="lines" style="margin-top:8px"><i></i><i></i><i></i></div></div>
+            </div>
+            <h5 class="wf" style="margin-top:22px; text-transform:uppercase; font-family:var(--mono); font-size:11px; letter-spacing:0.08em; color:var(--ink-3)">References</h5>
+            <p class="wf" style="max-width:none; font-size:13.5px">Three written references available in full at bradfriis.co/proof.</p>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="sec-label"><span class="n">3</span> Variant routing <span class="note">— no switcher rendered</span></div>
+          <table class="wfdata" style="max-width:760px">
+            <tr><th>Route</th><th>Headline</th><th>Ordering change vs master</th></tr>
+            <tr><td><code>/resume</code></td><td>Account Management · Customer Success · SaaS and Channel Partnerships</td><td>—</td></tr>
+            <tr><td><code>/resume/b2b-saas</code></td><td>Account Management · Revenue Growth and Retention · B2B SaaS</td><td>Tiered licensing and territory ownership rise; onboarding drops</td></tr>
+            <tr><td><code>/resume/channel</code></td><td>Partner and Channel Management · Vendor Relationships · SaaS</td><td>The reseller agreement, territory and partner enablement lead; full-cycle selling drops</td></tr>
+            <tr><td><code>/resume/customer-success</code></td><td>Customer Success · Account Management · Ecommerce and Retail Technology</td><td>Pikle product-discovery work and the onboarding programme lead</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="annos">
+      <h6>Annotations — resume</h6>
+      <ol>
+        <li><strong>Four routes, no switcher.</strong> This is the surviving half of the lens hypothesis. Brad sets the variant when he sends the link; the reader never learns a mechanism exists and is never asked to classify themselves. Stage 1 §6 has the full argument and the overlap table behind it.</li>
+        <li><strong>Content already exists.</strong> All four variants are written. The build cost is a <code>lens</code> reference on <code>role</code> and <code>achievement</code> in Sanity plus one dynamic route, which is a fraction of the cross-page state management the original lens control needed. The <code>lens-switcher</code> todo in the plan should be rewritten to this scope.</li>
+        <li><strong>Print stylesheet is a real requirement, not a nicety.</strong> Recruiters print. Navigation, buttons and the document head are hidden; the PDF is generated from the same source so the two can never drift.</li>
+        <li><strong>The professional-services variant is dropped from the routes.</strong> It shares every substantive bullet with the B2B SaaS variant and differs only in adjectives. Four routes is already the ceiling of what is maintainable; five with two of them near-identical is how content models rot. Keep the document itself for direct sending.</li>
+        <li><strong>Ordering is data, not four hand-written pages.</strong> One set of achievements, each tagged with the lenses it belongs to and a per-lens rank. Editing a bullet updates every variant.</li>
+        <li class="q"><strong>Open:</strong> should <code>/resume/[lens]</code> carry <code>noindex</code>? Four pages of near-identical content is a duplicate-content signal. Recommend indexing <code>/resume</code> only, canonical from the variants back to it.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================ DECISIONS -->
+  <section class="page" id="decisions">
+    <div class="page-head"><h2>What needs a decision before Stage 3</h2></div>
+
+    <div class="callout">
+      <h3>Changes to the approved plan proposed in this stage</h3>
+      <ul>
+        <li><strong>Audience lens.</strong> Visible homepage control dropped; <code>/resume/[lens]</code> retained. The <code>lens-switcher</code> todo shrinks from cross-page state to one dynamic route. Argument in Stage 1 §6, structure at <a href="#resume">/resume</a>.</li>
+        <li><strong>"What I'm proud of".</strong> Cut from the homepage. Community and governance move into <code>/about</code> section 3.</li>
+        <li><strong>`/proof`.</strong> Confirmed as a destination page <em>and</em> distributed quotes, with every quote linking to its anchor. Not either/or.</li>
+        <li><strong>`/writing` topics.</strong> Query parameter rather than routes, at least until a topic exceeds roughly fifteen posts.</li>
+        <li><strong>Professional-services resume variant.</strong> Not given a route. Kept as a document for direct sending.</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <h3>Open questions, in the order they block work</h3>
+      <table class="wfdata" style="margin-top:8px">
+        <tr><th style="width:34px">#</th><th>Question</th><th style="width:38%">Recommendation</th><th style="width:120px">Blocks</th></tr>
+        <tr><td>1</td><td>Reference consent — are Bergh, Pilgrim and Lad happy to be named publicly with full letters online?</td><td>Get it in writing before Stage 4. Withhold Dr Bergh's email and phone regardless.</td><td>Stage 4, launch</td></tr>
+        <tr><td>2</td><td>Hero photograph</td><td>Portrait, 4:5, working environment rather than studio. Second image for <code>/about</code>.</td><td>Stage 4</td></tr>
+        <tr><td>3</td><td>Hero line — is option C right?</td><td>Yes. "Twenty-five years selling software. Ten years keeping it sold."</td><td>Stage 3</td></tr>
+        <tr><td>4</td><td>Availability line under the hero CTAs?</td><td>Yes, one sentence, Sanity-editable so it can be removed in an hour.</td><td>Stage 3</td></tr>
+        <tr><td>5</td><td>Family content anywhere on the site?</td><td>No. If yes, bottom of <code>/about</code>, one sentence, no photographs of children.</td><td>Stage 3</td></tr>
+        <tr><td>6</td><td>Email subscribe at launch?</td><td>No. RSS and LinkedIn for v1; revisit at six posts.</td><td>Phase B</td></tr>
+        <tr><td>7</td><td>Domain</td><td><code>bradfriis.co</code> assumed throughout. Confirm or supply.</td><td>Phase B</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <footer class="doc">
+    Stage 2 of 4 · Brad Friis personal site · 10 August 2026<br>
+    Previous: <a href="01-positioning-brief.md">Stage 1 — positioning and message hierarchy</a> · Index: <a href="index.html">contact sheet</a><br>
+    Next, after review: Stage 3 — three art directions applied to the identical hero and the account-save section.
+  </footer>
+
+</div>
+</body>
+</html>

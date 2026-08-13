@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stage 1c — Navigation specimen — Brad Friis</title>
+<style>
+  :root {
+    --ground: #f7f6f3;
+    --card: #ffffff;
+    --ink: #14140f;
+    --ink-soft: #56564c;
+    --ink-faint: #8b8b80;
+    --rule: #e2e0d9;
+    --rule-firm: #cfccc2;
+    --pass: #2c6e4b;
+    --fail: #a03327;
+    --mark: #14140f;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 28px 120px; }
+
+  /* ---------- document head ---------- */
+
+  header.doc { padding: 72px 0 44px; border-bottom: 1px solid var(--rule-firm); }
+  header.doc .eyebrow {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--ink-faint); margin: 0 0 18px;
+  }
+  header.doc h1 { font-size: 34px; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 16px; font-weight: 600; }
+  header.doc p { max-width: 62ch; color: var(--ink-soft); margin: 0 0 12px; font-size: 15.5px; }
+  header.doc p strong { color: var(--ink); font-weight: 600; }
+
+  .how {
+    margin-top: 28px; padding: 16px 20px; background: var(--card);
+    border: 1px solid var(--rule); border-radius: 3px;
+    font-size: 14px; color: var(--ink-soft); max-width: 62ch;
+  }
+  .how strong { color: var(--ink); }
+
+  /* ---------- specimen block ---------- */
+
+  section.system { padding: 56px 0 0; }
+
+  .meta { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 6px; }
+  .letter {
+    font-family: var(--mono); font-size: 12px; font-weight: 600;
+    background: var(--mark); color: #fff; padding: 3px 9px; border-radius: 2px;
+  }
+  .principle { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
+  .verdict {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 2px; border: 1px solid currentColor;
+  }
+  .verdict.keep { color: var(--pass); }
+  .verdict.out  { color: var(--fail); }
+
+  .note { max-width: 68ch; color: var(--ink-soft); font-size: 14.5px; margin: 0 0 22px; }
+  .note em { color: var(--ink); font-style: normal; font-weight: 600; }
+
+  /* the page ground the nav actually sits on */
+  .stage {
+    background: var(--card); border: 1px solid var(--rule); border-radius: 3px;
+    overflow: hidden;
+  }
+
+  /* TRUE SHIPPING SIZE — do not scale these values */
+  nav.bar {
+    display: flex; align-items: center; gap: 34px;
+    padding: 26px 34px;
+    border-bottom: 1px solid var(--rule);
+    flex-wrap: wrap;
+  }
+  nav.bar .brand {
+    font-size: 16px; font-weight: 600; letter-spacing: -0.01em; margin-right: auto;
+    white-space: nowrap;
+  }
+  nav.bar .item {
+    position: relative;
+    font-size: 13.5px;
+    line-height: 1;
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 6px 0;
+    border: 0; background: none; font-family: inherit; cursor: pointer;
+  }
+  nav.bar .item::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+    height: 1px; background: var(--ink); transform: scaleX(0); transform-origin: left;
+    transition: transform 140ms ease;
+  }
+  nav.bar .item:hover::after, nav.bar .item:focus-visible::after { transform: scaleX(1); }
+  nav.bar .item:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+
+  nav.bar .cta {
+    font-size: 13.5px; line-height: 1; color: #fff; background: var(--ink);
+    padding: 11px 16px; border-radius: 2px; text-decoration: none; white-space: nowrap;
+  }
+  nav.bar .cta:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+  /* the gloss rail — revealed by hover or keyboard focus */
+  .gloss {
+    min-height: 62px;
+    padding: 18px 34px;
+    display: flex; align-items: center;
+    background: #fbfaf8;
+    border-bottom: 1px solid var(--rule);
+    font-size: 14px; color: var(--ink-soft);
+  }
+  .gloss .idle { color: var(--ink-faint); font-style: italic; }
+  .gloss .live { display: none; }
+  .gloss .live b { color: var(--ink); font-weight: 600; }
+
+  /* dead-simple CSS-only reveal: sibling selectors keyed off the hovered item */
+  .stage:has(.item[data-g="1"]:hover) .gloss .idle,
+  .stage:has(.item[data-g="1"]:focus-visible) .gloss .idle,
+  .stage:has(.item[data-g="2"]:hover) .gloss .idle,
+  .stage:has(.item[data-g="2"]:focus-visible) .gloss .idle,
+  .stage:has(.item[data-g="3"]:hover) .gloss .idle,
+  .stage:has(.item[data-g="3"]:focus-visible) .gloss .idle,
+  .stage:has(.item[data-g="4"]:hover) .gloss .idle,
+  .stage:has(.item[data-g="4"]:focus-visible) .gloss .idle,
+  .stage:has(.item[data-g="5"]:hover) .gloss .idle,
+  .stage:has(.item[data-g="5"]:focus-visible) .gloss .idle { display: none; }
+
+  .stage:has(.item[data-g="1"]:hover) .gloss [data-g="1"],
+  .stage:has(.item[data-g="1"]:focus-visible) .gloss [data-g="1"],
+  .stage:has(.item[data-g="2"]:hover) .gloss [data-g="2"],
+  .stage:has(.item[data-g="2"]:focus-visible) .gloss [data-g="2"],
+  .stage:has(.item[data-g="3"]:hover) .gloss [data-g="3"],
+  .stage:has(.item[data-g="3"]:focus-visible) .gloss [data-g="3"],
+  .stage:has(.item[data-g="4"]:hover) .gloss [data-g="4"],
+  .stage:has(.item[data-g="4"]:focus-visible) .gloss [data-g="4"],
+  .stage:has(.item[data-g="5"]:hover) .gloss [data-g="5"],
+  .stage:has(.item[data-g="5"]:focus-visible) .gloss [data-g="5"] { display: block; }
+
+  /* a slice of hero so the bar is judged in context, not floating */
+  .hero { padding: 52px 34px 60px; }
+  .hero .h {
+    font-size: 40px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 600;
+    margin: 0 0 18px; max-width: 20ch; color: var(--ink);
+  }
+  .hero .h.placeholder { color: var(--ink-faint); font-weight: 500; }
+  .hero .sub { font-size: 15.5px; color: var(--ink-soft); max-width: 58ch; margin: 0; }
+
+  /* costs */
+  .cost { margin: 18px 0 0; padding: 0; list-style: none; max-width: 72ch; }
+  .cost li {
+    font-size: 14px; color: var(--ink-soft); padding: 7px 0 7px 20px;
+    border-top: 1px solid var(--rule); position: relative;
+  }
+  .cost li:first-child { border-top: 0; }
+  .cost li::before {
+    content: "—"; position: absolute; left: 0; color: var(--ink-faint);
+  }
+  .cost li b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- scoring ---------- */
+
+  .scoring { margin-top: 84px; padding-top: 40px; border-top: 1px solid var(--rule-firm); }
+  .scoring h2 { font-size: 22px; letter-spacing: -0.015em; margin: 0 0 8px; font-weight: 600; }
+  table { border-collapse: collapse; width: 100%; margin-top: 22px; font-size: 13.5px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--rule); }
+  th { font-weight: 600; font-size: 12px; letter-spacing: 0.02em; color: var(--ink-soft); vertical-align: bottom; }
+  td.c, th.c { text-align: center; }
+  .y { color: var(--pass); font-weight: 600; }
+  .n { color: var(--fail); font-weight: 600; }
+  .p { color: var(--ink-faint); }
+  tr.win td { background: #fbfaf8; }
+  tr.win td:first-child { font-weight: 600; }
+
+  footer.doc {
+    margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--rule);
+    font-size: 13.5px; color: var(--ink-faint);
+  }
+  footer.doc a { color: var(--ink-soft); }
+
+  @media (max-width: 720px) {
+    .wrap { padding: 0 18px 80px; }
+    nav.bar { gap: 20px; padding: 20px; }
+    nav.bar .brand { margin-right: 0; width: 100%; }
+    .gloss, .hero { padding-left: 20px; padding-right: 20px; }
+    .hero .h { font-size: 30px; }
+    .scoring { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc">
+  <p class="eyebrow">Stage 1c · 11 August 2026 · specimen</p>
+  <h1>Six navigation systems, at shipping size</h1>
+  <p>Each bar below is set at the size it would actually ship: 13.5px labels, 26px of vertical
+  padding, on the page ground rather than on a slide. A list of labels always reads better than a
+  navigation bar does, which is how the last set got through.</p>
+  <p><strong>All six are shown, including the two that fail.</strong> The far end of the range is
+  what tells you where the middle is, so the failures are here to be looked at rather than
+  summarised.</p>
+  <div class="how">
+    <strong>Hover or tab onto any label</strong> to reveal what sits behind it. The hero line is
+    shown as a placeholder — the previous one was retired on 11 August 2026 and a replacement has
+    not been written. Full argument in <code>01b-navigation-tone-and-structure.md</code>.
+  </div>
+</header>
+
+<!-- ============ A ============ -->
+<section class="system">
+  <div class="meta">
+    <span class="letter">A</span>
+    <span class="principle">The reader's job, as verbs</span>
+    <span class="verdict out">Out — tests 5, 6, 7</span>
+  </div>
+  <p class="note">Label by what the reader came to do rather than what the thing is called. Nobody
+  has to translate a category noun into an intention.</p>
+
+  <div class="stage">
+    <nav class="bar" aria-label="System A">
+      <span class="brand">Brad Friis</span>
+      <a class="item" href="#" data-g="1">Hire me</a>
+      <a class="item" href="#" data-g="2">Work with me</a>
+      <a class="item" href="#" data-g="3">Check me out</a>
+      <a class="item" href="#" data-g="4">Read me</a>
+      <a class="cta" href="#">Take the CV — PDF</a>
+    </nav>
+    <div class="gloss">
+      <span class="idle">Hover a label.</span>
+      <span class="live" data-g="1"><b>Hire me.</b> Twenty-five years, the decade selling Schoology and itslearning, and the document you can forward.</span>
+      <span class="live" data-g="2"><b>Work with me.</b> Clarity Engine AI. Positioning, commercial setup and customer experience.</span>
+      <span class="live" data-g="3"><b>Check me out.</b> Five letters, in full, with names on them.</span>
+      <span class="live" data-g="4"><b>Read me.</b> Writing about AI, positioning and customer experience.</span>
+    </div>
+    <div class="hero">
+      <p class="h placeholder">Hero line to be written.</p>
+      <p class="sub">Twenty-five years in software, media and agency work. Ten of them running a
+      United States vendor's New Zealand and Australian business as its only local partner.</p>
+    </div>
+  </div>
+
+  <ul class="cost">
+    <li><b>Four first-person verb phrases is a costume.</b> Nothing stands out when everything is odd, which is the second half of test 5.</li>
+    <li><b>"Hire me" is needy</b> from a man twenty-five years into a commercial career. It inverts the status the rest of the site works to build.</li>
+    <li><b>It would run unchanged on any freelancer's site.</b> Test 6, outright.</li>
+  </ul>
+</section>
+
+<!-- ============ B ============ -->
+<section class="system">
+  <div class="meta">
+    <span class="letter">B</span>
+    <span class="principle">The questions in the reader's head, in order</span>
+    <span class="verdict keep">Recommended — passes all seven</span>
+  </div>
+  <p class="note">Ordered by what a first-time visitor actually wants to know, with the evidence
+  sitting left of the biography. <em>Who says so</em> is the single unexpected item; everything else
+  is a legible signpost and the wit lives one layer down.</p>
+
+  <div class="stage">
+    <nav class="bar" aria-label="System B">
+      <span class="brand">Brad Friis</span>
+      <a class="item" href="#" data-g="1">The record</a>
+      <a class="item" href="#" data-g="2">Who says so</a>
+      <a class="item" href="#" data-g="3">Consulting</a>
+      <a class="item" href="#" data-g="4">Field notes</a>
+      <a class="cta" href="#">Take the CV — PDF</a>
+    </nav>
+    <div class="gloss">
+      <span class="idle">Hover a label.</span>
+      <span class="live" data-g="1"><b>The record.</b> Twenty-five years, told properly. Career, community and the CV.</span>
+      <span class="live" data-g="2"><b>Who says so.</b> Five people put it in writing. Full letters, named, nothing trimmed.</span>
+      <span class="live" data-g="3"><b>Consulting.</b> Clarity Engine AI. What I take on, and what it costs.</span>
+      <span class="live" data-g="4"><b>Field notes.</b> AI, positioning and customer experience, from inside the work.</span>
+    </div>
+    <div class="hero">
+      <p class="h placeholder">Hero line to be written.</p>
+      <p class="sub">Twenty-five years in software, media and agency work. Ten of them running a
+      United States vendor's New Zealand and Australian business as its only local partner, where
+      the licensed base went from 2,800 to 24,500 and an account that was actively evaluating a
+      competitor stayed and expanded.</p>
+    </div>
+  </div>
+
+  <ul class="cost">
+    <li><b>The set is not grammatically consistent.</b> An article, a compound, a clause and a bare gerund. Regularising it would create the repeated formula that killed D and F, so the inconsistency is the price of passing and should be defended rather than fixed.</li>
+    <li><b>"Consulting" is the plainest word in the row</b> and can look like a late addition. The mitigation is on the page, not in the label — it must answer <i>does he actually want a job</i> in its first paragraph.</li>
+    <li><b>"The record" is cold.</b> All the warmth has to come from the page headline and the community material at the foot of it.</li>
+    <li><b>It is not a brave navigation.</b> One unexpected item in four is a deliberately conservative setting of the dial.</li>
+    <li><b>"Who says so" gets one shot.</b> If the letters page ships with two empty placeholder slots, the boldest label on the site sits over the weakest page.</li>
+  </ul>
+</section>
+
+<!-- ============ C ============ -->
+<section class="system">
+  <div class="meta">
+    <span class="letter">C</span>
+    <span class="principle">Hats and roles — the Prolens device made functional</span>
+    <span class="verdict out">Out — test 6</span>
+  </div>
+  <p class="note">One person, several hats, tagged consistently, so a reader assembles the version of
+  Brad they came for without a switcher. Improves on the template, where the tags are decoration
+  attached to status nouns with nothing behind them.</p>
+
+  <div class="stage">
+    <nav class="bar" aria-label="System C">
+      <span class="brand">Brad Friis</span>
+      <a class="item" href="#" data-g="1">Account manager</a>
+      <a class="item" href="#" data-g="2">Channel partner</a>
+      <a class="item" href="#" data-g="3">Consultant</a>
+      <a class="item" href="#" data-g="4">Letters</a>
+      <a class="cta" href="#">CV</a>
+    </nav>
+    <div class="gloss">
+      <span class="idle">Hover a label.</span>
+      <span class="live" data-g="1"><b>Account manager.</b> Retention and expansion. Ten years of it, tagged across every piece of evidence.</span>
+      <span class="live" data-g="2"><b>Channel partner.</b> One territory, one vendor, a decade, three exclusive regions.</span>
+      <span class="live" data-g="3"><b>Consultant.</b> Clarity Engine AI. Positioning, messaging, commercial setup.</span>
+      <span class="live" data-g="4"><b>Letters.</b> Five references, each tagged with the roles it proves.</span>
+    </div>
+    <div class="hero">
+      <p class="h placeholder">Hero line to be written.</p>
+      <p class="sub">One person, three hats. Every letter, every role and every article carries the
+      tags it earns, so you can read only the half that concerns you.</p>
+    </div>
+  </div>
+
+  <ul class="cost">
+    <li><b>Three roles in a nav bar is a menu of services</b> — a freelancer trope wearing a different hat.</li>
+    <li><b>Coloured pills are the template look this project has rejected twice,</b> and without colour the device loses most of its legibility.</li>
+    <li><b>It fragments the evidence.</b> The five-campus save proves all three roles, so tagging it three times makes the tags mean less, not more.</li>
+    <li><b>The arithmetic does not work yet.</b> One career entry, five letters and up to five articles is nothing to filter. Same failure Stage 1 §6 caught in the lens switcher.</li>
+  </ul>
+</section>
+
+<!-- ============ D ============ -->
+<section class="system">
+  <div class="meta">
+    <span class="letter">D</span>
+    <span class="principle">Evidence type — shown against claimed</span>
+    <span class="verdict out">Out — tests 4 and 7 · uncomfortable by design</span>
+  </div>
+  <p class="note">Split the site by what can be shown and what has to be asserted. A principle only
+  available to someone who has documents where everyone else has adjectives.</p>
+
+  <div class="stage">
+    <nav class="bar" aria-label="System D">
+      <span class="brand">Brad Friis</span>
+      <a class="item" href="#" data-g="1">Signed</a>
+      <a class="item" href="#" data-g="2">Shipped</a>
+      <a class="item" href="#" data-g="3">Argued</a>
+      <a class="item" href="#" data-g="4">Taking work</a>
+      <a class="cta" href="#">CV</a>
+    </nav>
+    <div class="gloss">
+      <span class="idle">Hover a label.</span>
+      <span class="live" data-g="1"><b>Signed.</b> Five letters with signatures on them.</span>
+      <span class="live" data-g="2"><b>Shipped.</b> What actually happened. 2,800 to 24,500, the save, the decade.</span>
+      <span class="live" data-g="3"><b>Argued.</b> The writing. Positions taken, with reasons.</span>
+      <span class="live" data-g="4"><b>Taking work.</b> Clarity Engine AI, and what I am open to.</span>
+    </div>
+    <div class="hero">
+      <p class="h placeholder">Hero line to be written.</p>
+      <p class="sub">Everything on this site is either a document somebody else signed or a number
+      you can check. Nothing here is an adjective.</p>
+    </div>
+  </div>
+
+  <ul class="cost">
+    <li><b>Fatal: every label costs a beat.</b> A reader must work out that <i>Signed</i> means references before they can use it. Test 4, which is the rule "Unsolicited" broke.</li>
+    <li><b>Four past participles is a formula repeated across labels.</b> Test 7.</li>
+    <li><b>"Taking work" sits one word from the rejected "Availability"</b> and carries the same reads-as-unemployed risk.</li>
+    <li><b>What survives:</b> <i>Signed.</i> as the letters page headline. It names the physical fact and makes no claim about how the letters were obtained — worth a great deal after 11 August.</li>
+  </ul>
+</section>
+
+<!-- ============ E ============ -->
+<section class="system">
+  <div class="meta">
+    <span class="letter">E</span>
+    <span class="principle">What he does for you, written as offers</span>
+    <span class="verdict out">Out — test 2 · uncomfortable by design</span>
+  </div>
+  <p class="note">No biography anywhere. The career has to justify itself inside each offer as the
+  evidence for it, which is the site's governing rule expressed as structure rather than discipline.</p>
+
+  <div class="stage">
+    <nav class="bar" aria-label="System E">
+      <span class="brand">Brad Friis</span>
+      <a class="item" href="#" data-g="1">Keep your customers</a>
+      <a class="item" href="#" data-g="2">Grow your territory</a>
+      <a class="item" href="#" data-g="3">Fix your positioning</a>
+      <a class="item" href="#" data-g="4">Who says so</a>
+      <a class="cta" href="#">CV</a>
+    </nav>
+    <div class="gloss">
+      <span class="idle">Hover a label.</span>
+      <span class="live" data-g="1"><b>Keep your customers.</b> Retention and expansion. Ten years of it, with the letters attached.</span>
+      <span class="live" data-g="2"><b>Grow your territory.</b> Channel and partnership. One vendor, two markets, a decade.</span>
+      <span class="live" data-g="3"><b>Fix your positioning.</b> Clarity Engine AI. Positioning, messaging, commercial setup.</span>
+      <span class="live" data-g="4"><b>Who says so.</b> Five letters, in full.</span>
+    </div>
+    <div class="hero">
+      <p class="h placeholder">Hero line to be written.</p>
+      <p class="sub">Tell me what is stuck. Twenty-five years of commercial work behind every answer,
+      and five people who put their names to it.</p>
+    </div>
+  </div>
+
+  <ul class="cost">
+    <li><b>Fatal: there is no door that reads as for the recruiter.</b> A hiring manager sees three imperatives addressed to a buyer and concludes Brad is not looking for employment. Test 2.</li>
+    <li><b>Converting the secondary audience by losing the primary one is not a trade worth making.</b></li>
+    <li><b>Three imperative offers is a services-page template</b> of a different family.</li>
+    <li><b>What survives:</b> all three offers, as the content of the consulting page — which currently has nothing on it.</li>
+  </ul>
+</section>
+
+<!-- ============ F ============ -->
+<section class="system">
+  <div class="meta">
+    <span class="letter">F</span>
+    <span class="principle">Format — what the reader is handed</span>
+    <span class="verdict out">Out — tests 4, 5, 7</span>
+  </div>
+  <p class="note">Organise by the object the reader leaves with rather than by topic. The smallest and
+  calmest set on offer, and the only one that solves the four-pages-doing-one-job problem by structure.</p>
+
+  <div class="stage">
+    <nav class="bar" aria-label="System F">
+      <span class="brand">Brad Friis</span>
+      <a class="item" href="#" data-g="1">The documents</a>
+      <a class="item" href="#" data-g="2">The work</a>
+      <a class="item" href="#" data-g="3">The argument</a>
+      <a class="item" href="#" data-g="4">The conversation</a>
+    </nav>
+    <div class="gloss">
+      <span class="idle">Hover a label.</span>
+      <span class="live" data-g="1"><b>The documents.</b> Everything forwardable. CV, five letters, the career record.</span>
+      <span class="live" data-g="2"><b>The work.</b> Clarity Engine AI, Pikle, and what I take on.</span>
+      <span class="live" data-g="3"><b>The argument.</b> The writing.</span>
+      <span class="live" data-g="4"><b>The conversation.</b> Contact, and what I am open to — roles and consulting both.</span>
+    </div>
+    <div class="hero">
+      <p class="h placeholder">Hero line to be written.</p>
+      <p class="sub">Four things you can leave with. Everything else on this site is in service of
+      one of them.</p>
+    </div>
+  </div>
+
+  <ul class="cost">
+    <li><b>"The argument" costs a beat.</b> Test 4.</li>
+    <li><b>Four definite articles is a formula repeated across labels.</b> Test 7.</li>
+    <li><b>Nothing in it is repeatable a day later.</b> Safe everywhere is exactly how the last attempt failed.</li>
+    <li><b>Folding the CV inside a page rather than a button</b> costs the recruiter a click on the one thing they came for.</li>
+    <li><b>What survives:</b> the discipline. Four content routes is the right number, and F is the proof of it.</li>
+  </ul>
+</section>
+
+<!-- ============ scoring ============ -->
+<section class="scoring">
+  <h2>Scoring</h2>
+  <p class="note">Seven kill criteria, written down before any system was judged. A cross is a
+  failure, not a quibble. B was not the system this exercise set out expecting to recommend.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>System</th>
+        <th class="c">1<br>Forty sec</th>
+        <th class="c">2<br>Two doors</th>
+        <th class="c">3<br>Aloud</th>
+        <th class="c">4<br>One beat</th>
+        <th class="c">5<br>Contrast</th>
+        <th class="c">6<br>Only Brad</th>
+        <th class="c">7<br>Bans</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>A · verbs</td>
+        <td class="c y">pass</td><td class="c y">pass</td><td class="c p">partial</td>
+        <td class="c y">pass</td><td class="c n">fail</td><td class="c n">fail</td><td class="c n">fail</td>
+      </tr>
+      <tr class="win">
+        <td>B · questions</td>
+        <td class="c y">pass</td><td class="c y">pass</td><td class="c y">pass</td>
+        <td class="c y">pass</td><td class="c y">pass</td><td class="c y">pass</td><td class="c y">pass</td>
+      </tr>
+      <tr>
+        <td>C · hats</td>
+        <td class="c y">pass</td><td class="c y">pass</td><td class="c y">pass</td>
+        <td class="c y">pass</td><td class="c p">partial</td><td class="c n">fail</td><td class="c p">partial</td>
+      </tr>
+      <tr>
+        <td>D · evidence</td>
+        <td class="c p">partial</td><td class="c y">pass</td><td class="c y">pass</td>
+        <td class="c n">fail</td><td class="c y">pass</td><td class="c y">pass</td><td class="c n">fail</td>
+      </tr>
+      <tr>
+        <td>E · offers</td>
+        <td class="c y">pass</td><td class="c n">fail</td><td class="c y">pass</td>
+        <td class="c y">pass</td><td class="c y">pass</td><td class="c y">pass</td><td class="c p">partial</td>
+      </tr>
+      <tr>
+        <td>F · format</td>
+        <td class="c y">pass</td><td class="c y">pass</td><td class="c y">pass</td>
+        <td class="c n">fail</td><td class="c n">fail</td><td class="c n">fail</td><td class="c n">fail</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ul class="cost" style="margin-top:26px">
+    <li><b>1 Forty seconds.</b> A hiring manager gives the site forty seconds. Can they name two things it offers from the bar alone?</li>
+    <li><b>2 Two doors.</b> Neither audience's first click may land somewhere that reads as for the other one, and neither may be second-class.</li>
+    <li><b>3 Say it aloud.</b> Would Brad say the label to a person in a bar?</li>
+    <li><b>4 One beat.</b> Wit is allowed; a riddle is not. The rule "Unsolicited" broke.</li>
+    <li><b>5 Memorability under contrast.</b> One repeatable thing. Five odd labels is the same failure as none.</li>
+    <li><b>6 Only Brad.</b> If the set would work unchanged on somebody else's site, it is generic.</li>
+    <li><b>7 Bans.</b> No Proof, no Unsolicited, no consultancy slop, no borrowed slang, no formula repeated across labels, no row of pure abstract nouns.</li>
+  </ul>
+</section>
+
+<footer class="doc">
+  Stage 1c · 11 August 2026 · argument in
+  <a href="01b-navigation-tone-and-structure.md">01b-navigation-tone-and-structure.md</a> ·
+  candidates and statuses in <code>COPY/navigation/navigation.md</code>
+</footer>
+
+</div>
+</body>
+</html>

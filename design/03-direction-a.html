@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direction A — Editorial · Brad Friis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  /* ── compare bar ─────────────────────────────────────────────
+     Neutral chrome. Deliberately not in the direction's typography
+     so it never flatters or muddies the thing being judged. */
+  .bar {
+    position: sticky; top: 0; z-index: 50;
+    background: #16161a; color: #d8d8dc;
+    font: 400 12px/1 ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+    letter-spacing: .06em; text-transform: uppercase;
+    display: flex; flex-wrap: wrap; gap: 4px 20px; align-items: center;
+    padding: 13px 22px;
+  }
+  .bar strong { color: #fff; font-weight: 500; letter-spacing: .06em; }
+  .bar nav { margin-left: auto; display: flex; gap: 18px; }
+  .bar a { color: #8f8f98; text-decoration: none; }
+  .bar a:hover { color: #fff; }
+  .bar a.on { color: #fff; border-bottom: 1px solid #fff; padding-bottom: 2px; }
+
+  /* ── the direction ───────────────────────────────────────────
+     A — Editorial. Warm paper, serif display, grotesque furniture. */
+  :root {
+    --paper:   #f4f0e6;   /* warm ground, 8% warmer than the classic off-white */
+    --paper-2: #faf8f2;   /* raised surface, quotes and cards */
+    --ink:     #1b1815;   /* near-black with a brown cast, never pure #000 */
+    --ink-2:   #4b453c;   /* body copy at long measure */
+    --ink-3:   #7d7568;   /* captions, metadata */
+    --rule:    #d9d1bf;   /* hairlines */
+    --olive:   #4a5230;   /* the single accent. links, quote bar, marks */
+    --olive-2: #6d7647;   /* olive at hover and on small marks */
+
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+    --grot:  "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--serif); -webkit-font-smoothing: antialiased; }
+  .page { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+
+  /* furniture */
+  .label {
+    font-family: var(--grot); font-size: 11.5px; font-weight: 500;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3);
+  }
+  .rule-top { border-top: 1px solid var(--ink); padding-top: 14px; }
+
+  /* header */
+  .site {
+    display: flex; align-items: baseline; gap: 40px;
+    padding: 34px 0 30px; border-bottom: 1px solid var(--rule);
+  }
+  .wordmark { font-family: var(--serif); font-size: 21px; font-weight: 500; letter-spacing: -.01em; }
+  .site nav { margin-left: auto; display: flex; gap: 30px; }
+  .site nav a {
+    font-family: var(--grot); font-size: 13.5px; color: var(--ink-2);
+    text-decoration: none; letter-spacing: .01em;
+  }
+  .site nav a:hover { color: var(--olive); }
+
+  /* hero */
+  .hero { display: grid; grid-template-columns: 1.42fr 1fr; gap: 64px; padding: 84px 0 96px; align-items: start; }
+  h1.display {
+    font-family: var(--serif); font-variation-settings: "opsz" 60;
+    font-size: clamp(40px, 5.6vw, 74px); font-weight: 400; line-height: 1.03;
+    letter-spacing: -.021em; margin: 20px 0 0; max-width: 15ch; text-wrap: balance;
+  }
+  h1.display em { font-style: italic; font-weight: 400; }
+  .support {
+    font-size: 19.5px; line-height: 1.62; color: var(--ink-2);
+    max-width: 60ch; margin: 30px 0 0;
+  }
+  /* the claim names three documents, so the three names sit in the same viewport */
+  .attrib {
+    font-family: var(--grot); font-size: 12.5px; line-height: 1.75; color: var(--ink-3);
+    margin: 22px 0 0; max-width: 56ch; padding-top: 15px; border-top: 1px solid var(--rule);
+  }
+  .attrib b { font-weight: 500; color: var(--ink-2); }
+  .attrib span { white-space: nowrap; }   /* a name and its role never break apart */
+  .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+  .btn {
+    font-family: var(--grot); font-size: 14px; font-weight: 500; letter-spacing: .01em;
+    padding: 13px 24px; border-radius: 2px; text-decoration: none; display: inline-block;
+    transition: background .18s ease, color .18s ease;
+  }
+  .btn.solid { background: var(--olive); color: #f6f4ec; border: 1px solid var(--olive); }
+  .btn.solid:hover { background: #3b421f; }
+  .btn.ghost { border: 1px solid var(--rule); color: var(--ink); }
+  .btn.ghost:hover { border-color: var(--ink); }
+
+  figure.portrait { margin: 0; }
+  figure.portrait img { width: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: 50% 22%; display: block; filter: saturate(.92) contrast(1.02); }
+  figure.portrait figcaption {
+    font-family: var(--grot); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-3); margin-top: 13px; display: flex; justify-content: space-between; gap: 12px;
+  }
+
+  /* case study */
+  .case { padding: 0 0 110px; }
+  .case-head { border-top: 1px solid var(--ink); padding-top: 18px; }
+  h2.case-title {
+    font-family: var(--serif); font-variation-settings: "opsz" 40;
+    font-size: clamp(30px, 3.6vw, 47px); font-weight: 400; line-height: 1.1;
+    letter-spacing: -.017em; margin: 16px 0 0; max-width: 18ch;
+  }
+  .case-body { display: grid; grid-template-columns: 1.18fr 1fr; gap: 64px; margin-top: 44px; align-items: start; }
+  .case-body p { font-size: 18.5px; line-height: 1.68; color: var(--ink-2); margin: 0 0 22px; max-width: 64ch; }
+  .case-body p:last-of-type { margin-bottom: 26px; }
+  a.readmore {
+    font-family: var(--grot); font-size: 14px; font-weight: 500; color: var(--olive);
+    text-decoration: none; border-bottom: 1px solid var(--olive-2); padding-bottom: 3px;
+  }
+  a.readmore:hover { border-bottom-width: 2px; }
+
+  /* the pull-quote: no box. A rule, an oversized italic, an attribution. */
+  blockquote.pull {
+    margin: 6px 0 0; padding-top: 20px; border-top: 3px solid var(--olive);
+  }
+  blockquote.pull p {
+    font-family: var(--serif); font-variation-settings: "opsz" 30;
+    font-size: 25px; line-height: 1.36; font-style: italic; font-weight: 300;
+    color: var(--ink); margin: 0; letter-spacing: -.005em;
+  }
+  blockquote.pull cite {
+    display: block; font-family: var(--grot); font-style: normal; font-size: 12.5px;
+    line-height: 1.6; letter-spacing: .04em; color: var(--ink-3); margin-top: 20px;
+  }
+  blockquote.pull cite b { display: block; font-weight: 600; color: var(--ink); letter-spacing: .02em; font-size: 13px; }
+
+  /* ── specification appendix ─────────────────────────────────── */
+  .spec { background: #17171a; color: #c9c9cf; font-family: var(--grot); padding: 70px 0 90px; }
+  .spec .page { max-width: 1000px; }
+  .spec h3 { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #6e6e78; font-weight: 500; margin: 0 0 22px; }
+  .spec h4 { font-size: 15px; color: #fff; font-weight: 600; margin: 0 0 9px; }
+  .spec p, .spec li { font-size: 14px; line-height: 1.68; color: #a9a9b2; max-width: 74ch; }
+  .spec p { margin: 0 0 14px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px; padding-top: 26px; border-top: 1px solid #2c2c33; }
+  .grid3 + .grid3 { margin-top: 46px; }
+  .sw { display: flex; align-items: center; gap: 11px; margin-bottom: 9px; font-size: 13px; }
+  .sw i { width: 26px; height: 26px; border-radius: 2px; border: 1px solid #34343c; flex: none; }
+  .sw code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: #dedee4; }
+  .sw span { color: #7f7f89; font-size: 12.5px; }
+  .spec ul { margin: 0; padding-left: 17px; }
+  .spec li { margin-bottom: 8px; }
+  .spec code.url { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; color: #8fa06a; background: #1e1e23; border: 1px solid #2c2c33; border-radius: 3px; padding: 10px 12px; margin-top: 10px; word-break: break-all; line-height: 1.55; }
+  .cost { margin-top: 46px; padding: 26px 30px; border: 1px solid #3a2f24; background: #221b15; border-radius: 3px; }
+  .cost h4 { color: #e8b87e; }
+  .cost p:last-child { margin-bottom: 0; }
+
+  @media (max-width: 940px) {
+    .page { padding: 0 24px; }
+    .hero, .case-body { grid-template-columns: 1fr; gap: 40px; }
+    .hero { padding: 56px 0 68px; }
+    figure.portrait { max-width: 380px; }
+    .grid3 { grid-template-columns: 1fr; gap: 30px; }
+    .site nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <strong>Stage 3 · Direction A</strong> <span>Editorial</span>
+  <nav>
+    <a class="on" href="03-direction-a.html">A Editorial</a>
+    <a href="03-direction-b.html">B Technical</a>
+    <a href="03-direction-c.html">C Confident Minimal</a>
+    <a href="index.html">Contact sheet</a>
+  </nav>
+</div>
+
+<div class="page">
+
+  <header class="site">
+    <div class="wordmark">Brad Friis</div>
+    <nav>
+      <a href="#">Career</a><a href="#">Proof</a><a href="#">Writing</a><a href="#">About</a><a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <div class="label">Auckland, New Zealand</div>
+      <h1 class="display">Three customers wrote references I <em>never asked for.</em></h1>
+      <p class="support">Twenty-five years in software, media and agency work. Ten of them running a United States vendor's New Zealand and Australian business as its only local partner, where the licensed base went from 2,800 to 24,500 and an account that was actively evaluating a competitor stayed and expanded.</p>
+      <p class="attrib">
+        <span><b>Adrian Pilgrim</b>, The Industry School</span> &nbsp;·&nbsp;
+        <span><b>Dr Andrew Bergh</b>, high school principal</span> &nbsp;·&nbsp;
+        <span><b>Pranesh Lad</b>, Rototuna High Schools</span>
+      </p>
+      <div class="actions">
+        <a class="btn solid" href="#">Read the references</a>
+        <a class="btn ghost" href="#">Download the resume (PDF)</a>
+      </div>
+    </div>
+    <figure class="portrait">
+      <img src="../Brad%20Friis%20Resumes/B%20Friis.jpg" alt="Brad Friis">
+      <figcaption><span>Brad Friis</span><span>Auckland</span></figcaption>
+    </figure>
+  </section>
+
+  <!-- CASE STUDY -->
+  <section class="case">
+    <div class="case-head">
+      <div class="label">Case study · The Industry School</div>
+      <h2 class="case-title">The account that was leaving stayed, then spent more.</h2>
+    </div>
+    <div class="case-body">
+      <div>
+        <p>Five campuses, one organisation, and an active evaluation of a competing platform underway. I started with the leadership team to agree what the organisation was actually trying to achieve, then went campus by campus to understand what each one needed and where the platform was failing them.</p>
+        <p>The result was a single unified strategy instead of five local ones, custom workarounds for the gaps that mattered, and less duplicated effort across sites. They stayed, and then increased their investment.</p>
+        <a class="readmore" href="#">Read Adrian Pilgrim's full reference →</a>
+      </div>
+      <blockquote class="pull">
+        <p>At a time when we were considering moving away from Schoology, Brad helped us see the platform's potential. He created custom strategies and workarounds that fit our operations, giving us the confidence to invest in the platform further.</p>
+        <cite><b>Adrian Pilgrim</b>Teaching and Learning Manager<br>The Industry School</cite>
+      </blockquote>
+    </div>
+  </section>
+
+</div>
+
+<!-- SPECIFICATION -->
+<div class="spec">
+  <div class="page">
+    <h3>Direction A — Editorial · specification</h3>
+
+    <div class="grid3">
+      <div>
+        <h4>Type pairing</h4>
+        <p><b style="color:#fff">Newsreader</b> — display and body. Production Type's open-source text face, with an optical-size axis that is actually used here: <code style="color:#8fa06a">opsz 60</code> on the hero for tight, high-contrast display fitting, <code style="color:#8fa06a">opsz 30</code> on the pull-quote, defaults for body. Chosen over Playfair and Lora because both have been used into the ground, and over Fraunces because Fraunces carries a recognisable house style of its own.</p>
+        <p><b style="color:#fff">Archivo</b> — furniture only. Navigation, labels, buttons, captions, attributions. It never sets a sentence longer than a line, which is what keeps the page reading as a magazine rather than a website with a serif heading.</p>
+        <code class="url">https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&amp;family=Archivo:wght@400;500;600&amp;display=swap</code>
+      </div>
+      <div>
+        <h4>Colour</h4>
+        <div class="sw"><i style="background:#f4f0e6"></i><code>#f4f0e6</code><span>Paper</span></div>
+        <div class="sw"><i style="background:#faf8f2"></i><code>#faf8f2</code><span>Raised</span></div>
+        <div class="sw"><i style="background:#1b1815"></i><code>#1b1815</code><span>Ink</span></div>
+        <div class="sw"><i style="background:#4b453c"></i><code>#4b453c</code><span>Body</span></div>
+        <div class="sw"><i style="background:#7d7568"></i><code>#7d7568</code><span>Metadata</span></div>
+        <div class="sw"><i style="background:#d9d1bf"></i><code>#d9d1bf</code><span>Rule</span></div>
+        <div class="sw"><i style="background:#4a5230"></i><code>#4a5230</code><span>Olive, accent</span></div>
+        <p style="margin-top:14px">A warm ground and a brown-cast ink, so nothing on the page is pure black or pure white. One accent, deep olive, used in exactly three places: the primary button, the rule above the pull-quote, and link underlines. The olive was taken from the jacket in the portrait, which means the photograph sits inside the palette instead of on top of it.</p>
+      </div>
+      <div>
+        <h4>Scale and spacing</h4>
+        <ul>
+          <li>Display <code>clamp(40px, 5.6vw, 74px)</code>, line-height 1.03, tracking −0.021em</li>
+          <li>Case title <code>clamp(30px, 3.6vw, 47px)</code>, line-height 1.10</li>
+          <li>Pull-quote 25px italic, weight 300</li>
+          <li>Body 18.5–19.5px, line-height 1.62–1.68</li>
+          <li>Furniture 11.5–14px, tracking +0.14em on uppercase</li>
+        </ul>
+        <p style="margin-top:14px">Roughly a 1.28 ratio through the text sizes with a deliberate break at display, so the hero is a jump rather than a step. Measures are wide by web standards — 60ch in the hero, 64ch in the body — because a serif at 19px holds a long line, and long lines are what make a page read as considered rather than scanned. Vertical rhythm on an 8px base: 84px above the hero, 110px below the case study, 22px between paragraphs.</p>
+      </div>
+    </div>
+
+    <div class="grid3">
+      <div>
+        <h4>Component treatment</h4>
+        <p>Rules do the structural work, not boxes. A 1px ink rule opens each section, hairlines in <code>#d9d1bf</code> separate. The pull-quote has no container at all — a 3px olive rule, an oversized italic, and an attribution block. Corners at 2px, which reads as printed rather than as a card.</p>
+      </div>
+      <div>
+        <h4>Photography</h4>
+        <p>Full-bleed 4:5 at 40 percent of the hero width, positioned high so the eyeline sits near the optical centre. Saturation pulled to 92 percent and contrast lifted 2 percent so the studio white recedes into the paper ground. Captioned in the furniture face, the way a magazine credits a picture.</p>
+      </div>
+      <div>
+        <h4>How it handles the hero claim</h4>
+        <p>The three names sit directly under the support paragraph above a hairline, so the claim and its evidence are in the same viewport at every breakpoint. The names are set in the furniture face at 12.5px, which keeps them as a credit line rather than turning them into a second headline.</p>
+      </div>
+    </div>
+
+    <div class="cost">
+      <h4>What it costs</h4>
+      <p><b style="color:#fff">It reads older.</b> The serif, the paper and the wide measures are the visual language of consultancy, law and long-form journalism. That is exactly right for the credibility problem and exactly wrong for the AI-consulting audience, who arrive from `/writing` expecting the person writing about AI for business to look like they work in this decade. This is the one direction where the blog and the resume genuinely pull in different directions.</p>
+      <p><b style="color:#fff">It flatters age.</b> Brad is a candidate with twenty-five years behind him in a market that is not always kind about that. A warm-paper editorial system quietly reinforces seniority, which is the intended read, but it leaves no room to signal currency.</p>
+      <p><b style="color:#fff">It is the hardest to keep clean.</b> Editorial systems fail loudly. One heading at the wrong optical size, one measure too narrow, one stock photograph, and it collapses into a template. It also carries the largest font payload of the three at two families with variable axes.</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

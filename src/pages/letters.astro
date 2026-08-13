@@ -1,0 +1,60 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+
+const references = [
+  {
+    name: "Adrian Pilgrim",
+    role: "The Industry School · 2025",
+    quote: "At a time when we were considering moving away from Schoology, Brad helped us see the platform's potential and gave us the confidence to invest further.",
+  },
+  {
+    name: "Andrew Bergh",
+    role: "High School Principal · 16 June 2025",
+    quote: "Brad's most remarkable quality is his ability to support teachers resistant to change. Even the most hesitant became confident users.",
+  },
+  {
+    name: "Phillip Lemon",
+    role: "CanWest Media · 11 February 2006",
+    quote: "Several of Brad's past clients have mentioned his ability a number of years on from his departure.",
+  },
+  {
+    name: "Hamish Lowry",
+    role: "Hawke's Bay Tourism · 12 February 2003",
+    quote: "Brad has assisted with a significant improvement in tourism industry buy-in to the core marketing activities of Hawke's Bay Tourism.",
+  },
+];
+---
+
+<SiteLayout
+  title="Written references — Brad Friis"
+  description="Selected excerpts from written references for Brad Friis, spanning customers and managers from 2003 to 2025."
+>
+  <header class="page-hero shell">
+    <p class="eyebrow">Written references · 2003–2025</p>
+    <h1>People put it in writing.</h1>
+    <p class="page-intro">Six written references support the record. These four selected excerpts show customer retention, product adoption, lasting relationships and commercial impact.</p>
+  </header>
+
+  <section class="document-list shell" aria-label="Selected reference excerpts">
+    {references.map((reference) => (
+      <article class="document">
+        <header>
+          <h2>{reference.name}</h2>
+          <p class="document-meta">{reference.role}</p>
+        </header>
+        <blockquote>“{reference.quote}”</blockquote>
+      </article>
+    ))}
+  </section>
+
+  <section class="section shell" aria-labelledby="reference-contact">
+    <div class="contact-panel">
+      <div>
+        <p class="section-label">Next step</p>
+        <h2 id="reference-contact">Start a Conversation</h2>
+        <p>Ask Brad about the role, the commercial number and the work behind these references.</p>
+      </div>
+      <a class="button" href="mailto:brad@clarityengine.co">Contact Brad</a>
+    </div>
+  </section>
+</SiteLayout>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design contact sheet — Brad Friis personal site</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  :root {
+    --ink:#111; --ink-2:#444; --ink-3:#767676; --ink-4:#9a9a9a;
+    --rule:#d4d4d4; --rule-2:#e8e8e8; --ground:#fafafa;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  body {
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width: 880px; margin:0 auto; padding: 0 24px 90px; }
+  header { padding: 72px 0 34px; border-bottom:1px solid var(--rule); }
+  .meta { font-family:var(--mono); font-size:12px; color:var(--ink-3); text-transform:uppercase; letter-spacing:.07em; }
+  h1 { font-size:28px; margin:8px 0 0; font-weight:650; letter-spacing:-0.015em; }
+  header p { color:var(--ink-2); max-width:62ch; margin:16px 0 0; }
+
+  h2 { font-size:13px; font-family:var(--mono); text-transform:uppercase; letter-spacing:.09em; color:var(--ink-3); font-weight:400; margin:52px 0 18px; }
+
+  .stages { list-style:none; margin:0; padding:0; }
+  .stage { display:flex; gap:22px; padding:22px 0; border-bottom:1px solid var(--rule-2); align-items:flex-start; }
+  .stage .num { font-family:var(--mono); font-size:12px; color:var(--ink-4); width:34px; flex:none; padding-top:3px; }
+  .stage .body { flex:1; min-width:0; }
+  .stage h3 { font-size:16.5px; margin:0 0 5px; font-weight:600; }
+  .stage h3 a { color:var(--ink); text-decoration:none; border-bottom:1px solid var(--ink); }
+  .stage h3 a:hover { background:#fff; }
+  .stage p { margin:0; color:var(--ink-2); font-size:14px; max-width:64ch; }
+  .stage .file { font-family:var(--mono); font-size:11.5px; color:var(--ink-4); margin-top:7px; }
+  .status { flex:none; font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.07em; padding:3px 9px; border:1px solid var(--rule); border-radius:2px; color:var(--ink-3); white-space:nowrap; }
+  .status.done { background:var(--ink); border-color:var(--ink); color:#fff; }
+  .stage.pending h3, .stage.pending p { color:var(--ink-4); }
+  .stage.pending h3 { font-weight:500; }
+
+  .panel { background:#fff; border:1px solid var(--rule); border-radius:3px; padding:24px 28px; margin-top:20px; }
+  .panel h3 { font-size:15px; margin:0 0 12px; font-weight:650; }
+  .panel ul { margin:0; padding-left:19px; color:var(--ink-2); font-size:14px; }
+  .panel li { margin-bottom:8px; max-width:70ch; }
+  .panel li:last-child { margin-bottom:0; }
+  .panel li strong { color:var(--ink); font-weight:600; }
+  .panel + .panel { margin-top:14px; }
+
+  table { width:100%; border-collapse:collapse; font-size:13.5px; }
+  th, td { text-align:left; padding:9px 10px 9px 0; border-bottom:1px solid var(--rule-2); vertical-align:top; }
+  th { font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-3); font-weight:400; }
+  td:last-child, th:last-child { padding-right:0; }
+
+  footer { margin-top:56px; padding-top:24px; border-top:1px solid var(--rule); color:var(--ink-3); font-size:13px; }
+  code { font-family:var(--mono); font-size:.92em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="meta">Design contact sheet</div>
+    <h1>Brad Friis — personal site and thought-leadership blog</h1>
+    <p>Four design stages in standalone HTML and Markdown before any application code is written. Each stage has a review gate. Stages 1, 2 and 3 are delivered. A later hybrid mock tests whether the live Framer proof page can borrow iPort's panel language without becoming a fake app.</p>
+    <p style="font-size:13.5px; color:var(--ink-3)">Updated 13 August 2026, 2:12 PM NZST · Stack for the eventual build: Next.js 15 App Router, TypeScript, Tailwind CSS v4, Sanity at <code>/studio</code>, Vercel. Live launch path is currently Framer / Prolens.</p>
+  </header>
+
+  <h2>Artefacts</h2>
+  <ul class="stages">
+
+    <li class="stage">
+      <span class="num">01</span>
+      <div class="body">
+        <h3><a href="01-positioning-brief.md">Positioning and message hierarchy</a></h3>
+        <p>Audience definitions, the three-second proposition, proof ordering, voice, five hero copy candidates with reasoning, and the tested verdict on the audience-lens hypothesis. Resolves both open content questions.</p>
+        <div class="file">01-positioning-brief.md</div>
+      </div>
+      <span class="status done">Ready for review</span>
+    </li>
+
+    <li class="stage">
+      <span class="num">02</span>
+      <div class="body">
+        <h3><a href="02-wireframes.html">Information architecture and wireframes</a></h3>
+        <p>Site map and low-fidelity wireframes for all eight routes in one scrollable document. Grey boxes, real copy, no colour or type personality. Annotated section by section, with the open questions collected at the end.</p>
+        <div class="file">02-wireframes.html</div>
+      </div>
+      <span class="status done">Ready for review</span>
+    </li>
+
+    <li class="stage">
+      <span class="num">03</span>
+      <div class="body">
+        <h3><a href="03-direction-a.html">Editorial</a> · <a href="03-direction-b.html">Technical</a> · <a href="03-direction-c.html">Confident Minimal</a></h3>
+        <p>Three art directions, each applied to the identical hero and account-save section so the comparison is like for like. Every direction carries its own specification — type pairing with load URL, colour values, scale and spacing logic — and states what it costs. Open all three, then read the recommendation below.</p>
+        <div class="file">03-direction-a.html · 03-direction-b.html · 03-direction-c.html</div>
+      </div>
+      <span class="status done">Ready for review</span>
+    </li>
+
+    <li class="stage">
+      <span class="num">06</span>
+      <div class="body">
+        <h3><a href="06-hybrid-direction.html">Hybrid: proof page + iPort panels</a></h3>
+        <p>Parallel visual test, not Stage 4. Desktop and mobile homepage mock using paste-sheet copy. Conversion-first first screen, one workspace window after the fold, iOS grouped lists on mobile. Recommendation: adapt lightly. Notes and risk list in the markdown file.</p>
+        <div class="file">06-hybrid-direction.html · 06-hybrid-direction.md</div>
+      </div>
+      <span class="status done">Ready for review</span>
+    </li>
+
+    <li class="stage pending">
+      <span class="num">04</span>
+      <div class="body">
+        <h3>High-fidelity homepage and motion specification</h3>
+        <p>The chosen direction across the full homepage at desktop and mobile, with trigger, property, duration, easing, stagger and the reduced-motion fallback written against each section. This artefact is what the build works to.</p>
+        <div class="file">04-homepage.html</div>
+      </div>
+      <span class="status">Blocked on gate 2</span>
+    </li>
+  </ul>
+
+  <h2>Stage 3 — the recommendation</h2>
+
+  <div class="panel">
+    <h3>Direction A, Editorial — with one component taken from B</h3>
+    <ul>
+      <li><strong>The brief rules out cold.</strong> Section 7 of the positioning brief says a direction that reads cold or corporate is off-brief even if it looks expensive. B is precise and it is also cold: it takes Adrian Pilgrim's sentence about warmth, patience and humour and puts it in a bordered panel headed <em>Reference 01 of 03</em>. That is the argument that ends B as a whole-site system, and it is not a small one.</li>
+      <li><strong>The differentiator is documents.</strong> No competing personal site in this market publishes three signed, named references in full. That is the asset, and editorial typography is the native system for it — a serif at a wide measure over a warm ground is what a letter looks like. B turns a letter into a record and C turns it into a slogan.</li>
+      <li><strong>The blog is a sales asset, not decoration.</strong> For the founder considering Clarity Engine AI, the writing <em>is</em> the pitch. A is the only one of the three that arrives as a reading system rather than a landing-page system, and <code>/writing/[slug]</code> is the highest-traffic route on the site by headcount.</li>
+      <li><strong>C is the safest and the least distinctive.</strong> Very large grotesque over extreme whitespace is the most-copied premium look currently in circulation. It is not a template, but its failure mode is the exact one that has already caused two rejections — converging on a recognisable house style. It is the right answer if the priority ever shifts from being remembered to being unobjectionable.</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h3>The graft: B's evidence table into A's hero</h3>
+    <ul>
+      <li>Hero option G claims that three customers wrote references. B answers that claim with a three-row table of names, roles and links to the letters — the assertion and its receipts in one object. It is the single best component produced at this stage and it belongs in the chosen direction regardless of which one wins.</li>
+      <li>In A it would be set in Archivo at 13px on the existing hairlines, replacing the credit line currently under the support paragraph. Same information, more useful, and it gives the reader a second route into <code>/proof</code> from above the fold.</li>
+      <li>This is the same move Stage 1 made when it recommended hero option C with option A's closing sentence folded in. Nothing good is discarded because it arrived in the losing document.</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h3>Ranked, with the cost of each</h3>
+    <table style="margin-top:4px">
+      <tr><th style="width:26px"></th><th style="width:150px">Direction</th><th>Wins because</th><th style="width:32%">Costs</th></tr>
+      <tr><td>1</td><td><strong>A · Editorial</strong></td><td>Warm, senior, built for documents and long-form writing. The only direction the photograph belongs inside rather than sits on top of.</td><td>Reads older, and gives no signal of currency to the AI audience.</td></tr>
+      <tr><td>2</td><td><strong>C · Confident Minimal</strong></td><td>Expensive, calm, and it shows the portrait untouched. Ages slowly.</td><td>Least distinctive at a glance, and its whitespace fights the same-viewport evidence rule on every section.</td></tr>
+      <tr><td>3</td><td><strong>B · Technical</strong></td><td>The evidence table, and the most rigorous structure of the three.</td><td>Cold, which the brief rules out, and it borrows a recognisable developer-tool dialect.</td></tr>
+    </table>
+  </div>
+
+  <div class="panel">
+    <h3>What would change this recommendation</h3>
+    <ul>
+      <li><strong>If the consulting buyer becomes the priority over the hiring manager.</strong> A's seniority turns from asset to liability the moment the primary reader is a founder assessing whether Brad is current on AI. In that case take C and graft A's serif into <code>/writing</code> only.</li>
+      <li><strong>If Brad wants the site to read as a product rather than a publication.</strong> That is B, and it would be a defensible choice — but the voice would have to be rewritten alongside it, because the current copy is warm and the system is not.</li>
+      <li><strong>If none of the three is right.</strong> Say so plainly and name what is wrong. A fourth direction is two hours of work at this stage and a fortnight of work after Stage 4.</li>
+    </ul>
+  </div>
+
+  <h2>What stages 1 and 2 decided</h2>
+
+  <div class="panel">
+    <h3>The position</h3>
+    <ul>
+      <li><strong>Three-second proposition:</strong> Brad Friis keeps software customers, and grows them, for a decade at a time.</li>
+      <li><strong>Hero line, chosen 10 August 2026:</strong> "Three customers wrote references I never asked for." Options A, C and E were turned down and a second round was written; the full set with the argument for and against each is in <code>COPY/hero-lines/hero-lines.md</code>. The Stage 1 recommendation, option C, is kept there as a rejected entry rather than deleted.</li>
+      <li><strong>Consequence of the new hero:</strong> the claim names three documents, so three names now sit above the fold. Every direction carries the attributions in the same viewport, and written consent moves from important to structural.</li>
+      <li><strong>Proof leads with the five-campus save</strong>, because it is the only asset that is a story, a commercial outcome and a signed third-party document at once. The 2,800 to 24,500 figure supports it rather than leading.</li>
+      <li><strong>No claim appears without its evidence in the same viewport</strong>, and every quote links to the complete letter at <code>/proof</code>.</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h3>Changes to the approved plan</h3>
+    <ul>
+      <li><strong>The audience lens is mostly rejected.</strong> The four resume variants share about three quarters of their content, so a visible control would re-order the same six achievements and ask the reader to classify themselves before they know anything. The URL parameter survives on <code>/resume/[lens]</code>, set by Brad on outbound links, with no switcher shown.</li>
+      <li><strong>"What I'm proud of" is cut from the homepage.</strong> No material exists for it. Community and governance move to <code>/about</code>.</li>
+      <li><strong><code>/proof</code> is both</strong> a destination page and distributed quotes, not one or the other.</li>
+      <li><strong>The professional-services resume variant does not get a route</strong> — it duplicates the B2B SaaS variant. Kept as a document for direct sending.</li>
+      <li><strong>Plan impact:</strong> the <code>lens-switcher</code> todo shrinks from cross-page state management to a single dynamic route on the resume.</li>
+    </ul>
+  </div>
+
+  <h2>Waiting on Brad</h2>
+  <table>
+    <tr><th style="width:30px">#</th><th>Needed</th><th style="width:34%">Recommendation</th><th style="width:105px">Blocks</th></tr>
+    <tr><td>1</td><td><strong>Pick a direction — A, B or C.</strong> Or say what is wrong with all three.</td><td>A, Editorial, with the evidence table from B grafted into the hero</td><td>Stage 4</td></tr>
+    <tr><td>2</td><td>Written consent from Andrew Bergh, Adrian Pilgrim and Pranesh Lad to be named publicly with their letters in full</td><td>Now urgent rather than important — the new hero puts all three names above the fold. Withhold Dr Bergh's email and phone regardless.</td><td>Stage 4</td></tr>
+    <tr><td>3</td><td>A second photograph for <code>/about</code></td><td>Working environment rather than studio, to sit against the portrait</td><td>Stage 4</td></tr>
+    <tr><td>4</td><td>Domain</td><td><code>bradfriis.co</code> assumed throughout</td><td>Phase B</td></tr>
+    <tr><td>5</td><td>Proof strip, fourth figure — "3 references · written, signed, unsolicited" now repeats the hero</td><td>Change the caption to "Written, signed, and reproduced in full", or drop to three figures</td><td>Stage 4</td></tr>
+  </table>
+
+  <div class="panel" style="margin-top:20px">
+    <h3>Closed since the last update</h3>
+    <ul>
+      <li><strong>Hero photograph — found.</strong> <code>B Friis.jpg</code> and <code>B Friis_.jpg</code> in <code>Brad Friis Resumes/</code> are the same portrait at 945×1181 and 3276×4095, already 4:5. All three directions use it. It is a studio shot rather than the working environment originally recommended, and it is good enough that the point is moot for the hero.</li>
+      <li><strong>Audience lens — confirmed.</strong> No visible control anywhere. <code>/resume/[lens]</code> survives as four routes set by Brad on outbound links.</li>
+      <li><strong>Family content — confirmed out.</strong> Community and governance carry the character evidence on <code>/about</code>.</li>
+      <li><strong>Repository — still public, nothing pushed.</strong> <code>Clarity-EngineAI/Brad_Friis_Web_Portfolio</code> reports <code>private: false</code>. It cannot receive this workspace while three unconsented reference letters and Dr Bergh's personal contact details are in it. Make it private, then the first push can happen in five minutes.</li>
+    </ul>
+  </div>
+
+  <footer>
+    Open the three directions in a browser side by side: <a href="03-direction-a.html">A</a> · <a href="03-direction-b.html">B</a> · <a href="03-direction-c.html">C</a>. Each one ends with its own specification and its own cost.<br>
+    Parallel visual test: <a href="06-hybrid-direction.html">hybrid proof page + iPort panels</a> · <a href="06-hybrid-direction.md">notes</a>. This does not replace Stage 3.<br>
+    Every line of copy written for the site, in use or not, is kept in <code>COPY/</code> with the argument for and against it.<br>
+    No application code has been written. Phase B begins after the Stage 4 sign-off.
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Brad Friis — Commercial operator for SaaS growth",
+  description = "Brad Friis builds commercial systems around software growth: sales, revenue systems, product adoption and AI enablement.",
+} = Astro.props;
+
+const path = Astro.url.pathname;
+const canonical = new URL(path, Astro.site ?? Astro.url).href;
+---
+
+<!doctype html>
+<html lang="en-NZ">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f3f1ec" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="en_NZ" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="wordmark" href="/" aria-label="Brad Friis, home">Brad Friis</a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a class="nav-secondary" href="/#work">Work</a>
+        <a class="nav-secondary" href="/letters/" aria-current={path.startsWith("/letters") ? "page" : undefined}>Letters</a>
+        <a href="/cv/" aria-current={path.startsWith("/cv") ? "page" : undefined}>CV</a>
+        <a class="header-contact" href="mailto:brad@clarityengine.co">Contact</a>
+      </nav>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <p>© 2026 Brad Friis. All rights reserved.</p>
+      <div>
+        <a href="/cv/">CV</a>
+        <a href="/letters/">Letters</a>
+        <a href="mailto:brad@clarityengine.co">brad@clarityengine.co</a>
+      </div>
+    </footer>
+  </body>
+</html>
