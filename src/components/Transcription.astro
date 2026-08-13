@@ -1,0 +1,38 @@
+---
+import type { LetterBlock } from "../data/letters";
+
+interface Props {
+  blocks: LetterBlock[];
+}
+
+const { blocks } = Astro.props;
+---
+
+{
+  blocks.map((block) => {
+    if (block.kind === "aside") return <p class="aside">{block.text}</p>;
+    if (block.kind === "heading" && block.level === 3) return <h2>{block.text}</h2>;
+    if (block.kind === "heading") return <h3>{block.text}</h3>;
+    if (block.kind === "lines")
+      return (
+        <p class="lines">
+          {block.lines.map((line) => (
+            <span>{line}</span>
+          ))}
+        </p>
+      );
+    if (block.kind === "list")
+      return (
+        <ul>
+          {block.items.map((item) => (
+            <li>
+              {item.lead && <strong>{item.lead}</strong>}
+              {item.lead ? " " : ""}
+              {item.text}
+            </li>
+          ))}
+        </ul>
+      );
+    return <p>{block.text}</p>;
+  })
+}

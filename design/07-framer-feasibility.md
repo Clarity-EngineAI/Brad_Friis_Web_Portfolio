@@ -1,9 +1,11 @@
+> **Historical document, 13 August 2026.** The site is a bespoke Astro build; Framer and the Prolens template are abandoned. Read `README.md` first. The reasoning here still stands where it is about positioning, copy or layout logic — ignore anything about Framer as a delivery path.
+
 # Framer feasibility — list/detail workspace and iOS grouped lists
 
 **Written:** Thursday 13 August 2026, 2:07 PM NZST  
 **Status:** Feasibility assessment for Option A. Does not change the paste sheet, the 06 direction files or the live build.  
 **Tests:** `design/06-hybrid-direction.html` (Desktop and Mobile)  
-**Copy source of truth:** `FRAMER-PASTE-SHEET.md` — unchanged by this document.
+**Copy source of truth:** `COPY-SOURCE-OF-TRUTH.md` — unchanged by this document.
 
 All Framer behaviour below was checked against Framer's live documentation on 13 August 2026, not from memory. Links are in the Findings section.
 
@@ -110,7 +112,7 @@ Do these in order. Stop at step 5 and look at the result before going further.
 5. **If the desktop still feels generic, build one workspace — Capabilities only.** In order:
    a. Create the Capability collection (four items: the four card titles from the paste sheet, section 3).
    b. Create the Capability detail collection with a Reference field to Capability, plus Body, Proof, Proof source and Letter link.
-   c. Paste the four card bodies from `FRAMER-PASTE-SHEET.md` section 3 into Body. Do not rewrite them.
+   c. Paste the four card bodies from `COPY-SOURCE-OF-TRUTH.md` section 3 into Body. Do not rewrite them.
    d. On the homepage, delete the Prolens four-card grid and place a Collection List bound to Capability detail. Set the limit to 1.
    e. Add the Dynamic Tabs filter on the Reference field. Drag the generated tab control into the left column.
    f. Style the tab default and active variants, then the detail panel, using the values table below.
@@ -271,4 +273,4 @@ Base unit 2px, but in practice the mock uses a short, disciplined ladder. Use th
 - No fabricated testimonials.
 - No dock, fake desktop, dashboard widgets or command-centre naming on the first screen.
 - The paste-sheet first screen stays exactly as specified. Everything in this document applies below the fold.
-- `FRAMER-PASTE-SHEET.md` remains the copy source of truth and is unchanged.
+- `COPY-SOURCE-OF-TRUTH.md` remains the copy source of truth and is unchanged.

@@ -1,0 +1,90 @@
+---
+import { contact } from "../data/contact";
+
+const reasons = ["A role", "A project or consulting", "Something else"];
+---
+
+<div class="contact-panel">
+  <div class="contact-details">
+    <p class="eyebrow-pill">Contact Me</p>
+    <h2 id="contact-heading">Start a conversation.</h2>
+    <p>Sales Growth · SaaS · Revenue Systems · Product Adoption · AI</p>
+    <dl class="contact-list">
+      <div>
+        <dt>Email</dt>
+        <dd><a href={`mailto:${contact.email}`}>{contact.email}</a></dd>
+      </div>
+      <div>
+        <dt>Phone</dt>
+        <dd><a href={contact.phoneHref}>{contact.phone}</a></dd>
+      </div>
+      <div>
+        <dt>Location</dt>
+        <dd>{contact.location}</dd>
+      </div>
+      <div>
+        <dt>LinkedIn</dt>
+        <dd><a href={contact.linkedin} rel="me">linkedin.com/in/bradfriis</a></dd>
+      </div>
+    </dl>
+  </div>
+
+  <form
+    class="contact-form"
+    name="contact"
+    method="POST"
+    action="/thanks/"
+    data-netlify="true"
+    data-netlify-honeypot="bot-field"
+  >
+    <input type="hidden" name="form-name" value="contact" />
+    <p class="honeypot" aria-hidden="true">
+      <label for="bot-field">Leave this field empty</label>
+      <input id="bot-field" name="bot-field" type="text" tabindex="-1" autocomplete="off" />
+    </p>
+
+    <h3>Message me</h3>
+
+    <div class="field-row">
+      <p class="field">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" placeholder="Your name" autocomplete="name" required aria-required="true" />
+      </p>
+      <p class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@company.com" autocomplete="email" required aria-required="true" />
+      </p>
+    </div>
+
+    <p class="field">
+      <label for="organisation">Organisation</label>
+      <input id="organisation" name="organisation" type="text" placeholder="Optional" autocomplete="organization" />
+    </p>
+
+    <p class="field">
+      <label for="reason">Reason</label>
+      <select id="reason" name="reason" required aria-required="true">
+        <option value="" selected disabled>Choose one</option>
+        {reasons.map((reason) => <option value={reason}>{reason}</option>)}
+      </select>
+    </p>
+
+    <p class="field">
+      <label for="message">Message</label>
+      <textarea
+        id="message"
+        name="message"
+        rows="4"
+        placeholder="What would you like to talk about?"
+        required
+        aria-required="true"></textarea>
+    </p>
+
+    <div class="form-footer">
+      <button class="button" type="submit">Send message</button>
+      <a class="text-link" href={`mailto:${contact.email}`}>Or email instead</a>
+    </div>
+
+    <p class="privacy-note">Your information stays private and will not be shared without your permission.</p>
+  </form>
+</div>

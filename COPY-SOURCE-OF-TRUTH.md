@@ -1,16 +1,21 @@
-# Framer paste sheet — the only file you need open
+# Copy — source of truth
 
-**This is the single source of truth for site copy.** Everything else in this project is now
-reference material. If a line isn't in this file, it isn't going on the site.
+**This is the single source of truth for site copy.** Everything else in this project is reference
+material. If a line isn't in this file, it isn't going on the site.
 
-How to use it: work top to bottom. Each slot shows the final text and its word limit. Copy, paste
-into Framer, tick the box. Three statuses only:
+*Renamed from `FRAMER-PASTE-SHEET.md` on 13 August 2026. The site is a bespoke Astro build; Framer and
+the Prolens template are abandoned. See `README.md`. The structure below still reads as a paste
+workflow because that is how it was written — the copy itself remains authoritative.*
 
-- `READY` — paste it.
-- `PICK` — two or three options, choose one, delete the rest.
-- `BLOCKED` — needs a fact only Brad has. Listed at the bottom so they don't stop the paste run.
+Statuses:
 
-Word limits come from the template's original copy. Do not exceed them — the layout breaks.
+- `READY` — approved, use it.
+- `HELD` — written but not in use, and not blocking.
+- `PICK` — two or three options, choose one.
+
+**Word limits are historical.** They came from the Prolens template and no longer bind. Where accuracy
+and a word limit conflict, accuracy wins — this is why the corrected reference quotes in section 6 run
+longer than the old limits allowed.
 
 **Status:** nothing is blocked. The whole sheet can be pasted in one run.
 
@@ -186,6 +191,28 @@ shipped AI products. It claims applied AI and commercial/product work already ev
 resumes: Pikle positioning, CRM stages, proposal templates, lead channels, sales kit, UX audit and
 brand/design governance.
 
+### Employment dates — settled by Brad, 13 August 2026, 3:05 PM NZST
+
+A source audit found two date ranges contradicted by the reference letters themselves. Brad's rulings:
+
+- **CanWest Media — publish no years.** The site previously said 2005–2008. Phillip Lemon's letter of
+  11 February 2006 says Brad "was employed … for a period of 2.5 years", past tense, so 2005–2008 is
+  arithmetically impossible. Rather than publish a range that cannot be evidenced, the entry carries
+  no dates.
+- **Adplus Advertising (now Tracta) — publish no years.** Same reasoning. The letters point to roughly
+  2001–2003; LinkedIn says otherwise; the two cannot be reconciled from documents in this repo. The
+  entry is named **"Adplus Advertising (now Tracta)"** so it matches the letter a reader is about to
+  open while still connecting to the name the business trades under now.
+- **Hawke's Bay Tourism is a client account, not an employer.** Hamish Lowry writes as the client-side
+  General Manager. It must not appear in an organisation field. Move it into the role summary.
+- **The education role started June 2015, so "ten years" and "a ten-year SaaS territory" both stand.**
+  The 2016 start date in `brad_cv_html 222.html` is wrong.
+- **"Sales and Marketing Manager, then General Manager" stays.** The promotion is real and is on
+  LinkedIn, even though the resumes in this folder list only the final title.
+
+Knock-on: the homepage work card that read "Media and Web Growth · 2005–2013" must lose its range too,
+and the career anchor year tied to CanWest goes with it.
+
 ### Fact checks still needed
 
 **1. The Visitor Guide numbers don't match between your CV and your LinkedIn.**
@@ -217,16 +244,32 @@ screenshots so the page can show them rather than only claim them.
 | --- | --- | --- | --- |
 | Eyebrow | 1w | References | READY |
 | H2 | 2w | People Say | READY |
-| Quote 1 | 21w | At a time when we were considering moving away from Schoology, Brad helped us see the platform's potential and gave us the confidence to invest further. | READY (trimmed) |
-| Attribution 1 | 5w | Adrian Pilgrim, The Industry School | READY |
-| Quote 2 | 22w | Brad's most remarkable quality is his ability to support teachers resistant to change. Even the most hesitant became confident users. | READY (trimmed) |
-| Attribution 2 | 6w | Andrew Bergh, High School Principal | READY |
-| Quote 3 | 21w | Several of Brad's past clients have mentioned his ability a number of years on from his departure. | READY |
-| Attribution 3 | 6w | Phillip Lemon, CanWest Media | READY |
-| Quote 4 | 18w | Brad has assisted with a significant improvement in tourism industry buy-in to the core marketing activities of Hawke's Bay Tourism. | READY (trimmed) |
-| Attribution 4 | 5w | Hamish Lowry, Hawke's Bay Tourism | READY |
+**Corrected 13 August 2026, 3:05 PM NZST after a source audit. The previous wording on this sheet
+overstated three of the four referees.** Every quote below is now a single unbroken verbatim sentence
+from the letter. Word limits no longer apply — they came from the Framer template, and the site is
+now a bespoke Astro build. Accuracy outranks fit.
 
-*Full-length originals are in the CSV. The trims are to fit the card, nothing else was changed.*
+**Rule: never splice two sentences into one quotation, never drop a hedge, and never promote "one of"
+to "the".** The letters are published alongside the quotes, so any reader can check them in one click.
+
+| Slot | Text | Status |
+| --- | --- | --- |
+| Eyebrow | References | READY |
+| H2 | People Say | READY |
+| Quote 1 | At a time when we were seriously considering moving away from Schoology, Brad helped us see the platform in a new light. | READY (verbatim against the scan, single sentence) |
+| Attribution 1 | Adrian Pilgrim, The Industry School | READY |
+| Quote 2 | One of Brad's most remarkable qualities is his ability to support teachers, particularly those resistant to change. | READY (verbatim, single sentence) |
+| Attribution 2 | Andrew Bergh, High School Principal | READY |
+| Quote 3 | Several of Brad's past clients have mentioned his ability a number of years on from his departure. | READY (already verbatim) |
+| Attribution 3 | Phillip Lemon, my manager at CanWest Media · the letterhead is The Radio Network, where he was working by the time he wrote it | READY — the relationship disclosure is mandatory, not optional |
+| Quote 4 | It is my observation that Brad has assisted with a significant improvement in tourism industry buy-in to the core marketing activities of Hawke's Bay Tourism during this time. | READY (verbatim, hedge restored) |
+| Attribution 4 | Hamish Lowry, Hawke's Bay Tourism | READY |
+
+*What was wrong before: Quote 2 promoted "one of Brad's most remarkable qualities" to "Brad's most
+remarkable quality" and spliced in a sentence from elsewhere in the letter. Quote 1 replaced a full
+stop and an intervening sentence with "and". Quote 4 dropped "It is my observation that", which
+converted the referee's observation into a statement of fact. Attribution 3 named an organisation
+Lemon does not sign for.*
 
 ---
 

@@ -7,7 +7,7 @@
 **Relationship:** Manager. Writing after both had left CanWest — see the note below
 **Signature:** Present, in black ink
 **Source image:** `Canwest Media.jpg`
-**Consent:** Not sought as at 11 August 2026
+**Consent:** Given. Confirmed by Brad 13 August 2026; recorded in `References/README.md` and `design/01d-reference-archive-audit.md` §11
 **Transcribed:** 11 August 2026
 
 > Contact details are withheld per the project constraint. The sign-off carries Phillip Lemon's work

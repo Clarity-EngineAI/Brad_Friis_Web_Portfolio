@@ -25,8 +25,51 @@ referees have consented. Decisions and their costs: `design/01d-reference-archiv
 
 Rows are in publication order: newest first, which is the order they appear on `/letters`.
 
-`web/` holds upright, 1800px, web-weight derivatives of the three letters that carry no redaction
-requirement and no open judgement call — Hawke's Bay Tourism, Adplus and CanWest Media.
+`web/` holds upright, 1800px, web-weight derivatives of three letters — Hawke's Bay Tourism, Adplus
+and CanWest Media.
+
+**Correction, 13 August 2026, 4:00 PM NZST: the claim that these three carry no redaction requirement
+was wrong.** Hawke's Bay Tourism and Adplus are properly redacted. **CanWest Media was not** — both
+`web/Canwest Media.jpg` and `Cropped versions/Canwest_Media_white.png` show Phillip Lemon's personal
+email address and mobile number in plain text.
+
+## Redacted finals, 13 August 2026, 5:45 PM NZST
+
+`redacted and cropped finals/` now supersedes `web/` and `Cropped versions/` as the publication
+source. All six published letters carry a scan on the site as of this date. Each was checked two ways
+before wiring up: rendered and read page by page, and scanned for a live text layer behind the
+redaction boxes. All four PDFs are image-only, so nothing is recoverable by selecting the text — which
+is the correct way to redact. A box drawn over live text is not a redaction and must never be accepted.
+
+Three findings from that pass:
+
+1. **CanWest is now published.** The email and mobile are properly covered. It retains the duplicated
+   line of body text in the third paragraph that the original does not have, an artefact of the crop.
+   Brad reviewed this and elected to publish anyway on 13 August 2026.
+2. **`HB_Tourism.pdf` in that folder is a regression and was rejected.** Its letterhead contact block
+   is unredacted, showing the office address, telephone, facsimile and `info@` address that the
+   existing `hawkes-bay-tourism.jpg` correctly covers. The site keeps the older, redacted image. Do not
+   swap it in without redacting the letterhead first.
+3. **`Rototuna_High_School_final.png` is correctly redacted** but retains a printed Outlook footer URL
+   containing a message identifier from Brad's own mailbox. It is his own data and unusable without
+   authentication, so it is not a blocker, but crop it out if the file is ever regenerated.
+
+## Transcriptions are not all verbatim
+
+**`Brad_Friis_The-Industry-School-Reference.md` is a structured digest, not a transcription.** It
+carries invented section headings — Overview, Key Contributions, Strategic Alignment and Efficiency,
+and others — and paraphrases the referee's sentences. None of that structure appears in the letter,
+which is flowing prose.
+
+Until 13 August 2026 the site published that digest as though it were Adrian Pilgrim's letter, and
+drew its pull quote from the paraphrase. The quote read "Brad helped us see the platform's potential";
+he actually wrote "Brad helped us see the platform in a new light", and "seriously considering" had
+lost its adverb. Both are now corrected against the scan and `src/data/letters.ts` holds the letter as
+written.
+
+**Verify any transcription against its scan before quoting from it.** The other five were checked on
+13 August 2026 and are faithful prose. A bolded label followed by a colon is the tell-tale sign of a
+digest.
 
 ## Conventions
 

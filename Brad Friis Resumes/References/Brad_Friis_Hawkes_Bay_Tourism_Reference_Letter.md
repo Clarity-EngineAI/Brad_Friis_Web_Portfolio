@@ -7,7 +7,7 @@
 **Relationship:** Client organisation. Two years of working together at the time of writing
 **Signature:** Present, in blue ink
 **Source image:** `Hawkes Bay Tourism.jpg`
-**Consent:** Not sought as at 11 August 2026
+**Consent:** Given. Confirmed by Brad 13 August 2026; recorded in `References/README.md` and `design/01d-reference-archive-audit.md` §11
 **Transcribed:** 11 August 2026
 
 > Contact details are withheld per the project constraint. The letterhead in the original carries a

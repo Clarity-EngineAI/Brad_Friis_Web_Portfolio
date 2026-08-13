@@ -1,3 +1,5 @@
+> **Still current and authoritative, 13 August 2026.** This document and `Brad Friis Resumes/References/README.md` together govern which reference letters may be published, and neither is superseded by the move from Framer to Astro. Note one correction recorded in the References README: the CanWest scan is **not** redaction-free, and is withheld until a redacted derivative exists.
+
 # Stage 1d — The reference archive, audited
 
 **Brad Friis personal site**

@@ -1,0 +1,48 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import ContactPanel from "../../components/ContactPanel.astro";
+import { letters } from "../../data/letters";
+---
+
+<SiteLayout
+  title="Written references — Brad Friis"
+  description="Six written references for Brad Friis, published in full: customers, clients and managers from 2003 to 2025."
+>
+  <div class="band">
+    <header class="page-hero shell">
+      <p class="eyebrow-pill">Written references · 2003–2025</p>
+      <h1>People put it in writing.</h1>
+      <p class="page-intro">Six letters, published in full and unedited. Contact details are withheld. Nothing else is.</p>
+    </header>
+
+    <section class="letter-index shell" aria-label="Written references">
+      <ol class="row-list">
+        {letters.map((letter, index) => (
+          <li class="letter-row">
+            <p class="enum">{String(index + 1).padStart(2, "0")}</p>
+            <div class="letter-who">
+              <p class="tier-name">
+                <a href={`/letters/${letter.slug}/`}>{letter.referee}</a>
+              </p>
+              <p class="tier-meta">{letter.role}</p>
+              <p class="tier-meta">{letter.organisation}</p>
+              <p class="tier-meta"><time datetime={letter.date}>{letter.dateLabel}</time></p>
+            </div>
+            <div class="letter-quote">
+              <blockquote>“{letter.pullQuote}”</blockquote>
+              <a class="text-link" href={`/letters/${letter.slug}/`}>
+                Read the full letter<span class="visually-hidden"> from {letter.referee}</span>
+              </a>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  </div>
+
+  <div class="band band-alt">
+    <section class="section shell" id="contact" aria-labelledby="contact-heading">
+      <ContactPanel />
+    </section>
+  </div>
+</SiteLayout>

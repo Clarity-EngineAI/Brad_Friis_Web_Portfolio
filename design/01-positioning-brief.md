@@ -1,3 +1,5 @@
+> **Historical document, 13 August 2026.** The site is a bespoke Astro build; Framer and the Prolens template are abandoned. Read `README.md` first. The reasoning here still stands where it is about positioning, copy or layout logic — ignore anything about Framer as a delivery path.
+
 # Stage 1 — Positioning and Message Hierarchy
 
 **Brad Friis personal site and thought-leadership blog**

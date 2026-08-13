@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { contact } from "../data/contact";
 
 interface Props {
   title?: string;
@@ -37,21 +38,23 @@ const canonical = new URL(path, Astro.site ?? Astro.url).href;
     <header class="site-header">
       <a class="wordmark" href="/" aria-label="Brad Friis, home">Brad Friis</a>
       <nav class="primary-nav" aria-label="Primary navigation">
-        <a class="nav-secondary" href="/#work">Work</a>
-        <a class="nav-secondary" href="/letters/" aria-current={path.startsWith("/letters") ? "page" : undefined}>Letters</a>
+        <a href="/#work">Work</a>
+        <a href="/letters/" aria-current={path.startsWith("/letters") ? "page" : undefined}>Letters</a>
         <a href="/cv/" aria-current={path.startsWith("/cv") ? "page" : undefined}>CV</a>
-        <a class="header-contact" href="mailto:brad@clarityengine.co">Contact</a>
+        <a class="header-contact" href="/#contact">Contact</a>
       </nav>
     </header>
     <main id="main">
       <slot />
     </main>
     <footer class="site-footer">
-      <p>© 2026 Brad Friis. All rights reserved.</p>
+      <p>© 2026 Brad Friis. All rights reserved. {contact.location}.</p>
       <div>
         <a href="/cv/">CV</a>
         <a href="/letters/">Letters</a>
-        <a href="mailto:brad@clarityengine.co">brad@clarityengine.co</a>
+        <a href={`mailto:${contact.email}`}>{contact.email}</a>
+        <a href={contact.phoneHref}>{contact.phone}</a>
+        <a href={contact.linkedin} rel="me">LinkedIn</a>
       </div>
     </footer>
   </body>

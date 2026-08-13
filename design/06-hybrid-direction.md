@@ -1,3 +1,5 @@
+> **Historical document, 13 August 2026.** The site is a bespoke Astro build; Framer and the Prolens template are abandoned. Read `README.md` first. The reasoning here still stands where it is about positioning, copy or layout logic — ignore anything about Framer as a delivery path.
+
 # Hybrid direction — proof page plus iPort panels
 
 **Written:** 13 August 2026, 2:12 PM NZST  
@@ -152,4 +154,4 @@ Stage 3's editorial recommendation still stands for letters and long documents. 
 - Six letters remain six named documents, not a complete archive.
 - Consulting stays off the first screen.
 - The employer from the channel decade stays unnamed.
-- Copy source of truth remains `FRAMER-PASTE-SHEET.md`.
+- Copy source of truth remains `COPY-SOURCE-OF-TRUTH.md`.

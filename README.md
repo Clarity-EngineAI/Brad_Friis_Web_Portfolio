@@ -1,1 +1,63 @@
-# Brad_Friis_Web_Portfolio
+# Brad Friis — personal site
+
+**Updated:** Thursday 13 August 2026, 5:30 PM NZST
+
+A bespoke static site whose job is to get Brad Friis hired into a commercial/SaaS role. Built with
+**Astro 7** (TypeScript strict, static output, no framework integrations, no CMS). Deploys to
+**Netlify**; `netlify.toml` is committed and needs no configuration in the Netlify interface.
+
+## Read this before changing anything
+
+**This site is not built in Framer.** An earlier plan used Framer with a purchased template called
+Prolens. That plan was assessed and abandoned on 13 August 2026, because Framer could only carry the
+required list/detail pattern as a bespoke section hand-built outside the template — code Brad would
+own and maintain regardless. Owning it as a handful of Astro files is cheaper and more capable.
+
+Anything mentioning Framer, Prolens or a "paste sheet" workflow is historical. The dead material lives
+in `archive - do not use/framer-and-prolens-era/`. Do not restore it and do not build against it.
+
+## Where the authority lives
+
+| Question | File |
+| --- | --- |
+| What am I doing next? | `NEXT-SESSION-PROMPT.md` |
+| What may the site say? | `COPY-SOURCE-OF-TRUTH.md` |
+| How should it look? | `design/08-visual-direction.md` |
+| Which references may be published? | `Brad Friis Resumes/References/README.md` |
+| Why is the positioning what it is? | `POSITIONING-BRIEF.md` |
+| Where do the spacing and radius values come from? | `design/07-framer-feasibility.md`, "Fallback: materials-only graft" — the Framer verdict in that file is spent, but its token values are still in use |
+
+## Commands
+
+```bash
+npm install
+ASTRO_TELEMETRY_DISABLED=1 npm run dev     # http://localhost:4321
+ASTRO_TELEMETRY_DISABLED=1 npm run build   # astro check + static build to dist/
+```
+
+`ASTRO_TELEMETRY_DISABLED=1` is required. Without it the build fails with an `EPERM` when Astro tries
+to create its telemetry directory. The build must pass with zero errors, warnings and hints.
+
+## Structure
+
+```
+src/pages/        index, cv, letters/index, letters/[slug], thanks
+src/data/         letters.ts (six reference letters), logos.ts, contact.ts
+src/components/   ContactPanel, Transcription
+src/layouts/      SiteLayout
+src/assets/       letters/ (document scans), logos/
+```
+
+## Hard rules
+
+These are not style preferences. Breaking them causes real harm.
+
+1. **Never name the education employer.** It appears in the source resumes under `Brad Friis Resumes/`. It must never reach `src/`, `public/` or `dist/`. The 2015–2025 role is described via PowerSchool and Schoology.
+2. **Reference quotes are verbatim single sentences.** Never splice two sentences, never drop a hedge, never promote "one of" to "the". The letters publish beside the quotes, so every quote is checkable in one click. Three quotes were previously overstated and have been corrected.
+3. **Contact details come off every published document** — every phone number, email, fax and address, without exception. A scan is only publishable once redacted, and the redaction must remove the pixels, not draw a box over live text. The CanWest scan is currently withheld for this reason.
+4. **Only six references may be published.** See the References README. Never publish Deane Jessep, 95bFM, MySimpleSiteMan or the Canwest Sales Figures — the last carries six former colleagues' performance data.
+5. **No invented figures**, and nothing implying an AI product has shipped. Never publish the disputed Hawke's Bay Visitor Guide growth figures or the unconfirmed 400 per cent result.
+6. **CanWest and Adplus publish no years.** The reference letters contradict the available ranges, so no range is shown.
+7. **This repository is private and must stay private.** It holds resumes, reference letters and the education employer's name. If a public showcase repo is ever needed, create a separate one containing only `src/` and `public/`.
+8. **New Zealand English** in all output: organise, colour, analyse, centre, recognise, personalised, licence (noun), defence.
+9. **Never create backup, temp or versioned copies of files.**

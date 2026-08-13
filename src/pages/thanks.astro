@@ -1,0 +1,27 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { contact } from "../data/contact";
+---
+
+<SiteLayout
+  title="Message sent — Brad Friis"
+  description="Your message to Brad Friis has been sent."
+>
+  <div class="band">
+    <header class="page-hero shell">
+      <p class="eyebrow-pill">Contact</p>
+      <h1>Message sent.</h1>
+      <p class="page-intro">Thanks — it has landed. Brad replies to everything, usually within a working day.</p>
+    </header>
+
+    <section class="thanks shell" aria-label="What happens next">
+      <p>
+        If it is urgent, call <a href={contact.phoneHref}>{contact.phone}</a> or email
+        <a href={`mailto:${contact.email}`}>{contact.email}</a>.
+      </p>
+      <p class="section-link">
+        <a class="text-link" href="/letters/">Read the six written references</a>
+      </p>
+    </section>
+  </div>
+</SiteLayout>
