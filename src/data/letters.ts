@@ -2,7 +2,7 @@ import type { ImageMetadata } from "astro";
 import adplusScan from "../assets/letters/adplus-advertising.jpg";
 import berghScan1 from "../assets/letters/andrew-bergh-1.png";
 import berghScan2 from "../assets/letters/andrew-bergh-2.png";
-import canwestScan from "../assets/letters/canwest-media.png";
+import canwestScan from "../assets/letters/canwest-media.jpg";
 import hawkesBayScan from "../assets/letters/hawkes-bay-tourism.jpg";
 import industrySchoolScan1 from "../assets/letters/the-industry-school-1.png";
 import industrySchoolScan2 from "../assets/letters/the-industry-school-2.png";
@@ -194,7 +194,7 @@ export const letters: Letter[] = [
   },
   {
     slug: "canwest-media",
-    referee: "Phillip Lemon",
+    referee: "Philip Lemon",
     role: "Brad's manager at CanWest Media",
     organisation: "The Radio Network",
     documentType: "Reference letter",
@@ -232,7 +232,7 @@ export const letters: Letter[] = [
       { kind: "aside", text: "[signature]" },
       {
         kind: "lines",
-        lines: ["Phillip Lemon", "The Radio Network", "e: [email withheld]", "c: [mobile withheld]"],
+        lines: ["Philip Lemon", "The Radio Network", "e: [email withheld]", "c: [mobile withheld]"],
       },
       {
         kind: "aside",
@@ -242,7 +242,7 @@ export const letters: Letter[] = [
     scans: [
       {
         image: canwestScan,
-        alt: "The original reference letter on The Radio Network letterhead, dated 11 February 2006. Phillip Lemon's email and mobile beneath the signature are blanked out.",
+        alt: "The original reference letter on The Radio Network letterhead, dated 11 February 2006. Philip Lemon's email and mobile beneath the signature are covered by a grey block.",
       },
     ],
   },
@@ -338,7 +338,7 @@ export const letters: Letter[] = [
     scans: [
       {
         image: hawkesBayScan,
-        alt: "Scan of the original one-page reference letter on Hawke's Bay Tourism letterhead, dated February 2003 and signed in blue ink by the general manager.",
+        alt: "Scan of the original one-page reference letter on Hawke's Bay Tourism letterhead, dated 12 February 2003 and signed in blue ink by the general manager. His email beneath the signature is covered by a grey block.",
       },
     ],
   },
