@@ -17,9 +17,8 @@ import { letters } from "../../data/letters";
 
     <section class="letter-index shell" aria-label="Written references">
       <ol class="row-list">
-        {letters.map((letter, index) => (
+        {letters.map((letter) => (
           <li class="letter-row">
-            <p class="enum">{String(index + 1).padStart(2, "0")}</p>
             <div class="letter-who">
               <p class="tier-name">
                 <a href={`/letters/${letter.slug}/`}>{letter.referee}</a>

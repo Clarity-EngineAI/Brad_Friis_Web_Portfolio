@@ -12,6 +12,11 @@ Brad chooses. The job of this folder is to make sure the choice is always availa
 ```
 COPY/
 ├── README.md              this file
+├── blog/                  blog posts, plus Brad's two fiction-register style examples
+│   ├── cubs-uniform.md
+│   └── plastic-bags.md
+├── career/                the career record — role sections, career rows
+│   └── pre-education-career.md
 ├── hero-lines/            display lines for the top of a page
 │   └── hero-lines.md
 ├── letters/               the /letters page — headline, captions, pull-quotes, blocks
@@ -23,8 +28,16 @@ COPY/
 ```
 
 Folders are added as new categories of copy appear. `letters/` replaces the `proof/` folder predicted
-here, along with the route. Still likely: `record/` for the career page, `cv/` for the four variant
-summaries, and `field-notes/` for article titles and standfirsts.
+here, along with the route. `career/` is the `record/` folder that was predicted here, added 14
+August 2026 with the first Phase 3 draft. `blog/` was added 15 August 2026 with the first two
+row-four drafts — it replaces the `field-notes/` folder predicted here, because Brad calls it the
+blog, and it holds his two fiction-register style examples, which were misfiled in `career/`. **The
+blog is not written in the §7 voice**; its own spec is `design/09-blog-voice.md`, it has its own
+README, and its entries are stored against that spec instead. Still likely: `cv/` for the four
+variant summaries.
+
+`interviews/` sits alongside these and is not copy — it is the raw record and the claims register
+that Phase 3 drafts from. Nothing in it is approved for the site.
 
 ## Status key
 

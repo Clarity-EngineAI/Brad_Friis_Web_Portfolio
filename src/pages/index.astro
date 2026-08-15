@@ -3,7 +3,22 @@ import { Image } from "astro:assets";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import ContactPanel from "../components/ContactPanel.astro";
 import { isStackedLogo, logos } from "../data/logos";
-import { letters } from "../data/letters";
+import { posts } from "../data/blog";
+import portrait from "../assets/brad-friis.jpg";
+
+// Generated from the same array the blog index reads, so publishing a post updates the
+// homepage without a homepage edit. Capped at two — the homepage is not the index.
+// design/10-homepage-blog-link.md §4.
+const recentPosts = posts.slice(0, 2);
+
+// Every figure traces to `Brad Friis Resumes/bradfriisresumemaster20260806.md`.
+// Nothing here is extrapolated, and the disputed Visitor Guide figures never appear.
+const stats = [
+  { figure: "2,800 → 24,500", label: "Licensed users, NZ and Australia" },
+  { figure: "+30%", label: "Lift in initial client investment" },
+  { figure: "10 years", label: "Holding the vendor channel relationship" },
+  { figure: "5 campuses", label: "Account retained mid-defection, then expanded" },
+];
 
 const capabilities = [
   {
@@ -65,89 +80,90 @@ const work = [
 
 const careers = [
   { title: "Sell the idea before it exists", meta: "1999 · Event director, 2000AD" },
-  { title: "Build the market, not just the sale", meta: "2001 · Business development, Adplus Advertising (now Tracta)" },
-  { title: "Design the path to the buyer", meta: "2009 · Business development, Xplore" },
-  { title: "Build the system behind sellers", meta: "2013 · National sales and marketing, 99 Corporation" },
+  { title: "Held the flagship account myself", meta: "2001 · Business development, Adplus Advertising (later Tracta)" },
+  {
+    title: "Kept a national account for the whole tenure",
+    meta: "2003 · Sales, Canwest Media",
+    detail: "I held the Harvey Norman account for the full three years I was at Canwest Media (Radioworks).",
+  },
+  {
+    title: "Turned one-off projects into a repeating business",
+    meta: "2009 · Business development, Xplore",
+    detail: "Customers up around 70 per cent, income up around 120 per cent, in my time there. Rob Nieuwland, who owned the business, puts it differently but the same way: profit from each customer was up around 30 per cent too.",
+  },
+  { title: "Charged for the work being given away", meta: "2013 · National sales and marketing, 99 Corporation" },
   { title: "Grow the territory, then keep it growing", meta: "2015 · Sales and Marketing Manager, then General Manager" },
   { title: "Turn AI into commercial systems", meta: "2025 · Independent consultant, Clarity Engine AI and Pikle" },
 ];
 
+// §7.1, COPY/career/pre-education-career.md — confirmed 14 August 2026. One paragraph, inside
+// the career section, never its own section, never near the top (footnote-bound proportion rule).
+const mySimpleSiteMan = {
+  body: "I built a self-serve website product for small businesses and it failed. I had assumed owners knew what a site needed to do to win them work, and mostly they didn't — and I had built something that could not grow past a five-page brochure even for the ones who did. Over $400,000 was invested in development and maintenance before we had to let it go and turn off the lights.",
+};
+
+// Two 2025 letters only, both proving retention. The other four still publish at /letters/.
+// These sentences are deliberately NOT the `pullQuote` values in `src/data/letters.ts` — the
+// homepage and the letters index previously showed identical text. Each is a single unbroken
+// verbatim sentence, checked against the letter body in that same file.
 const homeQuotes = [
   {
     quote:
-      "At a time when we were seriously considering moving away from Schoology, Brad helped us see the platform in a new light.",
+      "This clarity and customisation shifted our thinking, giving us the confidence not only to stay with Schoology, but to invest in getting the very best from it.",
     name: "Adrian Pilgrim",
-    relation: "The Industry School · 2025",
+    relation: "Teaching and Learning Manager, The Industry School · 2025",
     slug: "the-industry-school",
   },
   {
     quote:
-      "One of Brad's most remarkable qualities is his ability to support teachers, particularly those resistant to change.",
+      "His empathetic and proactive approach ensures that even the most hesitant team members became confident users of Schoology.",
     name: "Andrew Bergh",
     relation: "High School Principal · June 2025",
     slug: "andrew-bergh",
   },
-  {
-    quote:
-      "Several of Brad's past clients have mentioned his ability a number of years on from his departure.",
-    name: "Philip Lemon",
-    relation:
-      "My manager at CanWest Media · the letterhead is The Radio Network, where he was working by the time he wrote it",
-    slug: "canwest-media",
-  },
-  {
-    quote:
-      "It is my observation that Brad has assisted with a significant improvement in tourism industry buy-in to the core marketing activities of Hawke's Bay Tourism during this time.",
-    name: "Hamish Lowry",
-    relation: "General Manager, Hawke's Bay Tourism · February 2003",
-    slug: "hawkes-bay-tourism",
-  },
 ];
 
-const pad = (index: number) => String(index + 1).padStart(2, "0");
-
-// Reference numbers must agree with /letters/, where all six are listed.
-const letterNumber = (slug: string) => pad(letters.findIndex((letter) => letter.slug === slug));
 ---
 
 <SiteLayout>
   <div class="band">
     <section class="hero shell">
       <div>
-        <p class="eyebrow-pill">Auckland · Commercial roles</p>
-        <h1>Brad Friis</h1>
-        <p class="hero-copy">Commercial operator for SaaS growth: sales, revenue systems, product adoption and AI enablement.</p>
-        <ul class="tag-list" aria-label="Commercial capabilities">
-          <li>Sales Growth</li>
-          <li>SaaS Strategy</li>
-          <li>Revenue Systems</li>
-          <li>Product Adoption</li>
-          <li>AI Enablement</li>
-        </ul>
+        <p class="eyebrow-pill">Account management · retention &amp; growth</p>
+        <h1>I have kept the same customers for ten years at a time.</h1>
+        <p class="hero-copy">Twenty-five years in software, media and agency work. Ten of them running the New Zealand and Australian business as the largest United States edtech vendor's channel partner.</p>
         <div class="hero-actions">
-          <a class="button" href="#contact">Contact Brad</a>
+          <a class="button" href="#contact">Start a conversation</a>
           <a class="text-link" href="/cv/">View CV</a>
         </div>
-        <p class="trust-line">Six written references · published in full, named people</p>
       </div>
       <div class="hero-aside">
         <figure class="portrait-well">
-          <p class="monogram" aria-hidden="true">BF</p>
-          <p class="status-chip">
+          <Image
+            class="portrait"
+            src={portrait}
+            alt="Brad Friis"
+            widths={[340, 680]}
+            sizes="(max-width: 900px) 100vw, 340px"
+            loading="eager"
+          />
+          <figcaption class="status-chip">
             <strong>Available for commercial roles</strong>
             <span>Auckland, New Zealand</span>
-          </p>
-          <figcaption>Portrait to come.</figcaption>
+          </figcaption>
         </figure>
       </div>
     </section>
   </div>
 
-  <div class="proof-band">
-    <div class="proof-strip shell" aria-label="Commercial proof summary">
-      <div><strong>2,800 → 24,500</strong><span>Licensed users, NZ and Australia</span></div>
-      <div><strong>Six references</strong><span>Customers and managers, 2003–2025</span></div>
-      <div><strong>Full-cycle sales</strong><span>Prospect, propose, close, adopt, renew</span></div>
+  <div class="stat-band">
+    <div class="stat-strip shell" aria-label="Commercial results">
+      {stats.map((stat) => (
+        <div class="stat">
+          <p class="stat-figure">{stat.figure}</p>
+          <p class="stat-label">{stat.label}</p>
+        </div>
+      ))}
     </div>
   </div>
 
@@ -184,7 +200,6 @@ const letterNumber = (slug: string) => pad(letters.findIndex((letter) => letter.
             aria-labelledby={`tab-${capability.id}`}
             hidden={index !== 0}
           >
-            <p class="enum">{pad(index)}</p>
             <h3>{capability.title}</h3>
             <p class="tier-meta">{capability.summary}</p>
             <p>{capability.body}</p>
@@ -203,9 +218,8 @@ const letterNumber = (slug: string) => pad(letters.findIndex((letter) => letter.
         <p class="lead">Demand, pipeline, proposals, adoption. Then AI, product and UX. The whole revenue path.</p>
       </header>
       <div class="hairline-grid">
-        {work.map((item, index) => (
+        {work.map((item) => (
           <article class="work-cell">
-            <p class="enum">{pad(index)}</p>
             <h3>{item.title}</h3>
             <p class="meta">{item.meta}</p>
             <p>{item.body}</p>
@@ -215,6 +229,27 @@ const letterNumber = (slug: string) => pad(letters.findIndex((letter) => letter.
           </article>
         ))}
       </div>
+    </section>
+
+    <section class="section shell proof-quotes" aria-labelledby="proof-heading">
+      <header class="section-head">
+        <p class="eyebrow-pill">The proof</p>
+        <h2 id="proof-heading">The customers who nearly left said it themselves.</h2>
+        <p class="lead">Both wrote in 2025. Both describe keeping an account that had a reason to go.</p>
+      </header>
+      <div class="hairline-grid">
+        {homeQuotes.map((item) => (
+          <article class="quote-cell">
+            <blockquote>“{item.quote}”</blockquote>
+            <div class="attribution">
+              <p class="tier-name">{item.name}</p>
+              <p class="tier-meta">{item.relation}</p>
+            </div>
+            <a class="text-link" href={`/letters/${item.slug}/`}>Read this letter</a>
+          </article>
+        ))}
+      </div>
+      <p class="section-link"><a class="text-link" href="/letters/">Read all six references</a></p>
     </section>
 
     <section class="shell logo-strip" aria-labelledby="logos-heading">
@@ -236,49 +271,52 @@ const letterNumber = (slug: string) => pad(letters.findIndex((letter) => letter.
     </section>
   </div>
 
-  <div class="band band-invert">
-    <section class="section shell" aria-labelledby="references-heading">
-      <header class="section-head">
-        <p class="eyebrow-pill">References</p>
-        <h2 id="references-heading">Six people put it in writing.</h2>
-        <p class="lead">Named, dated, published in full. Every quote links to the document it came from.</p>
-      </header>
-      <div class="hairline-grid">
-        {homeQuotes.map((item) => (
-          <article class="quote-cell">
-            <p class="enum">{letterNumber(item.slug)}</p>
-            <blockquote>“{item.quote}”</blockquote>
-            <div class="attribution">
-              <p class="tier-name">{item.name}</p>
-              <p class="tier-meta">{item.relation}</p>
-            </div>
-            <a class="text-link" href={`/letters/${item.slug}/`}>Read this letter</a>
-          </article>
-        ))}
-      </div>
-      <p class="section-link"><a class="text-link" href="/letters/">Read all six references</a></p>
-    </section>
-  </div>
-
   <div class="band">
     <section class="section shell" aria-labelledby="career-heading">
       <header class="section-head">
         <p class="eyebrow-pill">Career</p>
         <h2 id="career-heading">The range came one job at a time.</h2>
         <p class="lead">Generate demand. Shape the offer. Close the work. Enable users. Then grow the account.</p>
+        <p class="standfirst">I kept the bulk of the accounts I won. Not all of them, and not everywhere — but the billing, the contracts, the renewals and the relationship were mine at every job I have had since 2001.</p>
       </header>
       <ol class="row-list">
-        {careers.map((item, index) => (
+        {careers.map((item) => (
           <li class="career-row">
-            <p class="enum">{pad(index)}</p>
             <div>
               <p class="tier-name">{item.title}</p>
               <p class="tier-meta">{item.meta}</p>
+              {item.detail && <p class="tier-detail">{item.detail}</p>}
             </div>
           </li>
         ))}
       </ol>
+      <p class="career-aside">{mySimpleSiteMan.body}</p>
       <p class="section-link"><a class="text-link" href="/cv/">View the full CV</a></p>
+    </section>
+  </div>
+
+  <div class="band">
+    <section class="section shell blog-teaser blog-teaser-divided" aria-labelledby="blog-heading">
+      <div class="blog-teaser-intro">
+        <p class="eyebrow-pill">Blog</p>
+        <h2 id="blog-heading">I write about the work, and occasionally about a beetroot tin.</h2>
+        <p class="lead">Web strategy, communications, AI, and the odd true story. Two of them are already up.</p>
+        <p class="section-link"><a class="text-link" href="/blog/">Read the blog</a></p>
+      </div>
+
+      <ol class="row-list blog-teaser-list">
+        {recentPosts.map((post) => (
+          <li class="blog-teaser-row">
+            <p class="tier-name">
+              <a href={`/blog/${post.slug}/`}>{post.title}</a>
+            </p>
+            <p class="tier-meta">
+              {post.category} · <time datetime={post.date}>{post.dateLabel}</time>
+            </p>
+            <p class="tier-detail">{post.dek}</p>
+          </li>
+        ))}
+      </ol>
     </section>
   </div>
 

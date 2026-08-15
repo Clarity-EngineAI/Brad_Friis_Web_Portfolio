@@ -102,7 +102,7 @@ people need, make the offer clear, build the system behind it, and keep your wor
 | Intro | 18w | Proof across the whole revenue path: demand, pipeline, proposals, adoption, AI, product and UX. | READY |
 | P1 title / category / year / tags | — | PowerSchool and Schoology, NZ & Australia / SaaS Territory Growth / 2015–2025 / Sales, Product Adoption, Vendor Enablement, Proposals, Forecasting | READY |
 | P2 title / category / year / tags | — | Pikle commercial and UX build / AI Product Consulting / 2025–now / Positioning, Lead Channels, CRM Stages, Sales Kit, UX Audit | READY |
-| P3 title / category / year / tags | — | 99 Corporation revenue system / Sales Operations / 2013–2015 / Lead Generation, Telemarketing, Billing, National Accounts, 400 Percent Growth | READY |
+| P3 title / category / year / tags | — | 99 Corporation revenue system / Sales Operations / 2013–2015 / Lead Generation, Telemarketing, Billing, National Accounts | READY |
 | P4 title / category / year / tags | — | Canwest and Xplore growth years / Media and Web Growth / 2005–2013 / Proposals, Presentations, Pipeline, UX Strategy, Major Accounts | READY |
 | Section link | 2w | View CV | READY |
 
@@ -162,7 +162,7 @@ lesson. If the timeline looks long on mobile, use these seven entries before add
 
 - Title: Build the system behind sellers
 - Subtitle: National Sales & Marketing Manager, 99 Corporation. Lead generation and database services.
-- Body: Fourteen telemarketers needed more than scripts. I built the process behind the calls, national-account scoping and the billing structure that held cash flow together. Sales revenue up 400 per cent.
+- Body: Fourteen telemarketers needed more than scripts. I built the process behind the calls, national-account scoping and the billing structure that held cash flow together.
 
 #### 6. 2015 → 2025
 
@@ -225,10 +225,12 @@ and the career anchor year tied to CanWest goes with it.
 This sheet uses the LinkedIn figures because they are more conservative. Fix the wrong source before
 publishing both CV and site together.
 
-**2. The 400 per cent 99 Corporation result still needs CV alignment.**
+**2. The 400 per cent 99 Corporation figure is dead — removed from §4 and §5, 15 August 2026.**
 
-It is strong enough to use on the site if accurate, but the master CV still undersells that role.
-Also check the June 2015 vs September 2015 end-date mismatch.
+Brad disclaimed it himself and could not account for how it was arrived at (`_claims-register.md`
+C1/E13). It is not being replaced with a substitute figure here; any new 99 Corporation number goes
+in on its own merits, sourced separately. Also check the June 2015 vs September 2015 end-date
+mismatch.
 
 **3. Some design/app evidence may need files supplied.**
 

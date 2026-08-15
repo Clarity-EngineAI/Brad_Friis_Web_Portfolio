@@ -3,8 +3,17 @@
 Display lines for the top of the homepage, with the support paragraph each one was written to sit
 above. Nine options across two rounds. Status key is in `COPY/README.md`.
 
-**Currently in use:** none. Option G was retired on 11 August 2026. **Round three below was written
-the same day. Option J's recommendation was suspended on 12 August 2026 — see the restatus under J.**
+**Currently in use:** option J's display line, placed 13 August 2026 as a **holding position only**
+— see round four. Option G was retired on 11 August 2026. **Round three below was written the same
+day. Option J's recommendation was suspended on 12 August 2026 — see the restatus under J.**
+
+> **Round four is blocked on the Phase 2 interviews, 13 August 2026.** Brad stated the target role
+> — *a high-value account management seat with commission from both retention and the upselling of
+> new products and services* — and it changes the test every line in this file was scored against.
+> Candidates and the full reasoning are in round four at the foot of this file. **No line is chosen
+> until the interviews have run**, because the strongest candidate depends on a fact only Brad has:
+> whether long-held accounts are the ones that expanded. Writing the hero before that is the cart
+> before the horse, and it is Brad's own instruction.
 
 > **The architecture inverted, 12 August 2026.** The site now leads with what Brad knows, and each
 > thing he knows carries its evidence in the same viewport. **Every support paragraph in this file
@@ -364,3 +373,137 @@ channel roles and account seats carrying a number.
 
 **Status.** The idea survives as the heading of the adoption section on the homepage, where the
 Bergh quote sits. See `COPY/section-headings/section-headings.md`.
+
+---
+
+## Round four — 13 August 2026, after Brad stated the target role
+
+**Nothing in this round is chosen. It is blocked on the Phase 2 interviews by Brad's instruction:
+the interview informs the copy, not the other way round.** What follows is the scoring framework and
+the candidate set, recorded so the next session starts from here rather than from scratch.
+
+### What changed
+
+Brad named the seat: **a high-value account management role, with commission opportunity from both
+retention and the upselling of new products and services.** He also rejected two lines on
+13 August, and the second rejection is the more useful one.
+
+- **"I take software into markets that don't yet know they need it — then I make sure the customer
+  never wants to leave."** Rejected: strange, too abstract, and fenced to SaaS when he wants the
+  claim broader. It argued net-new cold-market entry — hunting, not the seat he is applying for.
+- **"I keep the accounts other people would have lost, and I grow them."** Rejected: **arrogant.**
+  It breaks §7 of `design/01-positioning-brief.md` twice — it performs confidence, which the voice
+  spec bans because "the numbers are doing that already", and it praises Brad by comparison, when
+  the rule is "let the customers do the praising". It also contains a covert universal quantifier:
+  *the accounts other people would have lost* asserts an unfalsifiable counterfactual about unnamed
+  people, which is the same failure that killed M (*every*) and G (*unsolicited*), with rudeness
+  added. **Both are placed here as Rejected so the ground is not covered again.**
+
+### The binding constraint set, derived from all thirteen prior options
+
+1. No universal quantifiers and no unfalsifiable claims. This class kills a line before it is scored.
+2. **No comparison to other people, predecessors or competitors** — and no dismissal of any part of
+   the work. New as at 13 August.
+3. **Argue retention and expansion.** Retention alone now under-argues the role by half.
+4. No industry noun in the display line. Broader was an explicit instruction.
+5. Plain declarative, decodable in one beat. Metaphor, inversion and withheld subjects all fail.
+6. **Answerable in an interview from the published CV.** If the follow-up question has no safe
+   answer, the line is rhetoric.
+7. No count of references and no moving numbers.
+8. Do not duplicate a line already placed elsewhere on the site.
+
+### The reversal that matters
+
+The file's most-repeated objection — that *keep* reads as maintenance rather than growth — sank A
+and stands against I and J. **The target role half-reverses it.** A hiring manager reading a
+retention-and-upsell brief does not discard *keep*; it is the first half of their own job
+description. But the objection does not vanish, it **sharpens**: the criticism is no longer "keep is
+weak", it is **"keep is incomplete"**. A line that argues retention only now argues half the seat.
+
+That is the standing objection to option J, which is currently placed as a holding position.
+
+### N — Retention and growth, with the duration · **Candidate, blocked**
+
+> ### I have kept customers for ten years, and grown what they spend.
+
+**For.** Option J with the missing half added, at a cost of six words. Argues the two-part seat in
+Brad's own order. First person, past tense, no industry noun, no comparison, no quantifier.
+Both halves survive an interview from the CV: nine-year principal relationship and ten-year vendor
+relationship; five-campus account expanded after a competitive evaluation, and a 30 per cent lift in
+initial client investment through multi-year terms and staggered billing.
+
+**Against.** Eleven words — the file's longest display line was nine — and it wraps on a 390px
+screen. It wraps at the comma, which is the right place, but it must be checked at true device
+emulation before it ships. "What they spend" is sales-room register and may read as jargon outside
+it; "grown the accounts" is the swap, at the price of a small repetition with the eyebrow pill. It
+also loses J's *the same customers*, where *same* was doing quiet work.
+
+### O — Shorter, present tense · **Candidate, blocked**
+
+> ### I keep customers, and I grow what they buy.
+
+**For.** Eight words. Present tense, so it reads as a standing capability rather than a closed
+chapter — the only surviving option that does, and it matters for a man currently in market. Maps
+almost word for word onto the target role. Rehabilitates A's verb by supplying the growth half A
+lacked.
+
+**Against.** It discards the duration, and duration is the one claim on the CV that a competing
+candidate cannot copy. *I keep customers* is on every commercial CV in the market; nine years with a
+principal and ten with a vendor is not. It also invites "for how long?" as the first interview
+question, which the line should have answered.
+
+### P — The customers as subject · **Candidate, blocked on evidence**
+
+> ### The customers I kept ten years ago are the ones who grew.
+
+**For.** Carries duration and expansion in one arc and makes the causal link explicit, which is the
+argument the commission structure rests on. It uses option H's best trick — the customers are the
+subject and Brad is the relative clause — which is structurally why H reads as humble, and it
+transfers cleanly. The warmest line in the set.
+
+**Against, and it is disqualifying until Phase 2 answers it.** Two problems. It takes two beats to
+decode, failing constraint 5. And **the evidence may not support it**: it asserts that the long-held
+accounts are the ones that expanded, and the CV documents that for exactly one account. One instance
+does not license the plural — that is option M's error in a politer costume.
+
+**This is the specific question the interview must answer.** If a second long-held account expanded,
+P becomes the strongest line in this document. If not, it is void.
+
+### Q — **Killed before scoring, 13 August 2026**
+
+> ### Ten years with the same customers. Every year they spent more.
+
+*Every* is the word that killed option M, and no published figure supports a year-by-year growth
+claim. The true version of the idea is candidate N. Recorded so this trap is not walked into a
+fourth time.
+
+### R — **Rejected on length, 13 August 2026**
+
+> ### I have kept the same customers for ten years at a time, and grown the account each time.
+
+Sixteen words is a standfirst, not a hero — the objection that placed L. Recorded to close off the
+"just add a clause to J" line of attack; N does that job in eleven words.
+
+### Consequential restatuses
+
+- **F — "The sale is the easy part." Available → Rejected for the hero.** Its recorded Against was
+  "one conservative reader in ten may hear it as dismissive". The 13 August arrogance rejection is
+  evidence that tolerance is far lower than one in ten. It does not disparage a person, but it
+  disparages the part of the job most readers list on their own CV, and it understates full-cycle
+  work Brad did and wants credit for. **Held** as the opening line of a written piece, where a
+  paragraph follows immediately and defuses it. It is a poor line at display size.
+- **J — display line sound, but formally a half-argument.** Its Against is rewritten from "kept
+  reads as maintenance" to **"the line is silent on expansion, and the role pays on expansion."**
+  Placed 13 August as a holding position only, so that nothing arrogant sat live while the decision
+  waits on the interviews.
+- **H — stays where it is.** Promoting it would force the five-campus section onto the reserve
+  heading, which the file concedes loses the tension. Promotion buys a hero that describes one
+  account and costs the best section heading on the homepage. Net loss.
+
+### The unresolved item that no hero line can fix
+
+The support paragraph beneath the hero reads *"…as the largest United States edtech vendor's channel
+partner."* That is Brad's own wording, given on 13 August. It is also the industry fence he objected
+to — so a broad display line will be followed by an edtech-fenced sentence twelve words later.
+**Brad ruled on 13 August 2026: broaden it in Phase 3**, when the page is rebuilt from the interview
+answers. Do not touch it before then.

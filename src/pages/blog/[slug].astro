@@ -1,0 +1,53 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import BlogBody from "../../components/BlogBody.astro";
+import { posts } from "../../data/blog";
+
+export function getStaticPaths() {
+  return posts.map((post, index) => ({
+    params: { slug: post.slug },
+    props: {
+      post,
+      previous: posts[index - 1],
+      next: posts[index + 1],
+    },
+  }));
+}
+
+const { post, previous, next } = Astro.props;
+---
+
+<SiteLayout
+  title={`${post.title} — Brad Friis`}
+  description={post.dek}
+>
+  <div class="band">
+    <header class="page-hero shell">
+      <a class="back-link" href="/blog/">← All posts</a>
+      <p class="eyebrow-pill">{post.category} · {post.dateLabel}</p>
+      <h1>{post.title}</h1>
+      <p class="page-intro">{post.dek}</p>
+    </header>
+
+    <div class="shell">
+      <article class="blog-post">
+        <BlogBody blocks={post.body} />
+      </article>
+
+      <nav class="pager" aria-label="Other posts">
+        {previous ? (
+          <a class="text-link" href={`/blog/${previous.slug}/`}>
+            <span class="enum">Newer</span>{previous.title}
+          </a>
+        ) : (
+          <span></span>
+        )}
+        {next && (
+          <a class="text-link" href={`/blog/${next.slug}/`}>
+            <span class="enum">Older</span>{next.title}
+          </a>
+        )}
+      </nav>
+    </div>
+  </div>
+</SiteLayout>

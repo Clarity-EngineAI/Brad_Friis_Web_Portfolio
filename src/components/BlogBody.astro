@@ -1,0 +1,17 @@
+---
+import type { BlogBlock } from "../data/blog";
+
+interface Props {
+  blocks: BlogBlock[];
+}
+
+const { blocks } = Astro.props;
+---
+
+{
+  blocks.map((block) => {
+    if (block.kind === "heading") return <h2>{block.text}</h2>;
+    if (block.kind === "break") return <hr />;
+    return <p>{block.text}</p>;
+  })
+}
