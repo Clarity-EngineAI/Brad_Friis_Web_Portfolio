@@ -1,3 +1,8 @@
+> **Archived 17 August 2026.** Superseded by `COPY/` (per-category files, each with a status) and
+> `design/00-current-direction.md`. This file predates the 14 August `COPY/` restructure and the
+> 12 August interview corrections in `design/01-positioning-brief.md` §11 — do not treat anything
+> here as current, including the "single source of truth" claim in the line below.
+
 # Copy — source of truth
 
 **This is the single source of truth for site copy.** Everything else in this project is reference

@@ -67,6 +67,54 @@ everywhere else. His words: "we can always rewind if it's too much."
 10. **Short blunt fragments, then a turn**, in section intros. This is Brad's "more to the point"
     request expressed as a copy rhythm.
 
+## Line breaking and the fluid type ladder — added 15 August 2026, design sweep
+
+Brad, on seeing the built site: *"look out for places where the text is wrapped earlier than it
+should be... Never start a sentence with one word then continue on the next line."* Measured before
+changing anything: **21 single-word last lines across the 13 built pages**, and no horizontal
+overflow at any width.
+
+**11. No line ends on a stranded word.** Two causes, two fixes, both in `global.css`:
+
+- **`text-wrap` was never set on running copy.** Headings had `balance`; paragraphs, list items and
+  blockquotes had nothing. `pretty` is now set on `p, li, dd, dt, blockquote, figcaption` at the base
+  layer, so a new block inherits it instead of needing a per-component patch. Verified: homepage went
+  from 7 widows to 0 with this rule alone.
+- **`ch` caps throttling lines short of their column.** A prose measure applied to something that is
+  not prose. The contact discipline list (`Sales Growth · SaaS · … · AI`) was capped at `44ch` inside
+  a much wider column and stranded "AI" at 3 per cent line fill. A keyword run has no reading-measure
+  argument, so `.contact-disciplines` opts out of the cap.
+
+**Result: 21 widows → 0 at 1440px, 1 at 390px, no overflow at 1440/1024/390.** The remaining one is
+`/letters/hawkes-bay-tourism/`, whose verbatim text ends on `www.hawkesbaynz.com` — an unbreakable
+20-character token that cannot share a line on a phone. `overflow-wrap: break-word` is set on letter
+bodies; beyond that the only fixes are hyphenating a quoted URL or shrinking the type, and **the
+letters are published verbatim, so the wrap gives way, never the words.**
+
+Two more at 1024px are short trailing words in the four-up stat band's 185px columns, not
+sentence-opening orphans. Fixing them means changing the band's grid; left alone deliberately.
+
+**12. Fluid sizes are named tokens, not inline clamps.** Seven ad-hoc `clamp()` expressions sat
+beside the fixed token block, three byte-identical, which is how the scale drifted. Now
+`--text-hero`, `--text-page-hero`, `--text-section`, `--text-hero-lead`, declared in hierarchy order
+so a new section cannot invent an eighth value.
+
+`.stat-figure` is the one deliberate exception and keeps its own clamp. Reason, previously unrecorded:
+the figures are `nowrap` in a four-up band and `2,800 → 24,500` is the widest string on the site — at
+the section step's `3.4vw` middle term it overruns its column between 900px and 1100px. Same floor and
+ceiling, slower middle term.
+
+**13. Interior headings sit below the homepage hero.** `.page-hero h1` rendered at **56px against the
+hero's 52px** at 1440px, so an interior page outranked the front door. Now `clamp(2rem, 4.4vw,
+2.875rem)`, above the section step and clear of the hero. Its `16ch` cap also forced "A few things
+that / happened." to strand a word; `22ch` lets the short page titles hold one line.
+
+**Still open: the hero ratio itself.** The hero is only **1.3×** its own section headings and 3.47×
+body, and 52/40/37px sit within 28 per cent of each other at three heavy weights — that flatness is
+what reads as busy, not the hero's absolute size. Attribute 2 is Brad's approved decision and the
+headline is now a sentence, so the old 9.6× ratio is not available as written. **Brad's call, not
+taken in this sweep.**
+
 ## Explicitly rejected
 
 - **No accordion on the career section.** Career is proof and must be visible, not hidden behind

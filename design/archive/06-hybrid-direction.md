@@ -1,4 +1,4 @@
-> **Historical document, 13 August 2026.** The site is a bespoke Astro build; Framer and the Prolens template are abandoned. Read `README.md` first. The reasoning here still stands where it is about positioning, copy or layout logic — ignore anything about Framer as a delivery path.
+> **Archived 17 August 2026.** The site is a bespoke Astro build; Framer and the Prolens template are abandoned. Read `design/00-current-direction.md` first. The reasoning here still stands where it is about positioning, copy or layout logic — ignore anything about Framer as a delivery path.
 
 # Hybrid direction — proof page plus iPort panels
 

@@ -574,6 +574,20 @@ main {
   border-left: 0;
 }
 
+/* Between 900 and 1100px the wide middle figure ("2,800 → 24,500") and its neighbour ("+30%")
+   read as crushed against the fixed 26px cell padding, even though nothing overflows — the
+   dense comma/arrow glyphs eat the visual gap that the shorter figures leave open. Widen the
+   padding in just this band so every divider gets the same breathing room. */
+@media (min-width: 901px) and (max-width: 1100px) {
+  .stat {
+    padding-inline: 36px;
+  }
+
+  .stat:first-child {
+    padding-left: 0;
+  }
+}
+
 /* The one fluid value that stays off --text-section, and the reason it differs: the figures
    are `nowrap` inside a four-up band, and "2,800 → 24,500" is the widest string on the site.
    At the section step's 3.4vw middle term it overruns its column between 900px and 1100px.
@@ -1468,9 +1482,26 @@ main {
 }
 
 @media print {
+  /* The CV is budgeted to two A4 pages. Type sizes, leading and spacing below
+     are set for that budget — raising any of them pushes it to three.
+
+     Deliberately no `@page { margin }`. Chrome compounds an @page margin with
+     the print dialog's own margin setting, and the doubled margin shrinks the
+     text block enough to force a third page. Page size is declared here and the
+     side margins are applied as body padding, which does not compound; vertical
+     margins are left to the print dialog. */
+  @page {
+    size: A4;
+  }
+
+  body {
+    padding: 0 5mm;
+  }
+
   .site-header,
   .site-footer,
   .skip-link,
+  .screen-only,
   .cv-sidebar .button,
   .logo-strip,
   .contact-form,
@@ -1484,18 +1515,46 @@ main {
   body {
     color: #000;
     background: #fff;
-    font-size: 11pt;
+    font-size: 9pt;
+    line-height: 1.3;
   }
 
+  /* `background: none` rather than `#fff`: with printBackground enabled a white
+     fill still paints as a block over the trailing page. */
+  html,
+  body,
+  main,
   .band,
   .band-alt,
   .band-invert {
     color: #000;
-    background: #fff;
+    background: none;
+    box-shadow: none;
+  }
+
+  .shell {
+    max-width: none;
+    padding: 0;
   }
 
   .page-hero {
-    padding: 0 0 22px;
+    padding: 0 0 8px;
+  }
+
+  .page-hero .eyebrow-pill {
+    display: none;
+  }
+
+  .page-hero h1 {
+    margin: 0;
+    font-size: 20pt;
+    letter-spacing: -0.02em;
+  }
+
+  .page-hero .page-intro {
+    margin: 3px 0 0;
+    font-size: 9.8pt;
+    color: #000;
   }
 
   .cv-layout,
@@ -1504,12 +1563,140 @@ main {
     padding: 0;
   }
 
-  .cv-sidebar,
   .letter-meta {
     margin-bottom: 28px;
   }
 
-  .cv-entry,
+  /* Contact details run as a single line under the name rather than holding a
+     column, which buys roughly a third of a page back. */
+  .cv-sidebar {
+    margin: 0 0 10px;
+    position: static;
+  }
+
+  .cv-sidebar .contact-list {
+    display: block;
+    margin: 0;
+    font-size: 9pt;
+  }
+
+  .cv-sidebar .contact-list > div {
+    display: inline;
+  }
+
+  .cv-sidebar .contact-list > div + div::before {
+    content: " · ";
+    color: #000;
+  }
+
+  .cv-sidebar .contact-list dt {
+    display: none;
+  }
+
+  .cv-sidebar .contact-list dd {
+    display: inline;
+    margin: 0;
+    color: #000;
+  }
+
+  .cv-section {
+    padding: 6px 0 0;
+    border-top: 0.5pt solid #999;
+    break-inside: auto;
+  }
+
+  .cv-section + .cv-section {
+    margin-top: 6px;
+  }
+
+  /* The three closing sections are short. Kept whole so they cannot strand a
+     heading alone at the foot of a page. */
+  .cv-section:has(#cv-tools),
+  .cv-section:has(#cv-development),
+  .cv-section:has(#cv-references) {
+    break-inside: avoid;
+  }
+
+  .cv-section > h2 {
+    margin: 0 0 4px;
+    color: #000;
+    font-size: 7.6pt;
+    letter-spacing: 0.1em;
+  }
+
+  .cv-section > p {
+    margin: 0;
+    color: #000;
+  }
+
+  /* Entries may split across the page break. Keeping them whole sounds tidier
+     but pushes a mid-page entry wholesale onto the next sheet, which spills the
+     CV past its two-page budget. The heading and its first lines are held
+     together instead, so a split never orphans a role title. */
+  .cv-entry {
+    break-inside: auto;
+  }
+
+  .cv-entry h3 {
+    break-after: avoid;
+  }
+
+  /* Scoped to the meta line only. Applying break-after to every paragraph in an
+     entry chains the constraint down the block and shunts the trailing sections
+     onto a third page. */
+  .cv-entry .meta {
+    break-after: avoid;
+    break-inside: avoid;
+  }
+
+  .cv-entry li {
+    break-inside: avoid;
+  }
+
+  .cv-entry + .cv-entry {
+    margin-top: 8px;
+  }
+
+  .cv-entry h3 {
+    font-size: 10.6pt;
+  }
+
+  .cv-entry .meta {
+    margin: 1px 0 4px;
+    color: #000;
+    font-size: 8.6pt;
+  }
+
+  .cv-entry p {
+    margin: 0 0 4px;
+    color: #000;
+  }
+
+  .cv-entry ul {
+    padding-left: 14px;
+    color: #000;
+  }
+
+  .cv-entry li + li {
+    margin-top: 2px;
+  }
+
+  .chip-list {
+    gap: 4px 6px;
+  }
+
+  .chip-list li {
+    padding: 1px 7px;
+    border: 0.5pt solid #999;
+    color: #000;
+    font-size: 8.4pt;
+  }
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+
   .transcription p {
     break-inside: avoid;
   }

@@ -20,12 +20,17 @@ in `archive - do not use/framer-and-prolens-era/`. Do not restore it and do not 
 
 | Question | File |
 | --- | --- |
+| What's the current direction, and where does everything else fit? | `design/00-current-direction.md` — **read this first** |
 | What am I doing next? | `NEXT-SESSION-PROMPT.md` |
-| What may the site say? | `COPY-SOURCE-OF-TRUTH.md` |
+| What may the site say? | `COPY/` — one file per category, each entry with a status. `COPY/README.md` explains the structure |
 | How should it look? | `design/08-visual-direction.md` |
-| Which references may be published? | `Brad Friis Resumes/References/README.md` |
-| Why is the positioning what it is? | `POSITIONING-BRIEF.md` |
-| Where do the spacing and radius values come from? | `design/07-framer-feasibility.md`, "Fallback: materials-only graft" — the Framer verdict in that file is spent, but its token values are still in use |
+| Which references may be published? | `Brad Friis Resumes/References/README.md`, `design/01d-reference-archive-audit.md` |
+| Why is the positioning what it is? | `design/01-positioning-brief.md` (§11 is the live interview record — where it conflicts with anything above it in that file, §11 wins) |
+| Where do the spacing and radius values come from? | `design/08-visual-direction.md`. Originally researched in the archived `design/archive/07-framer-feasibility.md`, "Fallback: materials-only graft" — the Framer verdict in that file is spent, but its token values were carried forward. |
+
+`COPY-SOURCE-OF-TRUTH.md` and `POSITIONING-BRIEF.md` (formerly at repo root) are archived at
+`design/archive/` — both are 13 August, pre-pivot Framer-era documents superseded by the files
+above. Do not cite them.
 
 ## Commands
 

@@ -1,3 +1,8 @@
+> **Archived 17 August 2026.** Framer-era strategy document, superseded by
+> `design/01-positioning-brief.md` and `design/00-current-direction.md`. Predates the 12 August
+> interview corrections (reseller framing, employer naming, sales-enablement restoration) — several
+> factual claims below are known wrong. Do not cite this file for current positioning.
+
 # Framer AI site strategy
 
 **Written:** 13 August 2026, 11:37 AM NZST  

@@ -59,6 +59,13 @@ strongest argument for the recommendation in §3.**
 **Not resolved here, and it is Brad's call:** whether the cap moves to a realistic number or copy
 comes out of the homepage. Flagged in §6.
 
+> **Resolved in part, 17 August 2026.** Brad narrowed the cap's scope rather than its number: 250
+> now governs the above-fold block only — hero, stats and capabilities — and everything below is
+> uncapped. See `design/01-positioning-brief.md` §7.1. The measurement above stays on the record as
+> the whole-page figure, but it is no longer the number being enforced. **No copy was cut**; the
+> above-fold block is still ~70 words over its own budget, and whether the whole-page weight is
+> acceptable was deferred, not decided.
+
 ### 1.3 The existing mock is a different page, not a homepage section
 
 `COPY/Blog-Insights-Shared-Wisdom.png` — the artefact §5 says to reconcile against — is a **full

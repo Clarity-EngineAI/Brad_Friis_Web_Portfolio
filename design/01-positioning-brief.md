@@ -375,8 +375,23 @@ The bans above govern words. These govern behaviour, and they come from question
 Two further constraints from the same interview sit here because they are enforced visually rather
 than editorially:
 
-- **Under 250 words on the homepage.** Two of Brad's three repellent references failed on wordiness
+- **Under 250 words above the fold.** Two of Brad's three repellent references failed on wordiness
   and that is a direct instruction about the copy, not about the layout.
+
+  **Scope narrowed 17 August 2026, by Brad.** The cap was written on 12 August, when the homepage
+  had no capability cards. It now governs the forty-second read only — **hero, stats and
+  capabilities** — and the sections below that block are uncapped, on the reasoning that a reader
+  who reaches them has already chosen to keep reading. The whole-page figure was ~847 words when
+  the scope changed.
+
+  **Currently breached.** Hero 47 + stats 28 spend 75 of the 250, leaving 175 for capabilities,
+  which is 223. The block is roughly 70 words over. Brad has not authorised a cut to it —
+  see the standing question below.
+
+  **Standing question, unanswered.** If the 250 was about the page feeling heavy end to end, an
+  above-fold cap does not fix that: the total stays near 780 and the problem resurfaces. Raised
+  17 August, deferred by Brad the same day. Do not treat the narrowing as a finding that the
+  whole-page weight is acceptable — it was not tested.
 - **Relationships and win/win are a structure, never a sentence.** The belief is legitimate and the
   vocabulary is not: *win/win* is the same class of word as *synergy*, and *a real desire to* is a
   self-adjective already banned above. It is carried by the fact that six people wrote it down and
@@ -546,7 +561,8 @@ five-campus save and 2,800 → 24,500 still appear — as proof of a stated meth
 The governing rule of §4 survives intact; only the ordering changes. `/record` and `/cv` carry
 chronology.
 
-**Homepage ceiling: under 250 words.**
+**Homepage ceiling: under 250 words.** Narrowed 17 August 2026 to the above-fold block only —
+hero, stats and capabilities. See §7.1 for the scope, the current breach and the question left open.
 
 ### 11.3 The interview record
 
@@ -589,7 +605,7 @@ scroll-jacked or fixed side frames.**
 | 5 | The 172% figure is dead. `Canwest Sales Figures.jpg` is never published | 10 Aug |
 | 6 | **The employer is never named**, site or CV | 12 Aug |
 | 7 | **The failure is legally excluded, permanently** | 12 Aug |
-| 8 | **Knowledge-led architecture**, evidence inline. Homepage under 250 words | 12 Aug |
+| 8 | **Knowledge-led architecture**, evidence inline. Homepage under 250 words — **narrowed 17 Aug to above the fold only** (hero, stats, capabilities); below-fold uncapped. §7.1 | 12 Aug, amended 17 Aug |
 | 9 | **One photograph**, properly done | 12 Aug |
 | 10 | **Editorial base, choreographed journey.** Not a static document | 12 Aug |
 | 11 | Site targets software. **Breadth is proven by the archive, never announced** | 12 Aug |
