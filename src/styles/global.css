@@ -37,6 +37,15 @@
   --text-title: 1.25rem;
   --text-h3: 1.375rem;
 
+  /* Fluid steps. These were seven ad-hoc clamp() expressions inline beside the fixed tokens
+     above, three of them byte-identical, which is why the scale drifted. Named here so the
+     ladder is visible in one place and a new section cannot invent an eighth value.
+     Order is the hierarchy: hero > page-hero > section. */
+  --text-hero: clamp(2.25rem, 4.2vw, 3.25rem);
+  --text-page-hero: clamp(2rem, 4.4vw, 2.875rem);
+  --text-section: clamp(1.75rem, 3.4vw, 2.5rem);
+  --text-hero-lead: clamp(1.0625rem, 1.4vw, 1.25rem);
+
   --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --gutter: max(28px, calc((100vw - 1180px) / 2));
 }
@@ -85,6 +94,20 @@ h3,
 h4 {
   color: var(--ink);
   font-weight: 700;
+  text-wrap: balance;
+}
+
+/* No line ends on a single stranded word. Headings balance their lines evenly; running copy
+   uses `pretty`, which pulls a word back from the last line rather than leaving it alone.
+   Measured 15 August 2026: the homepage carried 7 widows before this rule and 0 after, and
+   21 across the 13 built pages. Set here rather than per-component so a new block inherits it. */
+p,
+li,
+dd,
+dt,
+blockquote,
+figcaption {
+  text-wrap: pretty;
 }
 
 .visually-hidden {
@@ -257,6 +280,11 @@ main {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  /* A pill is one object. The longest label ("Brands I've sold to and worked with · 1999–2025")
+     broke below 420px and stranded the date on a second line inside the border, which reads as
+     a broken component rather than a wrapped sentence. Balance splits it evenly if it must
+     break at all. */
+  text-wrap: balance;
 }
 
 .enum {
@@ -338,7 +366,7 @@ main {
 .section-head h2 {
   max-width: 24ch;
   margin: 0;
-  font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+  font-size: var(--text-section);
   letter-spacing: -0.03em;
   line-height: 1.08;
   text-wrap: balance;
@@ -364,26 +392,34 @@ main {
   padding-block: 56px 48px;
 }
 
-/* The oversized moment is now the claim, not the name. A sentence cannot carry the 9rem
-   name scale, so the ceiling drops and the measure caps at 19ch to keep the ragged edge
-   deliberate. Still the largest type on the site; nothing else competes. */
+/* The oversized moment is the claim, not the name. A sentence cannot carry the 9rem name
+   scale, so the ceiling drops. The measure was 19ch when the headline was 48 characters;
+   Brad's line is 66 and that cap broke it into five lines with a two-word tail. 26ch holds
+   it to three lines at every width with balance doing the rag. Still the largest type on
+   the site; nothing else competes. */
 .hero h1 {
-  max-width: 19ch;
+  max-width: 26ch;
   margin: 18px 0 0;
-  font-size: clamp(2.25rem, 4.2vw, 3.25rem);
+  font-size: var(--text-hero);
   font-weight: 700;
   letter-spacing: -0.035em;
   line-height: 1.04;
   text-wrap: balance;
 }
 
+/* pretty, not balance: the lead is four lines at phone widths and balance would even them
+   into a short block. pretty leaves the measure alone and only refuses to strand the last
+   line. The hyphen in "long-term" is a break opportunity the browser will take, which put
+   "term relationships." alone on a fifth line at 390 — the non-breaking hyphen in the
+   markup is what stops that, and any replacement compound needs the same treatment. */
 .hero-copy {
   max-width: 55ch;
   margin: 22px 0 18px;
   color: var(--ink-tertiary);
-  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  font-size: var(--text-hero-lead);
   font-weight: 400;
   line-height: 1.45;
+  text-wrap: pretty;
 }
 
 .tag-list,
@@ -535,6 +571,10 @@ main {
   border-left: 0;
 }
 
+/* The one fluid value that stays off --text-section, and the reason it differs: the figures
+   are `nowrap` inside a four-up band, and "2,800 → 24,500" is the widest string on the site.
+   At the section step's 3.4vw middle term it overruns its column between 900px and 1100px.
+   Same floor and ceiling, slower middle term. Do not fold this into the section token. */
 .stat-figure {
   margin: 0;
   color: var(--accent-on-dark);
@@ -552,70 +592,34 @@ main {
   line-height: 1.4;
 }
 
-/* Segmented pill selector */
-
-.pill-tablist {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
-  margin-bottom: 26px;
-}
-
-.pill-tab {
-  padding: 10px 18px;
-  border: 1px solid var(--line);
-  border-radius: var(--r-pill);
-  color: var(--ink-secondary);
-  background: transparent;
-  font: inherit;
-  font-size: var(--text-body);
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.pill-tab:hover {
-  color: var(--ink);
-  border-color: var(--line-hover);
-}
-
-.pill-tab[aria-selected="true"] {
-  color: #fff;
-  border-color: var(--ink);
-  background: var(--ink);
-}
-
 /* The panel text caps at 62ch (correct typography, do not change). At 1440px the panel was
    stretching the full 1180px shell, leaving half of it empty. The container is what was
    wrong, so it is capped here to sit just clear of the measure. */
-.capability-stack {
-  max-width: 74ch;
-  margin-inline: auto;
-  border: 1px solid var(--line);
-  border-radius: var(--r-card);
-  background: var(--paper);
-}
+/* All four cards visible on first paint — the method argument is the point of the
+   section, so it is not hidden behind a tab interaction. 17 August 2026. */
 
-.capability-panel {
-  padding: 28px 26px;
-}
-
-.capability-panel h3 {
+.capability-cell h3 {
   max-width: 30ch;
-  margin: 0 0 10px;
-  font-size: var(--text-h3);
+  margin: 0 0 8px;
+  font-size: var(--text-title);
   font-weight: 650;
   letter-spacing: -0.025em;
+  line-height: 1.2;
 }
 
-.capability-panel > p {
+.capability-cell > p {
   max-width: 62ch;
   margin: 0;
   color: var(--ink-secondary);
 }
 
-.capability-panel > .tier-meta {
-  margin: 0 0 16px;
+.capability-cell > .tier-meta {
+  margin: 0 0 14px;
+}
+
+/* Push the evidence line to the cell floor so all four align across the grid. */
+.capability-cell > .evidence {
+  margin-top: auto;
 }
 
 .evidence {
@@ -653,6 +657,11 @@ main {
 
 .hairline-grid > :nth-child(odd) {
   border-left: 0;
+}
+
+/* An odd final cell spans the full width rather than leaving a hole beside it. */
+.hairline-grid > :last-child:nth-child(odd) {
+  grid-column: 1 / -1;
 }
 
 .work-cell h3 {
@@ -795,7 +804,7 @@ main {
 .contact-details h2 {
   max-width: 14ch;
   margin: 16px 0 12px;
-  font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+  font-size: var(--text-section);
   letter-spacing: -0.03em;
   line-height: 1.08;
 }
@@ -805,6 +814,15 @@ main {
   margin: 0 0 22px;
   color: var(--ink-tertiary);
   font-size: var(--text-lead);
+}
+
+/* A dot-separated discipline list, not a sentence. The 44ch prose measure above stranded the
+   final "AI" on its own line at 3 per cent fill; a keyword run has no reading-measure argument
+   against using the column it sits in. Kept off the last separator so a break, if one is ever
+   forced at a narrow width, falls between disciplines rather than inside one. */
+.contact-details > p.contact-disciplines {
+  max-width: none;
+  text-wrap: balance;
 }
 
 .contact-list {
@@ -924,12 +942,17 @@ main {
   padding-block: 56px 40px;
 }
 
+/* Interior pages sit below the homepage hero. This rendered at 56px against the hero's 52px
+   at 1440px — an interior heading outranking the front door, which reads as incoherent
+   whichever page you land on first. The ceiling now clears the section-head token and stops
+   short of the hero. The 16ch cap also forced "A few things that / happened." onto two lines
+   with one word stranded; 22ch lets the shorter page titles hold one line. */
 .page-hero h1 {
-  max-width: 16ch;
+  max-width: 22ch;
   margin: 16px 0 0;
-  font-size: clamp(2.25rem, 5.5vw, 3.5rem);
+  font-size: var(--text-page-hero);
   letter-spacing: -0.035em;
-  line-height: 1.02;
+  line-height: 1.04;
 }
 
 .page-intro {
@@ -967,7 +990,7 @@ main {
 .blog-teaser-intro h2 {
   max-width: 20ch;
   margin: 0;
-  font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+  font-size: var(--text-section);
   letter-spacing: -0.03em;
   line-height: 1.08;
   text-wrap: balance;
@@ -1054,6 +1077,10 @@ main {
 .transcription p {
   color: var(--ink-secondary);
   line-height: 1.65;
+  /* Letters are verbatim documents and several end on a bare URL. An unbreakable 19-character
+     token cannot share a line at 390px, so it drops alone and `pretty` cannot pull it back —
+     the only fix is letting the URL itself break. Applies to the wrap, never to the words. */
+  overflow-wrap: break-word;
 }
 
 .transcription h2 {
@@ -1099,7 +1126,7 @@ main {
 }
 
 .blog-post > * + * {
-  margin-top: 20px;
+  margin-top: 22px;
 }
 
 .blog-post p {
@@ -1107,18 +1134,26 @@ main {
   line-height: 1.7;
 }
 
+/* A heading needs more air above it than between two paragraphs, and it must bind to the text
+   it introduces rather than float midway. 40px over 22px is the ladder's next clear step and
+   holds that relationship. The `!important` here and on the rule below only outranked the
+   sibling rule above, which a later, more specific selector already does. */
 .blog-post h2 {
   font-size: var(--text-h3);
   font-weight: 650;
   letter-spacing: -0.025em;
   color: var(--ink);
-  margin-top: 32px !important;
+  margin-top: 40px;
+}
+
+.blog-post h2 + p {
+  margin-top: 12px;
 }
 
 .blog-post hr {
   border: none;
   border-top: 1px solid var(--line);
-  margin-block: 28px !important;
+  margin-block: 40px;
 }
 
 .scan {
@@ -1360,11 +1395,6 @@ main {
     padding-block: 40px 28px;
   }
 
-  .pill-tablist {
-    justify-content: flex-start;
-  }
-
-  .capability-panel,
   .contact-details,
   .contact-form,
   .transcription {
