@@ -363,8 +363,11 @@ main {
   text-align: center;
 }
 
+/* 24ch fitted the three short statement headings and broke the one 49-character heading in
+   half while 550px of the shell sat empty beside it. 34ch clears the longest heading in use
+   and still stops a future one running the full 1180px measure. 17 August 2026. */
 .section-head h2 {
-  max-width: 24ch;
+  max-width: 34ch;
   margin: 0;
   font-size: var(--text-section);
   letter-spacing: -0.03em;
@@ -664,13 +667,18 @@ main {
   grid-column: 1 / -1;
 }
 
+/* The cap has to clear the titles actually in use, not an idea of a short title. These run
+   31–42 characters, so the old 22ch broke every one of them onto two lines while the cell
+   still had 250px spare — and the full-width odd cell had 840px spare. 46ch clears the
+   longest and balance handles the widths where a break is unavoidable. 17 August 2026. */
 .work-cell h3 {
-  max-width: 22ch;
+  max-width: 46ch;
   margin: 0 0 8px;
   font-size: var(--text-title);
   font-weight: 650;
   letter-spacing: -0.025em;
   line-height: 1.2;
+  text-wrap: balance;
 }
 
 .work-cell .meta {
