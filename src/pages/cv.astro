@@ -2,79 +2,122 @@
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { contact } from "../data/contact";
 
-/** Entries without `dates` are ones Brad cannot evidence to the year; the letters carry the dates instead. */
-const roles: { title: string; organisation: string; dates?: string; summary: string; points: string[] }[] = [
+/**
+ * Every line below traces to a row in COPY/interviews/_claims-register.md.
+ * The bars that shaped this page, so a later edit does not quietly undo them:
+ *   - The education-decade employer is never named (settlement gag).
+ *   - Hedges survive verbatim: "around", "over", "the bulk of".
+ *   - Barred: the 400% figure (E13), headcount 5→12 (E28), any sum of the
+ *     revenue lines or project values (C14, footnote 52), "Brad built" for the
+ *     integration (footnote 18), "I never lost an account" as a rate (footnote 58).
+ *   - Past tense throughout for roles that have ended.
+ * Entries without `dates` are ones Brad cannot evidence to the year.
+ */
+const roles: {
+  title: string;
+  organisation: string;
+  dates?: string;
+  summary: string;
+  points: string[];
+}[] = [
   {
     title: "Independent consultant",
-    organisation: "Clarity Engine AI and Pikle",
-    dates: "2025–Now",
-    summary: "Applied commercial, AI and product judgement to early-stage software work.",
+    organisation: "Clarity Engine AI, Auckland",
+    dates: "2025–now",
+    summary:
+      "Positioning, commercial and product work for early-stage New Zealand software companies, including Pikle, an ecommerce product discovery platform.",
     points: [
-      "Built positioning, pricing, proposal templates and CRM stages.",
-      "Defined four lead channels and produced a practical sales asset kit.",
-      "Set UX audit priorities and brand/design governance.",
+      "Built the positioning, messaging framework and sales kit: pricing structure, four lead channels and a twelve-month commercial plan.",
+      "Delivered a UX and customer-experience audit of the product console, with a build order ranked by visible change per unit of work.",
+      "Produced brand and design governance systems that hold distributed teams and tooling to a single standard.",
     ],
   },
   {
-    title: "Sales and Marketing Manager, then General Manager",
-    organisation: "NZ and Australia software channel",
+    title: "General Manager, New Zealand and Australia",
+    organisation: "US software vendor's channel partner · education sector",
     dates: "2015–2025",
-    summary: "Ten years selling, demoing, proposing, forecasting, enabling and supporting a SaaS platform.",
+    summary:
+      "Senior leader charged with establishing and driving the education sector of the business. Designed its revenue model across the customer lifecycle and held the vendor relationship for the decade.",
     points: [
-      "Grew licensed users from 2,800 to 24,500 across New Zealand and Australia.",
-      "Managed full-cycle selling from prospecting and demos through proposals, pipeline, close and renewal.",
-      "Built adoption strategy, enablement workshops and stakeholder communication so software moved from signed contract to everyday use.",
+      "Grew the licensed user base from 2,800 to 24,500 across New Zealand and Australia.",
+      "Retained a five-campus account that was actively evaluating a competitor, then expanded it: paid consultancy, an annual managed services agreement, and a sixth campus added to the organisation-wide agreement.",
+      "Renegotiated the reseller agreement in full — buy price, terms and licensing framework — moving from compulsory upfront purchase of expiring licences to buy-as-needed at a fixed price with no upfront cost, and won the right to invoice customers directly in local currency, taking billing off the vendor and owning the renewal relationship.",
+      "Held firm against the vendor's standard 500-licence minimum and removed it, opening the smaller end of the market — a fifty-licence school went on the books as a result.",
+      "Identified support as a separable line and created a managed services agreement: structured monthly, billed annually in advance, worth around $40,000 to $50,000 a year against work already being delivered.",
+      "Originated an SIS integration that imported school data directly into the platform on a 24-hour refresh, removing a manual annual export job. Charged as a service, generating around $30,000 a year.",
+      "Never lost a school on an annual price increase; did lose the occasional school on overall cost against government-subsidised alternatives.",
+      "Became a Ministry of Education approved facilitator in partnership with Digital Circus, opening access to government training funds for the schools he worked with.",
+      "When pandemic server load caused the vendor to cancel the channel contract, formed a replacement partnership with itslearning, a Norwegian LMS, keeping a product in market for the year until the vendor returned.",
+      "Built the adoption programme school by school: 108 one-to-one teacher interviews across lockdown, courses at beginner, intermediate and advanced level, and a teacher network of around 600 at its peak.",
     ],
   },
   {
-    title: "National Sales & Marketing Manager",
+    title: "National Sales and Marketing Manager",
     organisation: "99 Corporation",
     dates: "2013–2015",
-    summary: "Built the system behind a fourteen-person telemarketing team.",
+    summary:
+      "Direct marketing business holding what it positioned as New Zealand's largest rural farming database. Ran sales and marketing, and put a price on work that had been going out free.",
     points: [
-      "Created the process behind lead generation and sales calls.",
-      "Scoped national accounts and developed the billing structure supporting cash flow.",
+      "Grew the customer base by around 70 per cent and income by around 120 per cent. Rob Nieuwland, who owned the business, puts it differently but the same way: profit from each customer was up around 30 per cent.",
+      "Introduced a 50 per cent deposit up front, which the business had not done before — a change the owner credits with a substantial difference to cashflow and operations.",
+      "Introduced set-up costs, higher hourly rates, volume-based pricing and a charge for telemarketer script writing, all previously unbilled.",
+      "Generated direct data sales to other telemarketing companies including Nielsen and Martins, an income line that had not previously existed.",
+      "Held the national accounts he won, owning billing, contract negotiation and repeat business. Clients included Xero, LexisNexis, Nielsen and Promax.",
     ],
   },
   {
-    title: "Business Development",
+    title: "Business Development and Sales Manager",
     organisation: "Xplore",
     dates: "2009–2013",
-    summary: "Sold web, ecommerce and SaaS projects where positioning, usability, search and conversion had to line up.",
+    summary:
+      "Web agency. Ran the full cycle — prospected, interviewed, wrote strategies into proposals, briefed delivery — then held the account above the team building the sites.",
     points: [
-      "Turned customer requirements into web strategy and practical proposals.",
-      "Applied UI, UX and customer-experience judgement to the path from buyer interest to conversion.",
+      "Worked a two-year cycle reselling website redesigns and copy refreshes to clients already held, alongside SEO packages and monthly-fee bolt-on modules.",
+      "Held the Hawke's Bay Chamber of Commerce as a client for four years, essentially the whole tenure.",
+      "Sold a $70,000 website to Rembrandt Fine Arts with full SKU control and accounting integration, the largest site the agency had built.",
+      "Introduced branding and copywriting as a service line through contracted specialists on profit share, with the agency holding the client billing.",
     ],
   },
   {
-    title: "Senior Account Manager",
-    organisation: "CanWest Media",
-    summary: "Two and a half years developing and presenting new commercial ideas for Hawke's Bay accounts.",
+    title: "Account Manager",
+    organisation: "Canwest Media (Radioworks)",
+    dates: "2003–2006",
+    summary:
+      "Media sales across Hawke's Bay accounts, developing and presenting new commercial ideas rather than selling inventory.",
     points: [
-      "Consistently achieved monthly KPIs.",
-      "Built proposals and presentations around specific ways to attract new business.",
+      "Held the Harvey Norman account for the full three years.",
+      "Created campaigns grouping several advertisers together to run joint promotions, and organised live-to-air activity with them.",
     ],
   },
   {
-    title: "Business Development",
-    organisation: "Adplus Advertising (now Tracta)",
-    summary: "Sold advertising and web services, with Hawke's Bay Tourism as a major account, working between publisher, advertisers and tourism leaders to build the market as well as the sale.",
+    title: "Business Development Manager",
+    organisation: "Adplus Advertising (later Tracta)",
+    dates: "2001–2003",
+    summary:
+      "Advertising agency with Hawke's Bay Tourism as the flagship account, held personally — working between publisher, advertisers and tourism operators to build the market as well as the sale.",
     points: [
-      "Developed advertiser relationships, customer records and campaign opportunities.",
-      "Earned written references from both the managing director and the client general manager.",
-    ],
-  },
-  {
-    title: "Event Director",
-    organisation: "2000AD",
-    dates: "1999",
-    summary: "Sold sponsorship, promoted and delivered a large public event.",
-    points: [
-      "Sold sponsors ten seconds of laser for thirty-six thousand dollars before production began.",
-      "Delivered the event for fifteen thousand attendees.",
+      "Grew total advertising revenue by 60 per cent and advertiser volume by 40 per cent over three years for the regional Visitor Guide and web portal.",
+      "Onboarded traditional operators into early digital packages, lifting average deal size by around 14 per cent alongside print renewals.",
+      "Created a two-tier advertising product — standard listings and premium-placement Gold Pages and Gold Listings — sold as a bundle across the printed guide and the tourism website.",
+      "Promoted from web-only business development into full media sales, with an office among the executive account holders.",
     ],
   },
 ];
+
+const skills = [
+  "Account management",
+  "Full-cycle sales",
+  "Renewals and expansion",
+  "Contract and vendor negotiation",
+  "Pricing and licensing",
+  "Product adoption and enablement",
+  "Channel partnerships",
+  "Revenue systems",
+  "AI enablement",
+  "UX and CX judgement",
+];
+
+const tools = "Salesforce, HubSpot, Pipedrive, Asana, Workflow Max, Microsoft 365, Adobe Creative Suite. AI tooling applied to commercial, customer and product workflows.";
 ---
 
 <SiteLayout
@@ -82,75 +125,110 @@ const roles: { title: string; organisation: string; dates?: string; summary: str
   description="Brad Friis: commercial operator across SaaS growth, sales, revenue systems, product adoption and AI enablement."
 >
   <div class="band">
-  <header class="page-hero shell">
-    <p class="eyebrow-pill">Curriculum vitae</p>
-    <h1>Brad Friis</h1>
-    <p class="page-intro">Commercial operator for SaaS growth: sales, revenue systems, product adoption and AI enablement.</p>
-  </header>
+    <header class="page-hero shell">
+      <p class="eyebrow-pill">Curriculum vitae</p>
+      <h1>Brad Friis</h1>
+      <p class="page-intro">
+        Commercial operator for SaaS growth: sales, revenue systems, product adoption and AI enablement.
+      </p>
+    </header>
 
-  <div class="cv-layout shell">
-    <aside class="cv-sidebar">
-      <dl class="contact-list">
-        <div>
-          <dt>Location</dt>
-          <dd>{contact.location}</dd>
-        </div>
-        <div>
-          <dt>Email</dt>
-          <dd><a href={`mailto:${contact.email}`}>{contact.email}</a></dd>
-        </div>
-        <div>
-          <dt>Phone</dt>
-          <dd><a href={contact.phoneHref}>{contact.phone}</a></dd>
-        </div>
-        <div>
-          <dt>LinkedIn</dt>
-          <dd><a href={contact.linkedin} rel="me">linkedin.com/in/bradfriis</a></dd>
-        </div>
-      </dl>
-      <button class="button" type="button" data-print>Print or save PDF</button>
-    </aside>
+    <div class="cv-layout shell">
+      <aside class="cv-sidebar">
+        <dl class="contact-list">
+          <div>
+            <dt>Location</dt>
+            <dd>{contact.location}</dd>
+          </div>
+          <div>
+            <dt>Email</dt>
+            <dd><a href={`mailto:${contact.email}`}>{contact.email}</a></dd>
+          </div>
+          <div>
+            <dt>Phone</dt>
+            <dd><a href={contact.phoneHref}>{contact.phone}</a></dd>
+          </div>
+          <div>
+            <dt>LinkedIn</dt>
+            <dd><a href={contact.linkedin} rel="me">linkedin.com/in/bradfriis</a></dd>
+          </div>
+        </dl>
+        <button class="button" type="button" data-print>Print or save PDF</button>
+      </aside>
 
-    <div>
-      <section class="cv-section" aria-labelledby="cv-profile">
-        <h2 id="cv-profile">Profile</h2>
-        <p>I turn customer understanding into pipeline, proposals, adoption strategy and practical AI-enabled systems. My work spans full-cycle sales, SaaS strategy, revenue operations, product adoption and commercial product judgement.</p>
-      </section>
+      <div>
+        <section class="cv-section" aria-labelledby="cv-profile">
+          <h2 id="cv-profile">Profile</h2>
+          <p>
+            Commercial manager with twenty-five years in software, media and agency work, ten of them
+            running the New Zealand and Australian business for a United States software vendor's
+            channel partner. I kept the bulk of the accounts I won — not all of them, and not
+            everywhere — but the billing, the contracts, the renewals and the relationship were mine
+            at every job I have had since 2001. Strongest with non-technical customers who need
+            onboarding, adoption support and a clear reason to renew.
+          </p>
+        </section>
 
-      <section class="cv-section" aria-labelledby="cv-capabilities">
-        <h2 id="cv-capabilities">Capabilities</h2>
-        <ul class="chip-list">
-          <li>Sales Growth</li>
-          <li>SaaS Strategy</li>
-          <li>Revenue Systems</li>
-          <li>Product Adoption</li>
-          <li>AI Enablement</li>
-          <li>Proposals</li>
-          <li>Pipeline Management</li>
-          <li>UI, UX & CX Judgement</li>
-        </ul>
-      </section>
+        <section class="cv-section" aria-labelledby="cv-capabilities">
+          <h2 id="cv-capabilities">Capabilities</h2>
+          <ul class="chip-list">
+            {skills.map((skill) => <li>{skill}</li>)}
+          </ul>
+        </section>
 
-      <section class="cv-section" aria-labelledby="cv-experience">
-        <h2 id="cv-experience">Commercial experience</h2>
-        {roles.map((role) => (
-          <article class="cv-entry">
-            <h3>{role.title}</h3>
-            <p class="meta">{role.dates ? `${role.organisation} · ${role.dates}` : role.organisation}</p>
-            <p>{role.summary}</p>
-            <ul>
-              {role.points.map((point) => <li>{point}</li>)}
-            </ul>
-          </article>
-        ))}
-      </section>
+        <section class="cv-section" aria-labelledby="cv-experience">
+          <h2 id="cv-experience">Commercial experience</h2>
+          {roles.map((role) => (
+            <article class="cv-entry">
+              <h3>{role.title}</h3>
+              <p class="meta">
+                {role.dates ? `${role.organisation} · ${role.dates}` : role.organisation}
+              </p>
+              <p>{role.summary}</p>
+              <ul>
+                {role.points.map((point) => (
+                  <li>{point}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </section>
 
-      <section class="cv-section" aria-labelledby="cv-references">
-        <h2 id="cv-references">References</h2>
-        <p>Six written references span customers, clients and managers from 2003 to 2025, published in full. <a class="text-link" href="/letters/">Read the letters</a>.</p>
-      </section>
+        {/* Brad's instruction, 17 August 2026: the full account moves to the blog and the CV keeps a
+            minimal reference. Its own short section rather than a role entry, because inventing dates
+            and achievement bullets for a venture that failed would overstate it in both directions.
+            The figure is Brad's own corrected number (COPY/career/pre-education-career.md §7.1).
+            §7.1's proportion rule governs here too: one instance, never given more room than this. */}
+        <section class="cv-section" aria-labelledby="cv-venture">
+          <h2 id="cv-venture">Venture</h2>
+          <p>
+            MySimpleSiteMan, a self-serve website product for small businesses. It failed, at a cost
+            of over $400,000. <a class="text-link" href="/blog/mysimplesiteman/">Read the post-mortem</a>.
+          </p>
+        </section>
+
+        <section class="cv-section" aria-labelledby="cv-tools">
+          <h2 id="cv-tools">Systems and tools</h2>
+          <p>{tools}</p>
+        </section>
+
+        <section class="cv-section" aria-labelledby="cv-development">
+          <h2 id="cv-development">Professional development and community</h2>
+          <p>
+            Solution Selling, Sales Impact Group. Winning with Relationship Selling, Dale Carnegie.
+            Board member, Foodbank Hawke's Bay and Volunteering New Zealand.
+          </p>
+        </section>
+
+        <section class="cv-section" aria-labelledby="cv-references">
+          <h2 id="cv-references">References</h2>
+          <p>
+            Six written references span customers, clients and managers from 2003 to 2025, published
+            in full at bradfriis.com/letters. <a class="text-link" href="/letters/">Read the letters</a>.
+          </p>
+        </section>
+      </div>
     </div>
-  </div>
   </div>
 </SiteLayout>
 
