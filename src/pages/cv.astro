@@ -19,7 +19,6 @@ const roles: {
   dates?: string;
   summary: string;
   points: string[];
-  postMortemHref?: string;
 }[] = [
   {
     title: "Independent consultant",
@@ -185,9 +184,6 @@ const tools = "Salesforce, HubSpot, Pipedrive, Asana, Workflow Max, Microsoft 36
                 {role.dates ? `${role.organisation} · ${role.dates}` : role.organisation}
               </p>
               <p>{role.summary}</p>
-              {role.postMortemHref && (
-                <p><a class="text-link" href={role.postMortemHref}>Read the post-mortem</a>.</p>
-              )}
               {role.points.length > 0 && (
                 <ul>
                   {role.points.map((point) => (

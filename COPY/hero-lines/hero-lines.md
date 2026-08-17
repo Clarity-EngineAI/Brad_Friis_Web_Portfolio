@@ -11,9 +11,28 @@ above. **Sixty-three options across eight rounds, A to BK.** Status key is in `C
 > into this file on 15 August 2026** from a session transcript, having been generated, put to Brad
 > and rejected without ever reaching disk.
 
-**Currently in use:** option J's display line, placed 13 August 2026 as a **holding position only**
-— see round four. Option G was retired on 11 August 2026. **Round three below was written the same
-day. Option J's recommendation was suspended on 12 August 2026 — see the restatus under J.**
+**Currently in use: a second unreviewed rewrite, placed 17 August 2026 without going through this
+file.** `src/pages/index.astro:121-122` now reads *"Turning customer needs into long-term account
+growth."* with support paragraph *"Commercial operator across SaaS, web strategy and revenue systems
+who keeps and expands the accounts that matter."* — introduced in commit `d0867cd` ("Remove
+MySimpleSiteMan from the site, refine homepage copy"), which also describes itself as a copy
+refinement rather than a hero decision. This is the **third** distinct hero wording, none of which
+trace to a scored option in this file:
+
+1. Option J (the holding position, `COPY/hero-lines/hero-lines.md` round three) — live before
+   17 August.
+2. *"Helping SaaS and digital businesses turn customer needs into growth"* — introduced by commit
+   `2735799` ("Restructure homepage for a scan-first read"), traced to
+   `COPY/resume-website-positioning-lines.md:113`, a generic worked example in an unrelated
+   brainstorm document.
+3. *"Turning customer needs into long-term account growth"* — the current live line, commit
+   `d0867cd`. Origin not yet traced to any file; it reads as a further hand-edit of wording 2 rather
+   than a return to option J or any scored candidate here.
+
+**Both replacements happened without Brad choosing from this file, and both reintroduce the *SaaS*
+industry noun barred by constraint 4.** Neither was scored against any constraint here. See the note
+at the foot of round eight. Option G was retired on 11 August 2026. **Round three below was written
+the same day. Option J's recommendation was suspended on 12 August 2026 — see the restatus under J.**
 
 > **Round four is blocked on the Phase 2 interviews, 13 August 2026.** Brad stated the target role
 > — *a high-value account management seat with commission from both retention and the upselling of
@@ -1649,12 +1668,13 @@ first present-tense paragraphs in the file.
 relationship or the span — rather than restating the headline at greater length. The evidence stays
 in the capability cards.
 
-**The current live paragraph is rejected and still on the site**
-(`src/pages/index.astro:134`): *"Twenty-five years in software, media and agency work. Ten of them
-running the New Zealand and Australian business as the largest United States edtech vendor's channel
-partner."* It is achievement-led throughout and it carries the **"largest United States edtech
-vendor" industry fence Brad objected to on 13 August**. It is replaced by whichever of the three
-below matches the chosen shape.
+**The paragraph this round targeted for replacement, at the time these three options were drafted**
+(`src/pages/index.astro:134` as it stood then): *"Twenty-five years in software, media and agency
+work. Ten of them running the New Zealand and Australian business as the largest United States
+edtech vendor's channel partner."* It was achievement-led throughout and carried the **"largest
+United States edtech vendor" industry fence Brad objected to on 13 August**. It is replaced by
+whichever of the three below matches the chosen shape. **This paragraph is no longer live — see the
+17 August correction at the foot of this file for what replaced it, unreviewed.**
 
 ---
 
@@ -1703,10 +1723,12 @@ paragraphs.
 
 ## The eyebrow pill — three replacements
 
-**The current pill is `Account management · retention & growth`** at `src/pages/index.astro:132`.
-**It fences the entire hero before the headline is read**, and it fences it to exactly the seat Brad
-has just said the hero must be broader than. A broad hero under this pill is still an
-account-management hero. **The whole block is one unit and the pill changes with the headline.**
+**The pill this round targeted was `Account management · retention & growth`** at
+`src/pages/index.astro:132` as it stood then (now `:128` — see the 17 August correction at the foot
+of this file for the current live pill). **It fences the entire hero before the headline is read**,
+and it fences it to exactly the seat Brad has just said the hero must be broader than. A broad hero
+under this pill is still an account-management hero. **The whole block is one unit and the pill
+changes with the headline.**
 
 The replacement should name **the method or the span, not the seat.**
 
@@ -1804,13 +1826,44 @@ what a value proposition is for this reader**, and it was never put to Brad unti
   Brad's rejection was of the headline approach; he did not rule on the paragraphs or the pill.
   **They are drafted to shapes A, B and C respectively and will need rewriting to whatever he
   writes**, but paragraph 1 and the shape-A pill are the closest starting points.
-- **The eyebrow pill is still the live problem regardless of the headline.** *Account management ·
-  retention & growth* at `src/pages/index.astro:132` fences the hero before the headline is read,
-  and Brad has ruled the hero must be broader than that seat. **A new headline under the old pill
-  does not fix the block.**
-- **The live paragraph at `src/pages/index.astro:134` is rejected and still on the site.** It is
-  achievement-led and carries the *"largest United States edtech vendor"* industry fence Brad
-  objected to on 13 August.
+- **The eyebrow pill was the live problem regardless of the headline, at the time of this round.**
+  *Account management · retention & growth*, then at `src/pages/index.astro:132`, fenced the hero
+  before the headline was read, and Brad had ruled the hero must be broader than that seat. **A new
+  headline under the old pill does not fix the block.** See the 17 August correction below for what
+  is actually live now.
+- **The paragraph then at `src/pages/index.astro:134` was rejected and still on the site at the
+  time.** It was achievement-led and carried the *"largest United States edtech vendor"* industry
+  fence Brad objected to on 13 August. It is no longer live — see below.
 
-**Option J remains live on the site as a holding position.** It stays until Brad replaces it, per
-the never-swap-a-line-in rule.
+**Option J remained live on the site as a holding position — until 17 August 2026, per the
+correction immediately below.**
+
+### Metadata correction, 17 August 2026 — option J is no longer live
+
+**The line above is now false.** Commit `2735799` ("Restructure homepage for a scan-first read",
+same day) replaced option J at `src/pages/index.astro:129` with *"Helping SaaS and digital
+businesses turn customer needs into growth."*, with a rewritten support paragraph at `:130`
+(*"Working across sales, account management, delivery, UI/UX and web strategy I help businesses win
+the right customers, then keep the accounts that matter under pressure."*) and a rewritten eyebrow
+pill at `:128` (unchanged text, `Account management · retention & growth`, just moved up two lines
+by the restructure), and a claim that "no settled copy" was touched. The headline and paragraph were
+lifted from `COPY/resume-website-positioning-lines.md:113` — a generic worked example, not a line
+drafted or scored anywhere in this file — and put on the live site without Brad choosing it. It uses
+*SaaS* as an industry noun, which constraint 4 bars, and states the value as advertising copy rather
+than the value proposition Brad asked for after round eight. **Brought to Brad 17 August 2026: he
+has ruled it stays as the holding position — it reads well. Left live deliberately, not by default.
+Still not a chosen line; still his to replace whenever he writes the hero himself.**
+
+### Second metadata correction, 17 August 2026 (same evening) — hero copy replaced again, still not Option J
+
+**The paragraph quoted just above is now also stale.** Brad, later the same session, ruled the
+`hero-copy` support line ("Working across sales, account management...") was poorly written and
+directed a copy package be applied from that morning's `LLM reviews/` design reports plus an
+expanded set of hero/section copy he supplied directly in-session. `src/pages/index.astro:121-122`
+now reads: H1 *"Turning customer needs into long-term account growth."*, support line *"Commercial
+operator across SaaS, web strategy and revenue systems who keeps and expands the accounts that
+matter."* Eyebrow pill at `:120` changed text too — now *"Account management · retention &
+expansion"* (was *"& growth"*). **This is still not Option J, still not drafted or scored in this
+file, and still uses *SaaS* in display copy against constraint 4 — Brad explicitly confirmed
+applying it despite that conflict when asked.** Treat this file's rounds A–BK as historical
+reference only; the live hero has now diverged from this file's process twice in one day.

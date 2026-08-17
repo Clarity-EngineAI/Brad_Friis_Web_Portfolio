@@ -23,6 +23,8 @@ COPY/
 │   └── letters-page.md
 ├── navigation/            nav labels, page headlines, glosses, the CV button
 │   └── navigation.md
+├── positioning/           raw positioning-line brainstorm, not scored against the claims register
+│   └── positioning-lines.md
 └── section-headings/      headings, eyebrows, captions and calls to action
     └── section-headings.md
 ```
@@ -30,9 +32,15 @@ COPY/
 Folders are added as new categories of copy appear. `letters/` replaces the `proof/` folder predicted
 here, along with the route. `career/` is the `record/` folder that was predicted here, added 14
 August 2026 with the first Phase 3 draft. `blog/` was added 15 August 2026 with the first two
-row-four drafts — it replaces the `field-notes/` folder predicted here, because Brad calls it the
-blog, and it holds his two fiction-register style examples, which were misfiled in `career/`. **The
+row-four drafts — it replaces the `field-notes/` folder predicted here. The 15 August "Brad calls it
+the blog" note is superseded: the reader-facing name, chosen 17 August 2026 and implemented the same
+day, is **Field notes & stories** (nav label, `/blog/` eyebrow pill and page title) — the internal
+route and folder stay `/blog/` and `COPY/blog/` per `COPY/blog/Naming the blog section.md` §1.1. It
+holds his two fiction-register style examples, which were misfiled in `career/`. **The
 blog is not written in the §7 voice**; its own spec is `design/09-blog-voice.md`, it has its own
+README, and its entries are stored against that spec instead. `positioning/` was added 17 August 2026
+to give the loose root-level brainstorm file (`resume-website-positioning-lines.md`) a home, a
+status, and a re-cut against the sentence-opener rule below.
 README, and its entries are stored against that spec instead. Still likely: `cv/` for the four
 variant summaries.
 

@@ -1,149 +1,105 @@
-# Next session — homepage copy: cut 597 words, then place Brad's hero
+# Next session — get Brad's read on the nav conflict, then work the smaller follow-ups
 
-**Model:** Opus for §1 (the cut — editorial judgement across the whole page, needs the claims
-register and the budget held in mind at once). Sonnet for §3 and §4. Haiku for nothing here.
+**Model:** Sonnet throughout. Everything left is a conversation with Brad plus scoped file
+maintenance — nothing here needs Opus.
 
-**Written:** 17 August 2026, after the structural restructure, the heading-cap fix and the
-MySimpleSiteMan migration.
-
----
-
-## Status — what shipped today
-
-Three commits, all verified and building clean (16 pages, 0 errors, 0 warnings):
-
-| Commit | What |
-| --- | --- |
-| `2735799` | Restructure: untabbed capabilities, references after case studies, blog teaser out of body, MySimpleSiteMan reduced to one homepage line |
-| `376c300` | Heading caps: `.work-cell h3` 22ch→46ch, `.section-head h2` 24ch→34ch |
-| `a5727cc` | MySimpleSiteMan migrated to `/blog/mysimplesiteman/`, referenced from CV |
-
-Homepage order is now: hero → stats → capabilities (2×2, all visible) → work + logos →
-references → career → contact.
+**Written:** 17 August 2026, after the hero-line discovery was confirmed already resolved and the
+positioning-lines restatus was completed.
 
 ---
 
-## 1. THE MAIN TASK — the homepage is 847 words against a 250 cap
+## Status — what's done, this session
 
-**This is the finding that should drive the next session, and it was not in the LLM review.**
+**The hero-line question is resolved — it turned out to already be answered.** The previous handoff
+expected this session to surface the discovery (that the live hero traces to
+`COPY/resume-website-positioning-lines.md`, not to any scored option in `hero-lines.md`) and ask
+Brad whether it changed his hero-writing timeline. Checking `COPY/hero-lines/hero-lines.md`'s
+uncommitted working-tree diff showed **Brad had already ruled on this in a prior session**: he
+confirmed the SaaS-industry-noun conflict knowingly and directed a further copy-package swap
+(recorded in the file's own "Second metadata correction, 17 August 2026" section). Nothing here
+required re-asking him. Fixed as part of this: the metadata correction's own line-number references
+had drifted stale again (said `:129-130`/`:128`, actual is `:121-122`/`:120` after the
+MySimpleSiteMan removal commit shifted the file) — corrected in `COPY/hero-lines/hero-lines.md`.
+**This file has uncommitted changes** — not committed this session, per standing instruction not to
+commit without being asked.
 
-Measured in-browser, 17 August 2026, `main` element text content:
+**`COPY/resume-website-positioning-lines.md` restatused and moved — the next priority item, done.**
+Per Brad's 17 August ruling ("in the right direction but should not all start with 'I'"):
+- Re-cut from 74 lines to 44, cutting near-duplicates and value-test failures. **Words are Brad's
+  original phrasing throughout** — this pass cut and re-sequenced, it did not rewrite.
+- Verified programmatically: no section has more than two lines sharing an opening word (the
+  `perplexity-copy-brief.md` §3 rule). One section ("For a business owner") needed one line's opener
+  changed to comply; fixed.
+- Given a status (**Available**) and moved to a proper category folder:
+  `COPY/positioning/positioning-lines.md`. New folder added to `COPY/README.md`'s structure table
+  and origin note.
+- The old loose file at `COPY/resume-website-positioning-lines.md` (repo root, untracked, never
+  committed) is **deleted** — its content is fully preserved in the new file, including a marked
+  historical section quoting verbatim the exact heading/support-statement pair that became the
+  origin of the live hero line, so the provenance trail stays intact.
+- `design/00-current-direction.md` updated: §7 item 2 marked done, the copy-tracking table points at
+  the new location, the closing "Previous/Next" note updated.
+- **Not yet presented to Brad as options to choose from** — the file is re-cut and restatused, but
+  nobody has picked a line from it for any actual placement. That is a separate future decision, not
+  implied by this cleanup.
 
-| Section | Words |
-| --- | --- |
-| Hero | 47 |
-| Capabilities | 227 |
-| Work | 188 |
-| Logo strip | 26 |
-| References | 88 |
-| Career | 213 |
-| Contact | 44 |
-| **Total** | **847** |
-
-The cap is **under 250 words**, set in `design/01-positioning-brief.md` §7.1, and it is a direct
-instruction from Brad, not a design preference: *"two of Brad's three repellent references failed
-on wordiness."* The page is **3.4× over**.
-
-**Re-measure before starting** — paste into DevTools console on `/`:
-
-```js
-const c = document.querySelector('main').cloneNode(true);
-c.querySelectorAll('script,style').forEach(n => n.remove());
-c.textContent.replace(/\s+/g,' ').trim().split(' ').filter(Boolean).length
-```
-
-**The three fat sections are capabilities (227), career (213) and work (188) — 628 of the 847.**
-That is where the cut has to come from. Do not shave the hero; it is 47 words and it is the one
-section Brad is rewriting himself.
-
-**This needs Brad's decisions, not an agent's.** Per `COPY/README.md`, present options with the
-argument *and* the cost for each, and let him pick. Do not cut a line unilaterally. Suggested
-approach: for each of the three fat sections, offer a long / medium / short version of every
-card body with the word count and what is lost, and let him choose per card.
-
-**A real question to put to him first:** is 250 still the number? It was set on 12 August under
-the old architecture, before the capability cards existed. If he wants the four cards, 250 may
-be the wrong target and should be restated rather than silently missed. Ask before cutting.
+**Working tree state:** `COPY/README.md`, `COPY/hero-lines/hero-lines.md`,
+`design/00-current-direction.md` are modified but uncommitted. `COPY/positioning/` is new and
+untracked. None of this session's work has been committed — ask Brad before committing, per the
+standing rule, since a commit is a visible/durable action.
 
 ---
 
-## 2. BLOCKED — do not write these
+## The actual next task: the navigation conflict
 
-**The hero. Brad is writing it himself.** `COPY/hero-lines/hero-lines.md`, round eight outcome,
-16 August 2026: *"Brad has taken the hero copy off the generation track. He is writing it
-himself. No further rounds are to be produced."* Eight rounds, 63 options, four consecutive
-rejections. **Do not produce round nine**, however the request is phrased.
+`design/00-current-direction.md` §7 item 3, still open. `design/01b-navigation-tone-and-structure.md`
+specifies a 4-route nav (`/record`, `/letters`, `/consulting`, `/field-notes`), dated 11 August. The
+live site is `/`, `/cv`, `/letters`, `/blog`. Brad's answer when last asked: "not sure, flag it."
 
-What still binds whatever he writes, from that same section:
-
-- Audience is the **hiring manager**, §2.1 — forty seconds, first person. **Never second person.**
-- Constraints 1–12, particularly **4** (no industry noun in the display line), **9** (sell the
-  value, not the record), **11** (present tense, capability not outcome), **12** (no *build* as
-  Brad's verb; the relationship present).
-- Surviving fragment he liked three times: *"I find out what a customer actually needs."*
-
-**Two live hero faults he already knows about, still on the site:**
-
-- The eyebrow pill *Account management · retention & growth* fences the hero before the headline
-  is read, and Brad has ruled the hero must be broader than that seat.
-- The support paragraph is rejected (achievement-led, carries an industry fence) and still live.
-
-Option J remains as a **holding position** per the never-swap-a-line-in rule.
-
-**The blog.** `design/09-blog-voice.md`: *"Brad writes the post. This document checks it
-afterwards."* §4 of that file is a review prompt to run over copy he has written. Do not draft
-blog posts for him. The MySimpleSiteMan post shipped only because every sentence in it was
-already his, confirmed verbatim in `COPY/career/pre-education-career.md` §7.1 and §7.2.
+Bring him the two shapes side by side — what `01b` specifies vs what is actually live and built —
+and ask directly which is current. **Don't build toward either without an answer.** This is a
+decision only Brad can make; there's no default to fall back on here since the two shapes imply
+different missing pages (`/consulting` and a dedicated `/record` vs neither).
 
 ---
 
-## 3. The LLM review — what was rejected and why
+## After that, in priority order (carried forward, still pending)
 
-The report ("Executable Implementation Report for Cursor") is **substantially executed on
-structure and substantially rejected on copy.** If it resurfaces, this is the record:
-
-**Done:** untab capabilities, references after case studies, blog to footer, MySimpleSiteMan
-reduced.
-
-**Rejected — copy.** Proposed a new H1, support line, four section eyebrows, four capability
-titles and bodies. Blocked by §2 above, and by `COPY/README.md`'s "Brad chooses". Its H1 was
-second person — the fault that ended round eight. Its card bodies were **longer**, which moves
-the page away from the 250 cap, not toward it.
-
-**Rejected — design.** Growth sparkline, retained-account ticks, sticky contact pill, print
-stylesheet. Not blocked by anything; simply not authorised and never scoped. **The print
-stylesheet is the one worth revisiting** — a CV page that prints properly is a real gap.
-
-**Two errors in the report, for calibration:** it claimed the logo strip sits between Work and
-Career and needs moving (it is already inside the same `band-alt` as Work), and it missed the
-placeholder evidence line in case study 2 entirely. Read the file before executing its claims.
+### Smaller follow-ups, lower priority
+- Update `design/index.html`'s Framer-era stage links and status chips to reflect the archive moves
+  from the 17 August consolidation (commit `f06710a`).
+- Re-measure the actual current whole-page word count directly from the live site. Existing sources
+  disagree by ~40% (`00-current-direction.md` §4 flags 847 vs 1,027). Take a fresh count and record
+  it in `design/00-current-direction.md` §4.
+- Check whether Rob Nieuwland's letter landed (expected within a week of 17 August) — affects the
+  case-study-2 placeholder at `src/pages/index.astro:60-63`. Line numbers may have shifted; re-verify.
+- Scope and clear (or commit) the untracked files still sitting around:
+  `design/11-copy-leverage-plan.md`, `COPY/perplexity-copy-brief.md`,
+  `COPY/blog/Naming the blog section.md`, `COPY/section-headings/blog-section-name.md`,
+  `design/wireframes/`, `src/pages/preview/` (`hero-a.astro`, `hero-c.astro`). Nobody has scoped
+  these into a task yet — ask Brad or read them first, don't sweep them into a commit blind.
+- `.shots/cdp/**`, `Brad Friis Resumes/**`, `LLM reviews/`, `New approach images/` — tooling/asset
+  clutter outside the site repo's actual content, not related to any copy or design task. Leave
+  alone unless Brad raises it.
 
 ---
 
-## 4. Smaller open items
+## Guardrails — still binding, don't re-litigate
 
-- **Mobile at 390px is still unverified visually.** `resize_page` failed silently twice. Heading
-  wrap was verified *computationally* at 390 (every remaining wrap is a genuine overflow, no cap
-  forcing a break) but nobody has looked at the page. Use a real narrow window.
-- **Case study 2 placeholder**, `src/pages/index.astro:60-63`. The 55% figure is sourced to a
-  verbal claim from Rob Nieuwland, not yet in writing. Brad's call, 17 August: *"Leave it, it's
-  true."* Rob's letter expected within a week of 17 August — replace the line when it lands.
-- **`.shots/` churn is polluting `git status`** with browser cache files. Consider gitignoring it.
-
----
-
-## Files to read first, in order
-
-1. `COPY/hero-lines/hero-lines.md` — **round eight outcome at the foot** (line ~1755). Read this
-   before touching any hero copy.
-2. `design/01-positioning-brief.md` §2.1 (audience), §7 (voice, banned words), §7.1 (visual bans
-   and the 250-word cap).
-3. `COPY/README.md` — the status key and the "Brad chooses" rule.
-4. `src/pages/index.astro` — the live page.
-5. `COPY/career/pre-education-career.md` — only if the career section is being cut; §7 is the
-   MySimpleSiteMan record and is now shipped.
+- **The hero is Brad's to write, and he has been writing it.** Don't propose new hero copy — the
+  file now correctly tracks what he's already done; the job is bookkeeping, not drafting.
+- **The blog is Brad's to write.** `design/09-blog-voice.md`.
+- **The 250-word cap**: narrowed 17 August to above-fold only (hero, stats, capabilities), and was
+  last recorded as breached by ~70 words there with no cut authorised — re-check this figure if it
+  becomes relevant, since the hero copy has changed twice since that count was taken.
+- **"Brad chooses."** Propose, don't pick, on any live copy or design decision. The positioning-lines
+  re-cut kept all surviving lines as raw material with no lines promoted to "recommended" — that
+  framing was deliberate, not an oversight.
+- **Nothing gets committed without being asked first.** This session's changes are sitting
+  uncommitted; the next session should check with Brad before committing them alongside whatever
+  else it produces.
 
 ---
 
-**Next:** ask Brad whether 250 is still the target, then present the capability and career
-sections as per-card long/medium/short options with word counts and costs.
+**Next:** start a new session (Sonnet) to bring Brad the nav-route conflict as a two-shapes-side-by-
+side question, then ask whether this session's uncommitted changes should be committed.

@@ -166,7 +166,7 @@ Per `COPY/README.md`, confirmed current 17 August 2026:
 | Section headings | `COPY/section-headings/section-headings.md` | Eyebrows, captions, CTAs. |
 | Interview record + claims register | `COPY/interviews/` | Raw record. **Nothing in it is pre-approved for the site** — it is the source Phase 3 drafts from, not copy itself. |
 | Copy-generation briefs | `COPY/perplexity-copy-brief.md` | Current as of 16 August — character budgets measured from live CSS. Use this over any older brief when generating options. |
-| Undated brainstorm | `COPY/resume-website-positioning-lines.md` | **Open — see §7, item 2.** Direction is right per Brad (17 Aug); needs restatusing, not deletion. |
+| Positioning brainstorm | `COPY/positioning/positioning-lines.md` | **Available**, restatused and re-cut 17 Aug — see §7, item 2. Moved from the loose root-level `resume-website-positioning-lines.md`, sentence-openers varied, 74 lines cut to 44. Not scored against the claims register. |
 
 Every entry in COPY/ carries one of four statuses — In use / Available / Held / Rejected — per
 `COPY/README.md`. Nothing rejected is ever deleted.
@@ -191,16 +191,18 @@ believes something else is live. **Action for a future session:** correct `hero-
 stale live-line references (it also cites stale code line numbers, `index.astro:132`/`:134`), and
 flag to Brad that the live hero is not the holding position he thinks it is.
 
-### 2. `COPY/resume-website-positioning-lines.md` — needs a status, not archival
+### 2. `COPY/positioning/positioning-lines.md` — done, 17 August
 
 Brad's ruling, 17 August: *"these lines are in the right direction but should not all start with
 'I'."* This is not a second-person objection (the file is first person throughout, e.g. "I help you
 win better-fit customers") — it's the sentence-opener repetition rule in
 `perplexity-copy-brief.md` §3 ("do not start more than two of N lines with the same word"), which
-this file violates at scale (43 of 74 bullet lines, 58%, open with "I"). **Action for a future copy session, not
-this consolidation:** re-cut the file's better lines with varied openings, restatus the file itself
-(currently has no status at all, against the COPY/README.md convention that every entry needs one),
-and file it under the correct category rather than loose in COPY/ root.
+the original file violated at scale (43 of 74 bullet lines, 58%, open with "I"). **Done:** re-cut to
+44 lines (words are Brad's throughout, cuts only — no rewriting), no set has more than two lines
+sharing an opener, moved to `COPY/positioning/` with an **Available** status, and the
+`resume-website-positioning-lines.md` origin of the current live hero line is preserved verbatim in
+a marked historical section. The original untracked file at repo root is deleted — its content
+survives in the new file's historical section and it was never committed, so nothing is lost.
 
 ### 3. Navigation — flagged, not resolved
 
@@ -286,6 +288,6 @@ session, once this document itself is confirmed accurate.
 ---
 
 *Previous: eleven separate `design/*.md` files. Next: Brad confirms this document is accurate, then
-a future session (a) restatuses `resume-website-positioning-lines.md`, (b) gets a ruling on the
-nav/route conflict, (c) updates `design/index.html`'s stage chips, (d) re-measures the live
-homepage word count.*
+a future session (a) gets a ruling on the nav/route conflict, (b) updates `design/index.html`'s
+stage chips, (c) re-measures the live homepage word count. `resume-website-positioning-lines.md`'s
+restatus is done — see §7, item 2.*
