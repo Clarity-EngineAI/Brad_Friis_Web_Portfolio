@@ -1,159 +1,149 @@
-# Next session — record the Sanity decision, then the open copy calls
+# Next session — homepage copy: cut 597 words, then place Brad's hero
 
-**Updated:** Saturday 15 August 2026
-**Model:** **Sonnet.** The architecture call is made; what remains is recording it in two files and
-clearing the copy items. No Opus needed unless item 4 turns into a copy cut.
+**Model:** Opus for §1 (the cut — editorial judgement across the whole page, needs the claims
+register and the budget held in mind at once). Sonnet for §3 and §4. Haiku for nothing here.
 
----
-
-## The Sanity ownership boundary — decided this session
-
-**Sanity owns nothing yet. When it is installed, it owns the body of blog posts only.**
-
-That is narrower than the "likely split" this file predicted last session, and narrower on purpose.
-Nothing was installed, and nothing should be until the trigger in §3 below fires.
-
-### The three-way split
-
-| Layer | Owner | Why |
-| --- | --- | --- |
-| Sales surfaces — hero, career rows, capabilities, letters, nav, CV | **`COPY/` permanently** | Every line carries a status and an argument. That is what makes the copy defensible. |
-| Blog **approval** — does this post publish, in this voice | **`COPY/blog/` permanently** | The §4 review gate and the overrule record. Not a storage function. |
-| Blog **body text** — the words inside an approved post | **Sanity, eventually** | The only layer where Brad editing live costs nothing. |
-
-### Why the predicted two-way split was wrong
-
-The prediction was "Sanity owns blog posts, `COPY/` keeps every sales surface." The second half is
-right. The first half contradicts `COPY/blog/README.md:9-11`, written 15 August:
-
-> For every other folder in `COPY/`, an agent drafts and Brad chooses. **For the blog, Brad writes
-> and §4 of the voice spec checks afterwards.**
-
-Plus `COPY/blog/README.md:38-40`: nothing publishes until §4 runs, and overrules get recorded as
-arguments-against.
-
-**A CMS with a publish button removes that gate by construction.** The value in `COPY/blog/` is not
-that it stores text — `src/data/blog.ts` already does that — it is that a post cannot reach the site
-without passing a check and leaving a record. Handing publishing to Sanity does not move the gate,
-it deletes it, and the deletion is invisible until the first post goes up unchecked.
-
-### Why `COPY/` keeps every sales surface — not a close call
-
-- `COPY/README.md:56-60` requires every entry to carry an argument **for and against**, and the
-  status key requires rejected lines to survive. A CMS text field records the current value and
-  nothing else. The first edit destroys the argument silently — no diff on a rejected line, no dated
-  status change, no record of what was chosen over what.
-- **The standing constraints are enforced by copy passing through a session that has them in
-  context.** A live CMS field routes around every one of them. Brad would not violate them
-  deliberately; he would retype a figure from memory, and `$70k annualised` is barred precisely
-  because it is the natural thing to write.
-
-### The trigger for installing Sanity — has not fired
-
-Brad's stated need is *"I'll edit these posts there later."* Two posts, and the realistic edit is
-fixing a word. That costs one string change in `src/data/blog.ts` today; Netlify rebuilds.
-
-Sanity would add a schema, a Studio deploy, a client library, and — because the site is
-`output: "static"` on Netlify — a rebuild-on-publish webhook that does not exist today.
-
-**The trigger is Brad wanting to write a post start-to-finish without a session.** Editing a typo is
-not that. **This is the one genuinely open question and it is Brad's:** does he want to write posts
-unaided, or only edit existing ones? His wording reads like the second, in which case the answer is
-no CMS at all for now.
-
-### Constraint on any future install
-
-`src/data/blog.ts:1-14` — the `BlogPost` and `BlogBlock` types — **is the boundary.** Sanity may
-replace what fills the `posts` array. It may not change the shape, and it may not reach into the
-three consuming pages.
-
-Three consumers read that array: `src/pages/index.astro:12` (`posts.slice(0, 2)`),
-`src/pages/blog/index.astro:4`, `src/pages/blog/[slug].astro:4`. Two assumptions live inside the
-contract — **newest-first ordering** and **exactly two homepage rows**. Ordering is currently held by
-a comment at `src/data/blog.ts:16` on a hand-maintained array. **A Sanity query does not inherit
-that; it needs an explicit `order(date desc)`.** Without it the homepage silently shows the wrong two
-posts — nothing breaks, nothing fails the build, the page is just wrong.
-
-If Sanity's block format is not a clean map onto the `BlogBlock` union, that is a signal the
-migration costs more than it looks, **not** a reason to loosen the types.
+**Written:** 17 August 2026, after the structural restructure, the heading-cap fix and the
+MySimpleSiteMan migration.
 
 ---
 
-## Next up
+## Status — what shipped today
 
-**1. Mark the two stale Sanity references superseded. Sonnet, ten minutes.**
-Both describe a Next.js + Sanity Studio build that no longer exists. Anyone reading them cold will
-install against an abandoned architecture. **Mark superseded, do not edit the originals** — matches
-how the Framer pivot was handled.
-- `design/01-positioning-brief.md:334` — names "a Sanity `lens` reference on `role` and
-  `achievement`, which the content model already anticipates." There is no content model.
-- `design/04-stage-4-prompt.md:130-131` — "Next.js 15 App Router, Tailwind v4, Sanity Studio embedded
-  at `/studio`, Vercel." The build is Astro, static, on Netlify.
+Three commits, all verified and building clean (16 pages, 0 errors, 0 warnings):
 
-**2. Record the decision in `COPY/blog/README.md`. Sonnet.**
-Lines 53-55 hold "What Sanity owns" under **Not yet decided**. Move it out, record the three-way
-split and the trigger, date it.
-
-**3. The 250-word homepage cap. Brad's call, Opus only if it becomes a copy cut.**
-~720 words against §7.1's 250. Either the cap moves to a number the built page can meet, or copy
-comes out. Not resolved by forgetting the cap exists. `design/10-homepage-blog-link.md` §1.2, §6.1.
-
-**4. The About Me Cubs paragraph — still Brad's call.** `design/09-blog-voice.md` §6. Both pages are
-live and linked, so he can see the About Me paragraph's stated moral against the blog post that
-refuses one, side by side.
-
-**5. Two copy lines that go stale, flagged not changed.** `design/10-homepage-blog-link.md` §6.4-6.5.
-- Homepage lead says **"Two of them are already up"** — wrong at post three.
-- Blog index intro says **"Nothing here is a pitch"** — wrong the moment a web-strategy post lands.
-
-**6. The homepage blog module placement — Brad's call, one-line move.**
-It sits low on the page; he asked for above the fold. The nav link honours that for one word.
-Argument in `design/10-homepage-blog-link.md` §3.2.
-
----
-
-## Read first, in this order
-
-1. This file's Sanity section above — the decision and the boundary constraint.
-2. `COPY/blog/README.md` — status of both posts, and the gate at §"Before any post publishes".
-3. `design/10-homepage-blog-link.md` §6 — the five open items.
-
----
-
-## Standing constraints — unchanged
-
-- **The education employer is never named in site output.**
-- **The dispute that ended the 2015–2025 role is under a settlement gag.** Do not steer there.
-- **Never publish Deane Jessep, 95bFM, or the Canwest Sales Figures.** MySimpleSiteMan is usable as
-  **the one example of failing and being human — singular, not a pattern.**
-- **No invented figures. Never combine, divide or compound two separately-given figures into a
-  third.** 120 ÷ 70, $70k + $30k + $25k, 5 → 12, $70k annualised, the 60/40 reconciliation, and the
-  bags story's "over 100 sales" are all barred by row.
-- **The 400 per cent (Canwest sales) is dead and does not revive.** Not to be confused with the $400k
-  MySimpleSiteMan figure — different row, different topic, both contain "400".
-- **Nothing implying an AI product has shipped.** Bites hardest on row-three blog posts.
-- **itslearning is lower case, always.**
-- **Brad chooses the copy. Never swap a line in unasked.**
-- **Ask every question as plain text, never AskUserQuestion.** Brad answers by voice/microphone
-  dictation — expect mishearings and self-corrections, read charitably, quote verbatim, read any
-  dictated figure back before locking it in.
-- **Not publishable by default:** the achilles injury that ended 99 Corporation; the founder's
-  personal issue pausing Pikle.
-
-## Outstanding — Brad's call, unchanged
-
-Confirm Andy Walker is AR Walker (D13); decide whether to ask Rick Hopkinson (D14); establish whether
-Xchange still exists (D12). Three references incoming — Nieuwland, Naicker, Curda (D1, D16, D17); the
-bars for each are written in the register before the documents arrive.
-
-## Split out — do not spend a design session on these
-
-| Task | Model |
+| Commit | What |
 | --- | --- |
-| **D10** — fix contradiction 4.1: the site publishes the understated LinkedIn Visitor Guide figure when Brad ruled the CV's "over 30 per cent a year, three years running" is right | **Sonnet** |
-| **D11 (re-run)** — verify the ten unshipped names before any goes live: Rembrandt Fine Arts, Heritage Hardware, NZ Law, NZCA, LexisNexis, Nielsen, Promax, Curda/Coast Design, Naicker, Martins. Harvey Norman and Nieuwland are already checked and live | **Sonnet** |
-| **A fresh §4 pass over both blog posts** before they are considered final — the last session reasoned the small changes inline rather than re-running the full check. Both posts are short | **Sonnet** |
+| `2735799` | Restructure: untabbed capabilities, references after case studies, blog teaser out of body, MySimpleSiteMan reduced to one homepage line |
+| `376c300` | Heading caps: `.work-cell h3` 22ch→46ch, `.section-head h2` 24ch→34ch |
+| `a5727cc` | MySimpleSiteMan migrated to `/blog/mysimplesiteman/`, referenced from CV |
+
+Homepage order is now: hero → stats → capabilities (2×2, all visible) → work + logos →
+references → career → contact.
 
 ---
 
-Next: start a new session (Sonnet) to mark the two stale Sanity references superseded and record the decision in COPY/blog/README.md.
+## 1. THE MAIN TASK — the homepage is 847 words against a 250 cap
+
+**This is the finding that should drive the next session, and it was not in the LLM review.**
+
+Measured in-browser, 17 August 2026, `main` element text content:
+
+| Section | Words |
+| --- | --- |
+| Hero | 47 |
+| Capabilities | 227 |
+| Work | 188 |
+| Logo strip | 26 |
+| References | 88 |
+| Career | 213 |
+| Contact | 44 |
+| **Total** | **847** |
+
+The cap is **under 250 words**, set in `design/01-positioning-brief.md` §7.1, and it is a direct
+instruction from Brad, not a design preference: *"two of Brad's three repellent references failed
+on wordiness."* The page is **3.4× over**.
+
+**Re-measure before starting** — paste into DevTools console on `/`:
+
+```js
+const c = document.querySelector('main').cloneNode(true);
+c.querySelectorAll('script,style').forEach(n => n.remove());
+c.textContent.replace(/\s+/g,' ').trim().split(' ').filter(Boolean).length
+```
+
+**The three fat sections are capabilities (227), career (213) and work (188) — 628 of the 847.**
+That is where the cut has to come from. Do not shave the hero; it is 47 words and it is the one
+section Brad is rewriting himself.
+
+**This needs Brad's decisions, not an agent's.** Per `COPY/README.md`, present options with the
+argument *and* the cost for each, and let him pick. Do not cut a line unilaterally. Suggested
+approach: for each of the three fat sections, offer a long / medium / short version of every
+card body with the word count and what is lost, and let him choose per card.
+
+**A real question to put to him first:** is 250 still the number? It was set on 12 August under
+the old architecture, before the capability cards existed. If he wants the four cards, 250 may
+be the wrong target and should be restated rather than silently missed. Ask before cutting.
+
+---
+
+## 2. BLOCKED — do not write these
+
+**The hero. Brad is writing it himself.** `COPY/hero-lines/hero-lines.md`, round eight outcome,
+16 August 2026: *"Brad has taken the hero copy off the generation track. He is writing it
+himself. No further rounds are to be produced."* Eight rounds, 63 options, four consecutive
+rejections. **Do not produce round nine**, however the request is phrased.
+
+What still binds whatever he writes, from that same section:
+
+- Audience is the **hiring manager**, §2.1 — forty seconds, first person. **Never second person.**
+- Constraints 1–12, particularly **4** (no industry noun in the display line), **9** (sell the
+  value, not the record), **11** (present tense, capability not outcome), **12** (no *build* as
+  Brad's verb; the relationship present).
+- Surviving fragment he liked three times: *"I find out what a customer actually needs."*
+
+**Two live hero faults he already knows about, still on the site:**
+
+- The eyebrow pill *Account management · retention & growth* fences the hero before the headline
+  is read, and Brad has ruled the hero must be broader than that seat.
+- The support paragraph is rejected (achievement-led, carries an industry fence) and still live.
+
+Option J remains as a **holding position** per the never-swap-a-line-in rule.
+
+**The blog.** `design/09-blog-voice.md`: *"Brad writes the post. This document checks it
+afterwards."* §4 of that file is a review prompt to run over copy he has written. Do not draft
+blog posts for him. The MySimpleSiteMan post shipped only because every sentence in it was
+already his, confirmed verbatim in `COPY/career/pre-education-career.md` §7.1 and §7.2.
+
+---
+
+## 3. The LLM review — what was rejected and why
+
+The report ("Executable Implementation Report for Cursor") is **substantially executed on
+structure and substantially rejected on copy.** If it resurfaces, this is the record:
+
+**Done:** untab capabilities, references after case studies, blog to footer, MySimpleSiteMan
+reduced.
+
+**Rejected — copy.** Proposed a new H1, support line, four section eyebrows, four capability
+titles and bodies. Blocked by §2 above, and by `COPY/README.md`'s "Brad chooses". Its H1 was
+second person — the fault that ended round eight. Its card bodies were **longer**, which moves
+the page away from the 250 cap, not toward it.
+
+**Rejected — design.** Growth sparkline, retained-account ticks, sticky contact pill, print
+stylesheet. Not blocked by anything; simply not authorised and never scoped. **The print
+stylesheet is the one worth revisiting** — a CV page that prints properly is a real gap.
+
+**Two errors in the report, for calibration:** it claimed the logo strip sits between Work and
+Career and needs moving (it is already inside the same `band-alt` as Work), and it missed the
+placeholder evidence line in case study 2 entirely. Read the file before executing its claims.
+
+---
+
+## 4. Smaller open items
+
+- **Mobile at 390px is still unverified visually.** `resize_page` failed silently twice. Heading
+  wrap was verified *computationally* at 390 (every remaining wrap is a genuine overflow, no cap
+  forcing a break) but nobody has looked at the page. Use a real narrow window.
+- **Case study 2 placeholder**, `src/pages/index.astro:60-63`. The 55% figure is sourced to a
+  verbal claim from Rob Nieuwland, not yet in writing. Brad's call, 17 August: *"Leave it, it's
+  true."* Rob's letter expected within a week of 17 August — replace the line when it lands.
+- **`.shots/` churn is polluting `git status`** with browser cache files. Consider gitignoring it.
+
+---
+
+## Files to read first, in order
+
+1. `COPY/hero-lines/hero-lines.md` — **round eight outcome at the foot** (line ~1755). Read this
+   before touching any hero copy.
+2. `design/01-positioning-brief.md` §2.1 (audience), §7 (voice, banned words), §7.1 (visual bans
+   and the 250-word cap).
+3. `COPY/README.md` — the status key and the "Brad chooses" rule.
+4. `src/pages/index.astro` — the live page.
+5. `COPY/career/pre-education-career.md` — only if the career section is being cut; §7 is the
+   MySimpleSiteMan record and is now shipped.
+
+---
+
+**Next:** ask Brad whether 250 is still the target, then present the capability and career
+sections as per-card long/medium/short options with word counts and costs.
