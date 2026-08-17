@@ -44,8 +44,15 @@ record, before telling Brad something is done. (Saved to memory as
 ## What's left, in priority order
 
 ### Smaller follow-ups
-- Update `design/index.html`'s Framer-era stage links and status chips to reflect the archive moves
-  from the 17 August consolidation (commit `f06710a`).
+- ~~Update `design/index.html`'s Framer-era stage links and status chips~~ — **done.** Header now
+  states the site is live/built and points to `00-current-direction.md` as the entry point. Stage
+  chips re-labelled: 01 Current, 02 Superseded, 03 Decided (points to `08-visual-direction.md`), 06
+  Archived (links repointed to `archive/06-hybrid-direction.*`), 04 Superseded/not produced (Stage 4
+  was never made — the Astro build shipped straight from the Stage 3 recommendation). The stale
+  "Waiting on Brad" table and "Closed since the last update" list were removed (domain, repo-privacy
+  and consent items were already resolved elsewhere) and replaced with a pointer to
+  `00-current-direction.md` §7/§10 for genuinely open items. Not yet committed — Brad hasn't been
+  asked.
 - Re-measure the actual current whole-page word count directly from the live site. Existing sources
   disagree by ~40% (`00-current-direction.md` §4 flags 847 vs 1,027). Take a fresh count and record
   it in `design/00-current-direction.md` §4.

@@ -59,10 +59,10 @@
 <div class="wrap">
 
   <header>
-    <div class="meta">Design contact sheet</div>
+    <div class="meta">Design contact sheet — archive</div>
     <h1>Brad Friis — personal site and thought-leadership blog</h1>
-    <p>Four design stages in standalone HTML and Markdown before any application code is written. Each stage has a review gate. Stages 1, 2 and 3 are delivered. A later hybrid mock tests whether the live Framer proof page can borrow iPort's panel language without becoming a fake app.</p>
-    <p style="font-size:13.5px; color:var(--ink-3)">Updated 13 August 2026, 2:12 PM NZST · Stack for the eventual build: Next.js 15 App Router, TypeScript, Tailwind CSS v4, Sanity at <code>/studio</code>, Vercel. Live launch path is currently Framer / Prolens.</p>
+    <p>The site is live: a bespoke Astro static build at <code>/</code>, <code>/cv</code>, <code>/letters</code> and <code>/blog</code>. Framer and the Prolens template, named throughout this page's original stage plan below, were abandoned before any of it was built. The artefacts below were the design inputs that fed the live build — kept for their reasoning, not as open gates. Start any new session at <a href="00-current-direction.md">00-current-direction.md</a>, not here.</p>
+    <p style="font-size:13.5px; color:var(--ink-3)">Updated 17 August 2026 · Live stack: Astro, TypeScript, Tailwind CSS, deployed static, no CMS. Stage 4 (a Next.js/Framer high-fidelity homepage spec) was superseded by the Astro build and was never produced.</p>
   </header>
 
   <h2>Artefacts</h2>
@@ -72,54 +72,54 @@
       <span class="num">01</span>
       <div class="body">
         <h3><a href="01-positioning-brief.md">Positioning and message hierarchy</a></h3>
-        <p>Audience definitions, the three-second proposition, proof ordering, voice, five hero copy candidates with reasoning, and the tested verdict on the audience-lens hypothesis. Resolves both open content questions.</p>
+        <p>Audience definitions, the three-second proposition, proof ordering, voice, five hero copy candidates with reasoning, and the tested verdict on the audience-lens hypothesis. Still current — see <code>00-current-direction.md</code> §6.</p>
         <div class="file">01-positioning-brief.md</div>
       </div>
-      <span class="status done">Ready for review</span>
+      <span class="status done">Current</span>
     </li>
 
-    <li class="stage">
+    <li class="stage pending">
       <span class="num">02</span>
       <div class="body">
         <h3><a href="02-wireframes.html">Information architecture and wireframes</a></h3>
-        <p>Site map and low-fidelity wireframes for all eight routes in one scrollable document. Grey boxes, real copy, no colour or type personality. Annotated section by section, with the open questions collected at the end.</p>
+        <p>Site map and low-fidelity wireframes for all eight routes in one scrollable document, drawn against the abandoned Framer/eight-route plan. The live site shipped four routes, not eight. Historical only.</p>
         <div class="file">02-wireframes.html</div>
       </div>
-      <span class="status done">Ready for review</span>
+      <span class="status">Superseded</span>
     </li>
 
-    <li class="stage">
+    <li class="stage pending">
       <span class="num">03</span>
       <div class="body">
         <h3><a href="03-direction-a.html">Editorial</a> · <a href="03-direction-b.html">Technical</a> · <a href="03-direction-c.html">Confident Minimal</a></h3>
-        <p>Three art directions, each applied to the identical hero and account-save section so the comparison is like for like. Every direction carries its own specification — type pairing with load URL, colour values, scale and spacing logic — and states what it costs. Open all three, then read the recommendation below.</p>
+        <p>Three art directions compared like for like. Direction A, Editorial, was the recommendation below and its reasoning carried into the live Astro build's visual spec, <code>08-visual-direction.md</code>. Kept for the reasoning, not as a live comparison.</p>
         <div class="file">03-direction-a.html · 03-direction-b.html · 03-direction-c.html</div>
       </div>
-      <span class="status done">Ready for review</span>
+      <span class="status">Decided — see 08-visual-direction.md</span>
     </li>
 
-    <li class="stage">
+    <li class="stage pending">
       <span class="num">06</span>
       <div class="body">
-        <h3><a href="06-hybrid-direction.html">Hybrid: proof page + iPort panels</a></h3>
-        <p>Parallel visual test, not Stage 4. Desktop and mobile homepage mock using paste-sheet copy. Conversion-first first screen, one workspace window after the fold, iOS grouped lists on mobile. Recommendation: adapt lightly. Notes and risk list in the markdown file.</p>
-        <div class="file">06-hybrid-direction.html · 06-hybrid-direction.md</div>
+        <h3><a href="archive/06-hybrid-direction.html">Hybrid: proof page + iPort panels</a></h3>
+        <p>Parallel visual test against the abandoned Framer/iPort proof page. Moved to <code>archive/</code> in the 17 August consolidation.</p>
+        <div class="file">archive/06-hybrid-direction.html · archive/06-hybrid-direction.md</div>
       </div>
-      <span class="status done">Ready for review</span>
+      <span class="status">Archived</span>
     </li>
 
     <li class="stage pending">
       <span class="num">04</span>
       <div class="body">
         <h3>High-fidelity homepage and motion specification</h3>
-        <p>The chosen direction across the full homepage at desktop and mobile, with trigger, property, duration, easing, stagger and the reduced-motion fallback written against each section. This artefact is what the build works to.</p>
-        <div class="file">04-homepage.html</div>
+        <p>Never produced. The Framer/Next.js build this stage targeted was abandoned in favour of the Astro build that shipped directly from the Stage 3 recommendation and <code>08-visual-direction.md</code>.</p>
+        <div class="file">— not produced —</div>
       </div>
-      <span class="status">Blocked on gate 2</span>
+      <span class="status">Superseded, not produced</span>
     </li>
   </ul>
 
-  <h2>Stage 3 — the recommendation</h2>
+  <h2>Stage 3 — the recommendation (adopted; now the live visual direction)</h2>
 
   <div class="panel">
     <h3>Direction A, Editorial — with one component taken from B</h3>
@@ -159,7 +159,7 @@
     </ul>
   </div>
 
-  <h2>What stages 1 and 2 decided</h2>
+  <h2>What stages 1 and 2 decided (historical reasoning; superseded by the live build for route/page specifics)</h2>
 
   <div class="panel">
     <h3>The position</h3>
@@ -183,31 +183,19 @@
     </ul>
   </div>
 
-  <h2>Waiting on Brad</h2>
-  <table>
-    <tr><th style="width:30px">#</th><th>Needed</th><th style="width:34%">Recommendation</th><th style="width:105px">Blocks</th></tr>
-    <tr><td>1</td><td><strong>Pick a direction — A, B or C.</strong> Or say what is wrong with all three.</td><td>A, Editorial, with the evidence table from B grafted into the hero</td><td>Stage 4</td></tr>
-    <tr><td>2</td><td>Written consent from Andrew Bergh, Adrian Pilgrim and Pranesh Lad to be named publicly with their letters in full</td><td>Now urgent rather than important — the new hero puts all three names above the fold. Withhold Dr Bergh's email and phone regardless.</td><td>Stage 4</td></tr>
-    <tr><td>3</td><td>A second photograph for <code>/about</code></td><td>Working environment rather than studio, to sit against the portrait</td><td>Stage 4</td></tr>
-    <tr><td>4</td><td>Domain</td><td><code>bradfriis.co</code> assumed throughout</td><td>Phase B</td></tr>
-    <tr><td>5</td><td>Proof strip, fourth figure — "3 references · written, signed, unsolicited" now repeats the hero</td><td>Change the caption to "Written, signed, and reproduced in full", or drop to three figures</td><td>Stage 4</td></tr>
-  </table>
-
   <div class="panel" style="margin-top:20px">
-    <h3>Closed since the last update</h3>
+    <h3>This page's own open items are stale — resolved or superseded</h3>
     <ul>
-      <li><strong>Hero photograph — found.</strong> <code>B Friis.jpg</code> and <code>B Friis_.jpg</code> in <code>Brad Friis Resumes/</code> are the same portrait at 945×1181 and 3276×4095, already 4:5. All three directions use it. It is a studio shot rather than the working environment originally recommended, and it is good enough that the point is moot for the hero.</li>
-      <li><strong>Audience lens — confirmed.</strong> No visible control anywhere. <code>/resume/[lens]</code> survives as four routes set by Brad on outbound links.</li>
-      <li><strong>Family content — confirmed out.</strong> Community and governance carry the character evidence on <code>/about</code>.</li>
-      <li><strong>Repository — still public, nothing pushed.</strong> <code>Clarity-EngineAI/Brad_Friis_Web_Portfolio</code> reports <code>private: false</code>. It cannot receive this workspace while three unconsented reference letters and Dr Bergh's personal contact details are in it. Make it private, then the first push can happen in five minutes.</li>
+      <li>The former "Waiting on Brad" table (direction pick, consent, second photograph, domain, proof-strip caption) and "Closed since the last update" list are removed as of this pass. The site is live and built, so items framed as blocking "Stage 4" no longer apply — Stage 4 was never produced (see the artefact list above). Domain is <code>bradfriis.com</code> (<code>astro.config.mjs</code>), and the GitHub repo is confirmed private.</li>
+      <li>For what is actually open right now, read <a href="00-current-direction.md">00-current-direction.md</a> §7 ("Genuine conflicts") and §10 — it is the current entry point and supersedes this page's own status tracking.</li>
     </ul>
   </div>
 
   <footer>
     Open the three directions in a browser side by side: <a href="03-direction-a.html">A</a> · <a href="03-direction-b.html">B</a> · <a href="03-direction-c.html">C</a>. Each one ends with its own specification and its own cost.<br>
-    Parallel visual test: <a href="06-hybrid-direction.html">hybrid proof page + iPort panels</a> · <a href="06-hybrid-direction.md">notes</a>. This does not replace Stage 3.<br>
+    Historical parallel visual test: <a href="archive/06-hybrid-direction.html">hybrid proof page + iPort panels</a> · <a href="archive/06-hybrid-direction.md">notes</a>. Archived — did not feed the live build.<br>
     Every line of copy written for the site, in use or not, is kept in <code>COPY/</code> with the argument for and against it.<br>
-    No application code has been written. Phase B begins after the Stage 4 sign-off.
+    The site is live and built (Astro). Start any session at <a href="00-current-direction.md">00-current-direction.md</a>.
   </footer>
 
 </div>
