@@ -15,35 +15,8 @@ export interface BlogPost {
 
 /** Publication order is newest first. The two "A story" posts were approved 15 August 2026,
  *  drafted the same day.
- *
- *  `mysimplesiteman` is different in kind and is marked as such. Its body is NOT generated copy:
- *  every sentence is Brad's own, taken verbatim from `COPY/career/pre-education-career.md` §7.1
- *  (confirmed 14 August 2026, figure corrected by Brad to over $400,000) and §7.2 (status
- *  Available). `design/09-blog-voice.md` reserves blog writing to Brad, so nothing here is
- *  drafted for him — this entry only moves words he already approved onto the surface he asked
- *  them to move to (17 August 2026).
- *
- *  §7.2 carries an explicit bar: it "must not be strengthened". Any edit adding *everything*,
- *  *made me*, or a causal *because* turns it into a redemption arc, which row E50 bars. If it
- *  cannot survive without strengthening, cut it and let the diagnosis be the ending.
- *
- *  The proportion rule from §7.1 still governs: one instance of self-aware failure, not a
- *  pattern. It is never its own homepage section and never near the top.
  */
 export const posts: BlogPost[] = [
-  {
-    slug: "mysimplesiteman",
-    title: "The one that didn't work",
-    dek: "A self-serve website product for small businesses, and the two things I had wrong about it.",
-    date: "2026-08-17",
-    dateLabel: "17 August 2026",
-    category: "A post-mortem",
-    body: [
-      { kind: "paragraph", text: "I built a self-serve website product for small businesses and it failed. I had assumed owners knew what a site needed to do to win them work, and mostly they didn't — and I had built something that could not grow past a five-page brochure even for the ones who did. Over $400,000 was invested in development and maintenance before we had to let it go and turn off the lights." },
-      { kind: "break" },
-      { kind: "paragraph", text: "It taught me what I needed to know for the agency job that followed." },
-    ],
-  },
   {
     slug: "plastic-bags",
     title: "The plastic bags",

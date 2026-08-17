@@ -19,21 +19,21 @@ const capabilities = [
     id: "needs-first",
     title: "I find the need behind the brief",
     summary: "Understand before I pitch",
-    body: "Before building a retention strategy for a five-campus account, I spent a week on the ground learning how each campus actually used the platform, then went back and taught what I found.",
+    body: "Before building a retention strategy for a multi-campus account, I spent a week on the ground learning how each campus actually used the platform, then went back and taught what I found.",
     evidence: "Adrian Pilgrim: “custom strategies and workarounds that fit our operations.”",
   },
   {
     id: "keep-and-grow",
     title: "I keep the account close to its value",
     summary: "Renewals that survive a competitor's pitch",
-    body: "Eight consecutive renewals at one school. A five-campus account that renewed and expanded after evaluating a direct competitor. Renewed through annual price rises — the schools I lost were on total cost, never on the rise alone.",
+    body: "Eight consecutive renewals at one school. A multi-campus account that renewed and expanded after evaluating a direct competitor. Renewed through annual price rises — the schools I lost were on total cost, never on the rise alone.",
     evidence: "Andrew Bergh: even the most hesitant teachers became confident users.",
   },
   {
     id: "next-offer",
     title: "I turn gaps into the next offer",
     summary: "New lines from unpriced work",
-    body: "Support was being given away, so I made it a paid line, billed annually in advance. Same instinct now applied to Pikle: positioning, CRM stages and a sales kit, priced from the start.",
+    body: "Support was being given away, so I made it a paid line, billed annually in advance. The same instinct now applies to positioning, CRM stages and sales assets for early-stage work.",
     evidence: "Managed services scaled with the account, so revenue grew without a new sale each time.",
   },
   {
@@ -47,9 +47,9 @@ const capabilities = [
 
 const workCaseStudies = [
   {
-    meta: "SaaS territory growth · 2015–2025",
+    meta: "Multi-campus account · retention under pressure · 2015–2025",
     title: "The account that was leaving, then grew",
-    body: "A five-campus account was actively evaluating a move away from the platform. I spent a week on the ground, rebuilt the adoption strategy campus by campus, and went back to teach it. The account stayed, then expanded.",
+    body: "A multi-campus account was actively evaluating a move away from the platform. I spent a week on the ground, rebuilt the adoption strategy campus by campus, and went back to teach it. The account stayed, then expanded.",
     evidence: "Adrian Pilgrim, Teaching and Learning Manager: “giving us the confidence to invest in the platform further.”",
     link: { href: "/letters/the-industry-school/", label: "Read Adrian Pilgrim's full letter" },
   },
@@ -87,16 +87,8 @@ const careers = [
   },
   { title: "Put a price on previously unbilled work", meta: "2013 · National sales and marketing, 99 Corporation" },
   { title: "Grew the territory and kept key accounts", meta: "2015 · Sales and Marketing Manager, then General Manager" },
-  { title: "Shape AI consulting into sales systems", meta: "2025 · Independent consultant, Clarity Engine AI and Pikle" },
+  { title: "Turn AI into commercial systems", meta: "2025 · Independent consultant, Clarity Engine AI and Pikle" },
 ];
-
-// §7.1, COPY/career/pre-education-career.md — confirmed 14 August 2026. The full account moves
-// to the blog (decided 17 August 2026); the homepage keeps a one-line reference in the career
-// list only. Footnote-bound proportion rule still applies: never its own section, never near the top.
-const mySimpleSiteMan = {
-  body: "A self-serve website product for small businesses that failed, at a cost of over $400,000.",
-  slug: "mysimplesiteman",
-};
 
 // Two 2025 letters only, both proving retention. The other four still publish at /letters/.
 // These sentences are deliberately NOT the `pullQuote` values in `src/data/letters.ts` — the
@@ -125,9 +117,9 @@ const homeQuotes = [
   <div class="band">
     <section class="hero shell">
       <div>
-        <p class="eyebrow-pill">Account management · retention &amp; growth</p>
-        <h1>Helping SaaS and digital businesses turn customer needs into growth.</h1>
-        <p class="hero-copy">Working across sales, account management, delivery, UI/UX and web strategy I help businesses win the right customers, then keep the accounts that matter under pressure.</p>
+        <p class="eyebrow-pill">Account management · retention &amp; expansion</p>
+        <h1>Turning customer needs into long-term account growth.</h1>
+        <p class="hero-copy">Commercial operator across SaaS, web strategy and revenue systems who keeps and expands the accounts that matter.</p>
         <div class="hero-actions">
           <a class="button" href="#contact">Start a conversation</a>
           <a class="text-link" href="/cv/">View CV</a>
@@ -166,9 +158,9 @@ const homeQuotes = [
   <div class="band">
     <section class="section shell" aria-labelledby="capabilities-heading">
       <header class="section-head">
-        <p class="eyebrow-pill">About Me</p>
-        <h2 id="capabilities-heading">Sell it, then make it stick.</h2>
-        <p class="lead">Pipeline, proposals, adoption strategy, AI-enabled systems. All of it starts with understanding the customer.</p>
+        <p class="eyebrow-pill">How I work</p>
+        <h2 id="capabilities-heading">Four parts of one method.</h2>
+        <p class="lead">Find the real need, keep the account, originate the next offer, and own the terms that make it possible.</p>
       </header>
 
       <div class="hairline-grid capability-grid">
@@ -188,8 +180,8 @@ const homeQuotes = [
     <section class="section shell" id="work" aria-labelledby="work-heading">
       <header class="section-head">
         <p class="eyebrow-pill">Work</p>
-        <h2 id="work-heading">The system is the proof.</h2>
-        <p class="lead">Demand, pipeline, proposals, adoption. Then AI, product and UX. The whole revenue path.</p>
+        <h2 id="work-heading">The claim proved three times.</h2>
+        <p class="lead">Three concrete stories. Each ends with a number or a named voice the reader can verify.</p>
       </header>
       <div class="hairline-grid">
         {workCaseStudies.map((item) => (
@@ -226,7 +218,7 @@ const homeQuotes = [
   <div class="band">
     <section class="section shell proof-quotes" aria-labelledby="proof-heading">
       <header class="section-head">
-        <p class="eyebrow-pill">The proof</p>
+        <p class="eyebrow-pill">References</p>
         <h2 id="proof-heading">The customers who nearly left said it themselves.</h2>
         <p class="lead">Both wrote in 2025. Both describe keeping an account that had a reason to go.</p>
       </header>
@@ -242,7 +234,7 @@ const homeQuotes = [
           </article>
         ))}
       </div>
-      <p class="section-link"><a class="text-link" href="/letters/">Read all six references</a></p>
+      <p class="section-link"><a class="text-link" href="/letters/">Read all verified reference letters</a></p>
     </section>
   </div>
 
@@ -265,7 +257,6 @@ const homeQuotes = [
           </li>
         ))}
       </ol>
-      <p class="career-aside"><strong>Also, one that didn't work:</strong> {mySimpleSiteMan.body} <a class="text-link" href={`/blog/${mySimpleSiteMan.slug}/`}>Read the post-mortem</a></p>
       <p class="section-link"><a class="text-link" href="/cv/">View the full CV</a></p>
     </section>
   </div>

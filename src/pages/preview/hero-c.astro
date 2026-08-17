@@ -1,0 +1,381 @@
+---
+import { Image } from "astro:assets";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import ContactPanel from "../../components/ContactPanel.astro";
+import { isStackedLogo, logos } from "../../data/logos";
+import { posts } from "../../data/blog";
+import portrait from "../../assets/brad-friis.jpg";
+
+// Generated from the same array the blog index reads, so publishing a post updates the
+// homepage without a homepage edit. Capped at two — the homepage is not the index.
+// design/10-homepage-blog-link.md §4.
+const recentPosts = posts.slice(0, 2);
+
+// Every figure traces to `Brad Friis Resumes/bradfriisresumemaster20260806.md`.
+// Nothing here is extrapolated, and the disputed Visitor Guide figures never appear.
+const stats = [
+  { figure: "2,800 → 24,500", label: "Licensed users, NZ and Australia" },
+  { figure: "+30%", label: "Lift in initial client investment" },
+  { figure: "10 years", label: "Holding the vendor channel relationship" },
+  { figure: "5 campuses", label: "Account retained mid-defection, then expanded" },
+];
+
+const capabilities = [
+  {
+    id: "sales",
+    title: "Sales Growth",
+    summary: "Pipeline, proposals, close",
+    body: "Full-cycle selling from prospecting to close: lead generation, demos, written proposals, conference selling, Pipedrive pipeline management and renewal forecasting.",
+    evidence: "Six written references cover the commercial record, customers and managers alike.",
+  },
+  {
+    id: "adoption",
+    title: "Product Adoption",
+    summary: "Signed contract to everyday use",
+    body: "Built adoption strategy, enablement workshops and stakeholder communication so software moved from signed contract to everyday use.",
+    evidence: "Andrew Bergh: even the most hesitant became confident users.",
+  },
+  {
+    id: "ai",
+    title: "AI & Product",
+    summary: "Commercial workflows and audits",
+    body: "Apply AI tooling to commercial workflows, customer experience and product audits, including Pikle positioning, CRM stages, sales assets and UX priorities.",
+    evidence: "Positioning, proposal templates, lead channels, a sales kit and UX audit priorities.",
+  },
+  {
+    id: "ux",
+    title: "Product & UX",
+    summary: "Commercial product judgement",
+    body: "Create messaging, brand governance, UI direction and practical kits so teams sell, present and build from one standard.",
+    evidence: "UI, UX and customer experience used to sharpen the offer and the path to the buyer.",
+  },
+];
+
+const work = [
+  {
+    meta: "SaaS Territory Growth · 2015–2025",
+    title: "PowerSchool and Schoology, NZ & Australia",
+    body: "Ten years selling, demoing, proposing, forecasting, enabling and supporting a SaaS platform. Licensed users grew from 2,800 to 24,500 while key accounts stayed and expanded.",
+    tags: ["Sales", "Product Adoption", "Vendor Enablement", "Proposals", "Forecasting"],
+  },
+  {
+    meta: "AI Product Consulting · 2025–now",
+    title: "Pikle commercial and UX build",
+    body: "Positioning, pricing, proposal templates, CRM stages, four lead channels, a sales asset kit, UX audit priorities and brand governance for early-stage software work.",
+    tags: ["Positioning", "Lead Channels", "CRM Stages", "Sales Kit", "UX Audit"],
+  },
+  {
+    meta: "Sales Operations · 2013–2015",
+    title: "99 Corporation revenue system",
+    body: "Built the process behind a fourteen-person telemarketing team, plus national-account scoping and the billing structure that held cash flow together.",
+    tags: ["Lead Generation", "Telemarketing", "Billing", "National Accounts"],
+  },
+  {
+    meta: "Media and Web Growth",
+    title: "CanWest and Xplore growth years",
+    body: "Proposals, presentations and pipeline in media, then web strategy where positioning, usability, search and conversion had to line up.",
+    tags: ["Proposals", "Presentations", "Pipeline", "UX Strategy", "Major Accounts"],
+  },
+];
+
+const careers = [
+  { title: "Sell the idea before it exists", meta: "1999 · Event director, 2000AD" },
+  { title: "Held the flagship account myself", meta: "2001 · Business development, Adplus Advertising (later Tracta)" },
+  {
+    title: "Kept a national account for the whole tenure",
+    meta: "2003 · Sales, Canwest Media",
+    detail: "I held the Harvey Norman account for the full three years I was at Canwest Media (Radioworks).",
+  },
+  {
+    title: "Turned one-off projects into a repeating business",
+    meta: "2009 · Business development, Xplore",
+    detail: "Customers up around 70 per cent, income up around 120 per cent, in my time there. Rob Nieuwland, who owned the business, puts it differently but the same way: profit from each customer was up around 30 per cent too.",
+  },
+  { title: "Charged for the work being given away", meta: "2013 · National sales and marketing, 99 Corporation" },
+  { title: "Grow the territory, then keep it growing", meta: "2015 · Sales and Marketing Manager, then General Manager" },
+  { title: "Turn AI into commercial systems", meta: "2025 · Independent consultant, Clarity Engine AI and Pikle" },
+];
+
+// Two 2025 letters only, both proving retention. The other four still publish at /letters/.
+// These sentences are deliberately NOT the `pullQuote` values in `src/data/letters.ts` — the
+// homepage and the letters index previously showed identical text. Each is a single unbroken
+// verbatim sentence, checked against the letter body in that same file.
+const homeQuotes = [
+  {
+    quote:
+      "This clarity and customisation shifted our thinking, giving us the confidence not only to stay with Schoology, but to invest in getting the very best from it.",
+    name: "Adrian Pilgrim",
+    relation: "Teaching and Learning Manager, The Industry School · 2025",
+    slug: "the-industry-school",
+  },
+  {
+    quote:
+      "His empathetic and proactive approach ensures that even the most hesitant team members became confident users of Schoology.",
+    name: "Andrew Bergh",
+    relation: "High School Principal · June 2025",
+    slug: "andrew-bergh",
+  },
+];
+
+---
+
+<SiteLayout>
+  <style is:global>
+    /* OPTION C — reopen attribute 2. The headline shortens to nine words, which lets the
+       hero carry a genuinely oversized scale again: 52 → 84px at 1440. Section headings and
+       stat figures drop as in A, so the gap widens from both ends.
+       Ratio hero:heading 1.3x → 2.6x. Preview only; not a site change. */
+    :root {
+      --text-hero: clamp(2.5rem, 6.4vw, 5.25rem);
+      --text-section: clamp(1.5rem, 2.7vw, 2rem);
+    }
+    .hero h1 {
+      max-width: 15ch;
+      letter-spacing: -0.045em;
+      line-height: 0.98;
+    }
+    .stat-figure {
+      font-size: clamp(1.5rem, 2.1vw, 1.875rem);
+    }
+    @media (max-width: 720px) {
+      .hero h1 {
+        font-size: 2.5rem;
+        letter-spacing: -0.03em;
+      }
+    }
+  </style>
+  <div class="band">
+    <section class="hero shell">
+      <div>
+        <p class="eyebrow-pill">Account management · retention &amp; growth</p>
+        <h1>I keep customers, then I build them something else to buy.</h1>
+        <p class="hero-copy">Twenty-five years across software, media and agency work. The last ten ran a United States vendor's New Zealand and Australian business, where the same accounts renewed every year while the price went up every year.</p>
+        <div class="hero-actions">
+          <a class="button" href="#contact">Start a conversation</a>
+          <a class="text-link" href="/cv/">View CV</a>
+        </div>
+      </div>
+      <div class="hero-aside">
+        <figure class="portrait-well">
+          <Image
+            class="portrait"
+            src={portrait}
+            alt="Brad Friis"
+            widths={[340, 680]}
+            sizes="(max-width: 900px) 100vw, 340px"
+            loading="eager"
+          />
+          <figcaption class="status-chip">
+            <strong>Available for commercial roles</strong>
+            <span>Auckland, New Zealand</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+  </div>
+
+  <div class="stat-band">
+    <div class="stat-strip shell" aria-label="Commercial results">
+      {stats.map((stat) => (
+        <div class="stat">
+          <p class="stat-figure">{stat.figure}</p>
+          <p class="stat-label">{stat.label}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="band">
+    <section class="section shell" aria-labelledby="capabilities-heading">
+      <header class="section-head">
+        <p class="eyebrow-pill">About Me</p>
+        <h2 id="capabilities-heading">Sell it, then make it stick.</h2>
+        <p class="lead">Pipeline, proposals, adoption strategy, AI-enabled systems. All of it starts with understanding the customer.</p>
+      </header>
+
+      <div class="pill-tablist" role="tablist" aria-label="Capabilities" aria-orientation="horizontal">
+        {capabilities.map((capability, index) => (
+          <button
+            class="pill-tab"
+            type="button"
+            role="tab"
+            id={`tab-${capability.id}`}
+            aria-controls={`panel-${capability.id}`}
+            aria-selected={index === 0 ? "true" : "false"}
+            tabindex={index === 0 ? 0 : -1}
+          >
+            {capability.title}
+          </button>
+        ))}
+      </div>
+
+      <div class="capability-stack">
+        {capabilities.map((capability, index) => (
+          <article
+            class="capability-panel"
+            id={`panel-${capability.id}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${capability.id}`}
+            hidden={index !== 0}
+          >
+            <h3>{capability.title}</h3>
+            <p class="tier-meta">{capability.summary}</p>
+            <p>{capability.body}</p>
+            <p class="evidence">{capability.evidence}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  </div>
+
+  <div class="band band-alt">
+    <section class="section shell" id="work" aria-labelledby="work-heading">
+      <header class="section-head">
+        <p class="eyebrow-pill">Work</p>
+        <h2 id="work-heading">The system is the proof.</h2>
+        <p class="lead">Demand, pipeline, proposals, adoption. Then AI, product and UX. The whole revenue path.</p>
+      </header>
+      <div class="hairline-grid">
+        {work.map((item) => (
+          <article class="work-cell">
+            <h3>{item.title}</h3>
+            <p class="meta">{item.meta}</p>
+            <p>{item.body}</p>
+            <ul class="chip-list" aria-label={`${item.title} capabilities`}>
+              {item.tags.map((tag) => <li>{tag}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section shell proof-quotes" aria-labelledby="proof-heading">
+      <header class="section-head">
+        <p class="eyebrow-pill">The proof</p>
+        <h2 id="proof-heading">The customers who nearly left said it themselves.</h2>
+        <p class="lead">Both wrote in 2025. Both describe keeping an account that had a reason to go.</p>
+      </header>
+      <div class="hairline-grid">
+        {homeQuotes.map((item) => (
+          <article class="quote-cell">
+            <blockquote>“{item.quote}”</blockquote>
+            <div class="attribution">
+              <p class="tier-name">{item.name}</p>
+              <p class="tier-meta">{item.relation}</p>
+            </div>
+            <a class="text-link" href={`/letters/${item.slug}/`}>Read this letter</a>
+          </article>
+        ))}
+      </div>
+      <p class="section-link"><a class="text-link" href="/letters/">Read all six references</a></p>
+    </section>
+
+    <section class="shell logo-strip" aria-labelledby="logos-heading">
+      <p class="eyebrow-pill" id="logos-heading">Brands I've sold to and worked with · 1999–2025</p>
+      <p class="logo-note">Past accounts and employers across the media, agency and software years. Not current clients, and not an endorsement.</p>
+      <ul aria-label="Companies Brad has sold to and worked with">
+        {logos.map((logo) => (
+          <li>
+            <Image
+              class:list={{ "logo-stacked": isStackedLogo(logo) }}
+              src={logo.image}
+              alt={logo.name}
+              height={isStackedLogo(logo) ? 80 : 60}
+              loading="lazy"
+            />
+          </li>
+        ))}
+      </ul>
+    </section>
+  </div>
+
+  <div class="band">
+    <section class="section shell" aria-labelledby="career-heading">
+      <header class="section-head">
+        <p class="eyebrow-pill">Career</p>
+        <h2 id="career-heading">The range came one job at a time.</h2>
+        <p class="lead">Generate demand. Shape the offer. Close the work. Enable users. Then grow the account.</p>
+        <p class="standfirst">I kept the bulk of the accounts I won. Not all of them, and not everywhere — but the billing, the contracts, the renewals and the relationship were mine at every job I have had since 2001.</p>
+      </header>
+      <ol class="row-list">
+        {careers.map((item) => (
+          <li class="career-row">
+            <div>
+              <p class="tier-name">{item.title}</p>
+              <p class="tier-meta">{item.meta}</p>
+              {item.detail && <p class="tier-detail">{item.detail}</p>}
+            </div>
+          </li>
+        ))}
+      </ol>
+      <p class="section-link"><a class="text-link" href="/cv/">View the full CV</a></p>
+    </section>
+  </div>
+
+  <div class="band">
+    <section class="section shell blog-teaser blog-teaser-divided" aria-labelledby="blog-heading">
+      <div class="blog-teaser-intro">
+        <p class="eyebrow-pill">Blog</p>
+        <h2 id="blog-heading">I write about the work, and occasionally about a beetroot tin.</h2>
+        <p class="lead">Web strategy, communications, AI, and the odd true story. Two of them are already up.</p>
+        <p class="section-link"><a class="text-link" href="/blog/">Read the blog</a></p>
+      </div>
+
+      <ol class="row-list blog-teaser-list">
+        {recentPosts.map((post) => (
+          <li class="blog-teaser-row">
+            <p class="tier-name">
+              <a href={`/blog/${post.slug}/`}>{post.title}</a>
+            </p>
+            <p class="tier-meta">
+              {post.category} · <time datetime={post.date}>{post.dateLabel}</time>
+            </p>
+            <p class="tier-detail">{post.dek}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+  </div>
+
+  <div class="band band-alt">
+    <section class="section shell" id="contact" aria-labelledby="contact-heading">
+      <ContactPanel />
+    </section>
+  </div>
+</SiteLayout>
+
+<script>
+  const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>(".pill-tab"));
+  const panels = Array.from(document.querySelectorAll<HTMLElement>(".capability-panel"));
+
+  function selectTab(tab: HTMLButtonElement) {
+    tabs.forEach((item) => {
+      const isSelected = item === tab;
+      item.setAttribute("aria-selected", String(isSelected));
+      item.tabIndex = isSelected ? 0 : -1;
+    });
+
+    panels.forEach((panel) => {
+      panel.hidden = panel.id !== tab.getAttribute("aria-controls");
+    });
+  }
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => selectTab(tab));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+
+      let nextIndex = index;
+      if (event.key === "ArrowRight" || event.key === "ArrowDown") nextIndex = (index + 1) % tabs.length;
+      if (event.key === "ArrowLeft" || event.key === "ArrowUp") nextIndex = (index - 1 + tabs.length) % tabs.length;
+      if (event.key === "Home") nextIndex = 0;
+      if (event.key === "End") nextIndex = tabs.length - 1;
+
+      const nextTab = tabs[nextIndex];
+      if (!nextTab) return;
+      selectTab(nextTab);
+      nextTab.focus();
+    });
+  });
+</script>
