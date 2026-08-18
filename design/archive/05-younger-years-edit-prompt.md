@@ -89,6 +89,13 @@ response for Brad to review first.
 > Achieved highest sales in NZ, despite the venture never really getting traction long term.
 
 **Role 8 — Event Director - 2000AD The Event - Aged 27**
+
+> **Correction, 19 August 2026.** Attendance is **13,000**, not the 15,000 written below. Brad
+> confirmed the lower figure directly when the two were put to him. The homepage career row uses
+> 13,000. He also confirmed two facts not recorded anywhere in this archive: he negotiated with the
+> BBC to carry the event as part of a global millennium programme, pitched on New Zealand being
+> first in the world to see the sun. Both are hedged to the negotiation and the pitch on the site,
+> not asserted as broadcast fact.
 > Spent the entire 1999 year producing the largest private millenium event in NZ. 15,000 people, 2
 > stages with Pearl Jam's same rig on band stage, 12 x 3 metres stacks of JBL sound gear in dance
 > marquee with 96 intelligent lights and 2 full colour lasers. Sold naming rights to DB for 10

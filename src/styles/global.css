@@ -153,12 +153,16 @@ figcaption {
   backdrop-filter: blur(16px);
 }
 
+/* The wordmark is a name, not a sentence: it never breaks. At 390px it was splitting to
+   "Brad / Friis" and the nav row rode up alongside its second line, which read as a broken
+   build on the front door rather than a wrap. 19 August 2026. */
 .wordmark {
   color: var(--ink);
   font-size: var(--text-body);
   font-weight: 700;
   letter-spacing: -0.03em;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .primary-nav {
@@ -331,6 +335,42 @@ main {
   max-width: 62ch;
 }
 
+/* A referee's verdict inside a career row. Deliberately NOT the `.evidence` treatment: that is
+   --text-meta in --ink-secondary, which is exactly what `.tier-detail` directly above it uses, so
+   copying it would put the quote at the same size and colour as the line it follows — the same
+   flat hierarchy Brad flagged on the motion strip. Instead the quote takes primary ink and a size
+   step up, so it reads as a different voice, and the attribution drops to meta. The accent rule is
+   kept from `.evidence` so a quote is recognisable as a quote wherever it appears on the page.
+   19 August 2026. */
+.career-quote {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 62ch;
+  margin: 14px 0 0;
+  padding-left: 16px;
+  border-left: 2px solid var(--accent);
+}
+
+.career-quote-text {
+  color: var(--ink);
+  font-size: var(--text-body);
+  font-style: italic;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.career-quote-source {
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+  text-decoration: none;
+}
+
+.career-quote-source:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
 .standfirst {
   max-width: 55ch;
   margin: 0;
@@ -383,6 +423,28 @@ main {
   font-weight: 400;
   line-height: 1.5;
   text-wrap: pretty;
+}
+
+/* Six consecutive sections opened with the same eyebrow / centred heading / centred lead
+   geometry, so by the third the reader stopped registering a new section had started. This
+   is the same header held left, applied to two of the six to break the pattern. It is not a
+   new component: `.blog-teaser-intro` was already this exact treatment, used on nothing but
+   the preview pages. Type sizes, colours and measures are unchanged — only the alignment.
+   19 August 2026. */
+.section-head-left {
+  justify-items: start;
+  text-align: left;
+}
+
+/* The centred heading caps at 34ch to stop it running the full 1180px shell. Held left it has
+   a rag of its own, so it takes the lead's measure and balances against it. */
+.section-head-left h2 {
+  max-width: 24ch;
+}
+
+.section-head-left .lead,
+.section-head-left .standfirst {
+  max-width: 62ch;
 }
 
 /* Hero */
@@ -645,6 +707,38 @@ main {
   margin-bottom: 28px;
 }
 
+/* The fifth cell is odd, so `.hairline-grid > :last-child:nth-child(odd)` spans it across both
+   columns — 1178px of cell holding a 62ch (586px) measure, with the other 592px empty. It read
+   as a missing sixth card rather than a deliberate close. The measure is correct and stays; the
+   cell lays its own contents out in two columns instead, body left and evidence right, so the
+   full width is used without the prose ever exceeding 62ch. Scoped to the capability grid: the
+   work grid's odd cell holds a different set of children. 19 August 2026. */
+@media (min-width: 641px) {
+  .capability-grid > .capability-cell:last-child:nth-child(odd) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-content: start;
+    column-gap: 40px;
+  }
+
+  /* Heading and summary span both columns so the title still opens the cell full width. */
+  .capability-grid > .capability-cell:last-child:nth-child(odd) > h3,
+  .capability-grid > .capability-cell:last-child:nth-child(odd) > .tier-meta {
+    grid-column: 1 / -1;
+  }
+
+  /* The body no longer needs its 28px floor gap: the evidence sits beside it, not beneath. */
+  .capability-grid > .capability-cell:last-child:nth-child(odd) > p:not(.evidence):not(.tier-meta) {
+    margin-bottom: 0;
+  }
+
+  /* `margin-top: auto` was pushing the evidence to a floor it no longer has in this cell. */
+  .capability-grid > .capability-cell:last-child:nth-child(odd) > .evidence {
+    margin-top: 0;
+    align-self: start;
+  }
+}
+
 /* The tertiary ink on the recessed fill made these read as page background rather than as
    proof, and 22px was not enough daylight from the body copy above, so they looked glued to
    the paragraph they follow. Now: more separation, secondary ink, and an accent rule on the
@@ -748,6 +842,31 @@ main {
 
 .quote-cell .text-link {
   margin-top: 14px;
+}
+
+/* Three referees is an odd count, so `.hairline-grid > :last-child:nth-child(odd)` spans the third
+   cell across both columns and left 514px of it empty next to a 62ch quote — the same hole the
+   capability grid had. Same remedy: the cell lays its own contents into two columns, quote left,
+   attribution and link right, so the width is used without the quote exceeding its measure.
+   19 August 2026. */
+@media (min-width: 641px) {
+  .hairline-grid > .quote-cell:last-child:nth-child(odd) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-content: start;
+    column-gap: 40px;
+  }
+
+  .hairline-grid > .quote-cell:last-child:nth-child(odd) > blockquote {
+    grid-row: span 2;
+    margin-bottom: 0;
+  }
+
+  /* `margin-top: auto` pinned the attribution to a floor this cell no longer has. */
+  .hairline-grid > .quote-cell:last-child:nth-child(odd) > .attribution {
+    margin-top: 0;
+    align-self: start;
+  }
 }
 
 /* Row list: career, references index */
@@ -1615,13 +1734,26 @@ main {
     width: min(100% - 28px, 1180px);
   }
 
+  /* Wordmark on its own row, nav beneath it. Five nav items plus the wordmark cannot share
+     362px: the row wrapped and the nav sat beside the wordmark's second line. Stacking them
+     is what the content actually needs at this width, and the nav still reads as one row.
+     19 August 2026. */
   .site-header {
-    gap: 14px;
+    flex-wrap: wrap;
+    gap: 10px 14px;
     padding-block: 12px;
   }
 
   .primary-nav {
+    width: 100%;
+    margin-left: 0;
     gap: 14px;
+  }
+
+  /* The Contact pill is the primary action and goes to the end of its row, so the nav reads
+     as four links and one button rather than five items of equal weight. */
+  .primary-nav .header-contact {
+    margin-left: auto;
   }
 
   .section {

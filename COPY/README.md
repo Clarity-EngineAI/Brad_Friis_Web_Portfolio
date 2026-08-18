@@ -20,7 +20,8 @@ COPY/
 ├── hero-lines/            display lines for the top of a page
 │   └── hero-lines.md
 ├── letters/               the /letters page — headline, captions, pull-quotes, blocks
-│   └── letters-page.md
+│   ├── letters-page.md
+│   └── quote-bank.md      Brad's own selection of reference excerpts for evidence slots
 ├── navigation/            nav labels, page headlines, glosses, the CV button
 │   └── navigation.md
 ├── positioning/           raw positioning-line brainstorm, not scored against the claims register

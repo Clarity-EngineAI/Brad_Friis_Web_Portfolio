@@ -20,7 +20,7 @@ const capabilities = [
     title: "Read the business before pitching it anything",
     summary: "Strategy after the ground, not instead of it",
     body: "A multi-campus account was evaluating a move away from the platform. I spent a week on-site with teachers and leadership at every campus before writing a strategy, then went back to teach it. The account renewed, added a sixth campus, and bought two revenue lines that hadn't existed there before.",
-    evidence: "Adrian Pilgrim: “giving us the confidence to invest in the platform further.”",
+    evidence: "Hamish Lowry, Hawke's Bay Tourism: “an individual with integrity; plus the drive and dedication to reach and exceed sales targets.”",
   },
   {
     id: "creative",
@@ -34,7 +34,7 @@ const capabilities = [
     title: "Keep accounts, not just win them",
     summary: "Renewals proved over years, not claimed",
     body: "Eight consecutive years of renewal at one school. 108 one-to-one interviews with teachers through COVID lockdowns, to keep adoption alive when nobody could run a workshop in a room. The Hawke's Bay Chamber of Commerce held as a client for four years, essentially the whole tenure.",
-    evidence: "Andrew Bergh: even the most hesitant team members became confident users.",
+    evidence: "Hamish Lowry, Hawke's Bay Tourism: “Brad ensured that service excellence was paramount and clearly recognised its vital importance in the highly competitive marketplace of today.”",
   },
   {
     id: "commercial",
@@ -64,14 +64,14 @@ const workCaseStudies = [
     meta: "Multi-campus account · retention under pressure · 2015–2025",
     title: "The account that was leaving, then grew",
     body: "A multi-campus account was actively evaluating a move away from the platform. I spent a week on the ground, rebuilt the adoption strategy campus by campus, and went back to teach it. The account stayed, then expanded.",
-    evidence: "Adrian Pilgrim, Teaching and Learning Manager: “giving us the confidence to invest in the platform further.”",
+    evidence: "Andrew Bergh, High School Principal: “he consistently brought a student-centered mindset to our strategic conversations, contributing invaluable insight and humility to complex, system-level discussions.”",
     link: { href: "/letters/the-industry-school/", label: "Read Adrian Pilgrim's full letter" },
   },
   {
     meta: "108 one-to-one interviews · COVID-19 lockdowns · 2020",
     title: "Adoption doesn't scale, so I stopped scaling it",
     body: "Lockdowns cut off the workshop model that normally carries adoption. I ran 108 individual interviews with teachers instead: the slow, expensive method, for the accounts that mattered most.",
-    evidence: "Andrew Bergh: “his empathetic and proactive approach ensures that even the most hesitant team members became confident users.”",
+    evidence: "Andrew Bergh, High School Principal: “it is difficult to overstate the impact Brad has had on my previous school and the broader community of Schoology schools in New Zealand.”",
     link: null,
   },
   {
@@ -85,7 +85,7 @@ const workCaseStudies = [
     meta: "Channel contract renegotiation · 2020",
     title: "The contract that made the decade possible",
     body: "When the channel agreement was cancelled, in a pandemic-driven platform change rather than a performance issue, I negotiated its replacement directly: no upfront cost, and the right to invoice customers myself.",
-    evidence: "AR Walker: “he was always pleasant but somehow managed to obtain an extraordinarily high strike rate from which many clients were converted.”",
+    evidence: "Philip Lemon, CanWest Media: “the innate ability to discover new methods of attracting and securing new business in what can be a very difficult industry to work in.”",
     link: null,
   },
 ];
@@ -99,6 +99,13 @@ const careers = [
     role: "Event director",
     org: "2000AD",
     title: "Sold sponsorship before the event existed",
+    // Brad's figures, confirmed 19 August 2026. 13,000 is his correction to the 15,000 recorded in
+    // `design/archive/05-younger-years-edit-prompt.md`; the archive is now annotated to match.
+    // The BBC line is hedged to the negotiation, which is the part Brad owns, rather than
+    // asserting what aired: it is the one claim here a reader could go and check. "First to see
+    // the sun" is likewise attributed to the pitch, not stated as fact — several places claimed it
+    // at the millennium and the argument is not one this page needs to win.
+    detail: "A full year producing the largest private millennium event in New Zealand. 13,000 people, two stages, an all-New Zealand lineup. I sold the naming rights to DB for the ten seconds of laser at midnight, and negotiated with the BBC to carry the event as part of their global millennium programme, pitched on New Zealand being first in the world to see the sun.",
   },
   {
     year: "2001",
@@ -106,6 +113,15 @@ const careers = [
     org: "Adplus Advertising, later Tracta",
     title: "Held the flagship account personally",
     detail: "Sold website add-on modules on monthly recurring fees after site builds: image galleries, FAQs, news tickers. The Hawke's Bay Visitor Guide account grew ad revenue 60% and advertiser volume 40% over three years, and stayed mine throughout.",
+    // Walker was the managing director of Adplus, so his verdict belongs on the Adplus row and
+    // nowhere else: it needs no explaining here. Brad chose the sentence; see
+    // `COPY/letters/quote-bank.md`. The row's detail is all figures, so this is the one line on it
+    // about the person rather than the account. 19 August 2026.
+    quote: {
+      text: "People with Brad's skill do not come along every day.",
+      attribution: "AR Walker, Managing Director",
+      slug: "adplus-advertising",
+    },
   },
   {
     year: "2003",
@@ -159,10 +175,14 @@ const careers = [
   },
 ];
 
-// Two 2025 letters only, both proving retention. The other four still publish at /letters/.
+// The three 2025 letters. The other three, all pre-2006, still publish at /letters/.
 // These sentences are deliberately NOT the `pullQuote` values in `src/data/letters.ts` — the
-// homepage and the letters index previously showed identical text. Each is a single unbroken
-// verbatim sentence, checked against the letter body in that same file.
+// homepage and the letters index previously showed identical text. Each is verbatim, checked
+// against the letter body in that same file.
+// Brad chose these from `COPY/letters/quote-bank.md`, 19 August 2026. Lad was added to break the
+// third instance of the Pilgrim/Bergh repetition: the same two sentences had been carrying the
+// capability cards, the case studies and this section at once. Do not substitute a different
+// sentence from the letters without asking him — that is the fault the quote bank exists to stop.
 const homeQuotes = [
   {
     quote:
@@ -177,6 +197,15 @@ const homeQuotes = [
     name: "Andrew Bergh",
     relation: "High School Principal · June 2025",
     slug: "andrew-bergh",
+  },
+  {
+    // Two adjacent paragraphs in the source letter, joined. The hyphen and the smiley are both
+    // verbatim: this is the only unsolicited document in the archive and it reads like one.
+    quote:
+      "Working with you is always a pleasure - your professionalism and positive attitude make everything so much smoother. You're a real star, Brad :)",
+    name: "Pranesh Lad",
+    relation: "IT Systems Engineer, Rototuna High Schools · May 2025",
+    slug: "rototuna-high-schools",
   },
 ];
 
@@ -264,7 +293,7 @@ const homeQuotes = [
 
   <div class="band">
     <section class="section shell" id="work" aria-labelledby="work-heading">
-      <header class="section-head">
+      <header class="section-head section-head-left">
         <p class="eyebrow-pill">Work</p>
         <h2 id="work-heading">The claim proved four times.</h2>
         <p class="lead">Four concrete moments. Each ends with a number or a named voice the reader can verify.</p>
@@ -305,7 +334,7 @@ const homeQuotes = [
     <section class="section shell" aria-labelledby="now-heading">
       <header class="section-head">
         <p class="eyebrow-pill">Right now</p>
-        <h2 id="now-heading">A year building fluency with the tools.</h2>
+        <h2 id="now-heading">A year building AI fluency with the tools.</h2>
         <p class="lead">The past year has been hands-on work with AI tools, the same product-depth habit from the rest of this page applied at a new scale: working fluency with the toolkit, and an eye for where it actually saves a business time.</p>
       </header>
     </section>
@@ -313,7 +342,7 @@ const homeQuotes = [
 
   <div class="band">
     <section class="section shell" aria-labelledby="career-heading">
-      <header class="section-head">
+      <header class="section-head section-head-left">
         <p class="eyebrow-pill">Career</p>
         <h2 id="career-heading">The range came one job at a time.</h2>
         <p class="lead">Generate demand. Shape the offer. Close the work. Enable users. Then grow the account.</p>
@@ -331,6 +360,12 @@ const homeQuotes = [
               <div>
                 <p class="tier-name">{item.title}</p>
                 {item.detail && <p class="tier-detail">{item.detail}</p>}
+                {item.quote && (
+                  <p class="career-quote">
+                    <span class="career-quote-text">“{item.quote.text}”</span>
+                    <a class="career-quote-source" href={`/letters/${item.quote.slug}/`}>{item.quote.attribution}</a>
+                  </p>
+                )}
                 {item.stages && (
                   <dl class="stage-list">
                     {item.stages.map((s) => (
@@ -355,7 +390,7 @@ const homeQuotes = [
       <header class="section-head">
         <p class="eyebrow-pill">References</p>
         <h2 id="letters-heading">Six reference letters, published in full.</h2>
-        <p class="lead">{homeQuotes[0].name} and {homeQuotes[1].name} both wrote in 2025, both describing an account kept that had a reason to go.</p>
+        <p class="lead">Three of the six were written in 2025. Two describe an account kept that had a reason to go; the third arrived unasked.</p>
       </header>
       <div class="hairline-grid">
         {homeQuotes.map((item) => (
