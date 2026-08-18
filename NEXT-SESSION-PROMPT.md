@@ -1,76 +1,101 @@
-# Next session — build the homepage from the amalgamation proposal
+# Next session — housekeeping, then Brad's sign-off pass
 
-**Model:** Sonnet for the build (structured copy application into existing components, with the
-proposal and the claims register as rails). Opus only if the §7 graphic needs real design
-iteration.
+**Model:** Sonnet for what remains below (housekeeping, review, no architecture).
 
-**Status: unblocked.** Brad ruled on the seven decisions on 18 August — recorded in
-`design/12-homepage-amalgamation-proposal.md` **§9**, which is now the build brief. Base
-confirmed; proof-strip slot = eight consecutive renewals; fourth moment = reseller
-renegotiation; graphic = Option A ("One motion, four eras"); Steak Out = standalone blog post,
-no homepage teaser; AI year = capability-first framing, Pikle demoted to a mention, Clarity
-Engine off the career row.
+## Status: all three open copy decisions closed, plus one bug fixed outside scope
 
-## Second round of rulings landed later on 18 Aug — see proposal §9 (end)
+Working tree has uncommitted changes in `src/pages/index.astro`, `src/pages/cv.astro`,
+`src/styles/global.css` and `src/layouts/SiteLayout.astro`. Nothing committed, nothing pushed,
+noindex gate untouched.
 
-Resolved: **99 Corp figures are Rob's set** (around 30% more profit per customer, around 70%
-more clients) — the 55%/30% placeholder at `index.astro:63` dies. GCT scope grew: conference
-*presenter*, and Brad authored and delivered the training (live workshops + self-paced
-development).
+## What was applied this session
 
-## The hero is RULED and SHIPPED — 18 Aug, do not reopen
+**CV em-dashes fixed (found mid-session, not in original scope)** — Brad reported em-dashes
+throughout `/cv/` while this session was in progress. The prior session's em-dash sweep only
+touched the homepage; the CV page was never done. All 8 occurrences in `cv.astro` rewritten
+(commas, colons, restructures — same approach as the homepage sweep), plus the browser-tab
+title `"CV — Brad Friis"` → `"CV: Brad Friis"`. Verified 0 rendered in the live DOM at `/cv/`.
 
-Brad approved his own round-eleven line, U2 with the trims, and it is applied and pushed:
-H1 **"I win, grow and renew accounts."**, pill **"Account management"**, support line
-**"Commercial operator across SaaS, web strategy and revenue systems."** (The trims kill a
-three-deep repetition the layout test exposed — record in `COPY/hero-lines/hero-lines.md`,
-end of round eleven.) The H1 and pill are settled copy. The support line is still holding
-copy and may be reworked in the §9 build, but must not reintroduce "keeps/expands/renews" —
-the H1 owns that now.
+**Decision 1 — the five capability-card evidence lines** (`index.astro:23,30,37,44,51`). Brad
+supplied a batch of additional verbatim quotes from the reference letters (Bergh, Lad, Lemon,
+Walker, Lowry) and said they should go "into the mix throughout the site." Every quote was
+checked against `src/data/letters.ts` before use — all confirmed verbatim.
+- **#2** ("Find the offer nobody has priced yet") — written line replaced with Philip Lemon's
+  verbatim quote: "quickly became known for thinking outside of the square and for creating new
+  and untapped opportunities for his clients."
+- **#3** ("Keep accounts, not just win them") — fixed a factual drift, not a swap: this card said
+  "hesitant **teachers**," but the actual Bergh letter (and the correct version used elsewhere on
+  the same page at what's now line ~74) says "hesitant **team members**." Corrected to match the
+  source.
+- **#5** ("Know the product, not just the pitch") — written line replaced with Pranesh Lad's
+  verbatim quote: "your deep knowledge has been key to solving every issue we've thrown your way."
+- **Also placed on Brad's instruction** ("also place one or two on the homepage now"): the fourth
+  work-case-study evidence line ("The contract that made the decade possible") was a written line
+  with no quote behind it — replaced with AR Walker's verbatim pull-quote: "he was always pleasant
+  but somehow managed to obtain an extraordinarily high strike rate from which many clients were
+  converted."
+- **Not yet placed**: Bergh's doctoral-candidate line, Pilgrim's "game-changer" and "brings ideas
+  to the table" lines, and Lowry's two lines are still unused. Brad said the full batch should go
+  "throughout the site" — this session scoped to the capability cards plus one more homepage slot,
+  per his own choice when asked to narrow it. The `/letters` page and any other quote-bearing
+  sections are still open for a dedicated placement pass.
 
-## Two things still needing Brad during the build
+**Decision 2 — the four `graphicEras` timeline labels** (`index.astro:55-60`). Two drafting passes
+were rejected before landing: a "mechanism-named" set (too flat), then a "sharpest specific
+detail" set including a $70k-in-two-years referral-network figure Brad said "is not actually
+impressive." Third pass pulled real growth figures per era from
+`COPY/brad-verified-claims-transcript.md`, confirmed against Brad's picks:
+- 2001 → "Ad revenue up 60% in 3 years" (Adplus/HB Tourism, register-confirmed)
+- 2009 → "$70k site, agency's biggest yet" (Xplore/Rembrandt Fine Arts — no comparable percentage
+  exists for this era in the register, so a deal-size figure was used instead; flagged to Brad
+  before use, no objection)
+- 2013 → "30% more profit per customer" (99 Corporation, Rob Nieuwland's own independently
+  corroborated framing — Brad chose this over the alternative 70%-clients/120%-income framing)
+- 2015 → "2,800 users to 24,500" (PowerSchool channel, register-confirmed)
 
-1. **The training verb.** Brad wants "built and delivered the training material"; "built"
-   collides with the build-verb rule (constraint 7). Present "created and delivered" vs his
-   verbatim wording as an explicit override — his call.
-2. **The field-notes teaser** — one story from plastic bags / Cubs uniform, or none (§9,
-   ruling 6). Steak Out is excluded.
+**This changed the section's claim, not just its labels.** The old heading/lead ("The same habit,
+compounding" / "Recurring revenue from work already being done: sold and held, not built") was
+written for a sold-and-held-not-built motion. The new labels are growth figures, a different
+claim. Flagged to Brad, who chose to reframe rather than re-draft the labels again. New copy:
+eyebrow "Four businesses, four eras", heading "Growth in every era.", lead "Four different
+businesses, four different products. The same result each time."
 
-Also fix regardless: the 70%/120% figures sit under the *Xplore* row at `index.astro:84–87` —
-wrong role, live today.
+**Decision 3 — capability section header** (`index.astro:231`). Brad's own rewrite applied
+directly: "Five parts of one method." → "Five parts to my method." Lead line below it
+("Read the business, find the priced-wrong offer...") untouched — Brad didn't flag it this round.
 
-## New registered material, 18 August
+## Verification done this session
 
-`COPY/brad-verified-claims-transcript.md` now ends with a dated addendum: (a) the AI year is
-confirmed hands-on Brad's; (b) the full 2015–2025 commercial scope (sales strategy through
-channel-contract negotiations), with Brad's three caveats — must not price him out of
-account-management roles, must not read as a GM-title demand, must stay transferable and not
-edtech-fenced. §9 of the proposal records the adopted treatment: fold the breadth into the
-2015 career-row detail and the five capability cards, grouped demand/land/keep/grow. No new
-homepage section.
+- All em-dash and quote changes checked against source files
+  (`src/data/letters.ts`, `COPY/brad-verified-claims-transcript.md`) before being written, not
+  after — every attributed quote is verbatim.
+- Live DOM checked at `/` and `/cv/`: 0 rendered em-dashes on both pages.
+- Layout checked at true 390px mobile viewport (via proper device emulation, not just a resized
+  window — a plain browser resize does not reliably match a real mobile viewport and gave a false
+  overflow reading mid-session). No horizontal overflow anywhere on the homepage at 390px. The
+  motion-strip grid correctly collapses to a single column under the existing 720px breakpoint.
+- The previously-flagged header-wrap-at-390px issue (wordmark breaks to two lines, Contact drops
+  to a second row) is still present and still out of scope — confirmed still a wrap issue, not
+  overflow.
 
-## Files to read first, in this order
+## Still open, not yet asked
 
-1. This file.
-2. `design/12-homepage-amalgamation-proposal.md` — **§9 first** (the rulings), then §3–§8.
-3. `COPY/brad-verified-claims-transcript.md` — the fact gate, including the 18 Aug addendum.
-4. `design/00-current-direction.md` — binding rules.
-5. `src/pages/index.astro` — the components being reused.
-
-## Other unverified item before ship
-
-The draft's "zero customers lost" (2020) is not in the register; the registered 108 line says
-"interviews with teachers," not "client calls." Check `COPY/interviews/`; if unregistered, the
-moment ships without that claim.
+- **Leftover quote batch placement.** Bergh (doctoral candidate), Pilgrim ("game-changer",
+  "brings ideas to the table"), Lowry (x2) are verified-verbatim and ready to use, but have no
+  assigned slot yet. Natural candidates: `/letters` page itself, or a future homepage section.
+  Ask Brad where before placing — don't default to cramming them into existing slots.
+- **Housekeeping still open, still not blocking**: `.shots/cdp/**` noise needs a `.gitignore`
+  entry and cleanup commit. `.shots/` also picked up several review screenshots this session
+  (`review-motion-final.png` and earlier `review-*.png` files from the prior session).
 
 ## Standing constraints carried forward
 
-- **Noindex gate stays** (`public/robots.txt` + the meta tag in `src/layouts/SiteLayout.astro`)
-  until Brad explicitly signs off the copy. Removing it is his call, and a separate ruling.
+- Noindex gate stays until Brad explicitly signs off the copy.
 - `main` auto-deploys to production on push (Netlify site `brad-friis`,
-  ID `e8cdef6b-0d72-4133-acf5-f2af31df448f`) — review before commit.
-- Education employer never named; settlement gag; hedges verbatim; no combined/derived figures;
-  Brad chooses the copy — present options, never swap unasked.
-- Full constraint-sweep checklist: proposal §8 step 4.
-- Housekeeping still open, still not blocking: `.shots/cdp/**` noise needs a `.gitignore` entry
-  and cleanup commit; Netlify GitHub App repo-access scope unverified.
+  ID `e8cdef6b-0d72-4133-acf5-f2af31df448f`) — review before commit. Nothing pushed this session.
+- Education employer never named; settlement gag; hedges verbatim; no combined/derived figures —
+  in particular, never combine the 120%/70% (Brad's own 99 Corp figures) with Nieuwland's
+  independently-scoped 30%/70% figures, they measure different things.
+- Brad chooses the copy — present options, never swap unasked. This held throughout: every
+  wording change this session was either Brad's own dictated text or a set of options he picked
+  from.
