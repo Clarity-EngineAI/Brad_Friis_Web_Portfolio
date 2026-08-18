@@ -1,8 +1,13 @@
 # Next session — blog images, then extend the CMS past the blog
 
-**Model:** Opus. Both tasks are design work before they are typing. Task 1 decides how
-images enter a static Astro build without giving up optimisation; task 2 is a rewrite of two
-pages whose copy is inline rather than in data files. Neither is a checklist.
+**Model:** Opus for tasks 1 and 3 — both are design decisions before they are typing. Task 1
+decides how images enter a static Astro build without giving up optimisation; task 3 is a
+rewrite of two pages whose copy is inline rather than in data files. **Sonnet is enough for
+task 2** (the booking embed) once Brad has chosen hosted-versus-custom, since it is then a
+styling and placement job.
+
+Order them 1, 2, 3 or 2, 1, 3 — the booking embed is independent of the image work and is the
+shortest of the three, so it is a reasonable warm-up.
 
 ## Where things stand — the CMS is installed and working
 
@@ -103,7 +108,54 @@ Same bar as the pipeline: an image is not working until it is **on bradfriis.com
 one in the Studio, Publish, wait for the hook-triggered deploy, load the post. A local
 `astro build` proving the type-checks pass is not the same claim.
 
-## Task 2 — extend Sanity past the blog
+## Task 2 — "book a meeting" on the site (Brad's ask, 19 August 2026)
+
+His words: "a calendly styled 'book a meeting' function". That phrasing is ambiguous and the
+ambiguity is the whole decision — **actually Calendly**, or **custom-built to resemble it**.
+Settle it with him before writing anything.
+
+### What already exists
+
+`src/components/ContactPanel.astro` is a complete, well-built contact form — name, email,
+organisation, a reason select, message, posting to Netlify Forms with a honeypot, landing on
+`src/pages/thanks.astro`. Booking is therefore **not filling a gap**. It is a faster path
+competing with the existing slower one for the same click.
+
+That makes placement a real question, not an afterthought. Recommendation: booking sits
+**above** the form, with the form kept for people not ready to commit to a time. Someone
+hiring for an account management role who wants to talk will take a slot over composing a
+message and waiting a day — but plenty of visitors are not at that stage, and removing the
+form would cost those.
+
+### The recommendation, with its cost stated
+
+Use a hosted scheduler — **Calendly, or Cal.com** (same model, open source, and its free tier
+carries no branding, which Calendly's does). Style the container so it sits inside the site's
+type and colour rather than looking bolted on. About 30 minutes.
+
+Do **not** build a custom scheduler. It means reimplementing availability rules, timezone
+conversion, calendar writes and reminder emails on a static site with no backend — days of
+work and a permanent maintenance liability, for a booking form. If Brad wants the custom route
+anyway, say plainly what it costs and let him decide; do not start it silently.
+
+The cost of the hosted route, stated rather than glossed: a third-party script loads on the
+page, on a site that currently loads none. That is a privacy and performance change, small but
+real, and worth naming to Brad rather than absorbing quietly.
+
+**Checked 19 August 2026: `netlify.toml` has no CSP**, only `X-Content-Type-Options`,
+`Referrer-Policy` and `X-Frame-Options = DENY`. That last one governs other sites framing
+bradfriis.com, not bradfriis.com framing a scheduler, so an embed needs no header change. Do
+not add a CSP as part of this task — if one is wanted it is its own decision, and adding it
+blind alongside a new third-party script is how a page silently stops working.
+
+### The non-technical risk, which matters more than the implementation
+
+**An empty calendar is worse than no calendar.** If a visitor opens it and finds no
+availability for two weeks, that undercuts a candidate arguing he is responsive and easy to
+deal with. Brad needs real slots open before this goes live. Raise it with him — it is his
+call, but it is not a detail.
+
+## Task 3 — extend Sanity past the blog
 
 Brad's decision, unchanged and not to be reopened: Sanity owns every editable string, not
 just blog bodies. Blog-first was the staged route to that end state, not the destination.
