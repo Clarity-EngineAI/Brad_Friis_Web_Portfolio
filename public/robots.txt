@@ -1,0 +1,4 @@
+# DELIBERATE GATE — do not remove without Brad's explicit sign-off that the copy is
+# full and complete. See NEXT-SESSION-PROMPT.md / memory: indexing stays off until then.
+User-agent: *
+Disallow: /

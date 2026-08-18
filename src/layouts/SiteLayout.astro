@@ -23,6 +23,9 @@ const canonical = new URL(path, Astro.site ?? Astro.url).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#f3f1ec" />
+    <!-- DELIBERATE GATE — do not remove without Brad's explicit sign-off that the copy is
+         full and complete. Belt-and-braces with public/robots.txt. -->
+    <meta name="robots" content="noindex, nofollow" />
     <link rel="canonical" href={canonical} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
