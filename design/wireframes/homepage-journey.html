@@ -1,0 +1,828 @@
+<title>Homepage Journey Blueprint</title>
+
+<style>
+  :root {
+    --ground: #F7F8FA;
+    --panel: #FFFFFF;
+    --ink: #14181F;
+    --ink-soft: #4A5261;
+    --grey: #8B93A1;
+    --rule: #D5D9E0;
+    --block: #E7EAEF;
+    --block-deep: #DADFE7;
+    --accent: #B0722A;
+    --accent-soft: #F0E2CE;
+    --cut: #A63D3D;
+    --keep: #3F7050;
+
+    --display: "Helvetica Neue", "Arial Narrow", Helvetica, Arial, sans-serif;
+    --body: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --mono: "SF Mono", "Menlo", "Consolas", monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #12151A;
+      --panel: #191D24;
+      --ink: #E8EBF0;
+      --ink-soft: #A2AAB8;
+      --grey: #767E8C;
+      --rule: #2C323B;
+      --block: #232830;
+      --block-deep: #2B313A;
+      --accent: #D9A05B;
+      --accent-soft: #3A2C18;
+      --cut: #D07777;
+      --keep: #71A886;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #12151A;
+    --panel: #191D24;
+    --ink: #E8EBF0;
+    --ink-soft: #A2AAB8;
+    --grey: #767E8C;
+    --rule: #2C323B;
+    --block: #232830;
+    --block-deep: #2B313A;
+    --accent: #D9A05B;
+    --accent-soft: #3A2C18;
+    --cut: #D07777;
+    --keep: #71A886;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0 1.5rem 6rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    padding: 5rem 0 3rem;
+    border-bottom: 2px solid var(--ink);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .kicker {
+    font-family: var(--display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+
+  .masthead h1 {
+    font-family: var(--display);
+    font-size: clamp(2.2rem, 6vw, 3.6rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.02;
+    text-wrap: balance;
+    margin: 0;
+    max-width: 22ch;
+  }
+
+  .standfirst {
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin: 0;
+  }
+
+  /* ---------- the argument box ---------- */
+
+  .argument {
+    margin: 3rem 0 4.5rem;
+    padding: 1.75rem 1.9rem;
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+  }
+
+  .argument h2 {
+    font-family: var(--display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin: 0 0 0.9rem;
+  }
+
+  .argument p {
+    margin: 0 0 0.85rem;
+    max-width: 68ch;
+  }
+
+  .argument p:last-child { margin-bottom: 0; }
+
+  .argument strong { color: var(--ink); }
+
+  /* ---------- the journey spine ---------- */
+
+  .journey {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+    padding-left: 4.5rem;
+  }
+
+  .journey::before {
+    content: "";
+    position: absolute;
+    left: 1.35rem;
+    top: 0.9rem;
+    bottom: 3rem;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent) 0%, var(--accent) 88%, transparent 100%);
+    opacity: 0.4;
+  }
+
+  .stop {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: 2.25rem;
+    align-items: start;
+  }
+
+  .stop-num {
+    position: absolute;
+    left: -4.5rem;
+    top: 0;
+    width: 2.7rem;
+    height: 2.7rem;
+    border-radius: 50%;
+    background: var(--ground);
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- the wireframe blocks ---------- */
+
+  .frame {
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+
+  .frame-label {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--grey);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  .bar {
+    background: var(--block);
+    border-radius: 1px;
+  }
+
+  .bar-xl { height: 2.1rem; }
+  .bar-lg { height: 1.35rem; }
+  .bar-md { height: 0.72rem; }
+  .bar-sm { height: 0.52rem; }
+
+  .bar-ink { background: var(--block-deep); }
+  .bar-accent { background: var(--accent); opacity: 0.55; }
+
+  .w-100 { width: 100%; }
+  .w-92 { width: 92%; }
+  .w-80 { width: 80%; }
+  .w-70 { width: 70%; }
+  .w-60 { width: 60%; }
+  .w-45 { width: 45%; }
+  .w-35 { width: 35%; }
+  .w-25 { width: 25%; }
+
+  .stack { display: flex; flex-direction: column; gap: 0.4rem; }
+  .row { display: flex; gap: 0.7rem; align-items: center; }
+  .row-top { display: flex; gap: 1rem; align-items: flex-start; }
+
+  .cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+  .cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; }
+  .cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.55rem; }
+
+  .cell {
+    border: 1px solid var(--rule);
+    padding: 0.7rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-width: 0;
+  }
+
+  .plate {
+    background: var(--block);
+    border-radius: 1px;
+    aspect-ratio: 3 / 4;
+    width: 5.5rem;
+    flex-shrink: 0;
+  }
+
+  .pill {
+    height: 1.3rem;
+    border-radius: 999px;
+    background: var(--block);
+    flex: 1;
+    min-width: 0;
+  }
+
+  .pill-on {
+    background: var(--accent);
+    opacity: 0.5;
+  }
+
+  .btn {
+    height: 1.9rem;
+    width: 7rem;
+    background: var(--block-deep);
+    border-radius: 2px;
+  }
+
+  .btn-solid { background: var(--accent); opacity: 0.6; }
+
+  .caption {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--grey);
+    letter-spacing: 0.03em;
+    margin: 0;
+  }
+
+  /* ---------- annotations ---------- */
+
+  .note { min-width: 0; }
+
+  .note h3 {
+    font-family: var(--display);
+    font-size: 1.22rem;
+    font-weight: 700;
+    letter-spacing: -0.012em;
+    line-height: 1.15;
+    margin: 0 0 0.2rem;
+    text-wrap: balance;
+  }
+
+  .question {
+    font-family: var(--display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 0.9rem;
+  }
+
+  .note p {
+    font-size: 0.94rem;
+    color: var(--ink-soft);
+    margin: 0 0 0.7rem;
+    max-width: 46ch;
+  }
+
+  .note p:last-child { margin-bottom: 0; }
+
+  .note strong { color: var(--ink); font-weight: 600; }
+
+  .tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid currentColor;
+    margin: 0 0.35rem 0.5rem 0;
+  }
+
+  .tag-cut { color: var(--cut); }
+  .tag-keep { color: var(--keep); }
+  .tag-new { color: var(--accent); }
+
+  .changes {
+    margin: 0.9rem 0 0;
+    padding: 0.85rem 1rem;
+    background: var(--accent-soft);
+    border-left: 2px solid var(--accent);
+  }
+
+  .changes p {
+    font-family: var(--display);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 0;
+    max-width: none;
+  }
+
+  /* ---------- the cut list ---------- */
+
+  .coda {
+    margin-top: 5.5rem;
+    padding-top: 3rem;
+    border-top: 2px solid var(--ink);
+  }
+
+  .coda h2 {
+    font-family: var(--display);
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.6rem;
+  }
+
+  .coda > p {
+    color: var(--ink-soft);
+    max-width: 64ch;
+    margin: 0 0 2rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  .table-scroll { overflow-x: auto; }
+
+  th, td {
+    text-align: left;
+    padding: 0.8rem 1rem 0.8rem 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+
+  th {
+    font-family: var(--display);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+
+  td:first-child {
+    font-family: var(--display);
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+    padding-right: 1.5rem;
+  }
+
+  td:last-child { color: var(--ink-soft); }
+
+  .verdict {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding-right: 1.5rem;
+  }
+
+  .v-cut { color: var(--cut); }
+  .v-keep { color: var(--keep); }
+  .v-move { color: var(--accent); }
+
+  @media (max-width: 860px) {
+    .stop { grid-template-columns: 1fr; gap: 1.4rem; }
+    .journey { padding-left: 3.2rem; }
+    .journey::before { left: 0.9rem; }
+    .stop-num {
+      left: -3.2rem;
+      width: 1.9rem;
+      height: 1.9rem;
+      font-size: 0.78rem;
+    }
+    .cols-4 { grid-template-columns: 1fr 1fr; }
+    .note p { max-width: none; }
+  }
+
+  @media (max-width: 520px) {
+    body { padding: 0 1rem 4rem; }
+    .cols-3, .cols-2 { grid-template-columns: 1fr; }
+    .row-top { flex-direction: column; }
+    .plate { width: 100%; aspect-ratio: 16 / 9; }
+  }
+
+  /* ---------- print ---------- */
+
+  @page {
+    size: A4 portrait;
+    margin: 14mm 14mm 16mm;
+  }
+
+  @media print {
+    /* Force the light palette: printers get the printed-page colours regardless
+       of the viewer's OS theme. */
+    :root {
+      --ground: #FFFFFF;
+      --panel: #FFFFFF;
+      --ink: #14181F;
+      --ink-soft: #3E4653;
+      --grey: #6E7684;
+      --rule: #C3C8D1;
+      --block: #E7EAEF;
+      --block-deep: #D5DAE2;
+      --accent: #8A5518;
+      --accent-soft: #F0E2CE;
+      --cut: #8C2F2F;
+      --keep: #2F5D40;
+    }
+
+    html, body {
+      background: #FFFFFF;
+      font-size: 10.5pt;
+      padding: 0;
+      margin: 0;
+    }
+
+    .wrap { max-width: none; }
+
+    /* Keep block fills and rules — without this most browsers drop every
+       background, and the wireframe frames become empty white space. */
+    * {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Cover page: masthead and the argument box sit together, then break. */
+    .masthead { padding-top: 0; }
+    .argument { break-after: page; page-break-after: always; }
+
+    /* The spine is a screen device. In print each stop is its own page, so a
+       rule running off the bottom edge of every sheet reads as an error. */
+    .journey {
+      padding-left: 0;
+      gap: 0;
+      display: block;
+    }
+    .journey::before { display: none; }
+
+    /* One stop per page. Re-anchor the number inline — an absolutely
+       positioned badge can strand itself on the wrong sheet at a break. */
+    .stop {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-after: page;
+      page-break-after: always;
+      display: block;
+      padding-top: 0;
+    }
+    .stop:last-of-type { break-after: auto; page-break-after: auto; }
+
+    .stop-num {
+      position: static;
+      left: auto;
+      top: auto;
+      display: inline-flex;
+      margin: 0 0 0.9rem;
+      width: 2.1rem;
+      height: 2.1rem;
+      background: #FFFFFF;
+    }
+
+    /* Wireframe frame above, annotation below — two columns at print width
+       squeeze the prose to an unreadable measure. */
+    .frame {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      margin-bottom: 1.4rem;
+    }
+
+    .note { break-inside: avoid; page-break-inside: avoid; }
+    .note p { max-width: none; }
+    .note h3, .question { break-after: avoid; page-break-after: avoid; }
+
+    .changes { break-inside: avoid; page-break-inside: avoid; }
+
+    /* The coda table is the summary sheet — it gets its own page and must not
+       split a row across sheets. */
+    .coda {
+      break-before: page;
+      page-break-before: always;
+      break-inside: avoid;
+    }
+    .table-scroll { overflow-x: visible; }
+    table { break-inside: auto; }
+    tr { break-inside: avoid; page-break-inside: avoid; }
+    thead { display: table-header-group; }
+
+    a { text-decoration: none; color: inherit; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="kicker">Homepage blueprint &middot; 17 August 2026</p>
+    <h1>Seven stops, in the order a hiring manager reads them.</h1>
+    <p class="standfirst">The current page has nine sections and no argued order. This is the proposed order, the question each stop answers, and what changes from what is live now. Grey blocks are placeholders for real content &mdash; this shows structure and sequence, not final visual design.</p>
+  </header>
+
+  <section class="argument">
+    <h2>The one idea</h2>
+    <p>A reader arrives asking <strong>&ldquo;what does this person do?&rdquo;</strong> and leaves needing to have answered <strong>&ldquo;what would they do for us?&rdquo;</strong> Every stop between those two points exists to move them one step, and no stop should raise a question the next stop fails to answer.</p>
+    <p>The current page breaks this in one specific place: <strong>testimonials sit at position three</strong>, before any claim has been made. Praise arrives before the reader knows what it is praising, so it reads as decoration. Moving proof <em>after</em> the claim is the single biggest structural change here.</p>
+    <p>Second change: <strong>account management leads, the rest follows as range.</strong> The hero currently lists five disciplines. One claim, stated once, then the breadth appears later as evidence of depth rather than as a hedge.</p>
+  </section>
+
+  <div class="journey">
+
+    <!-- STOP 1 -->
+    <article class="stop">
+      <span class="stop-num">1</span>
+      <div class="frame">
+        <div class="frame-label"><span>Hero</span><span>100vh &minus; nav</span></div>
+        <div class="row-top">
+          <div class="stack" style="flex:1; min-width:0;">
+            <div class="bar bar-sm bar-accent w-35"></div>
+            <div style="height:0.3rem;"></div>
+            <div class="bar bar-xl bar-ink w-100"></div>
+            <div class="bar bar-xl bar-ink w-70"></div>
+            <div style="height:0.35rem;"></div>
+            <div class="bar bar-md w-92"></div>
+            <div class="bar bar-md w-60"></div>
+            <div style="height:0.5rem;"></div>
+            <div class="row">
+              <div class="btn btn-solid"></div>
+              <div class="bar bar-md w-25"></div>
+            </div>
+          </div>
+          <div class="plate"></div>
+        </div>
+        <p class="caption">H1 &le; 70 chars &middot; support line &le; 150 &middot; one primary action</p>
+      </div>
+      <div class="note">
+        <p class="question">What does this person do?</p>
+        <h3>One claim, said once</h3>
+        <p><strong>Account management &mdash; keeping and growing accounts.</strong> Not five disciplines. The support line names the range in one clause and stops.</p>
+        <p>The portrait earns its place: a commercial hire is a person a customer has to trust in a room. Face above the fold.</p>
+        <div class="changes">
+          <p><span class="tag tag-cut">Change</span> Hero support line currently lists sales, account management, delivery, UI/UX and web strategy. Cut to one lead claim plus a single range clause.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- STOP 2 -->
+    <article class="stop">
+      <span class="stop-num">2</span>
+      <div class="frame">
+        <div class="frame-label"><span>Result strip</span><span>4 up</span></div>
+        <div class="cols-4">
+          <div class="stack"><div class="bar bar-lg bar-accent w-92"></div><div class="bar bar-sm w-100"></div><div class="bar bar-sm w-70"></div></div>
+          <div class="stack"><div class="bar bar-lg bar-accent w-92"></div><div class="bar bar-sm w-100"></div><div class="bar bar-sm w-70"></div></div>
+          <div class="stack"><div class="bar bar-lg bar-accent w-92"></div><div class="bar bar-sm w-100"></div><div class="bar bar-sm w-70"></div></div>
+          <div class="stack"><div class="bar bar-lg bar-accent w-92"></div><div class="bar bar-sm w-100"></div><div class="bar bar-sm w-70"></div></div>
+        </div>
+        <p class="caption">Figure &le; 14 chars &middot; label &le; 46 &middot; no heading above this band</p>
+      </div>
+      <div class="note">
+        <p class="question">Is there anything behind it?</p>
+        <h3>Four numbers, no sentences</h3>
+        <p>The claim needs immediate weight before the reader commits to scrolling. Numbers do that faster than prose because they are read, not parsed.</p>
+        <p>Stays where it is and stays wordless. <strong>No section heading above it</strong> &mdash; a heading would slow a band whose whole job is speed.</p>
+        <div class="changes">
+          <p><span class="tag tag-keep">Keep</span> Live already and working. Position unchanged.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- STOP 3 -->
+    <article class="stop">
+      <span class="stop-num">3</span>
+      <div class="frame">
+        <div class="frame-label"><span>How I work &middot; 4 capabilities</span><span>was &ldquo;About Me&rdquo; tabs</span></div>
+        <div class="stack">
+          <div class="bar bar-sm bar-accent w-25"></div>
+          <div class="bar bar-lg bar-ink w-60"></div>
+          <div class="bar bar-sm w-80"></div>
+        </div>
+        <div style="height:0.4rem;"></div>
+        <div class="cols-2">
+          <div class="cell"><div class="bar bar-md bar-ink w-80"></div><div class="bar bar-sm w-100"></div><div class="bar bar-sm w-100"></div><div class="bar bar-sm w-45"></div></div>
+          <div class="cell"><div class="bar bar-md bar-ink w-70"></div><div class="bar bar-sm w-100"></div><div class="bar bar-sm w-100"></div><div class="bar bar-sm w-60"></div></div>
+          <div class="cell"><div class="bar bar-md bar-ink w-92"></div><div class="bar bar-sm w-100"></div><div class="bar bar-sm w-100"></div><div class="bar bar-sm w-35"></div></div>
+          <div class="cell"><div class="bar bar-md bar-ink w-60"></div><div class="bar bar-sm w-100"></div><div class="bar bar-sm w-100"></div><div class="bar bar-sm w-70"></div></div>
+        </div>
+        <p class="caption">All four visible &middot; heading &le; 45 chars &middot; body &le; 220 each</p>
+      </div>
+      <div class="note">
+        <p class="question">How do they actually do it?</p>
+        <h3>Unfold the tabs into a grid</h3>
+        <p>Four capabilities currently sit behind a tab strip, so <strong>three quarters of the content is hidden on arrival.</strong> A reader scanning in ninety seconds sees one card and moves on.</p>
+        <p>Tabs are right when options are alternatives. These are cumulative &mdash; they describe one method in four parts, and the argument only lands if all four are visible at once.</p>
+        <div class="changes">
+          <p><span class="tag tag-cut">Change</span> Replace the tab interaction with a 2&times;2 grid. Delete the tab JS. Also rename the eyebrow: &ldquo;About Me&rdquo; describes a bio, but this section is method.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- STOP 4 -->
+    <article class="stop">
+      <span class="stop-num">4</span>
+      <div class="frame">
+        <div class="frame-label"><span>Case studies</span><span>3 up</span></div>
+        <div class="stack">
+          <div class="bar bar-sm bar-accent w-25"></div>
+          <div class="bar bar-lg bar-ink w-70"></div>
+        </div>
+        <div style="height:0.4rem;"></div>
+        <div class="cols-3">
+          <div class="cell">
+            <div class="bar bar-sm w-80"></div>
+            <div class="bar bar-md bar-ink w-100"></div>
+            <div class="bar bar-sm w-100"></div><div class="bar bar-sm w-100"></div><div class="bar bar-sm w-60"></div>
+            <div class="bar bar-sm bar-accent w-70"></div>
+          </div>
+          <div class="cell">
+            <div class="bar bar-sm w-70"></div>
+            <div class="bar bar-md bar-ink w-92"></div>
+            <div class="bar bar-sm w-100"></div><div class="bar bar-sm w-100"></div><div class="bar bar-sm w-45"></div>
+            <div class="bar bar-sm bar-accent w-80"></div>
+          </div>
+          <div class="cell">
+            <div class="bar bar-sm w-92"></div>
+            <div class="bar bar-md bar-ink w-80"></div>
+            <div class="bar bar-sm w-100"></div><div class="bar bar-sm w-100"></div><div class="bar bar-sm w-70"></div>
+            <div class="bar bar-sm bar-accent w-60"></div>
+          </div>
+        </div>
+        <p class="caption">Ochre bar = the evidence line, always last in the card</p>
+      </div>
+      <div class="note">
+        <p class="question">Show me it working once.</p>
+        <h3>The claim, proved three times</h3>
+        <p>Three stories, each with a number or a named voice at the end. This is the heart of the page and the only place a reader can verify the hero.</p>
+        <p>Order matters: <strong>the account that nearly left goes first</strong>, because retention under pressure is the exact thing the hero claims.</p>
+        <div class="changes">
+          <p><span class="tag tag-new">New position</span> Was position five, behind the tabs. Moves up to sit directly under the method it proves.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- STOP 5 -->
+    <article class="stop">
+      <span class="stop-num">5</span>
+      <div class="frame">
+        <div class="frame-label"><span>References</span><span>2 quotes + link</span></div>
+        <div class="stack">
+          <div class="bar bar-sm bar-accent w-25"></div>
+          <div class="bar bar-lg bar-ink w-60"></div>
+        </div>
+        <div style="height:0.4rem;"></div>
+        <div class="cols-2">
+          <div class="cell">
+            <div class="bar bar-md w-100"></div><div class="bar bar-md w-100"></div><div class="bar bar-md w-70"></div>
+            <div style="height:0.3rem;"></div>
+            <div class="bar bar-sm bar-ink w-45"></div><div class="bar bar-sm w-70"></div>
+          </div>
+          <div class="cell">
+            <div class="bar bar-md w-100"></div><div class="bar bar-md w-100"></div><div class="bar bar-md w-60"></div>
+            <div style="height:0.3rem;"></div>
+            <div class="bar bar-sm bar-ink w-45"></div><div class="bar bar-sm w-70"></div>
+          </div>
+        </div>
+        <div class="bar bar-sm bar-accent w-35"></div>
+        <p class="caption">Two on the homepage &middot; all six live at /letters/</p>
+      </div>
+      <div class="note">
+        <p class="question">Does anyone else say so?</p>
+        <h3>Third-party voice, after the claim</h3>
+        <p><strong>This is the move that fixes the page.</strong> Currently these sit at position three, before the reader knows what is being vouched for. Praise without a claim is noise.</p>
+        <p>Read here instead, the same two quotes corroborate a story the reader has just finished. Same words, far more weight.</p>
+        <div class="changes">
+          <p><span class="tag tag-cut">Change</span> Moves from position three to position five. Two quotes stay, the link to all six stays. No rewriting needed.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- STOP 6 -->
+    <article class="stop">
+      <span class="stop-num">6</span>
+      <div class="frame">
+        <div class="frame-label"><span>Career &amp; range</span><span>7 rows + logos</span></div>
+        <div class="stack">
+          <div class="bar bar-sm bar-accent w-25"></div>
+          <div class="bar bar-lg bar-ink w-70"></div>
+          <div class="bar bar-sm w-92"></div>
+        </div>
+        <div style="height:0.4rem;"></div>
+        <div class="stack" style="gap:0.55rem;">
+          <div class="row"><div class="bar bar-md bar-ink w-60"></div><div class="bar bar-sm w-35"></div></div>
+          <div class="row"><div class="bar bar-md bar-ink w-70"></div><div class="bar bar-sm w-25"></div></div>
+          <div class="row"><div class="bar bar-md bar-ink w-45"></div><div class="bar bar-sm w-35"></div></div>
+          <div class="row"><div class="bar bar-md bar-ink w-80"></div><div class="bar bar-sm w-25"></div></div>
+          <div class="row"><div class="bar bar-md bar-ink w-60"></div><div class="bar bar-sm w-35"></div></div>
+        </div>
+        <div style="height:0.5rem;"></div>
+        <div class="cols-4" style="gap:0.5rem;">
+          <div class="bar bar-lg"></div><div class="bar bar-lg"></div><div class="bar bar-lg"></div><div class="bar bar-lg"></div>
+        </div>
+        <p class="caption">Row title = the capability, not the job title &middot; logos below</p>
+      </div>
+      <div class="note">
+        <p class="question">Is there depth behind the one claim?</p>
+        <h3>Where the other skills live</h3>
+        <p>This is the answer to &ldquo;how do I carry the rest of my range without diluting the hero?&rdquo; <strong>The range belongs here</strong>, as twenty-five years of evidence, not as a hedge in the first sentence.</p>
+        <p>Each row titled by what was achieved rather than the job held, so scanning the column reads as a list of capabilities.</p>
+        <div class="changes">
+          <p><span class="tag tag-cut">Change</span> The logo strip moves down to join this section. It is career evidence, so it belongs with the career, not floating between case studies and career as it does now.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- STOP 7 -->
+    <article class="stop">
+      <span class="stop-num">7</span>
+      <div class="frame">
+        <div class="frame-label"><span>Contact</span><span>terminal</span></div>
+        <div class="stack">
+          <div class="bar bar-lg bar-ink w-70"></div>
+          <div class="bar bar-sm w-92"></div>
+          <div style="height:0.5rem;"></div>
+          <div class="cols-2" style="gap:0.7rem;">
+            <div class="bar bar-lg"></div>
+            <div class="bar bar-lg"></div>
+          </div>
+          <div class="bar bar-lg w-100"></div>
+          <div class="bar" style="height:3.2rem;"></div>
+          <div style="height:0.3rem;"></div>
+          <div class="row"><div class="btn btn-solid"></div><div class="bar bar-md w-25"></div></div>
+        </div>
+        <p class="caption">Blog link demoted to the footer &mdash; it competes with this</p>
+      </div>
+      <div class="note">
+        <p class="question">How do I start a conversation?</p>
+        <h3>One action, nothing after it</h3>
+        <p>The page ends by asking for the thing it exists to get. Nothing should sit below it competing for the same click.</p>
+        <p><strong>The blog moves out of the body and into the footer.</strong> It currently sits between the career and contact, which invites a reader who is ready to act to wander off into essays instead.</p>
+        <div class="changes">
+          <p><span class="tag tag-cut">Change</span> Blog teaser section removed from the body flow. Keep a single footer link. The blog stays fully built and reachable, just not at the moment of decision.</p>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <section class="coda">
+    <h2>What changes, at a glance</h2>
+    <p>Nine sections become seven. Nothing is deleted from the site &mdash; two things move to the footer or into a neighbouring section. No copy is rewritten by this change alone, though the hero and the four capability cards still need Brad&rsquo;s words.</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Section</th><th>Verdict</th><th>Reason</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Hero</td><td class="verdict v-move">Rewrite</td><td>Lists five disciplines. Lead with account management, name the range in one clause.</td></tr>
+          <tr><td>Stat strip</td><td class="verdict v-keep">Keep</td><td>Working. Fast, wordless, in the right place.</td></tr>
+          <tr><td>References</td><td class="verdict v-move">Move down</td><td>From position 3 to 5. Proof has to follow a claim to count as proof.</td></tr>
+          <tr><td>Capabilities</td><td class="verdict v-move">Untab</td><td>Tabs hide three of four cards. Grid instead. Rename eyebrow from &ldquo;About Me&rdquo;.</td></tr>
+          <tr><td>Case studies</td><td class="verdict v-move">Move up</td><td>From position 5 to 4, directly under the method they prove.</td></tr>
+          <tr><td>Logo strip</td><td class="verdict v-move">Merge</td><td>Joins the career section. It is career evidence, not a standalone band.</td></tr>
+          <tr><td>Career rows</td><td class="verdict v-keep">Keep</td><td>Right content, right place. This is where the secondary skills live.</td></tr>
+          <tr><td>Blog teaser</td><td class="verdict v-cut">To footer</td><td>Competes with contact at the decision point. Blog itself unaffected.</td></tr>
+          <tr><td>Contact</td><td class="verdict v-keep">Keep</td><td>Correct as the terminal stop, once nothing sits below it.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
