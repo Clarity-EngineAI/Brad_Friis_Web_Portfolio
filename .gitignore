@@ -5,6 +5,7 @@ dist/
 .venv/
 .review-shots/
 .shots/
+New approach images/
 
 # Source interviews and the claims register — local only, never committed.
 # Raw evidence, contested figures and gag-covered context. The site never reads these.
