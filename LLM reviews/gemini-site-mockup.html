@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brad Friis | Strategic Account Executive & Portfolio Wireframe</title>
+    <style>
+        :root {
+            --bg-dark: #090d16;
+            --bg-card: #0f172a;
+            --bg-accent: #1e293b;
+            --border-color: #334155;
+            --text-main: #94a3b8;
+            --text-bright: #e2e8f0;
+            --text-heading: #ffffff;
+            --brand-blue: #38bdf8;
+            --brand-green: #34d399;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        .wireframe-banner {
+            background-color: #1e293b;
+            border-bottom: 1px dashed var(--border-color);
+            color: var(--brand-blue);
+            font-family: monospace;
+            font-size: 0.8rem;
+            padding: 8px 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* NAVBAR WIREFRAME */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 0;
+            margin-bottom: 32px;
+        }
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .brand {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            letter-spacing: -0.02em;
+        }
+        .brand span {
+            color: var(--text-main);
+            font-weight: 400;
+            font-size: 0.85rem;
+        }
+        nav a {
+            color: var(--text-bright);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.85rem;
+            font-family: monospace;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: var(--brand-blue); }
+
+        /* HERO SECTION */
+        .hero {
+            display: grid;
+            grid-template-columns: 1.8fr 1fr;
+            gap: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+        .eyebrow {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--brand-green);
+            background: rgba(6, 78, 59, 0.4);
+            border: 1px solid #065f46;
+            padding: 3px 10px;
+            border-radius: 999px;
+            margin-bottom: 12px;
+        }
+        h1 {
+            font-size: 2rem;
+            color: var(--text-heading);
+            line-height: 1.25;
+            margin-bottom: 16px;
+        }
+        .hero p { margin-bottom: 12px; font-size: 0.95rem; }
+        
+        .hero-proof {
+            background: var(--bg-accent);
+            border: 1px dashed var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .hero-proof h4 {
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+            color: var(--text-heading);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 6px;
+        }
+        .hero-proof ul { list-style: none; font-size: 0.85rem; }
+        .hero-proof li { margin-bottom: 8px; position: relative; padding-left: 14px; }
+        .hero-proof li::before { content: "•"; color: var(--brand-blue); position: absolute; left: 0; }
+
+        /* SECTION TITLES */
+        .section-title {
+            font-size: 1.1rem;
+            color: var(--brand-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 6px;
+        }
+
+        /* 4-PILLAR MATRIX */
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .card-tag { font-size: 0.75rem; font-family: monospace; color: var(--brand-green); }
+        .card h3 { font-size: 1.1rem; color: var(--text-heading); margin: 6px 0 8px 0; }
+        .card p { font-size: 0.9rem; }
+
+        /* 4-STAGE ENGINE */
+        .engine-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 32px;
+        }
+        .engine-stage {
+            background: var(--bg-accent);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 14px;
+        }
+        .stage-num { font-size: 0.75rem; font-family: monospace; color: var(--brand-blue); font-weight: bold; }
+        .engine-stage h4 { color: var(--text-heading); margin: 6px 0 8px 0; font-size: 0.95rem; }
+        .engine-stage p { font-size: 0.8rem; }
+
+        /* CASE STUDIES */
+        .case-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+        .case-tag {
+            font-size: 0.75rem;
+            font-family: monospace;
+            color: var(--brand-blue);
+            background: rgba(14, 165, 233, 0.12);
+            padding: 3px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        .case-card h3 { font-size: 1.2rem; color: var(--text-heading); margin-bottom: 10px; }
+        .case-card p { font-size: 0.9rem; margin-bottom: 8px; }
+
+        /* 6-CARD DOMAIN GRID */
+        .domain-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--bg-card);
+            border: 1px solid #065f46;
+            border-radius: 8px;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        footer h3 { color: var(--text-heading); margin-bottom: 4px; }
+        .email-btn {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: var(--brand-green);
+            background: var(--bg-dark);
+            border: 1px solid #065f46;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wireframe-banner">
+        [ INTERACTIVE WEBSITE WIREFRAME FRAMEWORK ] Target: BradFriis.com
+    </div>
+
+    <header>
+        <div class="container nav-inner">
+            <div class="brand">BRAD FRIIS <span>/ Strategic Account Leadership</span></div>
+            <nav>
+                <a href="#capabilities">01. Capabilities</a>
+                <a href="#engine">02. The Engine</a>
+                <a href="#cases">03. Proof Files</a>
+                <a href="#domains">04. Domains</a>
+                <a href="mailto:brad@clarityengine.ai">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- HERO -->
+        <section class="hero">
+            <div>
+                <div class="eyebrow">Strategic Account Executive · Solution Design · Applied AI</div>
+                <h1>Commercial Leadership Built on Creative Solution Design & Earned Trust</h1>
+                <p>High-performing Account Managers do more than maintain relationships—they diagnose hidden operational friction, translate complex software capabilities into clear client value, and engineer revenue expansion models that drive Net Retention Rate (NRR).</p>
+                <p style="color: var(--text-bright); font-weight: 500;">Combining strategic commercial acuity with a dedicated sabbatical mastering modern AI architecture (Supabase, Vercel, Claude, custom scrapers) to make software stick.</p>
+            </div>
+            <div class="hero-proof">
+                <h4>Verified Metric Highlights</h4>
+                <ul>
+                    <li><strong>0% Portfolio Churn:</strong> Maintained across enterprise accounts during 2020 disruption.</li>
+                    <li><strong>8-Year Renewals:</strong> Built on earned trust and continuous alignment.</li>
+                    <li><strong>+$40k–$50k ARR:</strong> Productized unbilled support into advance-billed retainers.</li>
+                    <li><strong>Full-Stack Builder:</strong> BI dashboards, scrapers & custom AI workflows.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 4-PILLAR MATRIX -->
+        <h2 class="section-title" id="capabilities">Core Strategic Capabilities</h2>
+        <section class="matrix-grid">
+            <div class="card">
+                <div class="card-tag">01 / COMMERCIAL PACKAGING</div>
+                <h3>Opportunity Spotting & Solutions</h3>
+                <p>Diagnosing unpriced operational drag and structuring paid service retainers, setup fees, and 50% upfront deposit terms aligned to mutual business goals.</p>
+            </div>
+            <div class="card">
+                <div class="card-tag">02 / CLIENT IMMERSION</div>
+                <h3>Human Alignment & LAER Framework</h3>
+                <p>Conducting 1-on-1 account audits to uncover frontline friction. Turning resistant executive stakeholders into active internal platform champions.</p>
+            </div>
+            <div class="card">
+                <div class="card-tag">03 / RELATIONSHIP DEFENSE</div>
+                <h3>Account Turnarounds & Expansion</h3>
+                <p>Deploying on-site to reverse active defection threats, expanding single-site accounts into multi-location rollouts with added recurring service lines.</p>
+            </div>
+            <div class="card">
+                <div class="card-tag">04 / MODERN TOOLING</div>
+                <h3>Applied AI & Technical Prototyping</h3>
+                <p>Leveraging full-stack AI app development (Claude, Supabase, Vercel) to prototype custom scrapers and BI dashboards that remove daily client drag.</p>
+            </div>
+        </section>
+
+        <!-- 4-STAGE ENGINE -->
+        <h2 class="section-title" id="engine">The 4-Stage Operational Engine</h2>
+        <section class="engine-grid">
+            <div class="engine-stage">
+                <div class="stage-num">STAGE 01</div>
+                <h4>Observe & Diagnose</h4>
+                <p>1-on-1 human discovery; mapping daily friction before it turns into churn risk.</p>
+            </div>
+            <div class="engine-stage">
+                <div class="stage-num">STAGE 02</div>
+                <h4>Structure & Design</h4>
+                <p>Packaging clear commercial value, advance billing, and custom service scopes.</p>
+            </div>
+            <div class="engine-stage">
+                <div class="stage-num">STAGE 03</div>
+                <h4>Enable & Defend</h4>
+                <p>On-site training, stakeholder alignment, and proactive account protection.</p>
+            </div>
+            <div class="engine-stage">
+                <div class="stage-num">STAGE 04</div>
+                <h4>Expand & Automate</h4>
+                <p>Deploying custom AI tools & multi-site rollouts to maximize long-term NRR.</p>
+            </div>
+        </section>
+
+        <!-- CASE STUDIES -->
+        <h2 class="section-title" id="cases">Verified Impact Case Studies</h2>
+        
+        <div class="case-card">
+            <div class="case-tag">CASE STUDY 01 · CRISIS ACCOUNT RETENTION</div>
+            <h3>The 108 1-on-1 Diagnostic Calls (0% Churn in Market Volatility)</h3>
+            <p><strong>Challenge:</strong> Global disruption in 2020 threatened account stability across an entire enterprise software portfolio.</p>
+            <p><strong>Execution:</strong> Replaced generic broadcast emails with 108 individual 1-on-1 video sessions. Applied the LAER framework to isolate specific team friction points, restructuring user configurations on the spot for resistant leads.</p>
+            <p><strong>Outcome:</strong> Rebuilt stakeholder trust; achieved <strong>0% account churn</strong> across the entire enterprise book.</p>
+        </div>
+
+        <div class="case-card">
+            <div class="case-tag">CASE STUDY 02 · ON-SITE TURNAROUND</div>
+            <h3>Reversing Defection Across a 5-Campus Network</h3>
+            <p><strong>Challenge:</strong> A multi-campus enterprise client was preparing to cancel their contract due to fragmented adoption.</p>
+            <p><strong>Execution:</strong> Deployed on-site for 5 consecutive days across all locations, sitting alongside staff and leadership. Identified training deficits and delivered account-wide leadership workshops.</p>
+            <p><strong>Outcome:</strong> Saved the account mid-defection, expanded into a <strong>6th campus rollout</strong>, and added two new recurring revenue streams (paid advisory + managed service contract).</p>
+        </div>
+
+        <div class="case-card">
+            <div class="case-tag">CASE STUDY 03 · MODERN AI SABBATICAL</div>
+            <h3>Investing in Full-Stack Mastery to Enable Client Operations</h3>
+            <p><strong>Execution:</strong> Stepped off the career treadmill for 12 months to master AI system architecture and full-stack web development. Built production tools including an operational BI dashboard for a commercial design firm, an automated supermarket competitive pricing scraper, market playbook generators, an AI copy humanizer, and interactive workflow apps.</p>
+            <p><strong>Outcome:</strong> Delivers an Account Executive who can lead high-level strategy with executives and immediately prototype practical technical workflows so clients adopt and retain software long-term.</p>
+        </div>
+
+        <!-- DOMAIN GRID -->
+        <h2 class="section-title" id="domains">Strategic Experience Domains</h2>
+        <section class="domain-grid">
+            <div class="card">
+                <div class="card-tag">ENTERPRISE SAAS</div>
+                <h4 style="color:#fff; margin:4px 0;">Long-Cycle Retention</h4>
+                <p style="font-size:0.85rem;">Secured 8 consecutive years of flagship renewals; managed reseller terms and protected account books during major market shifts.</p>
+            </div>
+            <div class="card">
+                <div class="card-tag">COMMERCIAL PACKAGING</div>
+                <h4 style="color:#fff; margin:4px 0;">Value Restructuring</h4>
+                <p style="font-size:0.85rem;">Introduced 50% upfront deposit terms, setup fees, and paid retainers (+120% income expansion, +30% profit per client).</p>
+            </div>
+            <div class="card">
+                <div class="card-tag">MEDIA & AGENCIES</div>
+                <h4 style="color:#fff; margin:4px 0;">Key Account Growth</h4>
+                <p style="font-size:0.85rem;">Managed key accounts (Harvey Norman, HB Chamber) over multi-year tenures, achieving 10–20% annual account expansion.</p>
+            </div>
+            <div class="card">
+                <div class="card-tag">MODERN TECH MASTERY</div>
+                <h4 style="color:#fff; margin:4px 0;">Full-Stack & AI Builder</h4>
+                <p style="font-size:0.85rem;">Engineered automated web scrapers, multi-agent frameworks, and database applications using modern cloud hosting (Vercel/Supabase).</p>
+            </div>
+            <div class="card">
+                <div class="card-tag">PRODUCT ENABLEMENT</div>
+                <h4 style="color:#fff; margin:4px 0;">SaaS Platform Founder</h4>
+                <p style="font-size:0.85rem;">Invested $400k+ in self-serve software development, establishing core expertise in bridging software delivery with active user adoption.</p>
+            </div>
+            <div class="card">
+                <div class="card-tag">BUSINESS DEVELOPMENT</div>
+                <h4 style="color:#fff; margin:4px 0;">Partnerships & Bundles</h4>
+                <p style="font-size:0.85rem;">Structured early digital service bundles and strategic corporate sponsorships by aligning messaging directly with client ROI.</p>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div>
+                <h3>Initiate a Strategic Conversation</h3>
+                <p style="font-size:0.85rem;">Seeking a Senior Strategic Account Executive who combines creative problem solving, revenue defense, and modern AI capability?</p>
+            </div>
+            <a href="mailto:brad@clarityengine.ai" class="email-btn">brad@clarityengine.ai</a>
+        </footer>
+    </div>
+
+</body>
+</html>
