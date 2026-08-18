@@ -4,7 +4,11 @@ dist/
 .DS_Store
 .venv/
 .review-shots/
+.shots/cdp/
 
 # Source interviews and the claims register — local only, never committed.
 # Raw evidence, contested figures and gag-covered context. The site never reads these.
 COPY/interviews/
+
+# Local Netlify folder
+.netlify
