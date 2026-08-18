@@ -1867,3 +1867,163 @@ expansion"* (was *"& growth"*). **This is still not Option J, still not drafted 
 file, and still uses *SaaS* in display copy against constraint 4 — Brad explicitly confirmed
 applying it despite that conflict when asked.** Treat this file's rounds A–BK as historical
 reference only; the live hero has now diverged from this file's process twice in one day.
+
+---
+
+## Round nine — 18 August 2026, at Brad's explicit request
+
+Brad asked for a proposed "best and most appropriate hero H1" while answering the amalgamation
+proposal's rulings (`design/12-homepage-amalgamation-proposal.md` §6, decision 2). This reopens
+generation at his request only — the 16 August "Brad writes it himself" ruling otherwise stands,
+and he still picks. Three options, all first-person-voiced, declarative, no industry noun, no
+second person, no self-assessment, no cumulative year count.
+
+**Option N1 (recommended) — "I win the account, then spend years making it worth keeping."**
+Status: Available. Argument: carries the full land–keep–grow motion in eleven words; "worth
+keeping" locates the retention in the work, not in charm; honest against the standfirst ("I kept
+the bulk of the accounts I won — not all of them"). Cost: opens with "I" — acceptable for a
+single display line (the opener rule bars a *set* of lines sharing the opener), but the
+capability cards below already open with "I", so the build should vary those if this ships.
+
+**Option N2 — "The account that nearly left is the one that grew."**
+Status: Available. Argument: proof-led, points straight at the five-campus moment, no "I"
+opener, quiet confidence. Cost: cryptic before the reader scrolls; hangs the whole headline on
+one account's story.
+
+**Option N3 — "Accounts renew when the work keeps earning it. Mine mostly did."**
+Status: Available. Argument: states the belief, then the record, with an honest hedge
+("mostly") that matches the site's deadpan register. Cost: the wry second sentence risks
+reading as an undercut; two sentences is heavier display type.
+
+The live holding line ("Turning customer needs into long-term account growth.") remains the
+fallback if none is chosen — Brad ruled it stays readable on 17 August.
+
+**Round nine outcome, 18 August 2026:** Brad ruled N1 is the right direction but "needs more
+work," and asked for one more run, wide, with more options. N2 and N3 not chosen. See round ten.
+
+---
+
+## Round ten — 18 August 2026, wide, at Brad's request
+
+Brad's brief: go wide, more options than one, building from N1's direction (win, then keep).
+Same rails as round nine: declarative, no industry noun, no second person, no self-assessment,
+no cumulative year count, honest against the record. All statuses **Available**; Brad picks.
+
+### The win-then-keep motion (N1's direction, reworked)
+
+**T1 — "Winning the account is the start of the job, not the end of it."**
+Argument: N1's idea with the philosophy foregrounded and no "I" opener; reads as a standard he
+holds, which the stats beneath immediately prove. Cost: abstract on its own — carries no fact.
+
+**T2 — "I win accounts, then spend years earning the renewal."**
+Argument: N1 tightened from eleven words to nine; "earning the renewal" is more concrete than
+"making it worth keeping" and names the thing employers buy. Cost: keeps the "I" opener.
+
+**T3 — "The first sale wins the account. Everything after it decides whether it stays."**
+Argument: the two-part motion as cause and effect, no "I" at all — the reader supplies Brad as
+the "everything after." Cost: fourteen words; the second sentence is passive about who acts.
+
+### Needs-first (strategic thinking leads)
+
+**T4 — "What a business asks for and what it needs are rarely the same. I work in the gap."**
+Argument: the most distinctive thinking-led line; positions diagnosis as the offer, which is
+the five-campus story in miniature. Cost: seventeen words, two sentences, heavier display type.
+
+**T5 — "I find what a business actually needs, then sell exactly that."**
+Argument: T4's idea compressed to ten words, with the integrity claim ("exactly that")
+implying no overselling. Cost: quieter; loses T4's memorable gap image.
+
+### The recurring-revenue motion (pairs with graphic Option A)
+
+**T6 — "I turn one-off customers into revenue that comes back every year."**
+Argument: the whole career's registered pattern (modules 2001 → retainers → paid support →
+managed services) in one line, and the one option the Option A graphic literally illustrates —
+headline and graphic prove each other. Speaks directly to what an employer wants from an
+account manager. Cost: "revenue" is drier than "accounts"; slightly transactional in tone.
+
+**T7 — "Somewhere in every business there's unpriced work. I've made a career of finding it."**
+Argument: creativity pillar as headline; deadpan, confident, true four times over in the
+register. Cost: positions him as the new-offer person more than the retention person.
+
+### Proof-led
+
+**T8 — "Eight consecutive renewals at one account. A decade holding another. That's the pattern."**
+Argument: facts first, zero adjectives, the confidence is structural. Cost: duplicates the
+stat strip sitting directly beneath it; "That's the pattern" flirts with slogan rhythm.
+
+### Product knowledge (pillar 5 leads)
+
+**T9 — "I learn the product properly, then sell what it can actually do."**
+Argument: Brad's own "missing piece" as the headline; implies honest selling without claiming
+honesty. Cost: "properly" is close to self-assessment; the least retention-flavoured option.
+
+### Trust as consequence
+
+**T10 — "Customers renew when the work keeps earning it. Mine mostly have."**
+Argument: round nine's N3 with the wry undercut softened; "mostly" is the honest hedge that
+matches the standfirst. Cost: still self-referential in the second sentence.
+
+**Recommendation, if asked:** T6 first (distinctive, employer-relevant, and the graphic makes
+its argument visible), T4 second (the strategic-thinking positioning), T2 third (the straight
+rework of the direction Brad already chose). A pick may also pair — e.g. T6 as H1 with T2's
+idea absorbed into the support line — but that is drafting for the build session, after the
+H1 is ruled.
+
+---
+
+## Round eleven — 18 August 2026, Brad-authored candidate
+
+Brad proposed: **"I win, grow and renew accounts. Consistently."** Status: Available,
+Brad-authored.
+
+Assessment given to him honestly, per the adversarial-stance rule:
+
+- **The trio is right.** Win–grow–renew is the exact land-keep-grow argument in three plain
+  verbs, nine words total, no industry noun, no jargon. Structurally the strongest opening
+  clause of any round.
+- **The risk is the last word.** "Consistently." as a one-word punch sentence is the
+  advertisement rhythm that killed round eight (Brad's own rejection), and it is Brad grading
+  himself — the site's system is to let facts and named third parties do the grading. With the
+  eight-consecutive-renewals figure now ruled into the stat strip directly beneath the H1, the
+  strip literally says "consistently" in numbers, so the adverb also duplicates its own proof.
+
+**Variants banked (all Available, Brad picks):**
+
+- **U1 (verbatim, his):** "I win, grow and renew accounts. Consistently." — shippable only as
+  an explicit override of the no-self-assessment / no-device rulings, which is his call to
+  make, as with SaaS in the holding line.
+- **U2 (recommended):** "I win, grow and renew accounts." — the punch removed; the stat strip
+  underneath does the "consistently" with registered numbers. Six words; the shortest H1 of
+  any round.
+- **U3:** "I win accounts, then grow and renew them for years." — consistency folded into
+  duration, a fact-shaped word rather than a self-graded one.
+- **U4:** "I win accounts, grow them, and keep the renewals coming." — the trio kept, the
+  ongoing-ness carried by the verb phrase instead of an adverb.
+
+### Layout test — later 18 August 2026, Brad's request
+
+Brad asked for U2 to be tested against the page layout and the pill copy above it, suspecting
+repetition. Tested locally on the live index.astro (edits reverted, nothing committed):
+
+- **Layout: no problem.** U2 holds a single line at desktop (1440) and even at mobile (390) —
+  the shortest H1 of any round leaves the hero block lighter than the holding line, with the
+  weight shifting to the stat strip.
+- **Repetition: confirmed, three-deep.** The hero stack said the same thing three times —
+  pill "retention & expansion", H1 "grow and renew", support line "keeps and expands" — plus
+  "accounts" printed twice in adjacent lines (H1, then "the accounts that matter").
+- **Trim tested and screenshotted:** pill cut to "Account management" (the role signal alone —
+  its actual job), support line cut to "Commercial operator across SaaS, web strategy and
+  revenue systems." (the breadth U2 doesn't carry; the "keeps and expands" clause deleted as
+  the H1 now says it). Both viewports clean.
+- The support line is holding copy and gets reworked in the build session anyway (§9); the
+  trim above is the minimal fix, not final support copy.
+
+### RULED — 18 August 2026: U2 with the trims. Shipped.
+
+Brad's words: "approve the hero (U2 with the trims". Applied to `src/pages/index.astro` the
+same day: H1 **"I win, grow and renew accounts."**, pill trimmed to **"Account management"**,
+support line trimmed to **"Commercial operator across SaaS, web strategy and revenue
+systems."** The holding line ("Turning customer needs into long-term account growth.") moves
+to Rejected — superseded by a Brad-authored line. U1, U3, U4 and rounds nine/ten remain
+banked, status Available, unchosen. The support line remains holding copy — still subject to
+§9 rework in the build session; the H1 and pill are ruled and are not.
