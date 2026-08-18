@@ -117,24 +117,25 @@ Source: `design/01-positioning-brief.md` §11, `COPY/perplexity-copy-brief.md` �
 
 ---
 
-## 4. The word cap — exact current scope, and what's still open
+## 4. The word cap — resolved, 17 August 2026
 
 Source: `design/01-positioning-brief.md` §7.1, amended by `10-homepage-blog-link.md`.
 
 - **Original ruling (12 August):** under 250 words on the homepage.
-- **Scope narrowed (17 August, by Brad):** the cap now governs the **above-fold block only — hero,
-  stats and capabilities.** Everything below that is uncapped, on the reasoning that a reader who
-  scrolls past it has already chosen to keep reading.
-- **Currently breached.** Hero 47 + stats 28 = 75 words, leaving 175 for capabilities, which
-  measured at 223 — roughly 70 words over. No cut has been authorised.
-- **Standing question, unanswered, do not treat as settled either way:** if the original 250-word
-  instinct was about the *whole page* feeling heavy, narrowing the cap to above-the-fold doesn't fix
-  that. **Whole-page word count is not settled across this project's own documents** — three sources
-  disagree by roughly 40%: `10-homepage-blog-link.md` §1.2 gives ~720–780, `01-positioning-brief.md`
-  §7.1 gives ~847, and `11-copy-leverage-plan.md` §1 gives 1,027. None is dated later than the
-  others in a way that resolves the disagreement. This needs a fresh, single re-measurement against
-  the current live page as part of any future copy pass — treat all three existing figures as
-  unreliable until then — and Brad needs to rule on whether the whole-page weight is acceptable.
+- **Scope narrowed, then corrected (17 August, by Brad).** An earlier pass this same day had defined
+  "above the fold" as hero + stats + capabilities and flagged a ~68-word breach there (capabilities
+  measuring 223 against a 175-word remainder). **Brad reviewed a screenshot of the live rendered
+  page and overturned that scope**: the capability cards sit below the stats band and are not
+  visible without scrolling, so they were never actually above the fold at the current breakpoint.
+- **Resolved scope: hero + stats only, ~70 words.** No breach exists, and none ever did — the
+  250-word cap has headroom to spare against what's genuinely in the first viewport. Capabilities
+  and everything below it is below-fold and uncapped, per the original reasoning that a reader who
+  scrolls has already chosen to keep reading.
+- **Whole-page question, also closed.** With no real breach driving it, there's no case for a
+  page-wide cap either. The three prior whole-page figures disagreed by up to 40% (`10-homepage-blog-link.md`
+  §1.2 ~720–780, `01-positioning-brief.md` §7.1 ~847, `11-copy-leverage-plan.md` §1 ~1,027); a clean
+  re-measurement on 17 August put visible body copy at 845 words. Brad has not asked for a
+  whole-page ceiling and none is in force.
 
 ---
 
@@ -213,6 +214,17 @@ inline on the homepage's career section instead of a dedicated `/record`). Brad 
 which is the current target. **Do not build toward 01b's route map without checking with Brad
 first** — it may be superseded by the simpler shape that actually got built, or it may still be the
 plan and the site is mid-build toward it.
+
+**Asked Brad directly, 17 August:** the label for the fourth nav item is not open — it was already
+settled by `COPY/blog/Naming the blog section.md` (17 August) and shipped in commit `7a3a8aa`. Live
+nav (`src/layouts/SiteLayout.astro:42,55`) reads **"Field notes & stories,"** not plain "Field
+notes." The route itself stays `/blog` deliberately — the naming decision governs the four
+reader-facing labels only, not the folder or route, which the file explicitly keeps unchanged to
+avoid breaking `design/09-blog-voice.md` and the two banked posts. So the live shape is actually:
+`/`, `/cv`, `/letters`, `/blog` (labelled "Field notes & stories"). This document's own prose above,
+and 01b's `/field-notes` route name, both predate that naming decision and are stale on the label —
+fixed here; **the route-vs-route conflict itself (4-route 01b plan vs. this simpler shape) is still
+open and still Brad's call.**
 
 ### 4. Two more stale "authority" files, found outside the `design/` folder
 

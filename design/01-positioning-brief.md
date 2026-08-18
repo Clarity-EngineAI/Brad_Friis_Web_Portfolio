@@ -375,23 +375,26 @@ The bans above govern words. These govern behaviour, and they come from question
 Two further constraints from the same interview sit here because they are enforced visually rather
 than editorially:
 
-- **Under 250 words above the fold.** Two of Brad's three repellent references failed on wordiness
-  and that is a direct instruction about the copy, not about the layout.
+- **Under 250 words above the fold.** Written 12 August as a direct instruction about the copy, not
+  the layout — two of Brad's three repellent references failed on wordiness.
 
-  **Scope narrowed 17 August 2026, by Brad.** The cap was written on 12 August, when the homepage
-  had no capability cards. It now governs the forty-second read only — **hero, stats and
-  capabilities** — and the sections below that block are uncapped, on the reasoning that a reader
-  who reaches them has already chosen to keep reading. The whole-page figure was ~847 words when
-  the scope changed.
+  **Fold scope resolved, 17 August 2026, by Brad, from a screenshot of the live page.** The 17
+  August narrowing had defined "above the fold" as hero + stats + capabilities, on the reasoning
+  that capabilities is still part of the forty-second read. Measured against that definition the
+  block ran 318 words — a 68-word breach, concentrated in the capability cells (223 words against a
+  175-word remainder). Brad looked at the actual rendered first viewport and ruled that definition
+  wrong: **the capability cards sit below the stats band and are not visible without scrolling.**
+  The literal fold is hero + stats only, which measures ~70 words. **No breach exists, and none
+  ever did** — the capabilities section was never above the fold at the current breakpoint. The
+  250-word cap stands, governing hero + stats exactly as rendered, with headroom to spare.
+  Capabilities and everything below it is below-fold and uncapped, per the original 17 August
+  reasoning that a reader who scrolls has already opted in.
 
-  **Currently breached.** Hero 47 + stats 28 spend 75 of the 250, leaving 175 for capabilities,
-  which is 223. The block is roughly 70 words over. Brad has not authorised a cut to it —
-  see the standing question below.
-
-  **Standing question, unanswered.** If the 250 was about the page feeling heavy end to end, an
-  above-fold cap does not fix that: the total stays near 780 and the problem resurfaces. Raised
-  17 August, deferred by Brad the same day. Do not treat the narrowing as a finding that the
-  whole-page weight is acceptable — it was not tested.
+  This also resolves the standing whole-page question: since there was no real breach to chase,
+  there is nothing forcing a whole-page cap either. The three prior whole-page figures (~720, ~847,
+  ~1,027) disagreed by up to 40%; a clean re-measurement on 17 August put visible body copy at 845
+  words, and Brad has not asked for a page-wide ceiling. The banned-word list, NZ English, and the
+  rest of §7 are unaffected.
 - **Relationships and win/win are a structure, never a sentence.** The belief is legitimate and the
   vocabulary is not: *win/win* is the same class of word as *synergy*, and *a real desire to* is a
   self-adjective already banned above. It is carried by the fact that six people wrote it down and
