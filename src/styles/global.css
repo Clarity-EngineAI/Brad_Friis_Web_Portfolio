@@ -41,7 +41,7 @@
      above, three of them byte-identical, which is why the scale drifted. Named here so the
      ladder is visible in one place and a new section cannot invent an eighth value.
      Order is the hierarchy: hero > page-hero > section. */
-  --text-hero: clamp(2.25rem, 4.2vw, 3.25rem);
+  --text-hero: clamp(2.5rem, 5.6vw, 4.25rem);
   --text-page-hero: clamp(2rem, 4.4vw, 2.875rem);
   --text-section: clamp(1.75rem, 3.4vw, 2.5rem);
   --text-hero-lead: clamp(1.0625rem, 1.4vw, 1.25rem);
@@ -387,21 +387,26 @@ main {
 
 /* Hero */
 
+/* `align-items: end` bottom-aligned a 255px text column against a 425px portrait, which
+   stacked 170px of empty space above the headline and read as missing content. The text
+   block is the subject, so it centres against the portrait instead of hanging off its
+   floor. 18 August 2026. */
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
   gap: 48px;
-  align-items: end;
+  align-items: center;
   padding-block: 56px 48px;
 }
 
-/* The oversized moment is the claim, not the name. A sentence cannot carry the 9rem name
-   scale, so the ceiling drops. The measure was 19ch when the headline was 48 characters;
-   Brad's line is 66 and that cap broke it into five lines with a two-word tail. 26ch holds
-   it to three lines at every width with balance doing the rag. Still the largest type on
-   the site; nothing else competes. */
+/* The oversized moment is the claim, not the name. Brad's line is now 31 characters, not
+   the 66 the 26ch cap was written for, so that cap computed to 736px against a 569px
+   column and never engaged. The headline broke to two lines while the support line below
+   ran full width on one, an inverted rag that read as a missing third line. 15ch holds the
+   short claim to two deliberate lines and lets the size go up. Still the largest type on
+   the site; nothing else competes. 18 August 2026. */
 .hero h1 {
-  max-width: 26ch;
+  max-width: 15ch;
   margin: 18px 0 0;
   font-size: var(--text-hero);
   font-weight: 700;
@@ -416,7 +421,7 @@ main {
    "term relationships." alone on a fifth line at 390 — the non-breaking hyphen in the
    markup is what stops that, and any replacement compound needs the same treatment. */
 .hero-copy {
-  max-width: 55ch;
+  max-width: 42ch;
   margin: 22px 0 18px;
   color: var(--ink-tertiary);
   font-size: var(--text-hero-lead);
@@ -627,20 +632,35 @@ main {
   margin: 0 0 14px;
 }
 
-/* Push the evidence line to the cell floor so all four align across the grid. */
+/* Push the evidence line to the cell floor so all four align across the grid. `auto` alone
+   resolved to 0 in the cells whose body copy already fills the height, which is why the
+   quote looked glued to the paragraph above it. The body paragraph carries the guaranteed
+   gap instead: the auto margin can only ever add to it, never eat it, and the separation
+   stays outside the evidence box's own border and fill. 18 August 2026. */
 .capability-cell > .evidence {
   margin-top: auto;
 }
 
+.capability-cell > p:not(.evidence):not(.tier-meta) {
+  margin-bottom: 28px;
+}
+
+/* The tertiary ink on the recessed fill made these read as page background rather than as
+   proof, and 22px was not enough daylight from the body copy above, so they looked glued to
+   the paragraph they follow. Now: more separation, secondary ink, and an accent rule on the
+   leading edge so the line reads as attributed evidence instead of a faded footnote.
+   18 August 2026. */
 .evidence {
   max-width: 62ch;
-  margin: 22px 0 0;
+  margin: 28px 0 0;
   padding: 14px 16px;
   border: 1px solid var(--line-soft);
-  border-radius: var(--r-md);
-  color: var(--ink-tertiary);
+  border-left: 2px solid var(--accent);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  color: var(--ink-secondary);
   background: var(--recessed);
   font-size: var(--text-meta);
+  line-height: 1.5;
 }
 
 /* Hairline grid: a set of cells sharing continuous dividers */
@@ -703,13 +723,23 @@ main {
   margin-top: auto;
 }
 
+/* Brad read this section as "completely different" from the capability and work cells it
+   shares .hairline-grid with. The cause was the blockquote: --text-title at weight 400 is a
+   size nothing else on the page uses for running text, so the cells read as a pull-quote
+   spread dropped into a page of cards. Dropping to --text-lead puts it on the same ladder
+   step as the other cells' body copy, and the accent rule matches the .evidence treatment
+   so a quote reads the same way wherever it appears. 18 August 2026. */
 .quote-cell blockquote {
+  max-width: 62ch;
   margin: 0 0 18px;
+  padding-left: 16px;
+  border-left: 2px solid var(--accent);
   color: var(--ink);
-  font-size: var(--text-title);
+  font-size: var(--text-lead);
   font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.4;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+  text-wrap: pretty;
 }
 
 .quote-cell .attribution {
@@ -741,11 +771,211 @@ main {
   border-top: 0;
 }
 
+/* The row was a single column stacking title / meta / detail, and because .tier-meta and
+   .tier-detail are both --text-meta at adjacent inks, the employer line and the substance
+   below it merged into one grey slab with no entry point. Splitting the year and employer
+   out to a left spine gives the eye a fixed scan column down the list and leaves the right
+   column carrying title and detail alone, which is the same two-part read the capability
+   cells and work cells already use. 18 August 2026. */
 .career-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 16px;
+  grid-template-columns: minmax(0, 200px) minmax(0, 1fr);
+  gap: 16px 32px;
   align-items: baseline;
+}
+
+.career-row > .career-spine {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.career-row .career-year {
+  margin: 0;
+  color: var(--accent-strong);
+  font-size: var(--text-title);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+/* Three lines now, per Brad 18 August 2026: year, role, organisation. The role carries the
+   job Brad held and the org line carries who it was for — previously both were crammed into
+   one muted line, so the role read as part of the employer name. The role takes --ink-secondary
+   so it sits between the accent year and the tertiary org: three steps, three jobs. */
+.career-row .career-role {
+  margin: 4px 0 0;
+  color: var(--ink-secondary);
+  font-size: var(--text-meta);
+  font-weight: 500;
+  line-height: 1.35;
+  /* The 2015 role is two lines by intent ("Sales & Marketing Manager, / then General Manager"),
+     carried as a newline in the data rather than markup. */
+  white-space: pre-line;
+}
+
+.career-row .career-org {
+  margin: 0;
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+  line-height: 1.35;
+}
+
+/* The detail steps up from --text-meta to --text-body: it was the same size as the employer
+   line it sits under, which is what flattened the row. */
+.career-row .tier-detail {
+  margin: 6px 0 0;
+  font-size: var(--text-body);
+}
+
+/* Demand / Land / Keep / Grow is the account lifecycle. First attempt set it as a two-column
+   dl, which was wrong: it indented the prose to 478px when every other career row starts its
+   prose at 378px, and it made the row 257px tall against a 111-156px norm. That is the same
+   fault Brad flagged on the references cells - a component that reads as imported from another
+   page. The label is now inline, so the stage still scans but the row keeps the list's spine
+   and its proportions. 18 August 2026. */
+.stage-list {
+  margin: 6px 0 0;
+  padding: 0;
+}
+
+.stage {
+  max-width: 62ch;
+  margin: 0 0 4px;
+  color: var(--ink-secondary);
+  font-size: var(--text-body);
+  line-height: 1.5;
+}
+
+.stage:last-child {
+  margin-bottom: 0;
+}
+
+.stage dt,
+.stage dd {
+  display: inline;
+  margin: 0;
+}
+
+/* The label carries weight and colour rather than size, so it separates from the sentence
+   without opening a second column. */
+.stage dt {
+  color: var(--accent-strong);
+  font-weight: 650;
+}
+
+.stage dt::after {
+  content: "\00a0\00a0";
+}
+
+@media (max-width: 720px) {
+  .career-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  /* The spine stays stacked on mobile now that it carries three lines. The old rule laid year,
+     role and org out as a row, which was fine for two items but squeezed three into narrow
+     columns — the 2015 spine went to 88px tall. Year and role sit on one line, org drops below.
+     18 August 2026. */
+  .career-row > .career-spine {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: 10px;
+    row-gap: 0;
+  }
+
+  .career-row .career-role {
+    margin: 0;
+    white-space: normal;
+  }
+
+  .career-row .career-org {
+    grid-column: 2;
+  }
+
+  .career-row .career-year {
+    font-size: var(--text-lead);
+  }
+}
+
+/* Motion strip: a horizontal hairline with four era nodes. Static — no scroll-trigger or
+   reveal animation, per §7.1 (motion that announces itself is decoration). Each node is a
+   fact, not a step in a progress bar. */
+
+.motion-track {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 40px 0 0;
+  list-style: none;
+}
+
+.motion-track::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line);
+}
+
+.motion-node {
+  position: relative;
+  padding: 22px 20px 0;
+  border-left: 1px solid var(--line-soft);
+}
+
+.motion-node:first-child {
+  border-left: 0;
+}
+
+.motion-node::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 20px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.motion-node:first-child::before {
+  left: 0;
+}
+
+/* Year and label were already two sizes apart, so the flat read was not a collision between
+   them: it was the drop from a 35px section h2 to a 20px year, which left the nodes looking
+   like captions under the heading rather than the content of the section. The year steps up
+   to h3 and the label to body, so the strip carries its own weight. 18 August 2026. */
+.motion-year {
+  display: block;
+  margin: 0 0 8px;
+  color: var(--accent-strong);
+  font-size: var(--text-h3);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.motion-label {
+  display: block;
+  max-width: 26ch;
+  color: var(--ink);
+  font-size: var(--text-body);
+  font-weight: 500;
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+
+/* The node needs a floor of its own so the four read as equal-weight columns rather than
+   four ragged blocks hanging off a rule. */
+.motion-node {
+  padding-bottom: 4px;
 }
 
 /* Logo strip */
@@ -835,8 +1065,15 @@ main {
    final "AI" on its own line at 3 per cent fill; a keyword run has no reading-measure argument
    against using the column it sits in. Kept off the last separator so a break, if one is ever
    forced at a narrow width, falls between disciplines rather than inside one. */
+/* This is a keyword run, not a lead paragraph. At --text-lead it matched the dd values and
+   added a fifth size to the panel for no hierarchical reason; --text-meta groups it with the
+   other supporting text. 18 August 2026. */
 .contact-details > p.contact-disciplines {
   max-width: none;
+  margin-bottom: 26px;
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+  letter-spacing: 0.01em;
   text-wrap: balance;
 }
 
@@ -855,10 +1092,14 @@ main {
   text-transform: uppercase;
 }
 
+/* Contact values are data, not lead copy. --text-lead here was the third distinct size in
+   the left column alone. --text-body matches the form fields opposite, so a value reads the
+   same weight whether it is being read or typed. */
 .contact-list dd {
   margin: 4px 0 0;
   color: var(--ink);
-  font-size: var(--text-lead);
+  font-size: var(--text-body);
+  font-weight: 500;
 }
 
 .contact-list a {
@@ -879,11 +1120,15 @@ main {
   background: var(--recessed);
 }
 
+/* "Message me" labels the field group; it is not a peer of the panel h2. At --text-h3 it sat
+   one step below --text-section with nothing distinguishing their roles, which is most of why
+   the panel read as many competing sizes. --text-lead makes it the largest thing in the form
+   column without competing with the heading opposite. 18 August 2026. */
 .contact-form h3 {
   margin: 0;
-  font-size: var(--text-h3);
+  font-size: var(--text-lead);
   font-weight: 650;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
 }
 
 .field {
@@ -1434,6 +1679,39 @@ main {
 
   .hairline-grid > :nth-child(2) {
     border-top: 1px solid var(--line-soft);
+  }
+
+  .motion-track {
+    grid-template-columns: 1fr;
+    padding-top: 0;
+    gap: 24px;
+  }
+
+  .motion-track::before {
+    top: 0;
+    bottom: 0;
+    left: 4px;
+    right: auto;
+    width: 1px;
+    height: auto;
+  }
+
+  .motion-node {
+    padding: 0 0 0 24px;
+    border-left: 0;
+  }
+
+  .motion-node::before {
+    top: 6px;
+    left: 0;
+  }
+
+  .motion-node:first-child::before {
+    left: 0;
+  }
+
+  .motion-label {
+    max-width: none;
   }
 
   .quote-cell blockquote,

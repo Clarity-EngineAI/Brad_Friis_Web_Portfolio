@@ -5,10 +5,10 @@ import ContactPanel from "../components/ContactPanel.astro";
 import { isStackedLogo, logos } from "../data/logos";
 import portrait from "../assets/brad-friis.jpg";
 
-// Every figure traces to `Brad Friis Resumes/bradfriisresumemaster20260806.md`.
+// Every figure traces to `COPY/brad-verified-claims-transcript.md`.
 // Nothing here is extrapolated, and the disputed Visitor Guide figures never appear.
 const stats = [
-  { figure: "5 campuses", label: "Account retained mid-defection, then expanded" },
+  { figure: "8 years", label: "Consecutive renewals, one account" },
   { figure: "2.8K → 24.5K", label: "Licensed users, NZ and Australia" },
   { figure: "+30%", label: "Lift in initial client investment" },
   { figure: "10 years", label: "Holding the vendor channel relationship" },
@@ -16,33 +16,47 @@ const stats = [
 
 const capabilities = [
   {
-    id: "needs-first",
-    title: "I find the need behind the brief",
-    summary: "Understand before I pitch",
-    body: "Before building a retention strategy for a multi-campus account, I spent a week on the ground learning how each campus actually used the platform, then went back and taught what I found.",
-    evidence: "Adrian Pilgrim: “custom strategies and workarounds that fit our operations.”",
+    id: "strategic",
+    title: "Read the business before pitching it anything",
+    summary: "Strategy after the ground, not instead of it",
+    body: "A multi-campus account was evaluating a move away from the platform. I spent a week on-site with teachers and leadership at every campus before writing a strategy, then went back to teach it. The account renewed, added a sixth campus, and bought two revenue lines that hadn't existed there before.",
+    evidence: "Adrian Pilgrim: “giving us the confidence to invest in the platform further.”",
   },
   {
-    id: "keep-and-grow",
-    title: "I keep the account close to its value",
-    summary: "Renewals that survive a competitor's pitch",
-    body: "Eight consecutive renewals at one school. A multi-campus account that renewed and expanded after evaluating a direct competitor. Renewed through annual price rises — the schools I lost were on total cost, never on the rise alone.",
-    evidence: "Andrew Bergh: even the most hesitant teachers became confident users.",
+    id: "creative",
+    title: "Find the offer nobody has priced yet",
+    summary: "New revenue lines from work already being done",
+    body: "Support was being given away inside the software licence, so I made it a paid managed-services line, billed annually in advance, worth around $40,000 to $50,000 a year. The same instinct founded a referral network at Xplore and shaped a two-tier product at Adplus.",
+    evidence: "Philip Lemon: “quickly became known for thinking outside of the square and for creating new and untapped opportunities for his clients.”",
   },
   {
-    id: "next-offer",
-    title: "I turn gaps into the next offer",
-    summary: "New lines from unpriced work",
-    body: "Support was being given away, so I made it a paid line, billed annually in advance. The same instinct now applies to positioning, CRM stages and sales assets for early-stage work.",
-    evidence: "Managed services scaled with the account, so revenue grew without a new sale each time.",
+    id: "retention",
+    title: "Keep accounts, not just win them",
+    summary: "Renewals proved over years, not claimed",
+    body: "Eight consecutive years of renewal at one school. 108 one-to-one interviews with teachers through COVID lockdowns, to keep adoption alive when nobody could run a workshop in a room. The Hawke's Bay Chamber of Commerce held as a client for four years, essentially the whole tenure.",
+    evidence: "Andrew Bergh: even the most hesitant team members became confident users.",
   },
   {
-    id: "terms",
-    title: "I make the terms support the work",
-    summary: "Own the contract, not just the relationship",
-    body: "When a channel contract was cancelled, I negotiated its replacement myself — no upfront cost, and the right to invoice customers directly.",
-    evidence: "The accounts were mine to keep because I made them mine to bill.",
+    id: "commercial",
+    title: "Own the terms, not just the relationship",
+    summary: "Contracts negotiated, not accepted",
+    body: "When a vendor cancelled the channel agreement, I negotiated its replacement personally: buy-as-needed pricing, no upfront cost, and the right to invoice schools directly in local currency, plus a 50% deposit structure at 99 Corporation that changed the business's cashflow.",
+    evidence: "Rob Nieuwland: the deposit change made “a massive difference to cashflow and operations.”",
   },
+  {
+    id: "product",
+    title: "Know the product, not just the pitch",
+    summary: "The piece that makes the rest of it work",
+    body: "MySimpleSiteMan taught me the hard way that knowing how to use a tool isn't the same as the tool working for the customer. Every role since has meant going deep on the product: localising US course material for NZ schools, designing an SIS integration, and this past year, working fluency with AI tools to find where they actually save a business time.",
+    evidence: "Pranesh Lad: “your deep knowledge has been key to solving every issue we've thrown your way.”",
+  },
+];
+
+const graphicEras = [
+  { year: "2001", label: "Ad revenue up 60% in 3 years" },
+  { year: "2009", label: "$70k site, agency's biggest yet" },
+  { year: "2013", label: "30% more profit per customer" },
+  { year: "2015", label: "2,800 users to 24,500" },
 ];
 
 const workCaseStudies = [
@@ -54,40 +68,95 @@ const workCaseStudies = [
     link: { href: "/letters/the-industry-school/", label: "Read Adrian Pilgrim's full letter" },
   },
   {
-    meta: "National sales and marketing · 99 Corporation, 2013",
-    title: "The job nobody was charging for",
-    body: "Support was being handled for free, on request, with no line item. I made it a structured, paid service, so it became revenue instead of overhead.",
-    // PLACEHOLDER — replace with Rob Nieuwland's letter once received (expected within ~1 week of 17 Aug 2026).
-    // Figures are tenure-wide context, not a measurement of this specific pricing change: customer base +55%
-    // (Rob Nieuwland, owner, verbal — not yet in writing), income +30% (Brad). See COPY/interviews/0-blockers.md.
-    evidence: "During Brad's tenure, 99 Corporation's customer base grew by around 55 per cent and income by around 30 per cent.",
+    meta: "108 one-to-one interviews · COVID-19 lockdowns · 2020",
+    title: "Adoption doesn't scale, so I stopped scaling it",
+    body: "Lockdowns cut off the workshop model that normally carries adoption. I ran 108 individual interviews with teachers instead: the slow, expensive method, for the accounts that mattered most.",
+    evidence: "Andrew Bergh: “his empathetic and proactive approach ensures that even the most hesitant team members became confident users.”",
     link: null,
   },
   {
-    meta: "Channel contract renegotiation",
+    meta: "Founder · MySimpleSiteMan, 2006–2009",
+    title: "The one that taught me the difference",
+    body: "I founded and ran a self-serve website builder for small businesses, priced at $399 a year. Over $400,000 went into it before I closed it down. I had misjudged that small-business owners understood how to build a site that actually converted a visitor. Knowing how to use a tool isn't the same as the tool working for the customer.",
+    evidence: "The one time I've failed, and the lesson every role since has been built on.",
+    link: null,
+  },
+  {
+    meta: "Channel contract renegotiation · 2020",
     title: "The contract that made the decade possible",
-    body: "When the channel agreement was cancelled — a pandemic-driven platform change, not a performance issue — I negotiated its replacement directly: no upfront cost, and the right to invoice customers myself.",
-    evidence: "The accounts were mine to keep because I made them mine to bill.",
+    body: "When the channel agreement was cancelled, in a pandemic-driven platform change rather than a performance issue, I negotiated its replacement directly: no upfront cost, and the right to invoice customers myself.",
+    evidence: "AR Walker: “he was always pleasant but somehow managed to obtain an extraordinarily high strike rate from which many clients were converted.”",
     link: null,
   },
 ];
 
 const careers = [
-  { title: "Sold sponsorship before the event existed", meta: "1999 · Event director, 2000AD" },
-  { title: "Held the flagship account personally", meta: "2001 · Business development, Adplus Advertising (later Tracta)" },
+  // Brad's spine, 18 August 2026: year, then the role, then the organisation, each on its own
+  // line. Replaces the single `meta` string that was split on " \u00b7 " at render time — three
+  // distinct fields render as three lines without the markup guessing where the break goes.
   {
+    year: "1999",
+    role: "Event director",
+    org: "2000AD",
+    title: "Sold sponsorship before the event existed",
+  },
+  {
+    year: "2001",
+    role: "Business development",
+    org: "Adplus Advertising, later Tracta",
+    title: "Held the flagship account personally",
+    detail: "Sold website add-on modules on monthly recurring fees after site builds: image galleries, FAQs, news tickers. The Hawke's Bay Visitor Guide account grew ad revenue 60% and advertiser volume 40% over three years, and stayed mine throughout.",
+  },
+  {
+    year: "2003",
+    role: "Sales & account management",
+    org: "Canwest, RadioWorks",
     title: "Kept the national account for three years",
-    meta: "2003 · Sales, Canwest Media",
-    detail: "I held the Harvey Norman account for the full three years I was at Canwest Media (Radioworks).",
+    detail: "Held the Harvey Norman account for the full three years I was at Canwest Media. Don't recall losing an account in that time.",
+    teaser: { href: "/blog/plastic-bags/", label: "Field notes: door-knocking started long before this, the plastic bags" },
   },
   {
+    year: "2009",
+    role: "Business development",
+    org: "Xplore web agency",
     title: "Turned one-off projects into repeat work",
-    meta: "2009 · Business development, Xplore",
-    detail: "Customers up around 70 per cent, income up around 120 per cent, in my time there. Rob Nieuwland, who owned the business, puts it differently but the same way: profit from each customer was up around 30 per cent too.",
+    detail: "Sold SEO packages and add-on modules on monthly recurring fees. Founded Xchange, a referral network of 25 businesses, and collected over $70,000 from it across two years.",
   },
-  { title: "Put a price on previously unbilled work", meta: "2013 · National sales and marketing, 99 Corporation" },
-  { title: "Grew the territory and kept key accounts", meta: "2015 · Sales and Marketing Manager, then General Manager" },
-  { title: "Turn AI into commercial systems", meta: "2025 · Independent consultant, Clarity Engine AI and Pikle" },
+  {
+    year: "2013",
+    role: "National sales & marketing",
+    org: "99 Corporation",
+    title: "Put a price on previously unbilled work",
+    detail: "Rob Nieuwland, who owned the business: profit per customer up around 30% and business clients up around 70% during my tenure.",
+  },
+  {
+    year: "2015",
+    role: "Sales & Marketing Manager,\nthen General Manager",
+    // "PowerSchool channel partner", Brad's call 18 August 2026, after the unnamed-vendor
+    // framing was put to him. Names the product line without claiming the employer: Brad sold
+    // PowerSchool products as the vendor's local channel partner, he was not employed by
+    // PowerSchool, and the bare name would collapse on a reference check. The employer itself
+    // stays unnamed per [[gct-never-named]].
+    org: "PowerSchool channel partner, education",
+    title: "Ran every function that touches the customer",
+    stages: [
+      { stage: "Demand", detail: "Sales strategy, two appointment-booking websites, conference stands and presenting, direct-marketing campaigns." },
+      { stage: "Land", detail: "Implementation and onboarding." },
+      { stage: "Keep", detail: "Created and delivered training, live workshops and self-paced material, plus support MSAs." },
+      { stage: "Grow", detail: "Financial strategy and channel-partner contract negotiation, including a full reseller agreement renegotiated personally." },
+    ],
+  },
+  {
+    year: "2025",
+    role: "Independent upskilling",
+    org: "AI business systems",
+    title: "Take AI fluency into the account, not the headline",
+    // Pikle removed on Brad's instruction, 18 August 2026. The two released builds (Whirling
+    // Design GPT, poultry scraping tool) are stronger evidence per
+    // COPY/interviews/2-consultant-clarity-pikle.md, but putting them on the page is new copy
+    // and therefore Brad's call, not mine.
+    detail: "A year of hands-on work with AI tools, finding where they save a business real time.",
+  },
 ];
 
 // Two 2025 letters only, both proving retention. The other four still publish at /letters/.
@@ -122,7 +191,6 @@ const homeQuotes = [
         <p class="hero-copy">Commercial operator across SaaS, web strategy and revenue systems.</p>
         <div class="hero-actions">
           <a class="button" href="#contact">Start a conversation</a>
-          <a class="text-link" href="/cv/">View CV</a>
         </div>
       </div>
       <div class="hero-aside">
@@ -159,8 +227,8 @@ const homeQuotes = [
     <section class="section shell" aria-labelledby="capabilities-heading">
       <header class="section-head">
         <p class="eyebrow-pill">How I work</p>
-        <h2 id="capabilities-heading">Four parts of one method.</h2>
-        <p class="lead">Find the real need, keep the account, originate the next offer, and own the terms that make it possible.</p>
+        <h2 id="capabilities-heading">Five parts to my method.</h2>
+        <p class="lead">Read the business, find the priced-wrong offer, keep what I win, own the terms, and know the product well enough to trust the pitch.</p>
       </header>
 
       <div class="hairline-grid capability-grid">
@@ -177,11 +245,29 @@ const homeQuotes = [
   </div>
 
   <div class="band band-alt">
+    <section class="section shell motion-strip" aria-labelledby="motion-heading">
+      <header class="section-head">
+        <p class="eyebrow-pill">Four businesses, four eras</p>
+        <h2 id="motion-heading">Growth in every era.</h2>
+        <p class="lead">Four different businesses, four different products. The same result each time.</p>
+      </header>
+      <ol class="motion-track" aria-label="Growth by era">
+        {graphicEras.map((era) => (
+          <li class="motion-node">
+            <span class="motion-year">{era.year}</span>
+            <span class="motion-label">{era.label}</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+  </div>
+
+  <div class="band">
     <section class="section shell" id="work" aria-labelledby="work-heading">
       <header class="section-head">
         <p class="eyebrow-pill">Work</p>
-        <h2 id="work-heading">The claim proved three times.</h2>
-        <p class="lead">Three concrete stories. Each ends with a number or a named voice the reader can verify.</p>
+        <h2 id="work-heading">The claim proved four times.</h2>
+        <p class="lead">Four concrete moments. Each ends with a number or a named voice the reader can verify.</p>
       </header>
       <div class="hairline-grid">
         {workCaseStudies.map((item) => (
@@ -215,12 +301,61 @@ const homeQuotes = [
     </section>
   </div>
 
+  <div class="band band-alt">
+    <section class="section shell" aria-labelledby="now-heading">
+      <header class="section-head">
+        <p class="eyebrow-pill">Right now</p>
+        <h2 id="now-heading">A year building fluency with the tools.</h2>
+        <p class="lead">The past year has been hands-on work with AI tools, the same product-depth habit from the rest of this page applied at a new scale: working fluency with the toolkit, and an eye for where it actually saves a business time.</p>
+      </header>
+    </section>
+  </div>
+
   <div class="band">
-    <section class="section shell proof-quotes" aria-labelledby="proof-heading">
+    <section class="section shell" aria-labelledby="career-heading">
+      <header class="section-head">
+        <p class="eyebrow-pill">Career</p>
+        <h2 id="career-heading">The range came one job at a time.</h2>
+        <p class="lead">Generate demand. Shape the offer. Close the work. Enable users. Then grow the account.</p>
+        <p class="standfirst">I kept the bulk of the accounts I won. Not all of them, and not everywhere, but the billing, the contracts, the renewals and the relationship were mine at every job I have had since 2001.</p>
+      </header>
+      <ol class="row-list">
+        {careers.map((item) => {
+          return (
+            <li class="career-row">
+              <div class="career-spine">
+                <p class="career-year">{item.year}</p>
+                <p class="career-role">{item.role}</p>
+                <p class="career-org">{item.org}</p>
+              </div>
+              <div>
+                <p class="tier-name">{item.title}</p>
+                {item.detail && <p class="tier-detail">{item.detail}</p>}
+                {item.stages && (
+                  <dl class="stage-list">
+                    {item.stages.map((s) => (
+                      <div class="stage">
+                        <dt>{s.stage}</dt>
+                        <dd>{s.detail}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
+                {item.teaser && <a class="text-link" href={item.teaser.href}>{item.teaser.label}</a>}
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+    </section>
+  </div>
+
+  <div class="band band-alt">
+    <section class="section shell" aria-labelledby="letters-heading">
       <header class="section-head">
         <p class="eyebrow-pill">References</p>
-        <h2 id="proof-heading">The customers who nearly left said it themselves.</h2>
-        <p class="lead">Both wrote in 2025. Both describe keeping an account that had a reason to go.</p>
+        <h2 id="letters-heading">Six reference letters, published in full.</h2>
+        <p class="lead">{homeQuotes[0].name} and {homeQuotes[1].name} both wrote in 2025, both describing an account kept that had a reason to go.</p>
       </header>
       <div class="hairline-grid">
         {homeQuotes.map((item) => (
@@ -234,34 +369,11 @@ const homeQuotes = [
           </article>
         ))}
       </div>
-      <p class="section-link"><a class="text-link" href="/letters/">Read all verified reference letters</a></p>
+      <p class="section-link"><a class="text-link" href="/letters/">Read all six reference letters</a></p>
     </section>
   </div>
 
   <div class="band">
-    <section class="section shell" aria-labelledby="career-heading">
-      <header class="section-head">
-        <p class="eyebrow-pill">Career</p>
-        <h2 id="career-heading">The range came one job at a time.</h2>
-        <p class="lead">Generate demand. Shape the offer. Close the work. Enable users. Then grow the account.</p>
-        <p class="standfirst">I kept the bulk of the accounts I won. Not all of them, and not everywhere — but the billing, the contracts, the renewals and the relationship were mine at every job I have had since 2001.</p>
-      </header>
-      <ol class="row-list">
-        {careers.map((item) => (
-          <li class="career-row">
-            <div>
-              <p class="tier-name">{item.title}</p>
-              <p class="tier-meta">{item.meta}</p>
-              {item.detail && <p class="tier-detail">{item.detail}</p>}
-            </div>
-          </li>
-        ))}
-      </ol>
-      <p class="section-link"><a class="text-link" href="/cv/">View the full CV</a></p>
-    </section>
-  </div>
-
-  <div class="band band-alt">
     <section class="section shell" id="contact" aria-labelledby="contact-heading">
       <ContactPanel />
     </section>

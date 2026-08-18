@@ -42,7 +42,7 @@ const canonical = new URL(path, Astro.site ?? Astro.url).href;
       <a class="wordmark" href="/" aria-label="Brad Friis, home">Brad Friis</a>
       <nav class="primary-nav" aria-label="Primary navigation">
         <a href="/#work">Work</a>
-        <a href="/blog/" aria-current={path.startsWith("/blog") ? "page" : undefined}>Field notes & stories</a>
+        <a href="/blog/" aria-current={path.startsWith("/blog") ? "page" : undefined}>Field notes</a>
         <a href="/letters/" aria-current={path.startsWith("/letters") ? "page" : undefined}>Letters</a>
         <a href="/cv/" aria-current={path.startsWith("/cv") ? "page" : undefined}>CV</a>
         <a class="header-contact" href="/#contact">Contact</a>
@@ -54,8 +54,7 @@ const canonical = new URL(path, Astro.site ?? Astro.url).href;
     <footer class="site-footer">
       <p>© 2026 Brad Friis. All rights reserved. {contact.location}.</p>
       <div>
-        <a href="/cv/">CV</a>
-        <a href="/blog/">Field notes & stories</a>
+        <a href="/blog/">Field notes</a>
         <a href="/letters/">Letters</a>
         <a href={`mailto:${contact.email}`}>{contact.email}</a>
         <a href={contact.phoneHref}>{contact.phone}</a>
