@@ -19,6 +19,7 @@ const roles: {
   dates?: string;
   summary: string;
   points: string[];
+  portfolio?: { label: string; href: string };
 }[] = [
   {
     title: "Independent consultant",
@@ -70,6 +71,7 @@ const roles: {
       "Generated direct data sales to other telemarketing companies including Nielsen and Martins, an income line that had not previously existed.",
       "Held the national accounts he won, owning billing, contract negotiation and repeat business. Clients included Xero, LexisNexis, Nielsen and Promax.",
     ],
+    portfolio: { label: "View the rebrand", href: "/work/99-corporation-brand-guide.pdf" },
   },
   {
     title: "Business Development and Sales Manager",
@@ -197,6 +199,17 @@ const tools = "Salesforce, HubSpot, Pipedrive, Asana, Workflow Max, Microsoft 36
                   ))}
                 </ul>
               )}
+              {role.portfolio && (
+                <button
+                  type="button"
+                  class="text-link portfolio-trigger"
+                  data-portfolio-trigger
+                  data-portfolio-src={role.portfolio.href}
+                  data-portfolio-title={`${role.organisation} — brand guide`}
+                >
+                  {role.portfolio.label} →
+                </button>
+              )}
             </article>
           ))}
         </section>
@@ -225,8 +238,42 @@ const tools = "Salesforce, HubSpot, Pipedrive, Asana, Workflow Max, Microsoft 36
       </div>
     </div>
   </div>
+
+  <dialog class="portfolio-dialog" data-portfolio-dialog aria-labelledby="portfolio-dialog-title">
+    <div class="portfolio-dialog-header">
+      <p id="portfolio-dialog-title" class="portfolio-dialog-title"></p>
+      <button type="button" class="portfolio-dialog-close" data-portfolio-close aria-label="Close">✕</button>
+    </div>
+    <iframe class="portfolio-dialog-frame" data-portfolio-frame title="Brand guide preview"></iframe>
+    <p class="portfolio-dialog-credit">
+      Rebrand designed by Patrick Curda, Coast Design Australia. Commissioned by Brad while at 99 Corporation.
+    </p>
+  </dialog>
 </SiteLayout>
 
 <script>
   document.querySelector("[data-print]")?.addEventListener("click", () => window.print());
+
+  const dialog = document.querySelector<HTMLDialogElement>("[data-portfolio-dialog]");
+  const frame = dialog?.querySelector<HTMLIFrameElement>("[data-portfolio-frame]");
+  const titleEl = dialog?.querySelector<HTMLElement>(".portfolio-dialog-title");
+
+  document.querySelectorAll<HTMLButtonElement>("[data-portfolio-trigger]").forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      if (!dialog || !frame) return;
+      frame.src = trigger.dataset.portfolioSrc ?? "";
+      if (titleEl) titleEl.textContent = trigger.dataset.portfolioTitle ?? "";
+      dialog.showModal();
+    });
+  });
+
+  dialog?.querySelector("[data-portfolio-close]")?.addEventListener("click", () => dialog.close());
+
+  dialog?.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+
+  dialog?.addEventListener("close", () => {
+    if (frame) frame.src = "";
+  });
 </script>

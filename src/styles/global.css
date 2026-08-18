@@ -565,6 +565,93 @@ main {
   text-decoration: underline;
 }
 
+.portfolio-trigger {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+.portfolio-dialog {
+  width: min(880px, calc(100vw - 48px));
+  height: min(90vh, 960px);
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-panel);
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+}
+
+.portfolio-dialog::backdrop {
+  background: rgba(28, 25, 23, 0.6);
+}
+
+.portfolio-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.portfolio-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.portfolio-dialog-title {
+  font-size: var(--text-meta);
+  font-weight: 600;
+  color: var(--ink-secondary);
+}
+
+.portfolio-dialog-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: var(--surface-alt);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.portfolio-dialog-close:hover {
+  background: var(--line-hover);
+}
+
+.portfolio-dialog-frame {
+  flex: 1;
+  width: 100%;
+  border: 0;
+}
+
+.portfolio-dialog-credit {
+  padding: 12px 20px;
+  border-top: 1px solid var(--line);
+  font-size: var(--text-meta);
+  color: var(--ink-tertiary);
+}
+
+@media (max-width: 640px) {
+  .portfolio-dialog {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+}
+
 .hero-aside {
   display: grid;
   gap: 12px;
@@ -1918,7 +2005,9 @@ main {
   .pager,
   .back-link,
   .status-chip,
-  .portrait-well {
+  .portrait-well,
+  .portfolio-trigger,
+  .portfolio-dialog {
     display: none;
   }
 
