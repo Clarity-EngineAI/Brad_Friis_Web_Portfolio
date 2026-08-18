@@ -13,8 +13,13 @@ export interface BlogPost {
   body: BlogBlock[];
 }
 
-/** Publication order is newest first. The two "A story" posts were approved 15 August 2026,
- *  drafted the same day.
+/** FALLBACK ONLY — this is not what publishes.
+ *
+ *  Live blog content comes from Sanity (`src/lib/sanity.ts`). This array is the build-time
+ *  fallback used when Sanity is unreachable, so an outage produces the previous posts rather
+ *  than an empty blog page. Editing it will not change the site while Sanity is reachable.
+ *
+ *  Publication order is newest first; Sanity sorts by date descending explicitly.
  */
 export const posts: BlogPost[] = [
   {

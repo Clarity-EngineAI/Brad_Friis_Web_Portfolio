@@ -1,9 +1,11 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
 import BlogBody from "../../components/BlogBody.astro";
-import { posts } from "../../data/blog";
+import { getPosts } from "../../lib/sanity";
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const posts = await getPosts();
+
   return posts.map((post, index) => ({
     params: { slug: post.slug },
     props: {

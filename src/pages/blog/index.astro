@@ -1,7 +1,9 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
 import ContactPanel from "../../components/ContactPanel.astro";
-import { posts } from "../../data/blog";
+import { getPosts } from "../../lib/sanity";
+
+const posts = await getPosts();
 ---
 
 <SiteLayout
