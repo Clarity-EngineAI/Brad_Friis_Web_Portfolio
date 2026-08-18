@@ -1,86 +1,124 @@
-# Next session — smaller follow-ups, no open decisions blocking
+# Next session — wire bradfriis.com to Netlify
 
-**Model:** Sonnet throughout. Everything left is scoped file maintenance or a quick question —
-nothing here needs Opus.
+**Model:** Sonnet. Not Haiku — the git reconciliation and the DNS/cert verification both need
+judgement, and misreading a half-propagated DNS state as a failure wastes a session. Not Opus
+either; there is no architecture here.
 
-**Written:** 17 August 2026, after the "Field notes & stories" naming was shipped and the
-navigation question was resolved.
-
----
-
-## Status — what's done, this session
-
-**Navigation — resolved, not a live conflict.** Brad ruled: the live site (`/`, `/cv`, `/letters`,
-`/blog`) is current; `design/01b-navigation-tone-and-structure.md`'s 11 August spec (`/record`,
-`/consulting`, `/field-notes`) is superseded and historical. No `/consulting` route is needed. Also
-retired in the same pass: a dead `postMortemHref` field left on `cv.astro`'s role type after the
-MySimpleSiteMan removal (nothing set it, nothing linked to it) — removed from the type and the
-template.
-
-**"Field notes & stories" naming — implemented, was the real finding of the session.**
-`COPY/blog/Naming the blog section.md` §1.1 recorded Brad's 17 August choice of reader-facing name,
-with its own §5 listing four places to update. It had sat unshipped for hours — the live site still
-read "Blog" everywhere, and this file's previous version didn't mention it as outstanding. Fixed:
-
-- Nav label, both instances (`src/layouts/SiteLayout.astro:42,55`)
-- `/blog/` eyebrow pill and `<title>` (`src/pages/blog/index.astro`)
-- `COPY/README.md` updated to mark the old "Brad calls it the blog" note superseded
-- The decision file itself now records "Implemented 17 August 2026" alongside "Completed"
-- Route and `COPY/blog/` folder name left untouched, per the spec
-- No homepage CTA exists to update yet (no blog teaser currently on the homepage) — apply
-  "Explore field notes & stories" if one gets added back
-
-**Committed.** All of the above, plus the carried-forward positioning-lines restatus and
-hero-lines/NEXT-SESSION-PROMPT bookkeeping from the prior session, are in commit `7a3a8aa`.
-`npx astro build` and `npx astro check` both clean (0 errors, 0 warnings) after the edits.
-
-**New standing lesson from this session:** a decision file saying "Completed" only means Brad ruled
-— it doesn't mean the ruling reached the code. Check the live site directly, not just the decision
-record, before telling Brad something is done. (Saved to memory as
-`decisions-recorded-not-shipped`.)
+**Task:** Deploy the existing Astro site to Netlify and point the purchased domain
+`bradfriis.com` at it, with search indexing switched OFF until Brad signs the copy off.
 
 ---
 
-## What's left, in priority order
+## Status at handoff (18 August 2026)
 
-### Smaller follow-ups
-- ~~Update `design/index.html`'s Framer-era stage links and status chips~~ — **done.** Header now
-  states the site is live/built and points to `00-current-direction.md` as the entry point. Stage
-  chips re-labelled: 01 Current, 02 Superseded, 03 Decided (points to `08-visual-direction.md`), 06
-  Archived (links repointed to `archive/06-hybrid-direction.*`), 04 Superseded/not produced (Stage 4
-  was never made — the Astro build shipped straight from the Stage 3 recommendation). The stale
-  "Waiting on Brad" table and "Closed since the last update" list were removed (domain, repo-privacy
-  and consent items were already resolved elsewhere) and replaced with a pointer to
-  `00-current-direction.md` §7/§10 for genuinely open items. Not yet committed — Brad hasn't been
-  asked.
-- Re-measure the actual current whole-page word count directly from the live site. Existing sources
-  disagree by ~40% (`00-current-direction.md` §4 flags 847 vs 1,027). Take a fresh count and record
-  it in `design/00-current-direction.md` §4.
-- Check whether Rob Nieuwland's letter landed (expected within a week of 17 August) — affects the
-  case-study-2 placeholder at `src/pages/index.astro:60-63`. Line numbers may have shifted; re-verify.
-- Scope and clear (or commit) the untracked files still sitting around: `design/11-copy-leverage-plan.md`,
-  `COPY/perplexity-copy-brief.md`, `COPY/section-headings/blog-section-name.md`, `design/wireframes/`,
-  `src/pages/preview/` (`hero-a.astro`, `hero-c.astro`). Nobody has scoped these into a task yet —
-  ask Brad or read them first, don't sweep them into a commit blind.
-- `.shots/cdp/**`, `Brad Friis Resumes/**`, `LLM reviews/`, `New approach images/` — tooling/asset
-  clutter outside the site repo's actual content, not related to any copy or design task. Leave
-  alone unless Brad raises it.
+**Decided by Brad this session:**
 
----
+1. Host: **Netlify**.
+2. DNS: **switch nameservers** to Netlify DNS (not per-record at Namecheap).
+3. Indexing: **noindex until Brad explicitly signs the copy off as full and complete.**
+   This is a gate, not a preference. Do not remove the noindex on your own judgement, and do not
+   remove it because the copy "looks finished". Only Brad's explicit sign-off lifts it.
+4. Sanity CMS: comes *after* the domain is live. Does not change the deploy shape.
 
-## Guardrails — still binding, don't re-litigate
+**Verified this session (do not re-check):**
 
-- **The hero is Brad's to write, and he has been writing it.** Don't propose new hero copy.
-- **The blog is Brad's to write.** `design/09-blog-voice.md`.
-- **The 250-word cap**: narrowed 17 August to above-fold only (hero, stats, capabilities), and was
-  last recorded as breached by ~70 words there with no cut authorised — re-check this figure if it
-  becomes relevant, since the hero copy has changed twice since that count was taken.
-- **"Brad chooses."** Propose, don't pick, on any live copy or design decision.
-- **Nothing gets committed without being asked first**, except when Brad has already said yes for
-  the current session's changes, as he did this session.
+- `npm run build` passes cleanly — 15 pages, no errors.
+- `astro.config.mjs` already sets `site: "https://bradfriis.com"` (apex, not www) and
+  `output: "static"`. Both correct. Leave alone.
+- `netlify.toml` exists and is correct: build command `npm run build`, publish `dist`,
+  NODE_VERSION 22, security headers. It was written in anticipation and never used.
+- No Netlify site has ever been linked — there is no `.netlify/state.json`. Netlify CLI is not
+  installed. This is a first deploy, not a repair.
+- Domain is registered at **Namecheap**, currently on their parking page. Nameservers are
+  `dns1.registrar-servers.com` / `dns2.registrar-servers.com`. `www` resolves to
+  `parkingpage.namecheap.com`. Nothing of Brad's is served yet.
+- `public/` contains only `favicon.svg` — there is **no robots.txt yet**.
+
+**Git state — read this carefully, it is the opposite of what it first looks like:**
+
+- Local `main` is **9 commits AHEAD of origin**, not behind. HEAD is `57490cc`. These are
+  unpushed local commits, so there is nothing to merge and no conflict to resolve — just push.
+- Two files are **uncommitted**: `src/pages/index.astro` (1 line) and `src/styles/global.css`
+  (30 lines, 16 insertions / 16 deletions). Review these with Brad before committing — they are
+  small but they are live homepage and global styling.
+- A large volume of `.shots/cdp/**` browser-cache noise is dirty in the working tree. It is
+  committed to the repo and it should not be. Do not sweep it up as part of this task unless Brad
+  asks — flag it and move on.
 
 ---
 
-**Next:** start a new session (Sonnet) to work the smaller follow-ups list above — none of them are
-blocked, so pick whichever Brad wants to prioritise, or default to the `design/index.html` stage-chip
-cleanup first since it's the most stale.
+## The task, in order
+
+### 1. Get a clean, pushed `main`
+
+- Show Brad the diff of the two uncommitted files. Let him decide commit or discard.
+- Push the 9 (or 10) commits to `origin/main`. Netlify builds from what is *pushed*, not from disk.
+
+### 2. Add the noindex gate
+
+- Create `public/robots.txt` with a blanket disallow.
+- Belt and braces: also add `<meta name="robots" content="noindex, nofollow">` to the shared
+  layout head, so a stray direct URL is still covered.
+- Leave an obvious marker (a comment in both places) saying this is a deliberate gate awaiting
+  Brad's sign-off, so a future session does not "helpfully" remove it.
+
+### 3. Deploy to Netlify
+
+- Install the Netlify CLI, run `netlify init` against the existing repo
+  `Clarity-EngineAI/Brad_Friis_Web_Portfolio`.
+- **Ask Brad whether that repo is public or private** — it was not confirmed this session, and it
+  changes the GitHub authorisation step.
+- Confirm the `.netlify.app` URL works and all 15 pages render. This URL is shareable with other
+  LLMs immediately, which is Brad's actual goal — it does not wait on DNS.
+
+### 4. Custom domain + nameserver switch
+
+- Add `bradfriis.com` as the custom domain in Netlify; let it provision `www` as a redirect to
+  apex (apex is canonical per `astro.config.mjs`).
+- Netlify will output four nameservers. Give Brad the exact four values and tell him precisely
+  where in the Namecheap dashboard to paste them (Domain List → Manage → Nameservers → Custom DNS).
+- Warn him about propagation: minutes to hours, and nameserver switches sit at the slow end. The
+  `.netlify.app` URL covers him in the meantime.
+
+### 5. Verify
+
+- Once propagated: apex and `www` both serve, HTTPS cert is valid, no redirect loop, all 15 pages
+  resolve, and `robots.txt` is being served with the disallow intact.
+
+---
+
+## Constraints that still apply
+
+- Do not deploy anything that breaches the standing content rules: the education employer is never
+  named anywhere including images; the settlement gag covers the cancelled-contract wording. A
+  public URL is where a breach becomes permanent and indexed — this is exactly why indexing is
+  gated.
+- Do not touch homepage copy. The Cursor restructure brief (hero option A/B, pill choice) is
+  **unstarted and blocked on Brad's decision**. This session ships the *current* homepage as-is.
+  Deploying is not permission to fix the copy.
+- Do not install or configure Sanity in this session.
+
+---
+
+## Sanity, for later (not this session)
+
+Scope is unchanged: Sanity owns blog bodies only. Sales copy and the publish gate stay in `COPY/`
+permanently. Because the build stays static, adding Sanity later needs only:
+
+- Two env vars in the Netlify UI (`SANITY_PROJECT_ID`, `SANITY_DATASET`).
+- A Netlify build hook URL pasted into Sanity, so publishing a post triggers a rebuild.
+- No change to `output: "static"`, no SSR, no serverless functions.
+
+If Sanity is unreachable at build time the build fails and the last good deploy keeps serving.
+That is the safe failure mode and it is the default — leave it.
+
+---
+
+## Files to read first, in this order
+
+1. `netlify.toml` — already correct, confirm nothing drifted.
+2. `astro.config.mjs` — confirm `site` and `output` unchanged.
+3. `src/layouts/` — find the shared head for the noindex meta tag.
+4. `NEXT-SESSION-PROMPT.md` — this file.
+
+Do not re-read the homepage copy or the `COPY/` library. Not needed for this task.
