@@ -1,124 +1,120 @@
-# Next session — wire bradfriis.com to Netlify
+# Next session — verify HTTPS is live, decide on the second homepage stat-figure and design-doc changes
 
-**Model:** Sonnet. Not Haiku — the git reconciliation and the DNS/cert verification both need
-judgement, and misreading a half-propagated DNS state as a failure wastes a session. Not Opus
-either; there is no architecture here.
+**Model:** Haiku for the HTTPS check alone (a single curl + report). Switch to Sonnet only if the
+cert still hasn't provisioned after 24h and something needs real diagnosis, or if you also pick up
+the uncommitted design-doc changes noted below (those need judgement, not just a status check).
 
-**Task:** Deploy the existing Astro site to Netlify and point the purchased domain
-`bradfriis.com` at it, with search indexing switched OFF until Brad signs the copy off.
-
----
-
-## Status at handoff (18 August 2026)
-
-**Decided by Brad this session:**
-
-1. Host: **Netlify**.
-2. DNS: **switch nameservers** to Netlify DNS (not per-record at Namecheap).
-3. Indexing: **noindex until Brad explicitly signs the copy off as full and complete.**
-   This is a gate, not a preference. Do not remove the noindex on your own judgement, and do not
-   remove it because the copy "looks finished". Only Brad's explicit sign-off lifts it.
-4. Sanity CMS: comes *after* the domain is live. Does not change the deploy shape.
-
-**Verified this session (do not re-check):**
-
-- `npm run build` passes cleanly — 15 pages, no errors.
-- `astro.config.mjs` already sets `site: "https://bradfriis.com"` (apex, not www) and
-  `output: "static"`. Both correct. Leave alone.
-- `netlify.toml` exists and is correct: build command `npm run build`, publish `dist`,
-  NODE_VERSION 22, security headers. It was written in anticipation and never used.
-- No Netlify site has ever been linked — there is no `.netlify/state.json`. Netlify CLI is not
-  installed. This is a first deploy, not a repair.
-- Domain is registered at **Namecheap**, currently on their parking page. Nameservers are
-  `dns1.registrar-servers.com` / `dns2.registrar-servers.com`. `www` resolves to
-  `parkingpage.namecheap.com`. Nothing of Brad's is served yet.
-- `public/` contains only `favicon.svg` — there is **no robots.txt yet**.
-
-**Git state — read this carefully, it is the opposite of what it first looks like:**
-
-- Local `main` is **9 commits AHEAD of origin**, not behind. HEAD is `57490cc`. These are
-  unpushed local commits, so there is nothing to merge and no conflict to resolve — just push.
-- Two files are **uncommitted**: `src/pages/index.astro` (1 line) and `src/styles/global.css`
-  (30 lines, 16 insertions / 16 deletions). Review these with Brad before committing — they are
-  small but they are live homepage and global styling.
-- A large volume of `.shots/cdp/**` browser-cache noise is dirty in the working tree. It is
-  committed to the repo and it should not be. Do not sweep it up as part of this task unless Brad
-  asks — flag it and move on.
+**Task:** Confirm `https://bradfriis.com` is serving over HTTPS with a valid cert, then close the
+loop on deploy. Everything else about the deploy is done — this session's only open item is a
+passive wait on Netlify's Let's Encrypt provisioning.
 
 ---
 
-## The task, in order
+## Status at handoff (18 August 2026, continued from earlier same-day session)
 
-### 1. Get a clean, pushed `main`
+**Site is live and correctly configured. Read this in full before touching anything — there was a
+duplicate-site false start this session that is now cleaned up, and re-deploying against the wrong
+site would resurrect the confusion.**
 
-- Show Brad the diff of the two uncommitted files. Let him decide commit or discard.
-- Push the 9 (or 10) commits to `origin/main`. Netlify builds from what is *pushed*, not from disk.
+### What's done
 
-### 2. Add the noindex gate
+1. Reviewed and committed the two files flagged by the prior handoff (`src/pages/index.astro`,
+   `src/styles/global.css`) — stat figure abbreviated to "2.8K → 24.5K", CSS spacing hack replaced
+   with a targeted nth-child rule. Brad reviewed and approved before commit.
+2. Added the noindex gate: `public/robots.txt` (blanket disallow) and
+   `<meta name="robots" content="noindex, nofollow">` in `src/layouts/SiteLayout.astro`. Both
+   carry an explicit "deliberate gate, do not remove without Brad's sign-off" comment. **This gate
+   is still active and correct — do not remove it.** Only Brad's explicit sign-off that the copy is
+   full and complete lifts it, not "it looks done" or a new session's judgement call.
+3. Pushed 11 commits to `origin/main` (`Clarity-EngineAI/Brad_Friis_Web_Portfolio`, confirmed
+   private repo).
+4. **Netlify site:** `brad-friis` (site ID `e8cdef6b-0d72-4133-acf5-f2af31df448f`). This is the
+   ONE correct site — see "the duplicate-site mistake" below before creating or linking anything.
+   - GitHub repo linked, auto-deploys from `main` on every push (confirmed: a `ready` production
+     deploy from `main`, `deploy_source: api`, i.e. git-triggered).
+   - Local repo's `.netlify/state.json` is linked to this site (`netlify link --id
+     e8cdef6b-0d72-4133-acf5-f2af31df448f` was run to fix a stale link — don't need to redo this).
+   - Netlify.app URL: `https://brad-friis.netlify.app` — confirmed 200, confirmed serving the
+     latest commit content (checked for "2.8K → 24.5K" and the noindex meta tag, both present).
+5. **Custom domain:** `bradfriis.com` added as primary domain on the `brad-friis` site, `www`
+   redirects to apex (matches `astro.config.mjs`'s `site: "https://bradfriis.com"`, apex canonical).
+   Both show "Netlify DNS" with a green check in the dashboard.
+6. **Nameservers:** Namecheap's Custom DNS was set to the four Netlify values
+   (`dns1-4.p05.nsone.net`). Confirmed propagated — `dig +short NS bradfriis.com` returns all four.
+7. Plain HTTP already serves the correct site on the apex (`curl http://bradfriis.com/` returns the
+   real homepage, not a placeholder).
+8. Netlify's dashboard confirms: **"DNS verification was successful"** under SSL/TLS certificate.
+   Cert provisioning was in progress at handoff.
 
-- Create `public/robots.txt` with a blanket disallow.
-- Belt and braces: also add `<meta name="robots" content="noindex, nofollow">` to the shared
-  layout head, so a stray direct URL is still covered.
-- Leave an obvious marker (a comment in both places) saying this is a deliberate gate awaiting
-  Brad's sign-off, so a future session does not "helpfully" remove it.
+### What's NOT done — the one open item
 
-### 3. Deploy to Netlify
+**HTTPS was not yet live at handoff.** `curl https://bradfriis.com/` was returning connection
+failures (exit code 60 — cert/handshake failure), consistent with Let's Encrypt still issuing the
+certificate. Netlify's own UI says this can take up to 24 hours, though it's usually much faster.
 
-- Install the Netlify CLI, run `netlify init` against the existing repo
-  `Clarity-EngineAI/Brad_Friis_Web_Portfolio`.
-- **Ask Brad whether that repo is public or private** — it was not confirmed this session, and it
-  changes the GitHub authorisation step.
-- Confirm the `.netlify.app` URL works and all 15 pages render. This URL is shareable with other
-  LLMs immediately, which is Brad's actual goal — it does not wait on DNS.
+**First thing to do next session:** run
+```
+curl -s -o /dev/null -w "%{http_code}\n" https://bradfriis.com/
+curl -s -o /dev/null -w "%{http_code}\n" https://www.bradfriis.com/
+```
+If both return `200`, HTTPS is live — spot-check `/cv/`, `/blog/`, `/letters/`, confirm
+`https://bradfriis.com/robots.txt` still shows the disallow, and this task is fully closed, nothing
+further needed. If still failing after a full 24h from 18 Aug ~13:45 (i.e. after 19 Aug ~13:45),
+that's outside Netlify's own stated normal window — worth checking their troubleshooting guide
+(linked from the SSL/TLS panel in Site settings → Domain management) or contacting Netlify support,
+not re-doing the DNS/domain setup, which is already correct.
 
-### 4. Custom domain + nameserver switch
+### The duplicate-site mistake, for context (already fixed, nothing to do here)
 
-- Add `bradfriis.com` as the custom domain in Netlify; let it provision `www` as a redirect to
-  apex (apex is canonical per `astro.config.mjs`).
-- Netlify will output four nameservers. Give Brad the exact four values and tell him precisely
-  where in the Namecheap dashboard to paste them (Domain List → Manage → Nameservers → Custom DNS).
-- Warn him about propagation: minutes to hours, and nameserver switches sit at the slow end. The
-  `.netlify.app` URL covers him in the meantime.
-
-### 5. Verify
-
-- Once propagated: apex and `www` both serve, HTTPS cert is valid, no redirect loop, all 15 pages
-  resolve, and `robots.txt` is being served with the disallow intact.
+Early in this session, before checking whether a Netlify site already existed, a new site
+(`brad-friis-portfolio`) was created via CLI and manually deployed to (`netlify deploy --prod`).
+Partway through, it turned out Brad had already created a **different** site called `brad-friis`
+through the dashboard while following the GitHub-linking instructions given earlier in the session
+— and that site, not the CLI-created one, is the one the custom domain and nameservers ended up
+attached to. `brad-friis-portfolio` was deleted once this was discovered (confirmed via
+`netlify sites:list` showing only `brad-friis` afterward). No further action needed — just don't be
+surprised if you see references to `brad-friis-portfolio` in old shell history or screenshots from
+earlier in the same day; it no longer exists.
 
 ---
 
-## Constraints that still apply
+## Separate, lower-priority items noticed but explicitly out of scope for the deploy task
 
-- Do not deploy anything that breaches the standing content rules: the education employer is never
-  named anywhere including images; the settlement gag covers the cancelled-contract wording. A
-  public URL is where a breach becomes permanent and indexed — this is exactly why indexing is
-  gated.
-- Do not touch homepage copy. The Cursor restructure brief (hero option A/B, pill choice) is
-  **unstarted and blocked on Brad's decision**. This session ships the *current* homepage as-is.
-  Deploying is not permission to fix the copy.
-- Do not install or configure Sanity in this session.
+These were flagged during the session but deliberately not touched, because the task was "deploy
+what exists," not "also fix these":
+
+1. **Uncommitted design docs and new files** — as of this handoff, `design/00-current-direction.md`
+   and `design/01-positioning-brief.md` have uncommitted changes, and there are several new
+   untracked files (`COPY/perplexity-copy-brief.md`, `COPY/section-headings/blog-section-name.md`,
+   `design/11-copy-leverage-plan.md`, `design/review/`, `design/wireframes/`, `LLM reviews/`, "New
+   approach images/", plus some resume/logo asset changes under `Brad Friis Resumes/`). None of
+   these were reviewed or committed this session — they weren't part of the deploy task. If Brad
+   wants these committed too, review with him first the same way the two homepage files were
+   reviewed before committing.
+2. **`.shots/cdp/**` browser-cache noise** — still dirty and still committed to the repo (a lot of
+   Chrome DevTools Protocol cache files under `.shots/cdp/`). Flagged again, not touched again.
+   Worth a `.gitignore` entry and a cleanup commit at some point, but that's a separate, deliberate
+   task, not a side effect of a deploy.
+3. **GitHub App repo access scope** — not verified whether the Netlify GitHub App was granted
+   access to just `Brad_Friis_Web_Portfolio` or to all repos in `Clarity-EngineAI`. Worth a quick
+   check next time you're in GitHub's App settings, not urgent.
 
 ---
 
-## Sanity, for later (not this session)
+## Constraints that still apply (unchanged from prior handoff)
 
-Scope is unchanged: Sanity owns blog bodies only. Sales copy and the publish gate stay in `COPY/`
-permanently. Because the build stays static, adding Sanity later needs only:
-
-- Two env vars in the Netlify UI (`SANITY_PROJECT_ID`, `SANITY_DATASET`).
-- A Netlify build hook URL pasted into Sanity, so publishing a post triggers a rebuild.
-- No change to `output: "static"`, no SSR, no serverless functions.
-
-If Sanity is unreachable at build time the build fails and the last good deploy keeps serving.
-That is the safe failure mode and it is the default — leave it.
+- Education employer is never named anywhere including images; the settlement gag covers the
+  cancelled-contract wording. The noindex gate stays until Brad's explicit sign-off — see above.
+- Do not touch homepage copy beyond what's already committed. The Cursor restructure brief (hero
+  option A/B, pill choice) is still unstarted and blocked on Brad's decision.
+- Sanity CMS is still not installed — comes after domain is fully live and stable, per the original
+  plan. No change to that plan from this session.
 
 ---
 
 ## Files to read first, in this order
 
-1. `netlify.toml` — already correct, confirm nothing drifted.
-2. `astro.config.mjs` — confirm `site` and `output` unchanged.
-3. `src/layouts/` — find the shared head for the noindex meta tag.
-4. `NEXT-SESSION-PROMPT.md` — this file.
-
-Do not re-read the homepage copy or the `COPY/` library. Not needed for this task.
+1. This file.
+2. `netlify.toml` and `astro.config.mjs` — only if something about the build looks wrong; otherwise
+   skip, both were confirmed correct and unchanged.
+3. Nothing else is needed for the HTTPS check itself.
