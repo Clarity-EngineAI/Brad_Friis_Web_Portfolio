@@ -210,11 +210,10 @@ Each wants its own session.
 - **The hero body copy rewrite** (Opus) — three options to be drafted against the
   positioning brief, with the homepage word budget already breached at roughly 860 words
   against a 250 cap. Brad picks; nothing gets applied unasked.
-- **The Cal.com booking button, still unverified** (Sonnet) — built and type-clean but
-  nobody has clicked it. A prior bug had the Cal loader emitting as a literal
-  template-literal string. Open the site, click **Book a meeting**, confirm the modal
-  opens with both event types. Check the hero wrap at 390px with **device emulation,
-  never `resize_page`** — see `memory/mobile-viewport-check-needs-emulation.md`.
+- **The Cal.com booking button** — verified working on the live site 19 August 2026
+  (Brad confirmed by hand; Chrome DevTools MCP could not attach on this machine to
+  automate the check). Hero wrap at 390px still worth a device-emulation pass if not
+  already done — see `memory/mobile-viewport-check-needs-emulation.md`.
 - **Brad's Cal.com profile bio** (Sonnet) — three options offered, none picked. Goes in
   Cal.com → Settings → Profile → About, not in site code.
 - **The plastic-bags voice edit** (Opus) — twelve proposed changes sitting in
