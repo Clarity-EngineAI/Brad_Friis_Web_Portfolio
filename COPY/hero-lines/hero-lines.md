@@ -2027,3 +2027,94 @@ systems."** The holding line ("Turning customer needs into long-term account gro
 to Rejected — superseded by a Brad-authored line. U1, U3, U4 and rounds nine/ten remain
 banked, status Available, unchosen. The support line remains holding copy — still subject to
 §9 rework in the build session; the H1 and pill are ruled and are not.
+
+---
+
+## Round eleven — support line rework, 19 August 2026
+
+The §9 rework the round-ten ruling flagged. Trigger was layout as well as copy: the text
+column measured 340px against a 425px photo card, and because `.hero` is `align-items:
+center` the 85px shortfall split 42px above and below. The handoff read the support line as
+one wrapped line; measurement showed two, with a badly stranded second line 152px wide.
+
+**Brief, verbatim:** *"The copy here is pivotal it lands well and is in context - it MUST be
+value driven for the reader."*
+
+Six rounds were rejected before the ruling. Each rejection added a binding requirement, and
+all of them now apply to any future support-line work:
+
+1. **Value must be for the reader, not a recital of the record.** *"No! the value must be for
+   the reader. not what I've done."* Killed every option opening on Brad's history.
+2. **No advertising register.** *"I dont want to lecture them on what it is as if they dont
+   know, in an advertisign speak... it needs to feel more human and real."* The line must use
+   words a recruiter or business owner already uses for what they need.
+3. **Never lead with a year count — this is constraint 1 and the reason is now on record.**
+   *"the rule is not to lead with years - this is a major red flag to my age."* Age
+   discrimination, not style. Sanctioned shape supplied by Brad in the same breath: *"A career
+   in XXX has taught me that XXX is the lifeblood of a high performing account manager."*
+4. **Creative and strategic solutions focus must be present** — but as demonstrated behaviour,
+   never as adjectives. Bare *creative* / *strategic* are §7 self-assessment breaches and are
+   exactly the register rejected in (2).
+5. **Present and forward tense.** *"youre still writing it like ad copy and in the past tense.
+   write what I will do - not what I have done."* This retired the *"A career in X has taught
+   me"* shape from (3) — it is inherently retrospective and was the source of the fault. The
+   no-years rule survives; the specific template does not.
+6. **ATS keyword coverage.** Requested explicitly on the final round: the line must carry the
+   nouns a job ad uses — accounts, customer, solution, renewal, revenue, growth.
+
+### RULED — 19 August 2026: Option D. Shipped.
+
+Brad's words: "lock this one in and update the site". Applied to `src/pages/index.astro:221`
+the same day, replacing "Commercial operator across SaaS, web strategy and revenue systems."
+
+> **I run key accounts end to end: I learn the customer's business, find where they're
+> leaving value on the table, and put a solution in front of them that renews and grows.**
+
+32 words. Keywords carried: *key accounts*, *customer*, *solution*, *renews*, *grows*.
+
+**Argument.** Opens on the seat, not the CV — "I run key accounts end to end" is the job
+title said as a sentence. The three clauses are the method in order: learn, find, put in
+front. *Leaving value on the table* is the strategic read stated as an action rather than an
+adjective, and satisfies (4) without breaching §7. *Renews and grows* argues retention plus
+expansion in three words, which is constraint 3. All verbs present tense, no year count, no
+*build* (constraint 12a), nothing traceable to a barred figure.
+
+**Measured after applying, 1440x900:** three lines at 455 / 513 / 464px — no stranded line,
+which the previous support line had. Text column 340px to 369px; gap to the photo card 85px
+to 56px, splitting 28px top and bottom. The residual is a layout matter, not a copy one —
+per the handoff, do not pad the copy to close it.
+
+**390px, device emulation:** no horizontal overflow (scrollWidth 390 = clientWidth), copy
+runs four lines with no stranded tail, both hero buttons hold one row side by side.
+
+**Cost, stated not hidden:** hero word count 30 to 45. The homepage §7 breach is already
+roughly 6.5x the 250-word cap on measurement, so this is a knowing overspend in the one place
+on the page that has to carry the argument. The budget is its own session.
+
+### Banked from this round — status Available, unchosen
+
+Five options were drafted alongside D and none is rejected on merit. Nothing here is deleted.
+
+- **E** — *"I hold the accounts a business can't afford to lose, and I grow them. That means
+  understanding how the customer actually makes money, then designing the solution that fits
+  it — so renewal is the obvious call and the next line of revenue is already on the table."*
+  47 words. Densest keyword coverage of the six (*accounts, customer, designing, solution,
+  renewal, revenue*). Longest.
+- **F** — *"My job is retention and account growth: know the customer's business well enough
+  to spot the problem before it's raised, then bring a solution that earns the renewal and
+  opens the upsell."* 32 words. Most ATS-literal — every term is the one a job ad uses. "My
+  job is" is flat and the keyword run reads slightly like a spec.
+- **G** — *"I take responsibility for the customer relationship and the revenue that sits
+  behind it — reading the business, shaping the solution, keeping the account renewed and
+  finding the room to grow it."* 31 words. Leads on ownership, which is what a commercial lead
+  is buying.
+- **H** — *"I work out what a customer's business actually needs, then shape the solution and
+  see it through — so accounts stay, spend more, and stop being a renewal risk."* 29 words.
+  Uses *see it through*, the sanctioned alternative to *build* under 12a.
+- **I** — *"Retention and growth on the accounts that matter. I get close to the customer,
+  work out where the real problem is, and shape a solution that renews the contract and adds
+  to it."* 33 words. Fragment opener reads headline-ish rather than spoken.
+
+Three earlier options (A, B, C) were also drafted and are superseded by D–I on tense and
+keyword grounds; B addressed the reader directly as *you/your*, a register nothing else on the
+site uses, which is worth remembering as a live question rather than a settled no.
