@@ -1,0 +1,50 @@
+---
+import { booking, bookingEnabled } from "../data/contact";
+
+/**
+ * Cal.com popup embed, triggered by a button styled as the site's own.
+ *
+ * Why a popup rather than an inline calendar: the contact panel already carries a full
+ * form, and an inline calendar is ~600px of third-party chrome sitting above it on three
+ * pages. The button costs one click and keeps the page the site's own until asked.
+ *
+ * The whole component is behind `bookingEnabled`. With no Cal link configured it renders
+ * nothing — see the note in src/data/contact.ts for why that guard exists rather than a
+ * placeholder link.
+ *
+ * This component renders ONLY the trigger. Cal's loader script lives in SiteLayout, so a
+ * page carrying two buttons still loads embed.js once. Do not move the loader back in
+ * here: it was here originally and the homepage emitted it twice.
+ *
+ * `variant` only picks the layout wrapper. "panel" is the wide contact panel; "sidebar"
+ * is the narrow sticky CV column, where the button goes full width and the supporting
+ * line is dropped to keep the column short; "hero" sits inline in .hero-actions and
+ * carries no supporting line, because the hero has its own copy doing that job.
+ */
+interface Props {
+  variant?: "panel" | "sidebar" | "hero";
+  label?: string;
+}
+
+const { variant = "panel", label = booking.label } = Astro.props;
+---
+
+{
+  bookingEnabled && (
+    <div class:list={["booking", `booking-${variant}`]}>
+      <button
+        class="button booking-button"
+        type="button"
+        data-cal-link={booking.link}
+        data-cal-config={JSON.stringify({ layout: "month_view", theme: "light" })}
+      >
+        {label}
+      </button>
+      {variant === "panel" && (
+        <p class="booking-note">
+          {booking.note} <span class="booking-duration">{booking.durationHint}</span>
+        </p>
+      )}
+    </div>
+  )
+}

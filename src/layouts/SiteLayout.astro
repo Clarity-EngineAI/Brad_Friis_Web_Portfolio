@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { bookingEnabled } from "../data/contact";
 import { contact } from "../data/contact";
 
 interface Props {
@@ -14,6 +15,20 @@ const {
 
 const path = Astro.url.pathname;
 const canonical = new URL(path, Astro.site ?? Astro.url).href;
+
+/* Cal.com's loader, verbatim from their element-click embed. It lives here rather than in
+   BookingButton so a page carrying two buttons (the homepage: hero and contact panel)
+   still fetches embed.js once.
+
+   Passed through `set:html` rather than written as script children: Astro treats JSX
+   children of a <script> as text to escape, so a template literal there is emitted with
+   its backticks intact and never runs. That is exactly what happened on the first build.
+
+   Not loaded at all when no Cal link is configured — no third-party request from a site
+   with no calendar behind it. */
+const calLoader = `(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+Cal("init", { origin: "https://app.cal.com" });
+Cal("ui", { hideEventTypeDetails: false, layout: "month_view", cssVarsPerTheme: { light: { "cal-brand": "#9c3d1e" } } });`;
 ---
 
 <!doctype html>
@@ -35,6 +50,7 @@ const canonical = new URL(path, Astro.site ?? Astro.url).href;
     <meta name="twitter:card" content="summary" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{title}</title>
+    {bookingEnabled && <script is:inline set:html={calLoader} />}
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>

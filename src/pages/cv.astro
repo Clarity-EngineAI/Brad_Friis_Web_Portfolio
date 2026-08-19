@@ -1,6 +1,7 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { contact } from "../data/contact";
+import BookingButton from "../components/BookingButton.astro";
 
 /**
  * Every line below traces to a row in COPY/interviews/_claims-register.md.
@@ -161,7 +162,10 @@ const tools = "Salesforce, HubSpot, Pipedrive, Asana, Workflow Max, Microsoft 36
             <dd><a href={contact.linkedin} rel="me">linkedin.com/in/bradfriis</a></dd>
           </div>
         </dl>
-        <button class="button" type="button" data-print>Print or save PDF</button>
+        <div class="cv-actions">
+          <BookingButton variant="sidebar" label="Book a meeting" />
+          <button class="button button-secondary" type="button" data-print>Print or save PDF</button>
+        </div>
       </aside>
 
       <div>

@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import ContactPanel from "../components/ContactPanel.astro";
+import BookingButton from "../components/BookingButton.astro";
 import { isStackedLogo, logos } from "../data/logos";
 import portrait from "../assets/brad-friis.jpg";
 
@@ -219,7 +220,11 @@ const homeQuotes = [
         <h1>I win, grow and renew accounts.</h1>
         <p class="hero-copy">Commercial operator across SaaS, web strategy and revenue systems.</p>
         <div class="hero-actions">
-          <a class="button" href="#contact">Start a conversation</a>
+          {/* Booking is the filled button and the form is outlined, not the other way
+              round: a booking is a committed action, a contact form is a maybe. Attribute
+              8 allows exactly one accent fill, so only one of these two can be filled. */}
+          <BookingButton variant="hero" />
+          <a class="button button-secondary" href="#contact">Send a message</a>
         </div>
       </div>
       <div class="hero-aside">

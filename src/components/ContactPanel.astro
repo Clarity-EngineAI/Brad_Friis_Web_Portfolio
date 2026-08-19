@@ -1,5 +1,6 @@
 ---
 import { contact } from "../data/contact";
+import BookingButton from "./BookingButton.astro";
 
 const reasons = ["A role", "A project or consulting", "Something else"];
 ---
@@ -27,6 +28,8 @@ const reasons = ["A role", "A project or consulting", "Something else"];
         <dd><a href={contact.linkedin} rel="me">linkedin.com/in/bradfriis</a></dd>
       </div>
     </dl>
+
+    <BookingButton />
   </div>
 
   <form

@@ -544,6 +544,22 @@ main {
   background: var(--accent-strong);
 }
 
+/* A second action beside the primary one. The accent is barred from large fills
+   (attribute 8) and the single pill CTA is its one exception — so a second pill cannot
+   also take the accent without spending that exception twice. Outlined instead: same
+   size and shape, no fill, which reads as the lesser of the two without inventing a
+   new control. */
+.button-secondary {
+  color: var(--ink);
+  background: none;
+  box-shadow: inset 0 0 0 1px var(--line-hover);
+}
+
+.button-secondary:hover {
+  color: var(--ink);
+  background: var(--surface-alt);
+}
+
 .band-invert .button {
   color: #1c1917;
   background: #edeae4;
@@ -1976,6 +1992,49 @@ main {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }
+}
+
+/* Cal.com booking. The embed itself is an overlay Cal owns and paints; everything
+   here is the trigger and its supporting line, which are the site's own. */
+.booking {
+  margin-top: 26px;
+}
+
+.booking-note {
+  max-width: 40ch;
+  margin: 10px 0 0;
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+}
+
+/* The duration is the one fact that decides whether someone clicks, so it is separated
+   from the invitation rather than run into it as one sentence. */
+.booking-duration {
+  display: block;
+}
+
+/* Sidebar variant: the CV's sticky column is narrow, so the button takes the full
+   measure rather than sitting as a short pill against a wide gutter. */
+.cv-actions {
+  display: grid;
+  gap: 10px;
+}
+
+.booking-sidebar {
+  margin-top: 0;
+}
+
+/* Hero variant: the wrapper div is only there to carry the Cal attributes, so it must
+   not introduce spacing of its own — .hero-actions already owns the gap and the margin
+   above it. `display: contents` would be tidier but drops the element from the flex
+   layout in a way Safari has historically got wrong, so the margin is zeroed instead. */
+.booking-hero {
+  margin-top: 0;
+}
+
+.cv-actions .button,
+.booking-sidebar .booking-button {
+  width: 100%;
 }
 
 @media print {
