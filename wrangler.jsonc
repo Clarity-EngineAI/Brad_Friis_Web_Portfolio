@@ -1,0 +1,20 @@
+/**
+ * Cloudflare Workers deployment config.
+ *
+ * The site is a static Astro build — no server-side rendering, no Worker code.
+ * `assets.directory` points Cloudflare at Astro's output and the platform serves
+ * those files directly. `not_found_handling` gives a proper 404 page rather than
+ * Cloudflare's generic one.
+ *
+ * Security headers live in `public/_headers`, not here. Astro copies `public/`
+ * into `dist/` verbatim, so the file lands where Cloudflare looks for it.
+ * That replaces the `[[headers]]` block in netlify.toml.
+ */
+{
+  "name": "brad-friis-web-portfolio",
+  "compatibility_date": "2026-08-19",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}

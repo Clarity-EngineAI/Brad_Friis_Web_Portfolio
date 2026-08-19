@@ -1,0 +1,12 @@
+# Security headers, carried across from the [[headers]] block in netlify.toml
+# when the site moved to Cloudflare, 19 August 2026.
+#
+# Astro copies public/ into dist/ untouched, so this file ships with the build
+# and Cloudflare reads it from the root of the served directory.
+#
+# Deliberately no Content-Security-Policy — that is a separate decision, not a
+# side effect of changing host.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
