@@ -1,0 +1,133 @@
+/* ============================================================================
+   SITE TOKENS — lifted verbatim from src/styles/global.css :root.
+   Do not edit below. If the site's tokens move, this block is replaced
+   wholesale rather than patched, so the two cannot drift.
+
+   Spacing ladder: 4 6 8 10 12 14 16 18 22 26 28 40 48 56 72. Nothing between.
+   ============================================================================ */
+
+:root {
+  --ground: #e6e4df;
+  --surface: #f3f1ec;
+  --surface-alt: #ece9e2;
+  --paper: #fff;
+  --recessed: #faf9f6;
+  --ink: #1c1917;
+  --ink-secondary: #565049;
+  --ink-tertiary: #6e675f;
+  --line: rgba(28, 25, 23, 0.1);
+  --line-soft: rgba(28, 25, 23, 0.06);
+  --line-hover: rgba(28, 25, 23, 0.24);
+  --accent: #9c3d1e;
+  --accent-strong: #7f3018;
+  --accent-on-dark: #e8935f;
+  --stat-ground: #17140f;
+
+  --r-sm: 10px;
+  --r-md: 12px;
+  --r-card: 14px;
+  --r-panel: 16px;
+  --r-shell: 18px;
+  --r-portrait: 22px;
+  --r-pill: 999px;
+
+  --text-enum: 0.6875rem;
+  --text-eyebrow: 0.6875rem;
+  --text-meta: 0.78125rem;
+  --text-nav: 0.84375rem;
+  --text-body: 0.9375rem;
+  --text-lead: 1.0625rem;
+  --text-card-title: 0.875rem;
+  --text-title: 1.25rem;
+  --text-h3: 1.375rem;
+
+  --text-hero: clamp(2.5rem, 5.6vw, 4.25rem);
+  --text-page-hero: clamp(2rem, 4.4vw, 2.875rem);
+  --text-section: clamp(1.75rem, 3.4vw, 2.5rem);
+  --text-hero-lead: clamp(1.0625rem, 1.4vw, 1.25rem);
+
+  --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --gutter: max(28px, calc((100vw - 1180px) / 2));
+}
+
+/* ============================================================================
+   PILLAR AND SUB-CATEGORY PALETTE
+   ============================================================================
+
+   V2 was wrong. It killed V1's eight hues and put back three marks, two of
+   which were greys, which left the page correct and dead. The fault in V1 was
+   never "colour" — it was eight UNRELATED hues chosen off a colour wheel with
+   no relationship to each other or to the site.
+
+   V3's rule: three hue families, one per pillar, four steps each. Colour is
+   carried by the SUB-CATEGORY, because the sub-category is the thing a reader
+   is actually distinguishing. A pillar's colour is the darkest step of its
+   own family, so a pillar and its children are visibly the same material.
+
+   Construction, so this can be reproduced rather than eyeballed:
+
+   - Every hue sits in the warm half of the wheel with the site's own
+     restraint on saturation. None is a pure or "web" colour.
+   - GROWTH is built on the site accent #9c3d1e (18 degrees, burnt sienna).
+     Its four steps walk from that red-orange toward amber — 18, 26, 34, 42 deg
+     — holding chroma roughly constant. It is the warmest, loudest family
+     because it is the pillar the site's accent already stands for.
+   - DELIVERY runs teal-to-green, 186 to 150 deg. It is the cool complement,
+     so Growth and Delivery are separable at a glance and at 3px.
+   - OPERATIONS holds a single deep blue (~207 deg) and walks lightness,
+     dark to light. Purple is banned from the page outright — Brad's rule —
+     so the family gets its four steps from lightness, not from hue drift.
+   - Every value clears 4.5:1 against --paper as text and 3:1 as a graphic,
+     checked, not assumed. Values that failed were darkened until they passed.
+
+   Three families of four beats twelve independents for the same reason a
+   type scale beats twelve arbitrary sizes: the reader learns three things,
+   not twelve, and the fourth colour in a family is legible as "another Growth"
+   before it is legible as itself.
+   ============================================================================ */
+
+:root {
+  /* --- Growth: sienna to amber ------------------------------------------
+     Built outward from the site accent, which is step 1 unmodified. */
+  --c-pipeline: #9c3d1e;      /* the site accent, unmodified */
+  --c-targeting: #a4501c;
+  --c-campaigns: #9a5c14;
+  --c-measurement: #8a6510;
+
+  /* --- Delivery: deep teal to green -------------------------------------
+     Held inside H199 -> H144. It must not walk further toward yellow-green:
+     past ~H140 it starts closing on Growth's amber end and the two families
+     stop being separable at chip size. */
+  --c-implementation: #08696b;
+  --c-enablement: #0d6a58;
+  --c-learning-design: #166b46;
+  --c-support: #256c33;
+
+  /* --- Operations: deep blue, dark to light ------------------------------
+     Brad's rule: NO PURPLE, anywhere on the page (set 25 August 2026 after
+     the violet-magenta family was rejected). The family therefore holds one
+     blue hue (~H207) and walks LIGHTNESS instead of hue — the same way a
+     type scale walks size. It cannot drift toward violet because the hue
+     never moves. Separation from Delivery is hue (blue vs green-teal);
+     separation inside the family is lightness. */
+  --c-commercial: #1b4a75;
+  --c-partnerships: #235a8a;
+  --c-people: #2c699e;
+  --c-systems: #3273ab;
+
+  /* Pillar heads take step 1 of their family. */
+  --p-growth: #9c3d1e;
+  --p-delivery: #08696b;
+  --p-operations: #1b4a75;
+
+  --wash-growth: rgba(156, 61, 30, 0.05);
+  --wash-delivery: rgba(8, 105, 107, 0.05);
+  --wash-operations: rgba(27, 74, 117, 0.05);
+
+  /* For the inverted (selected) card on --stat-ground. Growth reuses the
+     site's own --accent-on-dark; the other two are matched to it in
+     lightness so the three read as one set. 7.67 / 8.67 / 7.98 : 1. */
+  --p-growth-on-dark: #e8935f;   /* the site's own token, unchanged */
+  --p-delivery-on-dark: #5cc4a8;
+  --p-operations-on-dark: #85bce6;
+}

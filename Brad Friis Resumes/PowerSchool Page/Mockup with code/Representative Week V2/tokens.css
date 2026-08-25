@@ -1,0 +1,69 @@
+/* Lifted verbatim from src/styles/global.css :root. Do not edit here — if the site's tokens
+   move, this file is replaced wholesale rather than patched, so the two cannot drift.
+
+   Spacing ladder: 4 6 8 10 12 14 16 18 22 26 28 40 48 56 72. Nothing between these values. */
+
+:root {
+  --ground: #e6e4df;
+  --surface: #f3f1ec;
+  --surface-alt: #ece9e2;
+  --paper: #fff;
+  --recessed: #faf9f6;
+  --ink: #1c1917;
+  --ink-secondary: #565049;
+  --ink-tertiary: #6e675f;
+  --line: rgba(28, 25, 23, 0.1);
+  --line-soft: rgba(28, 25, 23, 0.06);
+  --line-hover: rgba(28, 25, 23, 0.24);
+  --accent: #9c3d1e;
+  --accent-strong: #7f3018;
+  --accent-on-dark: #e8935f;
+  --stat-ground: #17140f;
+
+  --r-sm: 10px;
+  --r-md: 12px;
+  --r-card: 14px;
+  --r-panel: 16px;
+  --r-shell: 18px;
+  --r-portrait: 22px;
+  --r-pill: 999px;
+
+  --text-enum: 0.6875rem;
+  --text-eyebrow: 0.6875rem;
+  --text-meta: 0.78125rem;
+  --text-nav: 0.84375rem;
+  --text-body: 0.9375rem;
+  --text-lead: 1.0625rem;
+  --text-title: 1.25rem;
+  --text-h3: 1.375rem;
+
+  --text-hero: clamp(2.5rem, 5.6vw, 4.25rem);
+  --text-page-hero: clamp(2rem, 4.4vw, 2.875rem);
+  --text-section: clamp(1.75rem, 3.4vw, 2.5rem);
+  --text-hero-lead: clamp(1.0625rem, 1.4vw, 1.25rem);
+
+  --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --gutter: max(28px, calc((100vw - 1180px) / 2));
+}
+
+/* The three pillar marks.
+
+   V1 carried sixteen bespoke category hues across two themes — a second palette competing
+   with the site's single accent. Three pillars need three distinguishable marks, and the
+   site's own vocabulary already contains exactly three ink weights plus the accent. So:
+   Growth takes the accent (it is the only pillar the site's accent already stands for —
+   commercial action), Delivery takes primary ink, Operations takes tertiary ink. No new
+   hue is introduced. Because two of the three are greys, colour can never be the only cue,
+   which is the accessibility position V1 argued for and then undercut by shipping eight hues. */
+
+:root {
+  --pillar-growth: var(--accent);
+  --pillar-growth-wash: rgba(156, 61, 30, 0.06);
+  --pillar-delivery: var(--ink);
+  --pillar-delivery-wash: rgba(28, 25, 23, 0.05);
+  /* Tertiary ink at 3px against paper was not separable from Delivery's near-black at a
+     glance. Lightened to the site's --line-hover weight, which is the lightest mark the
+     site already draws and still clears 3:1 against paper as a non-text graphic. */
+  --pillar-operations: #a49c92;
+  --pillar-operations-wash: rgba(110, 103, 95, 0.05);
+}

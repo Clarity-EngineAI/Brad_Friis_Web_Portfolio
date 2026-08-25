@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en-NZ">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="An illustrative composite week showing the range of work in a senior education technology operating role, grouped into growth, delivery and operations.">
+    <title>A representative week | Brad Friis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;650;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./tokens.css">
+    <link rel="stylesheet" href="./style.css">
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#week">Skip to the week</a>
+
+    <header class="site-header">
+      <a class="wordmark" href="#top">Brad Friis</a>
+      <nav class="primary-nav" aria-label="Primary">
+        <a href="#top">Home</a>
+        <a href="#top">CV</a>
+        <a href="#top" aria-current="page">A week</a>
+        <a href="#top">Letters</a>
+        <a class="header-contact" href="#close">Get in touch</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="page-hero shell">
+        <div class="page-hero-inner">
+          <p class="eyebrow-pill">Ten years, one operating role</p>
+          <h1>A week in the job.</h1>
+          <p class="page-hero-lead">
+            I managed a ten-year channel partnership with one of the largest K-12 education
+            technology providers in the United States. My role was to design and execute every
+            strategy needed to sell, implement, support and maintain its solutions in
+            New Zealand and Australian schools.
+          </p>
+          <p class="hero-note">
+            An illustrative composite, not the record of a particular week. No employer, customer,
+            school or contract is identified, and no commercial figures appear. The entries describe
+            categories of responsibility.
+          </p>
+        </div>
+      </section>
+
+      <section class="shell" aria-label="The three pillars">
+        <div class="pillar-keys">
+          <article class="pillar-key" data-pillar="growth">
+            <h2><span class="mark" aria-hidden="true"></span>Growth</h2>
+            <p>Where the pipeline came from, and how it was qualified before anyone picked up a phone.</p>
+          </article>
+          <article class="pillar-key" data-pillar="delivery">
+            <h2><span class="mark" aria-hidden="true"></span>Delivery</h2>
+            <p>What a customer actually received: implementation, enablement and the material behind it.</p>
+          </article>
+          <article class="pillar-key" data-pillar="operations">
+            <h2><span class="mark" aria-hidden="true"></span>Operations</h2>
+            <p>The commercial and logistical systems that let the other two run without supervision.</p>
+          </article>
+        </div>
+      </section>
+
+      <div class="filter-bar shell" id="week">
+        <div class="filter-bar-inner">
+          <p class="filter-label" id="filter-label">Show</p>
+          <div class="filter-group" id="filter-group" role="group" aria-labelledby="filter-label"></div>
+          <p class="filter-count" id="filter-count" aria-live="polite">30 of 30 entries shown</p>
+        </div>
+      </div>
+
+      <section class="week-section shell" aria-labelledby="week-title">
+        <h2 class="visually-hidden" id="week-title">The representative week</h2>
+        <div class="week-inner">
+          <p class="no-js-note">
+            This view needs JavaScript to filter and open entries. The week is described in full in
+            the CV.
+          </p>
+
+          <div class="week-grid" id="week-grid" role="table" aria-label="Representative week, grid view"></div>
+          <div class="agenda" id="agenda" aria-label="Representative week, agenda view"></div>
+
+          <div class="empty-state" id="empty-state" hidden>
+            <h3>Nothing selected.</h3>
+            <p>Choose a pillar above, or bring the whole week back.</p>
+            <button class="filter-button" type="button" data-reset>Show all three</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-close shell" id="close" aria-labelledby="close-title">
+        <div class="page-close-inner">
+          <h2 id="close-title">That is the shape of the job.</h2>
+          <p>
+            If the range above looks like the role you are trying to fill, the CV has the dates and
+            the references have the corroboration.
+          </p>
+          <div class="page-close-actions">
+            <a class="button" href="#top">Book a conversation</a>
+            <a class="button button-secondary" href="#top">Read the CV</a>
+            <a class="text-link" href="#top">See the reference letters</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Brad Friis</p>
+      <p>Auckland, New Zealand</p>
+    </footer>
+
+    <div class="detail-scrim" data-close aria-hidden="true"></div>
+
+    <aside class="detail-panel" id="detail-panel" role="dialog" aria-modal="true" aria-labelledby="detail-title" aria-hidden="true">
+      <div class="sheet-handle" aria-hidden="true"></div>
+      <div class="detail-head">
+        <p class="detail-eyebrow" id="detail-eyebrow"></p>
+        <button class="detail-close" type="button" data-close aria-label="Close entry">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="detail-body">
+        <h2 id="detail-title"></h2>
+        <p class="detail-copy" id="detail-copy"></p>
+        <div class="detail-meta">
+          <h3>Where else it ran</h3>
+          <p id="detail-related"></p>
+        </div>
+        <div class="detail-meta" id="detail-links-block" hidden>
+          <h3>Connected work</h3>
+          <div class="detail-links" id="detail-links"></div>
+        </div>
+      </div>
+    </aside>
+  </body>
+</html>

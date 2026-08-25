@@ -1,0 +1,1075 @@
+/* Representative week V2.
+
+   Every value below comes off the site's ladder (4 6 8 10 12 14 16 18 22 26 28 40 48 56 72),
+   its radius scale, its type scale or its colour tokens. Where a rule looks unusual there is a
+   note saying which site pattern it is reusing and why. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* `hidden` is set on the grid, agenda and empty state by app.js. Several of those carry a
+   later `display` rule, which wins on source order, so the attribute is given the weight the
+   spec's UA sheet cannot. */
+[hidden] {
+  display: none !important;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--ground);
+}
+
+body {
+  margin: 0;
+  color: var(--ink-secondary);
+  background: var(--surface);
+  font-family: var(--sans);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--ink);
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+p,
+li,
+dd,
+dt {
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 0.07em;
+  text-underline-offset: 0.22em;
+}
+
+a:hover {
+  color: var(--accent-strong);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  padding: 10px 14px;
+  border-radius: var(--r-sm);
+  color: #fff;
+  background: var(--ink);
+  text-decoration: none;
+  transform: translateY(-160%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* ------------------------------------------------------------------ header */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 16px var(--gutter);
+  border-bottom: 1px solid var(--line);
+  background: rgba(243, 241, 236, 0.82);
+  backdrop-filter: blur(16px);
+}
+
+.wordmark {
+  color: var(--ink);
+  font-size: var(--text-body);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.primary-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 22px;
+  margin-left: auto;
+  font-size: var(--text-nav);
+}
+
+.primary-nav a {
+  color: var(--ink-secondary);
+  text-decoration: none;
+}
+
+.primary-nav a:hover {
+  color: var(--accent);
+}
+
+.primary-nav a[aria-current="page"] {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.primary-nav .header-contact {
+  padding: 8px 16px;
+  border-radius: var(--r-pill);
+  color: #fff;
+  background: var(--ink);
+  font-weight: 600;
+}
+
+.primary-nav .header-contact:hover {
+  color: #fff;
+  background: var(--accent);
+}
+
+/* ----------------------------------------------------------------- shared */
+
+.shell {
+  padding-inline: var(--gutter);
+}
+
+.eyebrow-pill {
+  display: inline-block;
+  justify-self: start;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  margin: 0;
+  color: var(--accent);
+  font-size: var(--text-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: var(--r-pill);
+  color: #fff;
+  background: var(--accent);
+  font-size: var(--text-body);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.button:hover {
+  color: #fff;
+  background: var(--accent-strong);
+}
+
+.button-secondary {
+  color: var(--ink);
+  background: none;
+  box-shadow: inset 0 0 0 1px var(--line-hover);
+}
+
+.button-secondary:hover {
+  color: var(--ink);
+  background: var(--surface-alt);
+}
+
+.text-link {
+  color: var(--accent);
+  font-size: var(--text-meta);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+/* -------------------------------------------------------------- page hero */
+
+.page-hero {
+  padding-block: 72px 48px;
+}
+
+.page-hero-inner {
+  display: grid;
+  gap: 26px;
+  max-width: 1180px;
+  margin-inline: auto;
+}
+
+.page-hero h1 {
+  max-width: 18ch;
+  margin: 0;
+  font-size: var(--text-page-hero);
+  letter-spacing: -0.035em;
+  line-height: 1.06;
+}
+
+.page-hero-lead {
+  max-width: 60ch;
+  margin: 0;
+  color: var(--ink-tertiary);
+  font-size: var(--text-hero-lead);
+  line-height: 1.5;
+}
+
+/* The disclaimer is load-bearing (this is a composite, not a record) but it is not the
+   argument of the page. Held at meta size against a hairline rule so it reads as a footnote
+   raised to the top rather than as a second lead paragraph competing with the first. */
+.hero-note {
+  max-width: 62ch;
+  margin: 0;
+  padding-left: 16px;
+  border-left: 2px solid var(--line);
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+  line-height: 1.6;
+}
+
+/* ------------------------------------------------------------ pillar keys */
+
+/* Three standfirsts, one per pillar, on the hairline grid the site uses for its work and
+   capability cells. They do double duty: they explain the structure before the reader meets
+   the filter, and they teach the three marks so the calendar's markers need no legend. */
+.pillar-keys {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 1180px;
+  margin: 0 auto;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  background: var(--paper);
+}
+
+.pillar-key {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 26px 22px;
+  border-left: 1px solid var(--line-soft);
+}
+
+.pillar-key:first-child {
+  border-left: 0;
+}
+
+.pillar-key h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--text-lead);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.pillar-key p {
+  margin: 0;
+  color: var(--ink-secondary);
+  font-size: var(--text-meta);
+  line-height: 1.5;
+}
+
+/* The mark. A 3px stem, not a dot: at this size a circle reads as decoration and a square
+   reads as a checkbox, while a vertical stem reads as an index mark — and it is the same
+   shape as the accent rule the site already uses on quotes and asides. */
+.mark {
+  flex: none;
+  width: 3px;
+  height: 1em;
+  border-radius: 2px;
+  background: var(--pillar-color, var(--ink-tertiary));
+}
+
+[data-pillar="growth"] {
+  --pillar-color: var(--pillar-growth);
+  --pillar-wash: var(--pillar-growth-wash);
+}
+
+[data-pillar="delivery"] {
+  --pillar-color: var(--pillar-delivery);
+  --pillar-wash: var(--pillar-delivery-wash);
+}
+
+[data-pillar="operations"] {
+  --pillar-color: var(--pillar-operations);
+  --pillar-wash: var(--pillar-operations-wash);
+}
+
+/* ---------------------------------------------------------------- filters */
+
+/* Sticky under the header, which is 57px tall at the site's 16px padding + nav line height.
+   A hairline bottom edge only; a raised bar with a shadow would introduce a second elevation
+   language the site does not have. */
+.filter-bar {
+  position: sticky;
+  top: 57px;
+  z-index: 20;
+  padding-block: 14px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(243, 241, 236, 0.9);
+  backdrop-filter: blur(16px);
+}
+
+.filter-bar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  max-width: 1180px;
+  margin-inline: auto;
+}
+
+.filter-label {
+  margin: 0;
+  color: var(--ink-tertiary);
+  font-size: var(--text-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Built on the site's .letter-pill geometry — hairline border, pill radius, nav type — so a
+   filter reads as the same family of control as the letter buttons on the homepage. */
+.filter-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  color: var(--ink-secondary);
+  background: none;
+  font-size: var(--text-nav);
+  font-weight: 600;
+  line-height: 1.2;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.filter-button:hover {
+  border-color: var(--line-hover);
+  color: var(--ink);
+  background: var(--recessed);
+}
+
+/* Selection is carried by ink weight and a solid ground, not by a coloured fill: the accent
+   is barred from large fills on the live site, and a pillar-coloured button would put two of
+   the three states in greys and one in burnt sienna, which reads as one being primary. */
+.filter-button[aria-pressed="true"] {
+  border-color: var(--ink);
+  color: var(--paper);
+  background: var(--ink);
+}
+
+.filter-button[aria-pressed="true"] .mark {
+  background: var(--paper);
+}
+
+/* "All three" resets rather than toggles, so it must not sit in the same visual set as the
+   three pillar buttons — with four filled pills the reader cannot tell which are the choices.
+   It takes the outlined-secondary treatment and drops out entirely when it is already true. */
+.filter-reset {
+  border-color: transparent;
+  color: var(--ink-tertiary);
+  font-weight: 400;
+  text-decoration: underline;
+  text-decoration-color: var(--line-hover);
+  text-underline-offset: 0.22em;
+}
+
+.filter-reset:hover {
+  border-color: transparent;
+  color: var(--ink);
+  background: none;
+}
+
+.filter-reset[hidden] {
+  display: none !important;
+}
+
+.filter-count {
+  margin: 0;
+  margin-left: auto;
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------- section */
+
+.week-section {
+  padding-block: 48px 72px;
+}
+
+.week-inner {
+  max-width: 1180px;
+  margin-inline: auto;
+}
+
+/* ------------------------------------------------------------ desktop grid */
+
+.week-grid {
+  display: none;
+}
+
+/* One outer hairline, interior rules only. This is the site's .hairline-grid taken from two
+   columns to six, which is why the calendar reads as the same object as the work cards
+   rather than as a set of floating tiles with gaps and shadows between them. */
+@media (min-width: 62rem) {
+  .week-grid {
+    display: grid;
+    grid-template-columns: 104px repeat(5, minmax(0, 1fr));
+    border: 1px solid var(--line);
+    border-radius: var(--r-card);
+    background: var(--paper);
+    overflow: hidden;
+  }
+
+  .grid-corner,
+  .day-head,
+  .slot-head,
+  .grid-cell {
+    border-top: 1px solid var(--line-soft);
+    border-left: 1px solid var(--line-soft);
+  }
+
+  .grid-corner,
+  .day-head {
+    border-top: 0;
+  }
+
+  .grid-corner,
+  .slot-head {
+    border-left: 0;
+  }
+
+  .day-head {
+    padding: 16px 18px;
+    background: var(--recessed);
+  }
+
+  .grid-corner {
+    background: var(--recessed);
+  }
+
+  .day-head h3 {
+    margin: 0;
+    color: var(--ink);
+    font-size: var(--text-nav);
+    font-weight: 650;
+    letter-spacing: -0.01em;
+  }
+
+  /* The slot label sits in the gutter column, rotated upright and set as an enumeration —
+     the site's .enum treatment. It gives the grid a left spine so the rows read as time
+     bands without drawing a second heavy rule. */
+  .slot-head {
+    display: flex;
+    align-items: flex-start;
+    padding: 22px 16px;
+    background: var(--recessed);
+  }
+
+  .slot-head span {
+    color: var(--accent);
+    font-size: var(--text-enum);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .grid-cell {
+    padding: 12px;
+  }
+}
+
+/* ------------------------------------------------------------------ cards */
+
+/* A card is a hairline block on paper with a pillar stem down its left edge. No shadow, no
+   radius above --r-sm, no coloured fill: the elevation language of the site is a 1px rule
+   and a change of ground, and this stays inside it. */
+.entry {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 14px 12px 12px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--pillar-color, var(--ink-tertiary));
+  border-radius: var(--r-sm);
+  color: var(--ink-secondary);
+  background: var(--paper);
+  text-align: left;
+  transition: background-color 0.18s ease, border-color 0.18s ease;
+}
+
+.entry:hover {
+  border-color: var(--line-hover);
+  border-left-color: var(--pillar-color, var(--ink-tertiary));
+  background: var(--recessed);
+}
+
+.entry-pillar {
+  color: var(--ink-tertiary);
+  font-size: var(--text-enum);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.entry-title {
+  color: var(--ink);
+  font-size: var(--text-meta);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  text-wrap: pretty;
+}
+
+/* Selected state: the card takes the ink ground, the same inversion the header contact pill
+   uses. Ink rather than accent, and the stem stays its pillar colour and lifts to the dark
+   variant so the mark survives the inversion. */
+.entry[aria-expanded="true"] {
+  color: var(--ink-tertiary);
+  background: var(--stat-ground);
+  border-color: var(--stat-ground);
+}
+
+.entry[aria-expanded="true"] .entry-title {
+  color: #edeae4;
+}
+
+.entry[aria-expanded="true"] .entry-pillar {
+  color: #9a9289;
+}
+
+.entry[data-pillar="growth"][aria-expanded="true"] {
+  border-left-color: var(--accent-on-dark);
+}
+
+.entry[data-pillar="delivery"][aria-expanded="true"],
+.entry[data-pillar="operations"][aria-expanded="true"] {
+  border-left-color: #9a9289;
+}
+
+/* Connected entries. Text plus a dotted stem — never colour alone, and the label is real
+   text so it survives a screen reader and a greyscale print. */
+.entry.is-linked {
+  border-left-style: dotted;
+  background: var(--pillar-wash, var(--recessed));
+}
+
+.entry-link-note {
+  color: var(--ink-tertiary);
+  font-size: var(--text-enum);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.entry:not(.is-linked) .entry-link-note {
+  display: none;
+}
+
+/* ----------------------------------------------------------- mobile agenda */
+
+.agenda {
+  display: grid;
+  gap: 28px;
+}
+
+@media (min-width: 62rem) {
+  .agenda {
+    display: none;
+  }
+}
+
+.agenda-day {
+  display: grid;
+  gap: 10px;
+}
+
+/* Sticky day heading, kept from V1. It sits under the header and the filter bar, so its
+   offset is the sum of both; a full-bleed ground stops the cards showing through it. */
+.agenda-day-head {
+  position: sticky;
+  top: 128px;
+  z-index: 10;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0 8px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.agenda-day-head h3 {
+  margin: 0;
+  font-size: var(--text-title);
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+
+.agenda-day-head span {
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+  font-variant-numeric: tabular-nums;
+}
+
+.agenda .entry-slot {
+  color: var(--ink-tertiary);
+  font-size: var(--text-enum);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.week-grid .entry-slot {
+  display: none;
+}
+
+.agenda .entry-title {
+  font-size: var(--text-body);
+}
+
+/* The agenda card shows its summary; the grid card cannot afford the height. Same data,
+   different amount of it — the reading distance is different on a phone. */
+.entry-summary {
+  color: var(--ink-secondary);
+  font-size: var(--text-meta);
+  line-height: 1.45;
+}
+
+.week-grid .entry-summary {
+  display: none;
+}
+
+/* ------------------------------------------------------------ empty state */
+
+.empty-state {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 56px 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  background: var(--paper);
+  text-align: center;
+}
+
+.empty-state h3 {
+  margin: 0;
+  font-size: var(--text-h3);
+  letter-spacing: -0.025em;
+}
+
+.empty-state p {
+  max-width: 44ch;
+  margin: 0;
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+}
+
+/* ----------------------------------------------------- detail: desktop panel */
+
+/* V1 used a permanently mounted fixed panel. This is a slide-out that is only in the layout
+   when it is open, for one reason: a fixed panel that is always present has to be either
+   empty or stale before the reader has chosen anything, and an empty panel occupying a
+   third of the viewport is what made the prototype read as a template. */
+.detail-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(28, 25, 23, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+
+.detail-open .detail-scrim {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.detail-panel {
+  position: fixed;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 62rem) {
+  .detail-panel {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(440px, 38vw);
+    border-left: 1px solid var(--line);
+    background: var(--paper);
+    transform: translateX(100%);
+    transition: transform 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .detail-open .detail-panel {
+    transform: translateX(0);
+  }
+}
+
+/* --------------------------------------------------- detail: mobile sheet */
+
+@media (max-width: 61.99rem) {
+  .detail-panel {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    max-height: 86dvh;
+    border-top: 1px solid var(--line);
+    border-radius: var(--r-panel) var(--r-panel) 0 0;
+    background: var(--paper);
+    transform: translateY(100%);
+    transition: transform 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .detail-open .detail-panel {
+    transform: translateY(0);
+  }
+
+  /* The grab handle is the only affordance that says "this sheet came up and can go down".
+     It is not interactive — the close button and Escape do that — so it is aria-hidden. */
+  .sheet-handle {
+    flex: none;
+    width: 40px;
+    height: 4px;
+    margin: 10px auto 0;
+    border-radius: var(--r-pill);
+    background: var(--line-hover);
+  }
+}
+
+@media (min-width: 62rem) {
+  .sheet-handle {
+    display: none;
+  }
+}
+
+.detail-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 22px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.detail-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--ink-tertiary);
+  font-size: var(--text-enum);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.detail-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  margin: -10px -10px 0 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  color: var(--ink-secondary);
+  background: none;
+  font-size: var(--text-lead);
+  line-height: 1;
+}
+
+.detail-close:hover {
+  border-color: var(--line-hover);
+  color: var(--ink);
+  background: var(--recessed);
+}
+
+.detail-body {
+  overflow-y: auto;
+  padding: 22px;
+  overscroll-behavior: contain;
+}
+
+.detail-body h2 {
+  max-width: 24ch;
+  margin: 0 0 14px;
+  font-size: var(--text-h3);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.detail-copy {
+  max-width: 52ch;
+  margin: 0;
+  color: var(--ink-secondary);
+  line-height: 1.6;
+}
+
+.detail-meta {
+  display: grid;
+  gap: 8px;
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.detail-meta h3 {
+  margin: 0;
+  color: var(--ink-tertiary);
+  font-size: var(--text-enum);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.detail-meta p {
+  margin: 0;
+  color: var(--ink-secondary);
+  font-size: var(--text-meta);
+  line-height: 1.5;
+}
+
+/* Connections are buttons, not tags: the point of recording them is that a reader can
+   follow one. Set as text links rather than pills so a list of three does not become a
+   second row of chips competing with the filter bar. */
+.detail-links {
+  display: grid;
+  justify-items: start;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.detail-link {
+  padding: 0;
+  border: 0;
+  color: var(--accent);
+  background: none;
+  font-size: var(--text-meta);
+  font-weight: 600;
+  text-align: left;
+}
+
+.detail-link:hover {
+  color: var(--accent-strong);
+  text-decoration: underline;
+}
+
+/* ------------------------------------------------------------------ close */
+
+.page-close {
+  padding-block: 48px 72px;
+  border-top: 1px solid var(--line);
+  background: var(--surface-alt);
+}
+
+.page-close-inner {
+  display: grid;
+  gap: 18px;
+  max-width: 1180px;
+  margin-inline: auto;
+}
+
+.page-close h2 {
+  max-width: 24ch;
+  margin: 0;
+  font-size: var(--text-section);
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+}
+
+.page-close p {
+  max-width: 55ch;
+  margin: 0;
+  color: var(--ink-tertiary);
+  font-size: var(--text-lead);
+  line-height: 1.5;
+}
+
+.page-close-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  justify-content: space-between;
+  padding: 28px var(--gutter);
+  border-top: 1px solid var(--line);
+  color: var(--ink-tertiary);
+  background: var(--surface);
+  font-size: var(--text-meta);
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.no-js-note {
+  display: none;
+}
+
+html:not(.js-ready) .no-js-note {
+  display: block;
+  max-width: 1180px;
+  margin: 0 auto 26px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--paper);
+  color: var(--ink-secondary);
+  font-size: var(--text-meta);
+}
+
+/* -------------------------------------------------------------- responsive */
+
+@media (max-width: 61.99rem) {
+  .pillar-keys {
+    grid-template-columns: 1fr;
+  }
+
+  .pillar-key {
+    border-left: 0;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .pillar-key:first-child {
+    border-top: 0;
+  }
+
+  .filter-count {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* Ported verbatim from the live site's 640px block (global.css, 19 August 2026): five nav
+   items plus the wordmark cannot share 362px, so the wordmark takes its own row and the nav
+   sits beneath it. The header grows to ~101px stacked, which the sticky offsets below track. */
+@media (max-width: 40rem) {
+  :root {
+    --gutter: 14px;
+  }
+
+  .site-header {
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    padding-block: 12px;
+  }
+
+  .primary-nav {
+    width: 100%;
+    margin-left: 0;
+    gap: 14px;
+  }
+
+  .primary-nav .header-contact {
+    margin-left: auto;
+  }
+
+  .filter-bar {
+    top: 101px;
+  }
+
+  .agenda-day-head {
+    top: 172px;
+  }
+
+  .page-hero {
+    padding-block: 40px 28px;
+  }
+
+  .page-hero h1 {
+    font-size: 1.875rem;
+    letter-spacing: -0.025em;
+  }
+}
+
+@media (max-width: 30rem) {
+  .filter-bar-inner {
+    gap: 10px;
+  }
+
+  .filter-label {
+    width: 100%;
+  }
+
+  .filter-group {
+    width: 100%;
+  }
+
+  .filter-button {
+    flex: 1 1 auto;
+    justify-content: center;
+    padding: 8px 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

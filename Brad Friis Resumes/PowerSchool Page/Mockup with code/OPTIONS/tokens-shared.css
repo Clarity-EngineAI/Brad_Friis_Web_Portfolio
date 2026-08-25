@@ -1,0 +1,111 @@
+/* Site tokens — lifted verbatim from V3/tokens.css (which is itself lifted
+   from src/styles/global.css). Do not edit. */
+:root {
+  --ground: #e6e4df;
+  --surface: #f3f1ec;
+  --surface-alt: #ece9e2;
+  --paper: #fff;
+  --recessed: #faf9f6;
+  --ink: #1c1917;
+  --ink-secondary: #565049;
+  --ink-tertiary: #6e675f;
+  --line: rgba(28, 25, 23, 0.1);
+  --line-soft: rgba(28, 25, 23, 0.06);
+  --line-hover: rgba(28, 25, 23, 0.24);
+  --accent: #9c3d1e;
+  --accent-strong: #7f3018;
+  --accent-on-dark: #e8935f;
+  --stat-ground: #17140f;
+
+  --r-sm: 10px;
+  --r-md: 12px;
+  --r-card: 14px;
+  --r-panel: 16px;
+  --r-shell: 18px;
+  --r-portrait: 22px;
+  --r-pill: 999px;
+
+  --text-enum: 0.6875rem;
+  --text-eyebrow: 0.6875rem;
+  --text-meta: 0.78125rem;
+  --text-nav: 0.84375rem;
+  --text-body: 0.9375rem;
+  --text-lead: 1.0625rem;
+  --text-title: 1.25rem;
+  --text-h3: 1.375rem;
+
+  --text-page-hero: clamp(2rem, 4.4vw, 2.875rem);
+  --text-section: clamp(1.75rem, 3.4vw, 2.5rem);
+  --text-hero-lead: clamp(1.0625rem, 1.4vw, 1.25rem);
+
+  --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Growth — unchanged in every option. The site accent is step 1. */
+  --c-pipeline: #9c3d1e;
+  --c-targeting: #a4501c;
+  --c-campaigns: #9a5c14;
+  --c-measurement: #8a6510;
+
+  /* Delivery — unchanged in every option. */
+  --c-implementation: #08696b;
+  --c-enablement: #0d6a58;
+  --c-learning-design: #166b46;
+  --c-support: #256c33;
+
+  --p-growth: #9c3d1e;
+  --p-delivery: #08696b;
+  --wash-growth: rgba(156, 61, 30, 0.05);
+  --wash-delivery: rgba(8, 105, 107, 0.05);
+}
+
+/* ============================================================
+   OPERATIONS — the four candidate families. Applied by setting
+   data-ops="graphite|ink-blue|clay" on an ancestor.
+   ============================================================ */
+
+/* CURRENT (what is in V3 now) — violet to magenta. Shown for comparison. */
+[data-ops='violet'] {
+  --c-commercial: #5b4a8a;
+  --c-partnerships: #6f4585;
+  --c-people: #82407a;
+  --c-systems: #8f3d66;
+  --p-operations: #5b4a8a;
+  --wash-operations: rgba(91, 74, 138, 0.05);
+  --p-operations-on-dark: #c79ae0;
+}
+
+/* A — WARM GRAPHITE. Operations stops being a hue and becomes ink.
+   Steps walk light-to-dark through the site's own warm greys. */
+[data-ops='graphite'] {
+  --c-commercial: #3f3a34;
+  --c-partnerships: #514b43;
+  --c-people: #635c53;
+  --c-systems: #756d63;
+  --p-operations: #3f3a34;
+  --wash-operations: rgba(63, 58, 52, 0.05);
+  --p-operations-on-dark: #cfc7bb;
+}
+
+/* B — INK BLUE. A single dark navy family, well clear of Delivery's teal
+   because it is bluer and much darker, not merely a different hue. */
+[data-ops='ink-blue'] {
+  --c-commercial: #1f3a63;
+  --c-partnerships: #26406b;
+  --c-people: #2d4670;
+  --c-systems: #364d75;
+  --p-operations: #1f3a63;
+  --wash-operations: rgba(31, 58, 99, 0.05);
+  --p-operations-on-dark: #9db9e0;
+}
+
+/* C — CLAY / OXBLOOD. Stays in the warm half with Growth but sits far
+   darker and redder, so it reads as the same material family, deeper. */
+[data-ops='clay'] {
+  --c-commercial: #5e2b2b;
+  --c-partnerships: #6a3230;
+  --c-people: #743a33;
+  --c-systems: #7d4238;
+  --p-operations: #5e2b2b;
+  --wash-operations: rgba(94, 43, 43, 0.05);
+  --p-operations-on-dark: #d9a08f;
+}

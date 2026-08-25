@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Representative Week — options to choose from</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="lab.css">
+</head>
+<body data-ops="graphite">
+
+<header class="lab-head">
+  <span class="t-label">Decision sheet</span>
+  <h1>Four decisions, rendered rather than described.</h1>
+  <p>
+    Every option below is live CSS on the real tokens, not a picture of one. Click the pills,
+    they work. Pick one from each section and the V3 page gets built to match. Nothing here is
+    applied to V3 yet.
+  </p>
+</header>
+
+<nav class="lab-nav" aria-label="Sections">
+  <a href="#colour">1 · Operations colour</a>
+  <a href="#pills">2 · Pill design</a>
+  <a href="#mobile">3 · Mobile filter</a>
+  <a href="#length">4 · Page length</a>
+  <a href="#verdict">Recommendation</a>
+</nav>
+
+<!-- ==================================================== 1 · COLOUR -->
+<section class="lab-section" id="colour">
+  <span class="t-label">Decision one</span>
+  <h2>Operations is purple. It should not be.</h2>
+  <p class="lede">
+    Growth (sienna) and Delivery (teal) are settled and unchanged in all four. Only the
+    Operations family moves. The test that matters is the bottom row of each card: a 3px rule
+    is how the colour actually appears on a calendar card, and it is where the current violet
+    was chosen to fix a clash with teal.
+  </p>
+</section>
+
+<div class="specimen-stack">
+
+  <!-- CURRENT -->
+  <article class="specimen" data-ops="violet">
+    <div class="specimen-head">
+      <h3>Current</h3>
+      <span class="specimen-tag is-current">In V3 now</span>
+      <p>Violet to magenta. Chosen to escape a clash with Delivery's teal, not chosen on merit.</p>
+    </div>
+    <div class="specimen-body">
+      <div class="swatch-set">
+        <div class="swatch-family">
+          <h4 style="color: var(--p-operations)">Operations — violet</h4>
+          <div class="swatch-row"><span class="swatch-chip" style="background: var(--c-commercial)"></span><span class="swatch-meta"><strong>Commercial and finance</strong><code>#5b4a8a</code></span></div>
+          <div class="swatch-row"><span class="swatch-chip" style="background: var(--c-partnerships)"></span><span class="swatch-meta"><strong>Partnerships and suppliers</strong><code>#6f4585</code></span></div>
+          <div class="swatch-row"><span class="swatch-chip" style="background: var(--c-people)"></span><span class="swatch-meta"><strong>People and resourcing</strong><code>#82407a</code></span></div>
+          <div class="swatch-row"><span class="swatch-chip" style="background: var(--c-systems)"></span><span class="swatch-meta"><strong>Systems and governance</strong><code>#8f3d66</code></span></div>
+        </div>
+        <div>
+          <div class="rule-test">
+            <div class="rule-test-row"><span class="rule-test-swatch" style="background: var(--c-pipeline)"></span><span class="rule-test-label">Growth · pipeline</span></div>
+            <div class="rule-test-row"><span class="rule-test-swatch" style="background: var(--c-implementation)"></span><span class="rule-test-label">Delivery · implementation</span></div>
+            <div class="rule-test-row"><span class="rule-test-swatch" style="background: var(--c-commercial)"></span><span class="rule-test-label">Operations · commercial</span></div>
+            <div class="rule-test-row"><span class="rule-test-swatch" style="background: var(--c-systems)"></span><span class="rule-test-label">Operations · systems</span></div>
+          </div>
+          <div class="mock-entries">
+            <div class="entry" style="--cat-color: var(--c-commercial); --cat-wash: var(--wash-operations);">
+              <span class="entry-cat">Commercial and finance</span>
+              <span class="entry-title">Quarterly reforecast against signed contracts</span>
+              <span class="entry-summary">Reconciled committed revenue to the delivery calendar.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen-foot">
+      <p class="con">Purple appears nowhere on the site. It is the one hue with no relationship to the accent.</p>
+      <p class="con">Reads as a third brand rather than a third pillar.</p>
+    </div>
+  </article>
+
+  <!-- A -->
+  <article class="specimen" data-ops="graphite">
+    <div class="specimen-head">
+      <h3>A · Warm graphite</h3>
+      <span class="specimen-tag is-rec">Recommended</span>
+      <p>Operations stops being a hue and becomes ink. Two colours plus graphite, drawn from the site's own greys.</p>
+    </div>
+    <div class="specimen-body">
+      <div class="swatch-set">
+        <div class="swatch-family">
+          <h4 style="color: var(--p-operations)">Operations — warm graphite</h4>
+          <div class="swatch-row"><span class="swatch-chip" style="background: var(--c-commercial)"></span><span class="swatch-meta"><strong>Commercial and finance</strong><code>#3f3a34</code></span></div>
+          <div class="swatch-row"><span class="swatch-chip" style="background: var(--c-partnerships)"></span><span class="swatch-meta"><strong>Partnerships and suppliers</strong><code>#514b43</code></span></div>
+          <div class="swatch-row"><span class="swatch-chip" style="background: var(--c-people)"></span><span class="swatch-meta"><strong>People and resourcing</strong><code>#635c53</code></span></div>
+          <div class="swatch-row"><span class="swatch-chip" style="background: var(--c-systems)"></span><span class="swatch-meta"><strong>Systems and governance</strong><code>#756d63</code></span></div>
+        </div>
+        <div>
+          <div class="rule-test">
+            <div class="rule-test-row"><span class="rule-test-swatch" style="background: var(--c-pipeline)"></span><span class="rule-test-label">Growth · pipeline</span></div>
+            <div class="rule-test-row"><span class="rule-test-swatch" style="background: var(--c-implementation)"></span><span class="rule-test-label">Delivery · implementation</span></div>
+            <div class="rule-test-row"><span class="rule-test-swatch" style="background: var(--c-commercial)"></span><span class="rule-test-label">Operations · commercial</span></div>
+            <div class="rule-test-row"><span class="rule-test-swatch" style="background: var(--c-systems)"></span><span class="rule-test-label">Operations · systems</span></div>
+          </div>
+          <div class="mock-entries">
+            <div class="entry" style="--cat-color: var(--c-commercial); --cat-wash: var(--wash-operations);">
+              <span class="entry-cat">Commercial and finance</span>
+              <span class="entry-title">Quarterly reforecast against signed contracts</span>
+              <span class="entry-summary">Reconciled committed revenue to the delivery calendar.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen-foot">
+      <p class="pro">Two hues plus ink reads more expensive than three hues. Restraint is the site's whole manner.</p>
+      <p class="pro">Honest to the content: Operations is the structural pillar, and it now looks structural.</p>
+      <p class="pro">Cannot clash with anything, because it is not competing on hue.</p>
+      <p class="con">The four steps are closer together than four violets. Separating them needs the label, not just the rule.</p>
+    </div>
+  </article>
+
+  <!-- B -->
+  <article class="specimen" data-ops="ink-blue">
+    <div class="specimen-head">
+      <h3>B · Ink blue</h3>
+      <span class="specimen-tag">Alternative</span>
+      <p>A dark navy family. Clears Delivery's teal by being much darker and much bluer, not by hue distance alone.</p>
+    </div>
+    <div class="specimen-body">
+      <div class="swatch-set">
+        <div class="swatch-family">
+          <h4 style="color: var(--p-operations)">Operations — ink blue</h4>
+          <div class="swatch-row"><span class="swatch-chip" style="background: var(--c-commercial)"></span><span class="swatch-meta"><strong>Commercial and finance</strong><code>#1f3a63</code></span></div>
+          <div class="swatch-row"><span class="swatch-chip" style="background: var(--c-partnerships)"></span><span class="swatch-meta"><strong>Partnerships and suppliers</strong><code>#26406b</code></span></div>
+          <div class="swatch-row"><span class="swatch-chip" style="background: var(--c-people)"></span><span class="swatch-meta"><strong>People and resourcing</strong><code>#2d4670</code></span></div>
+          <div class="swatch-row"><span class="swatch-chip" style="background: var(--c-systems)"></span><span class="swatch-meta"><strong>Systems and governance</strong><code>#364d75</code></span></div>
+        </div>
+        <div>
+          <div class="rule-test">
+            <div class="rule-test-row"><span class="rule-test-swatch" style="background: var(--c-pipeline)"></span><span class="rule-test-label">Growth · pipeline</span></div>
+            <div class="rule-test-row"><span class="rule-test-swatch" style="background: var(--c-implementation)"></span><span class="rule-test-label">Delivery · implementation</span></div>
+            <div class="rule-test-row"><span class="rule-test-swatch" style="background: var(--c-commercial)"></span><span class="rule-test-label">Operations · commercial</span></div>
+            <div class="rule-test-row"><span class="rule-test-swatch" style="background: var(--c-systems)"></span><span class="rule-test-label">Operations · systems</span></div>
+          </div>
+          <div class="mock-entries">
+            <div class="entry" style="--cat-color: var(--c-commercial); --cat-wash: var(--wash-operations);">
+              <span class="entry-cat">Commercial and finance</span>
+              <span class="entry-title">Quarterly reforecast against signed contracts</span>
+              <span class="entry-summary">Reconciled committed revenue to the delivery calendar.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen-foot">
+      <p class="pro">Keeps three distinct hues, so the pillars stay colour-coded rather than colour-plus-ink.</p>
+      <p class="pro">Navy is a plain business colour. It carries none of purple's oddness.</p>
+      <p class="con">This is the clash the original comment was trying to avoid. Look at rows 2 and 3 above at 3px and judge it yourself.</p>
+      <p class="con">Cool-cool pairing pulls the page away from the site's warm ground.</p>
+    </div>
+  </article>
+
+  <!-- C -->
+  <article class="specimen" data-ops="clay">
+    <div class="specimen-head">
+      <h3>C · Clay</h3>
+      <span class="specimen-tag">Alternative</span>
+      <p>Deep oxblood. Stays in the warm half with Growth but sits far darker, so it reads as the same material, deeper.</p>
+    </div>
+    <div class="specimen-body">
+      <div class="swatch-set">
+        <div class="swatch-family">
+          <h4 style="color: var(--p-operations)">Operations — clay</h4>
+          <div class="swatch-row"><span class="swatch-chip" style="background: var(--c-commercial)"></span><span class="swatch-meta"><strong>Commercial and finance</strong><code>#5e2b2b</code></span></div>
+          <div class="swatch-row"><span class="swatch-chip" style="background: var(--c-partnerships)"></span><span class="swatch-meta"><strong>Partnerships and suppliers</strong><code>#6a3230</code></span></div>
+          <div class="swatch-row"><span class="swatch-chip" style="background: var(--c-people)"></span><span class="swatch-meta"><strong>People and resourcing</strong><code>#743a33</code></span></div>
+          <div class="swatch-row"><span class="swatch-chip" style="background: var(--c-systems)"></span><span class="swatch-meta"><strong>Systems and governance</strong><code>#7d4238</code></span></div>
+        </div>
+        <div>
+          <div class="rule-test">
+            <div class="rule-test-row"><span class="rule-test-swatch" style="background: var(--c-pipeline)"></span><span class="rule-test-label">Growth · pipeline</span></div>
+            <div class="rule-test-row"><span class="rule-test-swatch" style="background: var(--c-implementation)"></span><span class="rule-test-label">Delivery · implementation</span></div>
+            <div class="rule-test-row"><span class="rule-test-swatch" style="background: var(--c-commercial)"></span><span class="rule-test-label">Operations · commercial</span></div>
+            <div class="rule-test-row"><span class="rule-test-swatch" style="background: var(--c-systems)"></span><span class="rule-test-label">Operations · systems</span></div>
+          </div>
+          <div class="mock-entries">
+            <div class="entry" style="--cat-color: var(--c-commercial); --cat-wash: var(--wash-operations);">
+              <span class="entry-cat">Commercial and finance</span>
+              <span class="entry-title">Quarterly reforecast against signed contracts</span>
+              <span class="entry-summary">Reconciled committed revenue to the delivery calendar.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen-foot">
+      <p class="pro">The warmest, most site-native of the three. Everything stays in one temperature.</p>
+      <p class="con">Now it is Growth that has the clash. Rows 1 and 3 are both red-browns.</p>
+      <p class="con">Two red families and one teal is an unbalanced set. Growth stops owning the accent.</p>
+    </div>
+  </article>
+
+</div>
+
+<!-- ==================================================== 2 · PILLS -->
+<section class="lab-section" id="pills">
+  <span class="t-label">Decision two</span>
+  <h2>The pills read as component-library default.</h2>
+  <p class="lede">
+    They are 999px lozenges with a 1px hairline on white, repeated sixteen times in two sizes.
+    Form never varies; only size and hue do. That uniformity is the signature you are reacting to.
+    All four below are live — click them. Operations is showing warm graphite so you are judging
+    one decision at a time.
+  </p>
+</section>
+
+<div class="specimen-stack">
+
+  <article class="specimen" data-pill="current">
+    <div class="specimen-head">
+      <h3>Current</h3>
+      <span class="specimen-tag is-current">In V3 now</span>
+      <p>Pill radius, hairline border, white fill, coloured text on selection.</p>
+    </div>
+    <div class="specimen-body" data-mock-bar></div>
+    <div class="specimen-foot">
+      <p class="con">The default badge of every generated UI since 2023.</p>
+      <p class="con">Borrows a shape language the rest of the page does not use — the site is 10px corners and flat grounds.</p>
+      <p class="con">Sixteen identical silhouettes give the eye no way to tell row one from row two except size.</p>
+    </div>
+  </article>
+
+  <article class="specimen" data-pill="rules">
+    <div class="specimen-head">
+      <h3>A · Rules, not pills</h3>
+      <span class="specimen-tag">Alternative</span>
+      <p>Border and fill removed entirely. Each control is a label on a rule that thickens and colours when selected.</p>
+    </div>
+    <div class="specimen-body" data-mock-bar></div>
+    <div class="specimen-foot">
+      <p class="pro">The most restrained option, and the closest to the site's rule-driven manner.</p>
+      <p class="pro">Makes the filter row a literal legend for the 3px rules on the cards below.</p>
+      <p class="con">Reads as tabs. Tabs imply one selection at a time, but this filter is additive and multi-select.</p>
+      <p class="con">The 44px tap target is invisible, which hurts most on the phone.</p>
+    </div>
+  </article>
+
+  <article class="specimen" data-pill="ledger">
+    <div class="specimen-head">
+      <h3>B · Ledger chips</h3>
+      <span class="specimen-tag is-rec">Recommended</span>
+      <p>10px corners, no border, flat tile, 3px coloured left edge — the same device the calendar cards already use.</p>
+    </div>
+    <div class="specimen-body" data-mock-bar></div>
+    <div class="specimen-foot">
+      <p class="pro">The filter and the calendar become visibly the same material. No other option does this — compare the chips to the cards below them.</p>
+      <p class="pro">Uses only tokens the site already ships: --r-sm, --surface-alt, the 3px rule.</p>
+      <p class="pro">Selection is a solid fill, which is unmistakable at a glance and survives being small on a phone.</p>
+      <p class="con">Denser and heavier than the current row. Twelve filled chips is a lot of colour when everything is on.</p>
+    </div>
+  </article>
+
+  <article class="specimen" data-pill="underline">
+    <div class="specimen-head">
+      <h3>C · Underline set</h3>
+      <span class="specimen-tag">Alternative</span>
+      <p>Pill silhouette kept, fill and border stripped. Colour arrives as an underline that grows on selection.</p>
+    </div>
+    <div class="specimen-body" data-mock-bar></div>
+    <div class="specimen-foot">
+      <p class="pro">Lightest of the four. The filter bar almost disappears until used.</p>
+      <p class="pro">The grow animation makes selection feel deliberate.</p>
+      <p class="con">Least differentiated from what is there now, so it does least about the original complaint.</p>
+      <p class="con">Unselected chips have no edge at all, so the row reads as loose text rather than controls.</p>
+    </div>
+  </article>
+
+</div>
+
+<!-- ==================================================== 3 · MOBILE -->
+<section class="lab-section" id="mobile">
+  <span class="t-label">Decision three</span>
+  <h2>On a phone, eight of the twelve chips cannot be found.</h2>
+  <p class="lede">
+    Measured at 390px: the chip row is 1,303px wide inside a 390px viewport, and the scrollbar is
+    deliberately hidden. Roughly 913px of controls sit off-screen with no affordance saying so.
+    Both options below are shown in a phone frame at real width. The three pillar buttons fit at
+    334px and are kept in both.
+  </p>
+</section>
+
+<div class="specimen-stack">
+
+  <article class="specimen" data-pill="ledger">
+    <div class="specimen-head">
+      <h3>Current on mobile</h3>
+      <span class="specimen-tag is-current">In V3 now</span>
+      <p>A horizontally scrolling row of twelve, with the scrollbar suppressed.</p>
+    </div>
+    <div class="specimen-body">
+      <div class="phone-frame">
+        <div class="phone-frame-inner">
+          <div class="mock-bar">
+            <div class="mock-bar-head">
+              <span class="t-label">Filter</span>
+              <span class="t-numeral">30 of 30</span>
+            </div>
+            <div class="filter-pillars" data-pillars-only></div>
+            <div class="filter-cats" data-cats-only></div>
+          </div>
+          <div class="scroll-proof">
+            Drag the row above sideways. Everything past "Campaigns" is invisible until you do,
+            and nothing on screen tells you it is there.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen-foot">
+      <p class="con">Four of the twelve areas of work are effectively undiscoverable on a phone.</p>
+      <p class="con">Horizontal drag inside a vertically scrolling page is a fight, not a gesture.</p>
+    </div>
+  </article>
+
+  <article class="specimen" data-pill="ledger">
+    <div class="specimen-head">
+      <h3>A · Sheet</h3>
+      <span class="specimen-tag is-rec">Recommended</span>
+      <p>One "Areas" button opens the existing bottom sheet, listing all twelve grouped by pillar. No new pattern.</p>
+    </div>
+    <div class="specimen-body">
+      <div class="phone-frame">
+        <div class="phone-frame-inner">
+          <div class="mock-bar">
+            <div class="mock-bar-head">
+              <span class="t-label">Filter</span>
+              <span class="t-numeral">30 of 30</span>
+            </div>
+            <div class="filter-pillars" data-pillars-only></div>
+            <button class="summary-trigger" type="button">
+              <span class="trigger-swatches">
+                <i style="background: var(--c-pipeline)"></i>
+                <i style="background: var(--c-implementation)"></i>
+                <i style="background: var(--c-commercial)"></i>
+              </span>
+              Areas of work
+              <span class="count-badge">All 12</span>
+            </button>
+          </div>
+          <div class="sheet-mock" data-sheet></div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen-foot">
+      <p class="pro">All twelve visible at once, grouped and labelled by pillar. Nothing hidden.</p>
+      <p class="pro">Reuses the dialog the page already ships for entry detail. No new component.</p>
+      <p class="pro">Full-width 44px rows are the easiest thing to hit one-handed.</p>
+      <p class="pro">Saves ~50px of sticky bar height, because row two collapses to one button.</p>
+      <p class="con">Selecting takes a tap to open and a tap to close. Two taps, not one.</p>
+    </div>
+  </article>
+
+  <article class="specimen" data-pill="ledger">
+    <div class="specimen-head">
+      <h3>B · Native select</h3>
+      <span class="specimen-tag">Alternative</span>
+      <p>A plain multi-select. The OS renders the picker.</p>
+    </div>
+    <div class="specimen-body">
+      <div class="phone-frame">
+        <div class="phone-frame-inner">
+          <div class="mock-bar">
+            <div class="mock-bar-head">
+              <span class="t-label">Filter</span>
+              <span class="t-numeral">30 of 30</span>
+            </div>
+            <div class="filter-pillars" data-pillars-only></div>
+            <label class="summary-trigger" style="padding: 0;">
+              <select multiple size="1" aria-label="Areas of work" style="width: 100%; min-height: 46px; border: 0; background: transparent; padding: 10px 14px; font: inherit; color: inherit;">
+                <optgroup label="Growth">
+                  <option>Pipeline and qualification</option>
+                  <option>Data and targeting</option>
+                  <option>Campaigns and events</option>
+                  <option>Measurement</option>
+                </optgroup>
+                <optgroup label="Delivery">
+                  <option>Technical implementation</option>
+                  <option>Customer enablement</option>
+                  <option>Learning design</option>
+                  <option>Support and service</option>
+                </optgroup>
+                <optgroup label="Operations">
+                  <option>Commercial and finance</option>
+                  <option>Partnerships</option>
+                  <option>People and resourcing</option>
+                  <option>Systems and governance</option>
+                </optgroup>
+              </select>
+            </label>
+          </div>
+          <div class="scroll-proof">
+            The OS picker cannot show colour swatches, so the link between a filter and the
+            coloured rule on a card is broken at exactly the moment the reader needs it.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="specimen-foot">
+      <p class="pro">Zero custom code. Free accessibility.</p>
+      <p class="con">No colour. The whole point of the filter is that it keys the calendar's colours.</p>
+      <p class="con">Looks like a form control on a page that has none. Renders differently on every OS.</p>
+    </div>
+  </article>
+
+</div>
+
+<!-- ==================================================== 4 · LENGTH -->
+<section class="lab-section" id="length">
+  <span class="t-label">Decision four</span>
+  <h2>1,209px of preamble before the first calendar entry.</h2>
+  <p class="lede">
+    Measured on a 390 × 844 phone. The page is 6,745px — eight screens. The hero and the pillar
+    cards together take 1.4 screens before any work appears. Below, drawn to scale, is what each
+    cut buys. The dashed line is the fold.
+  </p>
+</section>
+
+<div class="specimen-stack">
+  <article class="specimen">
+    <div class="specimen-head">
+      <h3>What each cut buys</h3>
+      <span class="specimen-tag">To scale · 390 × 844</span>
+      <p>Bands are proportional to real measured heights. Teal is calendar content.</p>
+    </div>
+    <div class="specimen-body">
+      <div class="length-compare">
+
+        <div class="length-col">
+          <h4>Now</h4>
+          <p class="scale-note">First entry at 1,209px · 1.43 screens down</p>
+          <div class="phone" style="height: 300px;">
+            <div class="phone-band is-hero" style="height: 22%;">Hero 538px</div>
+            <div class="phone-band is-pillars" style="height: 27%;">Pillar cards 671px</div>
+            <div class="phone-band is-filter" style="height: 6%;">Filter 129px</div>
+            <div class="phone-band is-cal" style="height: 45%;">Calendar</div>
+            <div class="fold-line" style="top: 34%;"><span class="fold-tag">Fold</span></div>
+          </div>
+        </div>
+
+        <div class="length-col">
+          <h4>Cut 1 · Fold pillar cards into the filter</h4>
+          <p class="scale-note">Saves 671px · first entry at 538px</p>
+          <div class="phone" style="height: 300px;">
+            <div class="phone-band is-hero" style="height: 22%;">Hero 538px</div>
+            <div class="phone-band is-filter" style="height: 6%;">Filter 129px</div>
+            <div class="phone-band is-cal" style="height: 72%;">Calendar</div>
+            <div class="fold-line" style="top: 34%;"><span class="fold-tag">Fold</span></div>
+          </div>
+        </div>
+
+        <div class="length-col">
+          <h4>Cut 1 + 2 · Disclaimer to the foot</h4>
+          <p class="scale-note">Saves 921px · first entry at 288px</p>
+          <div class="phone" style="height: 300px;">
+            <div class="phone-band is-hero" style="height: 12%;">Hero 288px</div>
+            <div class="phone-band is-filter" style="height: 6%;">Filter 129px</div>
+            <div class="phone-band is-cal" style="height: 82%;">Calendar</div>
+            <div class="fold-line" style="top: 34%;"><span class="fold-tag">Fold</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="specimen-foot">
+      <p class="pro">Cut 1 is structural — the pillar cards are a legend for a legend, because the chips beneath them already carry the same colour key. No copy is touched.</p>
+      <p class="pro">Cut 2 moves the "no employer is identified" note to the page foot, where a disclaimer belongs. No words change, only position.</p>
+      <p class="con">Cut 3 would be trimming the standfirst, which is copy. Left alone — you said you would advise on copy.</p>
+    </div>
+  </article>
+</div>
+
+<!-- ==================================================== VERDICT -->
+<section class="verdict" id="verdict">
+  <span class="t-label">If you want one answer</span>
+  <h2>Graphite, ledger chips, sheet, both cuts.</h2>
+  <ol>
+    <li><strong>Colour: A, warm graphite.</strong> Purple was a patch for a clash. Ink is not a patch — it is the honest answer for the structural pillar, and it makes the page look more restrained rather than less considered.</li>
+    <li><strong>Pills: B, ledger chips.</strong> It is the only option that makes the filter and the calendar the same material, and it invents nothing — 10px corners and a 3px left rule are both already on the page.</li>
+    <li><strong>Mobile: A, sheet.</strong> The scrolling row hides a third of the content. The sheet reuses a dialog you already ship.</li>
+    <li><strong>Length: cuts 1 and 2.</strong> Together they put the first calendar entry at 288px, above the fold, with the H1 still on screen. Neither touches a word of copy.</li>
+  </ol>
+</section>
+
+<script src="lab.js"></script>
+</body>
+</html>

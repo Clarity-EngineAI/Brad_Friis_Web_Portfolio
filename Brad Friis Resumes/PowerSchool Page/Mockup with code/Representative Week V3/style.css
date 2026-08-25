@@ -1,0 +1,1557 @@
+/* ============================================================================
+   Representative week — V3
+
+   TYPOGRAPHIC SYSTEM
+
+   V3.3 audit (25 August 2026). Brad: "too many fonts and sizes competing for
+   hierarchy." The six roles were sound; the page was not spending them. Three
+   faults, all fixed here:
+
+   - NUMERAL existed for one thing (the agenda's entry count) and that count
+     is banned. The role is deleted, not merely unused.
+   - The card carried FOUR voices — slot, label, title, summary — inside a
+     189px box. It now carries exactly TWO: label and title.
+   - LABEL had drifted into four near-copies: .t-label at 0.14em, .entry-cat
+     at 0.12em, .slot-head at 0.14em, .entry-slot at 0.1em. Four tracking
+     values doing one job is precisely the clash. One value now: 0.12em.
+
+   Five roles, used everywhere and nowhere else:
+
+   1. DISPLAY   --text-page-hero / 640 / -0.03em / --ink
+      The H1 only. Tight tracking is what makes a large size read as set
+      rather than as scaled-up body copy.
+
+   2. LEAD      --text-hero-lead / 400 / -0.01em / --ink-secondary, 62ch
+      Hero and standfirst paragraphs. Secondary ink, not primary — the lead
+      must sit below the display, and size alone will not do that.
+
+   3. LABEL     --text-enum / 620 / 0.12em / uppercase / hue
+      Card category eyebrows, slot names, dialog eyebrow, filter actions.
+      This is the role that carries the colour. Uppercase at 11px with heavy
+      tracking is unreadable as prose and perfectly readable as a tag, which
+      is the point. ONE tracking value, everywhere it appears.
+
+   4. TITLE     --text-card-title / 600 / -0.011em / --ink
+      Card titles. The single most-read text on the page, and now the only
+      sentence-case text on a card. Set tighter than body so a two-line title
+      holds together as one object.
+
+   5. BODY      --text-meta / 400 / --ink-secondary / 1.5
+      Dialog copy, pillar-key copy, day headings. NOT used on cards.
+
+   The page uses exactly four weights: 400, 500, 600, 640. Not "some bold
+   things" — four values, each with a job.
+
+   THE ONE-VIEWPORT RULE (V3.3, the headline change)
+
+   Brad: scrolling the grid under sticky chrome "kills the whole effect of
+   seeing it all at once." The grid is now sized so all thirty entries read as
+   one object at 1440x900 with nothing sticky above them but the site header.
+   What paid for it, in order of how much each returned:
+
+   - Card summaries moved into the dialog, which already repeated them
+     verbatim. Cards are label + title. (~76px per card row)
+   - The hero eyebrow and the "The week" zone label are gone. (~50px)
+   - Hero, filter bar and grid padding tightened one step down the ladder.
+   - Desktop stickiness removed entirely: if it all fits, nothing needs to
+     follow the reader, and nothing floats over the cards it filters.
+
+   Long-form justification in DESIGN-DECISIONS.md.
+   ============================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('tokens.css');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* `hidden` is set by app.js on elements that also carry a later `display`
+   rule. Source order would let the display rule win, so the attribute is
+   given the priority its semantics imply. */
+[hidden] {
+  display: none !important;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /* The reserved gutter is painted from <html>, not <body>: an unpainted
+     gutter renders as a white band down the right edge against this page's
+     warm off-white ground. */
+  background: var(--surface);
+  /* Reserved permanently, not only while the dialog is open: the dialog locks
+     scroll on <html>, and a gutter that appeared at lock time would shift the
+     whole layout sideways by the scrollbar width as the modal opened. */
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--text-body);
+  line-height: 1.55;
+  font-feature-settings: 'cv11', 'ss01';
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, p, figure {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:where(a, button):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.shell {
+  padding-inline: var(--gutter);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------- ROLE 1-6
+   The named type roles, declared once as utilities so the rest of the
+   stylesheet composes them rather than re-inventing sizes inline. */
+
+.t-display {
+  /* The full hero scale, not the interior-page scale. This page is a
+     standalone argument and the H1 is the only thing on it allowed to be
+     loud; everything below it steps down from here. */
+  font-size: var(--text-hero);
+  font-weight: 640;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  color: var(--ink);
+}
+
+.t-lead {
+  font-size: var(--text-hero-lead);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+  color: var(--ink-secondary);
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+.t-label {
+  font-size: var(--text-enum);
+  font-weight: 620;
+  /* 0.12em, not 0.14em. One tracking value for every label on the page —
+     see the V3.3 audit at the top of this file. */
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+/* The NUMERAL role is deleted. It existed for the agenda's per-day entry
+   count, and counts are banned from this page (Brad, 25 August 2026). A role
+   with no legitimate user is a size waiting to be misapplied. */
+
+/* ------------------------------------------------------------------ HEADER
+   Ported from the live site rather than invented, including the 640px
+   stacking fix the site shipped on 19 August 2026. */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 18px var(--gutter);
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.wordmark {
+  font-size: var(--text-body);
+  font-weight: 640;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.site-nav {
+  display: flex;
+  gap: 22px;
+}
+
+.site-nav a {
+  font-size: var(--text-nav);
+  font-weight: 500;
+  color: var(--ink-secondary);
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  color: var(--ink);
+}
+
+/* -------------------------------------------------------------------- HERO
+   Editorial split: the H1 owns the left column, the lead and the disclosure
+   note own the right, so the proposition and its supporting copy stop
+   stacking into one undifferentiated column. The eyebrow is a rule + tracked
+   label rather than a bordered pill — a pill is a control's costume, and the
+   eyebrow is not a control. */
+
+.hero {
+  /* Block longhand only. A `padding` shorthand here would reset padding-inline
+     to 0 and silently defeat .shell's gutter, which appears earlier in source
+     order. Every section in this file follows the same rule.
+
+     The hero is deliberately shallow — Brad's rule (25 August 2026): the
+     calendar is the page, so the hero says one thing and gets out of the
+     way. The pillar key and the disclosure note both live BELOW the grid.
+
+     V3.3: shallower again, and the eyebrow is gone entirely (Brad's call).
+     It was one more tracked-uppercase voice above an H1 that needs no
+     introduction, and it cost ~50px of the one-viewport budget. */
+  padding-block: 30px 26px;
+}
+
+/* Below the desktop breakpoint the hero is a single column, and the DOM order
+   (H1, filter, lead) is a desktop layout concern leaking into a stacked one:
+   a reader on a phone must get the proposition before the controls for it.
+   Order is corrected here rather than in the markup, because the markup order
+   is what the two-column layout needs. */
+@media (max-width: 61.999rem) {
+  /* Stacked, and the reader must get the proposition before the controls for
+     it. The desktop markup nests H1 and filter together in .hero-left, so the
+     wrapper is dissolved with `display: contents` and all three children are
+     ordered directly — cleaner than duplicating the markup per breakpoint. */
+  .hero {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-left {
+    display: contents;
+  }
+
+  .hero h1 {
+    order: 1;
+  }
+
+  .hero-lead {
+    order: 2;
+    margin-top: 14px;
+  }
+
+  .hero .filter-bar {
+    order: 3;
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+}
+
+.hero h1 {
+  font-size: var(--text-page-hero);
+  max-width: 18ch;
+  text-wrap: balance;
+}
+
+.hero-lead {
+  margin-top: 12px;
+  max-width: 58ch;
+}
+
+/* Above 62rem the H1 and its lead sit side by side rather than stacked. The
+   H1 is four words and was leaving two-thirds of a line empty while the lead
+   below it pushed the grid down by its full height. Set as an editorial split
+   the two together cost the height of the taller one, not the sum. */
+@media (min-width: 62rem) {
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+    gap: 56px;
+    /* Top-aligned, not baseline-aligned. `align-items: end` hung the short H1
+       off the bottom of the taller lead column and left a block of empty
+       ground above it — which on a page whose whole problem is vertical
+       budget is the most expensive kind of elegance. */
+    align-items: start;
+  }
+
+  .hero-lead {
+    margin-top: 0;
+    /* Nudged down to sit optically with the H1's cap height rather than its
+       box top — the two scales do not share a first baseline. */
+    padding-top: 8px;
+    /* Set at body scale on this page, not at the site's hero-lead scale. The
+       role is unchanged (LEAD), but the H1 beside it is the page's only loud
+       object and a 20px paragraph next to a 46px heading was competing with
+       it rather than supporting it. Stepping down also buys two lines of the
+       one-viewport budget, which is the reason it was looked at. */
+    font-size: var(--text-body);
+    line-height: 1.6;
+    max-width: 54ch;
+  }
+}
+
+.hero-note {
+  margin-top: 26px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  max-width: 62ch;
+  font-size: var(--text-meta);
+  color: var(--ink-tertiary);
+}
+
+/* --------------------------------------------------------------- ZONE LABEL
+   Every zone below the hero announces itself the same way: a short rule and
+   a tracked label. One repeated, quiet device does more separating work than
+   three different loud ones — the reader learns it once at the pillar key
+   and recognises it again at the calendar. */
+
+.zone-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink-tertiary);
+  margin-bottom: 18px;
+}
+
+.zone-label::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--line-hover);
+}
+
+/* --------------------------------------------------------------- PILLAR KEY
+   The site's .hairline-grid idiom: one outer border, one radius, interior
+   cells divided by --line-soft with NO gaps. Three columns here, six in the
+   calendar below — the same physical object at two widths.
+
+   The key doubles as the page's legend: each cell lists its four areas with
+   the exact dot colour those areas carry in the grid below, so the palette
+   is taught here, before the calendar spends it. */
+
+/* Sits BELOW the calendar since the 25 August restructure: the grid is the
+   page, the key is the explanation for whoever wants it afterwards. */
+.pillar-section {
+  padding-block: 0 56px;
+}
+
+.pillar-key {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  background: var(--paper);
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(28, 25, 23, 0.04);
+}
+
+.pillar-cell {
+  padding: 28px 26px;
+  border-left: 1px solid var(--line-soft);
+  border-top: 3px solid var(--pillar-color);
+  background: var(--pillar-wash);
+}
+
+.pillar-cell:first-child {
+  border-left: 0;
+}
+
+.pillar-cell-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.pillar-cell h3 {
+  font-size: var(--text-title);
+  font-weight: 640;
+  letter-spacing: -0.02em;
+  color: var(--pillar-color);
+}
+
+.pillar-cell p {
+  font-size: var(--text-meta);
+  color: var(--ink-secondary);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.pillar-cats {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 14px 0 0;
+  border-top: 1px solid var(--line-soft);
+  display: grid;
+  gap: 7px;
+}
+
+.pillar-cats li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: var(--text-meta);
+  color: var(--ink-secondary);
+}
+
+.pillar-cats li::before {
+  content: '';
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--dot);
+}
+
+/* ------------------------------------------------------------- FILTER TRAY
+   Two levels. Pillar buttons select or deselect all four of their children;
+   sub-category chips toggle individually. The pillar button therefore has
+   three states, not two: all four children on, some on, none on. */
+
+/* Full-bleed by construction, not by negative margin: the bar is a direct
+   child of <main> and applies the gutter itself, so it spans the viewport
+   while its contents line up with every other section. It must NOT also carry
+   .shell — that would apply the gutter twice and push the bar past the
+   viewport edge. */
+/* NOT sticky as of V3.3, and no longer a full-bleed band of its own. It sits
+   inside the hero, under the H1, so it neither floats a blur over the cards it
+   filters (the second half of Brad's "kills the effect" complaint) nor spends
+   a horizontal rule and its own padding on a row the hero was already paying
+   for. Contained, so no gutter of its own and no border-block. */
+.filter-bar {
+  margin-top: 22px;
+}
+
+/* The instruction sentence is deleted (Brad: "there should be zero need to
+   tell a user to filter by pillar or the work itself if it is well enough
+   designed"). What is left is All / Reset, which are corrections to a state
+   rather than an explanation of one, so they sit at the end of the pillar
+   row instead of owning a line of their own. */
+.filter-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-left: auto;
+}
+
+.filter-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* All and Reset are typographic actions, not pills. They operate on the
+   whole tray rather than on one pillar or area, and dressing them as a
+   thirteenth and fourteenth toggle would put them in the reader's scan of
+   the vocabulary. Disabled is a real state here: it is the only visible
+   difference between "resting" and "everything explicitly on". */
+/* Padded to a 44px target rather than sized to its two words. The negative
+   margin keeps the text optically on the same line it was on, so the target
+   grows without the layout moving — the same transparent-border logic the
+   chips use, applied to spacing instead of borders. */
+.filter-action {
+  border: 0;
+  background: none;
+  min-height: 44px;
+  padding: 4px 8px;
+  margin-block: -10px;
+  font-size: var(--text-enum);
+  font-weight: 620;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-secondary);
+  cursor: pointer;
+  transition: color 180ms ease;
+}
+
+.filter-action:hover:not(:disabled) {
+  color: var(--accent);
+}
+
+.filter-action:disabled {
+  color: var(--ink-tertiary);
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* The bar is three rows, one per pillar, plus a trailing actions row. Each
+   row is: pillar button, then its four areas in the same hue family. */
+.filter-groups {
+  display: grid;
+  gap: 5px;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  /* A flex item's default min-width is its content, which at phone widths
+     makes this row push the whole page sideways instead of letting the chip
+     strip inside it scroll. Both this row and the strip need the override —
+     fixing only the inner one leaves the overflow exactly where it was. */
+  min-width: 0;
+}
+
+.filter-group-cats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  /* The rule is the visual bracket: everything to its right belongs to the
+     button on its left. Set in the pillar's own hue at low strength so three
+     rows read as three families without three headings. */
+  padding-left: 10px;
+  border-left: 1px solid color-mix(in srgb, var(--pillar-color) 28%, transparent);
+}
+
+/* All / Reset ride the first pillar row rather than taking a fourth line of
+   their own. A row spent on two words the reader may never need is a row the
+   grid below cannot have, and the whole point of V3.3 is that the grid gets
+   the height. */
+.filter-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-left: auto;
+}
+
+/* All / Reset sit under the three rows here rather than beside them: the
+   filter now lives in a ~450px column, which has no spare width for a
+   trailing pair of actions. */
+.filter-head {
+  margin-left: 0;
+  margin-top: 10px;
+  justify-content: flex-start;
+}
+
+.pillar-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  /* Equal width so the three rows start their chip runs on one vertical
+     line. Ragged pillar buttons made the three families read as three
+     unrelated rows rather than as one bracketed set. */
+  width: 104px;
+  min-height: 34px;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  /* Transparent at rest, paper on hover: the resting bar recedes into its
+     ground and the pill only surfaces under the pointer, which is what makes
+     the hover feel like a lift rather than a border swap. */
+  background: transparent;
+  font-size: var(--text-meta);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--pillar-color);
+  cursor: pointer;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.pillar-toggle:hover {
+  border-color: var(--pillar-color);
+  background: var(--pillar-wash);
+  box-shadow: 0 1px 2px rgba(28, 25, 23, 0.06);
+}
+
+/* All four children active: the button fills with the pillar's own colour.
+   This is the one place a large fill is spent, and it is spent on the control
+   doing the most work. */
+.pillar-toggle[data-state='all'] {
+  background: var(--pillar-color);
+  border-color: var(--pillar-color);
+  color: #fff;
+}
+
+/* Some children active: a legible third state, not a guessable one. The ring
+   says "this group is involved", the ground says "not all of it". */
+.pillar-toggle[data-state='some'] {
+  border-color: var(--pillar-color);
+  background: var(--pillar-wash);
+  color: var(--pillar-color);
+  box-shadow: inset 0 0 0 1px var(--pillar-color);
+}
+
+.cat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 5px 10px;
+  /* Borderless at rest. Twelve bordered pills read as twelve small boxes
+     competing with the calendar's own boxes; twelve tinted labels read as a
+     vocabulary. The border is reserved for the ON state, where it means
+     something, and stays transparent here so toggling never shifts layout. */
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  background: transparent;
+  font-size: var(--text-meta);
+  font-weight: 500;
+  white-space: nowrap;
+  /* Kept in its own hue at reduced strength rather than dropped to grey, so an
+     unselected chip still tells the reader which colour it controls. The bar
+     doubles as the calendar's legend, which is why the page needs no separate
+     key above the grid. */
+  color: color-mix(in srgb, var(--cat-color) 62%, var(--ink-tertiary));
+  cursor: pointer;
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+/* Hidden on desktop: the chip's own label is already set in the category
+   colour, so the dot repeats information. It returns at the narrow
+   breakpoint, where the row scrolls and the extra separation earns its
+   width. */
+.cat-chip .dot {
+  display: none;
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cat-color);
+  opacity: 0.35;
+  transition: opacity 180ms ease;
+}
+
+.cat-chip[aria-pressed='true'] {
+  border-color: var(--cat-color);
+  background: var(--cat-wash);
+  color: var(--cat-color);
+  font-weight: 600;
+}
+
+.cat-chip[aria-pressed='true'] .dot {
+  opacity: 1;
+}
+
+.cat-chip:hover {
+  border-color: color-mix(in srgb, var(--cat-color) 40%, transparent);
+  color: var(--cat-color);
+}
+
+/* ---------------------------------------------------------------- CALENDAR */
+
+.calendar-section {
+  /* The hero band above ends with a rule, and the grid starts immediately
+     under it — the filter is the grid's own control and now sits in the same
+     band, so a large gap here would read as two unrelated components. */
+  padding-block: 22px 56px;
+  border-top: 1px solid var(--line);
+  margin-top: 4px;
+}
+
+/* ------------------------------------------- THE GRID FITS ITS OWN VIEWPORT
+
+   The one-viewport rule cannot be met with fixed pixel heights, because there
+   is no such thing as one viewport height. Measured on this machine, Chrome
+   spends 143px on tabs and address bar, so a 13-inch MacBook's 900px screen
+   is a ~760px page; a 16-inch is ~995px; a 27-inch desktop is ~1300px. A grid
+   tuned to any one of those is wrong on the other two.
+
+   So the grid is sized in viewport units instead. It takes whatever height is
+   left after the site header, and its card rows divide that space between
+   them. On a 13-inch laptop the cards are compact; on a desktop they are
+   generous; on both, all thirty are visible at once without scrolling, which
+   is the actual requirement.
+
+   The floor is what stops this becoming clever-and-broken: below ~620px of
+   available height the cards would be too short to hold two lines of title,
+   so the grid stops shrinking and the page scrolls a little instead. A
+   too-small card is worse than a short scroll. */
+@media (min-width: 62rem) {
+  /* Summaries are back on the card face, so the week no longer fits one
+     screen at a computed row height (see .grid-cell) — this block used to
+     force the calendar section to exactly the viewport height and size rows
+     to fill it. That assumption no longer holds, so the section just takes
+     the height its content needs and the page scrolls normally. */
+  .calendar-section {
+    padding-block: 20px 28px;
+  }
+}
+
+.week-grid {
+  display: none;
+}
+
+.grid-corner,
+.day-head,
+.slot-head,
+.grid-cell {
+  border-left: 1px solid var(--line-soft);
+  border-top: 1px solid var(--line-soft);
+}
+
+.day-head {
+  padding: 8px 12px;
+  background: var(--recessed);
+}
+
+.day-head h3 {
+  font-size: var(--text-meta);
+  font-weight: 620;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+
+.slot-head {
+  padding: 10px 12px;
+  background: var(--recessed);
+}
+
+/* The label sits at the TOP of its row rather than centred in it. Centred, a
+   two-slot column put "Afternoon" level with the middle card's left border and
+   the two collided; aligned to the top it reads as a heading for the row,
+   which is what it is. */
+@media (min-width: 62rem) {
+  .slot-head {
+    display: flex;
+    align-items: flex-start;
+  }
+}
+
+.slot-head span {
+  font-size: var(--text-enum);
+  font-weight: 620;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+}
+
+/* Cards are stretched to a common height rather than sized to their copy.
+   Titles run one to three lines, so left alone a row of five cards steps up
+   and down and the grid reads as ragged. Each cell is a grid whose rows are a
+   fixed height, and the card's title reserves its maximum line count, so
+   cards align across columns too, not just within one. */
+.grid-cell {
+  padding: 7px;
+  display: grid;
+  /* The summary is back on the card face (Brad's call, 25 Aug evening) — a
+     fixed row height can no longer hold label + title + summary for every
+     entry, so rows size to content instead. Cards no longer align to a
+     shared height across columns; the week no longer fits inside one
+     viewport, and the page scrolls, which is the trade this density makes. */
+  grid-auto-rows: min-content;
+  gap: 5px;
+  align-content: start;
+}
+
+/* -------------------------------------------------------------------- CARD
+   TWO VOICES ONLY: the category label and the title. The summary moved into
+   the dialog — which already repeated it verbatim — and that single change is
+   most of what makes the whole week fit one screen. It also settles the type
+   clash: a 189px box carrying four different sizes was never going to read as
+   one object.
+
+   Colour arrives three ways at three strengths: a 3px left rule at full
+   strength, the label at full strength, and a 5% wash on the ground. The title
+   stays --ink. A coloured title would make every card compete with every other
+   card, and the title is what the reader is actually scanning. */
+
+.entry {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 3px;
+  width: 100%;
+  padding: 9px 11px;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--cat-color);
+  border-radius: var(--r-sm);
+  background: var(--cat-wash);
+  cursor: pointer;
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+/* The hover is a lift, not a repaint: the card comes up a pixel, gains a soft
+   long shadow and its wash brightens to paper. Enough to feel physical, not
+   enough to make thirty cards shimmer while the pointer crosses the grid. The
+   selected (inverted) card opts out — it is already the loudest object on the
+   page and lifting it reads as a second state change. */
+.entry:hover:not([aria-expanded='true']) {
+  border-color: var(--line-hover);
+  border-left-color: var(--cat-color);
+  background: var(--paper);
+  transform: translateY(-1px);
+  box-shadow: 0 1px 2px rgba(28, 25, 23, 0.05), 0 8px 20px -12px rgba(28, 25, 23, 0.18);
+}
+
+.entry:active {
+  transform: none;
+}
+
+/* Mobile agenda only — the desktop grid says Morning once per row. It rides
+   the category line rather than taking a line of its own, separated by a rule
+   so the two read as "what, then when" rather than as two competing labels. */
+.entry-slot {
+  padding-left: 8px;
+  border-left: 1px solid var(--line);
+  font-weight: 500;
+  color: var(--ink-tertiary);
+}
+
+.entry[aria-expanded='true'] .entry-slot {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.entry-cat {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: var(--text-enum);
+  font-weight: 620;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--cat-color);
+}
+
+.entry-title {
+  font-size: var(--text-meta);
+  font-weight: 400;
+  letter-spacing: -0.011em;
+  line-height: 1.28;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+
+.entry-summary {
+  font-size: var(--text-enum);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--ink-secondary);
+  text-wrap: pretty;
+}
+
+.entry[aria-expanded='true'] .entry-summary {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* Connected to whatever the dialog currently shows. On desktop the dialog
+   covers the grid, so this is what the reader sees on close; on mobile the
+   day/slot line inside the dialog does that work instead. A ring, not a fill:
+   the card is being pointed at, not selected. */
+.entry.is-linked {
+  border-color: var(--cat-color);
+  box-shadow: inset 0 0 0 1px var(--cat-color);
+}
+
+.entry[aria-expanded='true'] {
+  background: var(--stat-ground);
+  border-color: var(--stat-ground);
+  border-left-color: var(--pillar-on-dark);
+}
+
+.entry[aria-expanded='true'] .entry-title {
+  color: #fff;
+}
+
+.entry[aria-expanded='true'] .entry-cat {
+  color: var(--pillar-on-dark);
+}
+
+.entry[aria-expanded='true'] .entry-arrow {
+  color: var(--pillar-on-dark);
+  opacity: 1;
+}
+
+/* WHERE DID I END UP? A reader can walk two or three connected entries deep
+   inside the dialog, so the card they close on is often not the card they
+   opened. On close that card is scrolled to, focused and briefly ringed —
+   without it the dialog dismisses to a grid of thirty identical-looking cards
+   with nothing saying which one they were just reading. */
+@keyframes just-visited {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--cat-color) 55%, transparent); }
+  35%  { box-shadow: 0 0 0 4px color-mix(in srgb, var(--cat-color) 40%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--cat-color) 0%, transparent); }
+}
+
+.entry.just-visited {
+  animation: just-visited 1400ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* The reduced-motion treatment for this highlight lives in the single
+   prefers-reduced-motion block at the foot of the file, so there is one place
+   that answers "what does this page do without motion". */
+
+/* ------------------------------------------------------------- MOBILE AGENDA
+   Vertical, grouped by day, sticky day headings. No horizontal scroll at any
+   width — a five-column week does not survive 390px and a scrolling calendar
+   hides four fifths of the argument. */
+
+.agenda {
+  display: grid;
+  gap: 26px;
+}
+
+/* Still sticky, and the only sticky thing left below the site header. The
+   agenda is a thirty-entry scrolling list on a phone, so a reader genuinely
+   does lose track of which day they are in — the desktop grid's headings had
+   no such problem once it fit one screen. The filter bar above is no longer
+   sticky, so the offset is the header alone. */
+.agenda-day-head {
+  position: sticky;
+  top: var(--header-h, 61px);
+  z-index: 20;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  margin-bottom: 10px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.agenda-day-head h3 {
+  font-size: var(--text-title);
+  font-weight: 640;
+  letter-spacing: -0.02em;
+}
+
+.agenda-day {
+  display: grid;
+  gap: 8px;
+}
+
+/* ------------------------------------------------------------- DETAIL DIALOG
+   A centred modal, not a right-hand slide-out.
+
+   The slide-out was chosen for V2 on the argument that the reader's task is
+   comparative and a panel leaves the grid visible. Testing that argument
+   against the actual layout: at 1440px the grid is six columns and a 460px
+   panel covers two of them, so the "still visible" part is Monday to
+   Wednesday of a five-day week — half the comparison. The panel also had to
+   own a scrim, a focus trap, an inert background and an Escape handler in
+   script, all of which showModal() provides from the platform.
+
+   The centred dialog wins on mobile outright, which is where it matters:
+   the same element becomes a bottom sheet by changing two properties, and
+   the browser handles the scroll lock that a fixed-position panel needs
+   hand-written.
+
+   What is given up: the grid is fully covered while the dialog is open. The
+   connected-work list inside the dialog is the replacement for scanning the
+   grid behind it, and it is the better affordance anyway — it names the
+   related entries rather than asking the reader to spot them. */
+
+/* showModal() makes the background inert but does NOT lock its scroll, so a
+   wheel gesture over the backdrop still moves the page behind the dialog. */
+html:has(.detail-dialog[open]) {
+  overflow: hidden;
+}
+
+/* The dialog receives focus on open (see app.js). It is a container, not a
+   control, so a ring on it would be noise — the modal state is already
+   unmistakable from the backdrop. */
+.detail-dialog:focus,
+.detail-dialog:focus-visible {
+  outline: none;
+}
+
+.detail-dialog {
+  width: min(560px, calc(100vw - 40px));
+  max-height: min(80vh, 720px);
+  padding: 0;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--cat-color);
+  border-radius: var(--r-panel);
+  background: var(--paper);
+  color: var(--ink);
+  overflow: hidden;
+  box-shadow: 0 24px 48px -12px rgba(23, 20, 15, 0.28);
+}
+
+.detail-dialog::backdrop {
+  background: rgba(23, 20, 15, 0.46);
+  backdrop-filter: blur(2px);
+}
+
+/* Dialogs in the top layer cannot be animated from display:none without
+   @starting-style, so the entrance is declared on both the element and its
+   backdrop and matched to the site's single easing curve. */
+@keyframes dialog-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes backdrop-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.detail-dialog[open] {
+  animation: dialog-in 220ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.detail-dialog[open]::backdrop {
+  animation: backdrop-in 220ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detail-dialog[open],
+  .detail-dialog[open]::backdrop {
+    animation: none;
+  }
+}
+
+/* The handle is a bottom-sheet affordance and means nothing on a centred
+   desktop dialog, so it only exists at the narrow breakpoint. */
+.sheet-handle {
+  display: none;
+  width: 40px;
+  height: 4px;
+  border-radius: var(--r-pill);
+  background: var(--line-hover);
+  margin: 10px auto 0;
+}
+
+.detail-inner {
+  padding: 22px 22px 28px;
+  overflow-y: auto;
+}
+
+/* THE WAY BACK. A named "back to X" rather than a bare chevron: the browser
+   history metaphor is wrong inside a dialog that never changed URL, and an
+   unlabelled back control gives the reader no reason to press it. Hidden
+   entirely when the trail is empty, so a fresh open from the grid is not
+   offered a journey it has not taken. */
+.detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  margin: -6px 0 10px -8px;
+  padding: 6px 10px 6px 8px;
+  max-width: calc(100% - 52px);
+  border: 0;
+  border-radius: var(--r-pill);
+  background: transparent;
+  font-size: var(--text-meta);
+  font-weight: 500;
+  color: var(--ink-tertiary);
+  text-align: left;
+  cursor: pointer;
+  transition: color 180ms ease, background 180ms ease;
+}
+
+.detail-back:hover {
+  background: var(--recessed);
+  color: var(--ink);
+}
+
+.detail-back span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detail-back svg {
+  flex: none;
+}
+
+.detail-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 52px;
+  font-size: var(--text-enum);
+  font-weight: 620;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cat-color);
+  margin-bottom: 12px;
+}
+
+.detail-eyebrow .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cat-color);
+}
+
+.detail-pillar-tag {
+  padding-left: 10px;
+  margin-left: 2px;
+  border-left: 1px solid var(--line);
+  color: var(--ink-tertiary);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+
+#detail-title {
+  font-size: var(--text-h3);
+  font-weight: 640;
+  letter-spacing: -0.022em;
+  line-height: 1.18;
+  margin-bottom: 14px;
+  text-wrap: balance;
+}
+
+#detail-copy {
+  font-size: var(--text-body);
+  line-height: 1.6;
+  color: var(--ink-secondary);
+  max-width: 60ch;
+  text-wrap: pretty;
+}
+
+#detail-related {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-soft);
+  font-size: var(--text-meta);
+  color: var(--ink-tertiary);
+}
+
+.detail-links-block {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.detail-links-block > .t-label {
+  color: var(--ink-tertiary);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.detail-links {
+  display: grid;
+  gap: 6px;
+}
+
+/* Each connection names WHERE it sits, not just what it is called. On a
+   calendar that placement is the entire reason the work is on a calendar; a
+   list of bare titles is the one thing that would make the connected-work
+   block indistinguishable from a related-links widget. */
+.detail-link {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--recessed);
+  font-size: var(--text-meta);
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+.detail-link:hover {
+  border-color: var(--line-hover);
+  background: var(--paper);
+}
+
+.detail-link .dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  /* Optically centred on the title's first line rather than on the block, so
+     a wrapping title does not drag the dot down with it. */
+  margin-top: 6px;
+  border-radius: 50%;
+  background: var(--link-color);
+}
+
+.detail-link-text {
+  display: grid;
+  gap: 2px;
+}
+
+.detail-link-title {
+  color: var(--ink);
+  text-wrap: pretty;
+}
+
+/* The location line. Sentence case and tertiary ink, not another tracked
+   uppercase label — the dialog already carries one of those at its eyebrow,
+   and a second would be the type clash arriving by a different door. */
+.detail-link-where {
+  font-weight: 400;
+  color: var(--ink-tertiary);
+}
+
+.detail-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--paper);
+  color: var(--ink-secondary);
+  cursor: pointer;
+}
+
+.detail-close:hover {
+  border-color: var(--line-hover);
+  color: var(--ink);
+}
+
+/* Focus lands here programmatically every time the panel opens, so the default
+   2px offset ring fires on open and reads as an alert rather than as focus.
+   An inset ring says the same thing without shouting on every interaction. */
+.detail-close:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+/* Desktop has Escape and an easy backdrop click, and the sheet is centred, so
+   the corner X is already the nearest control. The foot button is mobile-only. */
+.detail-close-foot {
+  display: none;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 22px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--recessed);
+  font-family: inherit;
+  font-size: var(--text-body);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+/* -------------------------------------------------------------------- CLOSE */
+
+/* Centred statement band. Everything above it is left-set working material;
+   the close is the one place the page addresses the reader directly, and
+   centring is what marks the register change. */
+.close-section {
+  padding-block: 72px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+.close-section h2 {
+  font-size: var(--text-section);
+  font-weight: 640;
+  letter-spacing: -0.028em;
+  line-height: 1.08;
+  margin-bottom: 14px;
+  max-width: 20ch;
+  margin-inline: auto;
+  text-wrap: balance;
+}
+
+.close-section .t-lead {
+  margin-inline: auto;
+  max-width: 54ch;
+}
+
+.close-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 12px 22px;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  color: #fff;
+  font-size: var(--text-nav);
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--accent);
+}
+
+.button:hover {
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
+}
+
+.button-secondary {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.button-secondary:hover {
+  background: var(--paper);
+  border-color: var(--line-hover);
+}
+
+.text-link {
+  font-size: var(--text-nav);
+  font-weight: 500;
+  color: var(--ink-secondary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--line-hover);
+}
+
+.text-link:hover {
+  color: var(--ink);
+}
+
+.site-footer {
+  padding: 28px var(--gutter);
+  border-top: 1px solid var(--line);
+  font-size: var(--text-meta);
+  color: var(--ink-tertiary);
+}
+
+/* ================================================================ DESKTOP */
+
+@media (min-width: 62rem) {
+  .week-grid {
+    display: grid;
+    /* Wide enough for "Afternoon" at label tracking plus its padding — at
+       76px the word was clipped by the first day column's border. */
+    grid-template-columns: 92px repeat(5, minmax(0, 1fr));
+    border: 1px solid var(--line);
+    border-radius: var(--r-card);
+    background: var(--paper);
+    /* One near-invisible contact shadow plus one long, heavily-negative-spread
+       ambient one. The grid is the page's centrepiece and this is what floats
+       it off the warm ground without resorting to a drop-shadow that would
+       read as a widget. */
+    box-shadow: 0 1px 2px rgba(28, 25, 23, 0.04), 0 32px 56px -44px rgba(28, 25, 23, 0.3);
+    /* Nothing inside the grid is sticky any more, so this can be a plain
+       clip that rounds the corner cells with the container. */
+    overflow: hidden;
+  }
+
+  /* NOT sticky as of V3.3. Sticky day headings existed because the grid was
+     taller than the viewport and a reader three rows down could not tell
+     Tuesday from Thursday. The grid now fits one screen, so there is no
+     "three rows down" — and the two sticky layers were the exact thing Brad
+     said "kills the whole effect of seeing it all at once". Removing them
+     also removed the JS-measured --chrome-h that positioned them. */
+  .day-head {
+    background: var(--recessed);
+    box-shadow: inset 0 -1px 0 var(--line);
+  }
+
+  .grid-corner:first-child,
+  .day-head:nth-child(2),
+  .slot-head {
+    border-left: 0;
+  }
+
+  .grid-corner,
+  .day-head {
+    border-top: 0;
+  }
+
+  .detail-inner {
+    padding: 28px 28px 32px;
+  }
+}
+
+/* The agenda is suppressed AFTER its own definition so source order does not
+   reverse the intent. */
+@media (min-width: 62rem) {
+  .agenda {
+    display: none;
+  }
+}
+
+/* ================================================================= MOBILE
+   Header stacking ported verbatim from the live site's 640px block, which
+   solved this exact wrap on 19 August 2026. Sticky offsets below follow from
+   the taller stacked header. */
+
+@media (max-width: 40rem) {
+  /* All / Reset move under the three rows rather than beside them: at this
+     width there is no spare horizontal room beside a pillar row, and their
+     disabled states are the only place a phone reader can tell the two
+     full-grid states apart, so they cannot simply be dropped. */
+  .filter-head {
+    margin-left: 0;
+    margin-top: 8px;
+    justify-content: flex-end;
+  }
+
+  .filter-bar {
+    padding-block: 10px;
+  }
+
+  /* Narrower and fixed, so four rows of chips still start on one line. */
+  .pillar-toggle {
+    flex: none;
+    width: 84px;
+    padding-inline: 10px;
+    font-size: var(--text-meta);
+  }
+
+  /* The dialog becomes a bottom sheet: same element, two properties. A
+     sheet is reachable with a thumb; a centred modal on a phone puts its
+     close control at the top of the screen, which is the furthest point
+     from the hand holding the device. */
+  /* A top-layer dialog is centred by the UA's own `margin: auto`, and it is
+     not a flex item, so align-self does nothing to it. `margin-top: auto`
+     with `margin-bottom: 0` is what pins it to the bottom edge. */
+  .detail-dialog {
+    width: 100%;
+    max-width: 100%;
+    max-height: 88vh;
+    margin: auto 0 0;
+    border-radius: var(--r-panel) var(--r-panel) 0 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+  }
+
+  .sheet-handle {
+    display: block;
+  }
+
+  .detail-close-foot {
+    display: block;
+  }
+
+
+  /* Two short lines stacked beat one line wrapping under the close button.
+     The rule between the area and the pillar becomes a rule above it. */
+  .detail-eyebrow {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 8px;
+    padding-right: 56px;
+  }
+
+  .detail-pillar-tag {
+    grid-column: 1 / -1;
+    padding-left: 0;
+    margin-left: 0;
+    border-left: 0;
+    padding-top: 6px;
+    border-top: 1px solid var(--line);
+  }
+
+  @keyframes dialog-in {
+    from { opacity: 0; transform: translateY(100%); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding-block: 14px;
+  }
+
+  .site-nav {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .hero {
+    padding-top: 26px;
+  }
+
+  .pillar-key {
+    grid-template-columns: 1fr;
+  }
+
+  .pillar-cell {
+    border-left: 0;
+    border-top: 3px solid var(--pillar-color);
+  }
+
+  /* Each pillar keeps its own scrolling row of four. Four chips scroll far
+     less than twelve did, and the pillar button stays pinned at the row's
+     head where it belongs — so the two-level relationship survives the
+     breakpoint instead of collapsing into one undifferentiated strip. */
+  .filter-group {
+    flex-wrap: nowrap;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .filter-group-cats {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    /* Without this the flex item takes its content's width as its minimum and
+       the row pushes the page wide instead of scrolling inside it — the
+       classic flexbox min-width:auto trap. This is what makes the scroll
+       actually happen at 390px. */
+    min-width: 0;
+    flex: 1;
+    scrollbar-width: none;
+    /* Bottom padding leaves the focus ring on a chip somewhere to render;
+       clipped rings are the usual cost of a scrolling control row. */
+    padding-block: 2px;
+    /* The row runs to the viewport edge rather than ending in a hard wall at
+       the gutter, which reads as the end of the list when it is not. */
+    margin-right: calc(var(--gutter) * -1);
+    padding-right: var(--gutter);
+  }
+
+  .filter-group-cats::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cat-chip {
+    white-space: nowrap;
+  }
+}
+
+/* Blanket motion suppression. An earlier pass wrote `*:not(.entry)` to spare
+   the visited highlight, which was wrong in the other direction: it exempted
+   the card's hover transform too. The blanket now applies to everything, and
+   the ONE thing carved back out is `.just-visited`, restated after it so it
+   wins on source order. It becomes a static ring rather than a pulse —
+   killing it outright would silently delete the answer to "where did I end
+   up" for these readers, and that is information, not decoration. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+
+  .entry.just-visited {
+    animation: none !important;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--cat-color) 40%, transparent);
+  }
+
+  /* The lift is a state, not a motion: it stays, it just arrives instantly. */
+  .entry:hover:not([aria-expanded='true']) {
+    transform: none;
+  }
+}

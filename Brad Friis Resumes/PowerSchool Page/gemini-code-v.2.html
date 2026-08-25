@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operating Rhythm - Brad Friis</title>
+<style>
+  :root {
+    --bg-page: #fafafa;
+    --bg-card: #ffffff;
+    --text-main: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #737373;
+    --border: #e5e5e5;
+    --border-hover: #cccccc;
+    --focus-ring: #005fcc;
+    
+    /* Functional, understated palette for the three pillars */
+    --cat-growth: #b05a2b;      
+    --cat-delivery: #2c7a7b;    
+    --cat-operations: #4a5568;  
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-page: #121212;
+      --bg-card: #1e1e1e;
+      --text-main: #ededed;
+      --text-secondary: #a1a1a1;
+      --text-muted: #737373;
+      --border: #333333;
+      --border-hover: #555555;
+      --focus-ring: #4da3ff;
+
+      --cat-growth: #d97743;
+      --cat-delivery: #38b2ac;
+      --cat-operations: #a0aec0;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    line-height: 1.6;
+    padding: 4rem 2rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Refined, Understated Header */
+  .page-header {
+    max-width: 720px;
+    margin-bottom: 3rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.75rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .intro-text p {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  /* Filters */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+    position: sticky;
+    top: 0;
+    background: var(--bg-page);
+    padding: 1rem 0;
+    z-index: 10;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 0.5rem 1.25rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  
+  @media (prefers-reduced-motion) {
+    .filter-btn { transition: none; }
+  }
+
+  .filter-btn[aria-pressed="true"] {
+    background: var(--text-main);
+    color: var(--bg-page);
+    border-color: var(--text-main);
+  }
+
+  .filter-btn:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* Desktop Grid */
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+  }
+
+  .day-column h2 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .slots {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.25rem;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s ease, border-color 0.2s ease, opacity 0.3s ease;
+    border-top-width: 3px;
+  }
+
+  @media (prefers-reduced-motion) {
+    .card { transition: opacity 0.1s; }
+  }
+
+  .card.filtered-out {
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    border-right-color: var(--border-hover);
+    border-bottom-color: var(--border-hover);
+    border-left-color: var(--border-hover);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .card:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+  
+  .card.is-related {
+    background-color: var(--bg-page);
+    border-color: var(--border-hover);
+  }
+
+  .slot-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .card-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-main);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.3;
+  }
+
+  .card-summary {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  /* Detail Dialog */
+  dialog {
+    padding: 2.5rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-card);
+    color: var(--text-main);
+    max-width: 550px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  }
+
+  dialog::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+  }
+
+  .dialog-close {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 2rem;
+    font-size: 0.875rem;
+  }
+  
+  .dialog-close:hover {
+    background: var(--bg-page);
+  }
+
+  .detail-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    background: var(--bg-page);
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    color: var(--text-secondary);
+  }
+
+  /* Mobile Vertical Agenda */
+  @media (max-width: 1024px) {
+    .calendar-grid {
+      grid-template-columns: 1fr;
+    }
+    .day-column {
+      margin-bottom: 2.5rem;
+    }
+    .slots {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .card {
+      flex: 1 1 calc(50% - 1rem);
+    }
+  }
+
+  @media (max-width: 768px) {
+    body { padding: 2rem 1rem; }
+    .slots { flex-direction: column; }
+    .card { flex: 1 1 100%; min-height: 44px; } /* Ensures 44x44 touch target */
+    dialog {
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      margin-top: auto;
+      border-radius: 12px 12px 0 0;
+      padding: 2rem 1.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header class="page-header">
+    <h1>Operating Rhythm</h1>
+    <div class="intro-text">
+      <p>For ten years, I operated across the full commercial lifecycle of an education technology platform.</p>
+      <p>Because I cannot share proprietary documents or internal customer data, I built this composite calendar to illustrate the practical realities of the role.</p>
+      <p>While not a literal record of a specific week, it represents the interconnected systems, decisions, and groundwork required to keep the business moving across growth, delivery, and operations.</p>
+    </div>
+  </header>
+
+  <div class="filters" id="filterContainer" role="group" aria-label="Filter entries by category">
+    <!-- Filter buttons injected here -->
+  </div>
+  
+  <div aria-live="polite" class="sr-only" id="announceArea" style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;"></div>
+
+  <div class="calendar-grid" id="calendarGrid">
+    <!-- Grid injected here -->
+  </div>
+</div>
+
+<dialog id="detailDialog">
+  <div id="dialogContent"></div>
+  <button class="dialog-close" id="closeDialogBtn">Close</button>
+</dialog>
+
+<script>
+  const categories = {
+    growth: { label: "Growth", color: "var(--cat-growth)" },
+    delivery: { label: "Delivery", color: "var(--cat-delivery)" },
+    operations: { label: "Operations", color: "var(--cat-operations)" }
+  };
+
+  const days = ["monday", "tuesday", "wednesday", "thursday", "friday"];
+
+  const entryData = [
+    {
+      id: "database-segmentation",
+      day: "monday",
+      slot: "Morning",
+      title: "NZ Schools Database Architecture",
+      summary: "Segment prospective schools by roll count, region, and type.",
+      detail: "I required a precise lead generation engine, not a generic mailing list. I built and maintained a comprehensive database of New Zealand school principals, segmenting the data tightly by school roll count, geographic region, and school type. This allowed us to tailor our commercial messaging to specific profiles, equipping the sales team with high-context leads and clear entry points.",
+      primaryCategory: "growth",
+      modes: ["lead generation", "data architecture", "sales strategy"],
+      connections: ["conference-outreach"]
+    },
+    {
+      id: "gov-facilitation",
+      day: "monday",
+      slot: "Afternoon",
+      title: "Government-Funded Facilitation",
+      summary: "Deliver strategic guidance for a school leadership team.",
+      detail: "I delivered professional learning and strategic guidance as an accredited government facilitator. I helped school leaders connect technology decisions with teaching and organisational priorities, ensuring adoption was driven by educational outcomes.",
+      primaryCategory: "delivery",
+      modes: ["facilitation", "advisory", "professional learning"],
+      connections: []
+    },
+    {
+      id: "conference-stand-concept",
+      day: "tuesday",
+      slot: "Morning",
+      title: "Conference Stand Concept & Design",
+      summary: "Design the physical layout and structural presence for our upcoming event.",
+      detail: "A successful physical presence requires more than branding. I designed the initial concept and layout for our national conference stand, mapping how foot traffic would flow into demonstrations and conversations. This ensured the physical space actively supported our lead generation hooks.",
+      primaryCategory: "growth",
+      modes: ["concept design", "event strategy", "vendor management"],
+      connections: ["conference-logistics", "conference-outreach"]
+    },
+    {
+      id: "sla-review",
+      day: "tuesday",
+      slot: "Afternoon",
+      title: "SLA & Billing Strategy Review",
+      summary: "Standardise reporting metrics and financial tracking.",
+      detail: "Operational health requires clear boundaries and predictable systems. I ran a comprehensive review of our service level agreements, ensuring our support delivery aligned with our billing structures. This equipped our internal teams with a transparent view of performance and capacity.",
+      primaryCategory: "operations",
+      modes: ["financial strategy", "process design", "governance"],
+      connections: []
+    },
+    {
+      id: "conference-comms",
+      day: "wednesday",
+      slot: "Morning",
+      title: "Conference Communications Strategy",
+      summary: "Draft the messaging framework for pre- and post-event engagement.",
+      detail: "I drafted the overarching communications strategy for our conference sponsorship. This involved coordinating email sequences, social updates, and direct invitations to ensure our messaging was unified across the sales and marketing functions.",
+      primaryCategory: "growth",
+      modes: ["communications design", "marketing strategy", "writing"],
+      connections: ["conference-outreach"]
+    },
+    {
+      id: "conference-workshop-design",
+      day: "wednesday",
+      slot: "Afternoon",
+      title: "Conference Workshop Design",
+      summary: "Write and structure the core presentation and materials.",
+      detail: "Rather than delivering a standard product pitch, I structured our workshop content to solve immediate educational challenges while embedding targeted lead generation hooks. I wrote the core presentation and designed the supporting materials for the session.",
+      primaryCategory: "delivery",
+      modes: ["content design", "instructional design", "production"],
+      connections: ["conference-workshop-presentation"]
+    },
+    {
+      id: "conference-outreach",
+      day: "thursday",
+      slot: "Morning",
+      title: "Targeted Pre-Event Outreach",
+      summary: "Drive priority accounts and targeted segments to visit the stand.",
+      detail: "Using our segmented schools database, I managed targeted outreach campaigns directing specific school leaders to our conference stand. This ensured we had guaranteed meetings scheduled alongside organic foot traffic.",
+      primaryCategory: "growth",
+      modes: ["lead generation", "sales execution", "campaign management"],
+      connections: ["database-segmentation", "conference-stand-concept"]
+    },
+    {
+      id: "conference-logistics",
+      day: "thursday",
+      slot: "Morning",
+      title: "Conference Logistics & Build Setup",
+      summary: "Manage the end-to-end operational execution of the event presence.",
+      detail: "Physical events require strict logistical control to ensure a return on investment. I managed the operational execution of our national stand build and physical setup. By standardising vendor timelines, I equipped the on-site team with a frictionless environment, allowing them to focus entirely on customer interactions.",
+      primaryCategory: "operations",
+      modes: ["logistics", "vendor management", "coordination"],
+      connections: ["conference-stand-concept"]
+    },
+    {
+      id: "conference-workshop-presentation",
+      day: "thursday",
+      slot: "Afternoon",
+      title: "Conference Workshop Presentation",
+      summary: "Deliver the core workshop session to school leaders.",
+      detail: "A successful conference requires bridging the gap between high-level strategy and on-the-ground value. I presented our core workshop to attendees, equipping them with actionable insights while simultaneously qualifying them for our sales pipeline.",
+      primaryCategory: "delivery",
+      modes: ["public speaking", "facilitation", "sales enablement"],
+      connections: ["conference-workshop-design", "conference-follow-up"]
+    },
+    {
+      id: "reseller-sync",
+      day: "friday",
+      slot: "Morning",
+      title: "International Reseller Sync",
+      summary: "Coordinate operational priorities with our platform partner.",
+      detail: "I coordinated strategic priorities with our international platform partner. I reviewed shared commitments across technical implementation, ongoing support, and regional compliance to maintain alignment.",
+      primaryCategory: "operations",
+      modes: ["partnership management", "negotiation", "coordination"],
+      connections: []
+    },
+    {
+      id: "conference-follow-up",
+      day: "friday",
+      slot: "Morning",
+      title: "Post-Conference Lead Workflows",
+      summary: "Process event interactions into an actionable pipeline.",
+      detail: "After the event, I managed the follow-up systems to convert stand interactions and workshop attendance into active pipeline. I mapped the data back into our sales platform, equipping the team with the context needed to close.",
+      primaryCategory: "growth",
+      modes: ["sales operations", "data management", "pipeline progression"],
+      connections: ["conference-workshop-presentation", "conference-outreach"]
+    },
+    {
+      id: "customer-onboarding",
+      day: "friday",
+      slot: "Afternoon",
+      title: "Customer Onboarding Sessions",
+      summary: "Guide new customer leaders through adoption priorities.",
+      detail: "I helped customer leadership understand the organisational decisions required for successful platform adoption. I adapted these onboarding sessions to their specific operational context and technical capacity.",
+      primaryCategory: "delivery",
+      modes: ["advisory", "implementation", "customer success"],
+      connections: []
+    }
+  ];
+
+  let currentFilter = 'all';
+
+  function init() {
+    renderFilters();
+    renderGrid();
+  }
+
+  function renderFilters() {
+    const container = document.getElementById('filterContainer');
+    
+    const allBtn = document.createElement('button');
+    allBtn.className = 'filter-btn';
+    allBtn.textContent = 'All';
+    allBtn.setAttribute('aria-pressed', 'true');
+    allBtn.onclick = () => setFilter('all', allBtn);
+    container.appendChild(allBtn);
+
+    Object.entries(categories).forEach(([key, cat]) => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn';
+      btn.textContent = cat.label;
+      btn.setAttribute('aria-pressed', 'false');
+      btn.onclick = () => setFilter(key, btn);
+      container.appendChild(btn);
+    });
+  }
+
+  function setFilter(filterKey, activeBtn) {
+    currentFilter = filterKey;
+    document.querySelectorAll('.filter-btn').forEach(b => b.setAttribute('aria-pressed', 'false'));
+    activeBtn.setAttribute('aria-pressed', 'true');
+
+    const cards = document.querySelectorAll('.card');
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      if (filterKey === 'all' || card.dataset.category === filterKey) {
+        card.classList.remove('filtered-out');
+        card.removeAttribute('aria-hidden');
+        card.tabIndex = 0;
+        visibleCount++;
+      } else {
+        card.classList.add('filtered-out');
+        card.setAttribute('aria-hidden', 'true');
+        card.tabIndex = -1;
+      }
+    });
+
+    document.getElementById('announceArea').textContent = `Showing ${visibleCount} entries.`;
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById('calendarGrid');
+    
+    days.forEach(day => {
+      const col = document.createElement('div');
+      col.className = 'day-column';
+      
+      const header = document.createElement('h2');
+      header.textContent = day;
+      col.appendChild(header);
+
+      const slotsContainer = document.createElement('div');
+      slotsContainer.className = 'slots';
+
+      const dayEntries = entryData.filter(e => e.day === day);
+      
+      dayEntries.forEach(entry => {
+        const cat = categories[entry.primaryCategory];
+        
+        const card = document.createElement('button');
+        card.className = 'card';
+        card.dataset.category = entry.primaryCategory;
+        card.dataset.id = entry.id;
+        card.dataset.connections = JSON.stringify(entry.connections || []);
+        card.style.borderTopColor = cat.color;
+        
+        card.innerHTML = `
+          <div class="slot-label">${entry.slot}</div>
+          <h3 class="card-title">${entry.title}</h3>
+          <p class="card-summary">${entry.summary}</p>
+        `;
+
+        card.onclick = () => openDetail(entry);
+        slotsContainer.appendChild(card);
+      });
+
+      col.appendChild(slotsContainer);
+      grid.appendChild(col);
+    });
+  }
+
+  function openDetail(entry) {
+    const dialog = document.getElementById('detailDialog');
+    const content = document.getElementById('dialogContent');
+    const cat = categories[entry.primaryCategory];
+
+    content.innerHTML = `
+      <div class="slot-label" style="color: ${cat.color}; margin-bottom: 0.75rem; font-weight: 600;">${cat.label}</div>
+      <h2 style="margin-top:0; margin-bottom: 1rem; font-size: 1.35rem; font-weight: 500; letter-spacing: -0.01em;">${entry.title}</h2>
+      <p style="font-size: 1rem; color: var(--text-secondary); margin-bottom: 0;">${entry.detail}</p>
+      <div class="detail-tags">
+        ${entry.modes.map(m => `<span class="tag">${m}</span>`).join('')}
+      </div>
+    `;
+
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('is-related'));
+    if (entry.connections && entry.connections.length > 0) {
+      entry.connections.forEach(connId => {
+        const relatedCard = document.querySelector(`.card[data-id="${connId}"]`);
+        if (relatedCard) relatedCard.classList.add('is-related');
+      });
+    }
+
+    dialog.showModal();
+  }
+
+  document.getElementById('closeDialogBtn').onclick = () => {
+    document.getElementById('detailDialog').close();
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('is-related'));
+  };
+
+  document.getElementById('detailDialog').addEventListener('click', (e) => {
+    const dialogDimensions = e.target.getBoundingClientRect();
+    if (
+      e.clientX < dialogDimensions.left ||
+      e.clientX > dialogDimensions.right ||
+      e.clientY < dialogDimensions.top ||
+      e.clientY > dialogDimensions.bottom
+    ) {
+      e.target.close();
+      document.querySelectorAll('.card').forEach(c => c.classList.remove('is-related'));
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

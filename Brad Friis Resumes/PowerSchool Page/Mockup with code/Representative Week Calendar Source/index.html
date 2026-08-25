@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en-NZ">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="An illustrative composite week showing the range of work involved in a senior education technology operating role.">
+    <title>A representative week | Brad Friis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./tokens.css">
+    <link rel="stylesheet" href="./base.css">
+    <link rel="stylesheet" href="./style.css">
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#calendar">Skip to representative week</a>
+    <header class="site-header">
+      <a class="wordmark" href="#top" aria-label="Brad Friis, top of page">Brad Friis</a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch colour theme">
+        <span aria-hidden="true">◐</span>
+        <span>Theme</span>
+      </button>
+    </header>
+
+    <main id="top">
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">How the role worked</p>
+        <div class="intro-grid">
+          <h1 id="page-title">A representative week across the whole operation.</h1>
+          <div class="intro-copy">
+            <p>This is an illustrative composite, not the record of a particular week. It brings recurring kinds of work together to show how commercial decisions, delivery, customer experience and governance connected in practice.</p>
+            <p>No employer, customer or confidential project is identified. The examples describe categories of responsibility and contain no reproduced work, commercial values or historical dates.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="calendar-section" id="calendar" aria-labelledby="calendar-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">The operating range</p>
+            <h2 id="calendar-title">Five days, one connected system</h2>
+          </div>
+          <p class="section-note">Choose an entry for context. Filter buttons can be combined; clear them all to inspect the empty state.</p>
+        </div>
+
+        <div class="filter-region">
+          <div class="filter-heading">
+            <h3 id="filter-title">Filter by primary responsibility</h3>
+            <p id="result-summary" aria-live="polite">Showing 20 of 20 entries</p>
+          </div>
+          <div class="filters" id="filters" role="group" aria-labelledby="filter-title"></div>
+        </div>
+
+        <p class="js-fallback" role="status">The interactive calendar could not load. The entry titles remain available below.</p>
+        <div id="empty-state" class="empty-state" hidden>
+          <p class="empty-kicker">No categories selected</p>
+          <h3>The week is clear.</h3>
+          <p>Select a category or return to the complete week.</p>
+          <button type="button" class="text-button" data-reset-filters>Show all entries</button>
+        </div>
+
+        <div class="week-view" id="week-view" aria-label="Representative working week"></div>
+        <div class="agenda-view" id="agenda-view" aria-label="Representative working week, agenda view"></div>
+
+        <aside class="detail-panel" id="detail-panel" aria-labelledby="detail-title" aria-hidden="true">
+          <div class="detail-inner">
+            <button class="detail-close" type="button" data-detail-close aria-label="Close entry detail">
+              <span aria-hidden="true">×</span>
+            </button>
+            <p class="detail-period" id="detail-period"></p>
+            <h3 id="detail-title"></h3>
+            <p class="detail-category" id="detail-category"></p>
+            <p class="detail-copy" id="detail-copy"></p>
+            <div class="detail-meta">
+              <div>
+                <h4>Related responsibilities</h4>
+                <div class="tag-list" id="detail-related"></div>
+              </div>
+              <div>
+                <h4>Operating modes</h4>
+                <div class="tag-list" id="detail-modes"></div>
+              </div>
+            </div>
+            <p class="detail-connection" id="detail-connection" hidden></p>
+          </div>
+        </aside>
+        <div class="panel-scrim" data-detail-close aria-hidden="true"></div>
+
+        <noscript>
+          <section class="noscript-list" aria-labelledby="noscript-title">
+            <h3 id="noscript-title">Representative week entries</h3>
+            <ul>
+              <li>Monday: Set the week’s operating priorities</li>
+              <li>Monday: Review the commercial pipeline</li>
+              <li>Monday: Design a sales follow-up sequence</li>
+              <li>Monday: Prepare and run a platform demonstration</li>
+              <li>Tuesday: Plan a new customer implementation</li>
+              <li>Tuesday: Guide customer leadership onboarding</li>
+              <li>Tuesday: Design the training programme</li>
+              <li>Tuesday: Produce workshop and learning resources</li>
+              <li>Wednesday: Resolve a customer support escalation</li>
+              <li>Wednesday: Improve the support system</li>
+              <li>Wednesday: Create a customer communications asset</li>
+              <li>Wednesday: Plan professional community engagement</li>
+              <li>Thursday: Model a prospective agreement</li>
+              <li>Thursday: Shape proposal and licence terms</li>
+              <li>Thursday: Plan the annual renewal cycle</li>
+              <li>Thursday: Review billing and referral systems</li>
+              <li>Friday: Coordinate international reseller priorities</li>
+              <li>Friday: Facilitate a government-funded programme</li>
+              <li>Friday: Review an integration workflow</li>
+              <li>Friday: Consolidate the board and team review</li>
+            </ul>
+          </section>
+        </noscript>
+      </section>
+
+      <section class="implementation-summary" aria-labelledby="implementation-title">
+        <p class="eyebrow">Implementation approach</p>
+        <div>
+          <h2 id="implementation-title">One dataset, two deliberate readings.</h2>
+          <p>Desktop renders the entries as five editorial day columns. Smaller screens use the same ordered data as a day-by-day agenda with details opening inline. Category labels remain visible throughout, while colour works as a secondary cue.</p>
+          <p>Selection is persistent, explicit connections are marked in text and every interaction is available by touch or keyboard. The full data model and editorial notes sit in the accompanying implementation file.</p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
+

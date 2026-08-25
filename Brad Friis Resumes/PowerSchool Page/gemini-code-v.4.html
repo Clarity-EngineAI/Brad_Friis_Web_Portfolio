@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Representative Week | Operating Rhythm</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-ground: #fbfaf7;
+            --bg-surface: #ffffff;
+            --bg-subtle: #f4f3ee;
+            --border-color: #e5e3da;
+            --border-hover: #d0cec4;
+            
+            --text-main: #1c1c1a;
+            --text-muted: #6b6963;
+            --text-light: #949188;
+            
+            --accent: #9c3d1e;
+            --accent-subtle: #faedeb;
+            --accent-hover: #823218;
+
+            --growth: #2b5329;
+            --growth-bg: #edf3ec;
+            --delivery: #1d4ed8;
+            --delivery-bg: #eff6ff;
+            --operations: #7c2d12;
+            --operations-bg: #fff7ed;
+
+            --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --shadow-subtle: 0 1px 3px rgba(28, 28, 26, 0.04), 0 1px 2px rgba(28, 28, 26, 0.02);
+            --shadow-card: 0 4px 12px rgba(28, 28, 26, 0.05);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-ground);
+            color: var(--text-main);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            padding: 3rem 1.5rem;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* Header Section */
+        header {
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 800px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5kt;
+            padding: 0.25rem 0.75rem;
+            background: var(--accent-subtle);
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 20px;
+            width: fit-content;
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--text-main);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Controls / Filter Section */
+        .controls-wrapper {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .controls-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .controls-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+        }
+
+        .global-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-action {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            padding: 0.375rem 0.875rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-action:hover {
+            background: var(--border-color);
+            border-color: var(--border-hover);
+        }
+
+        .pillars-filter-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .pillar-group {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+        }
+
+        .pillar-heading {
+            font-size: 0.8125rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pillar-heading.growth { color: var(--growth); }
+        .pillar-heading.delivery { color: var(--delivery); }
+        .pillar-heading.operations { color: var(--operations); }
+
+        .subcat-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .chip {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.3rem 0.625rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .chip:hover {
+            border-color: var(--border-hover);
+            color: var(--text-main);
+        }
+
+        /* Active states for chips (Inverted logic: off by default, active when classes match) */
+        .chip.active.growth {
+            background: var(--growth-bg);
+            border-color: var(--growth);
+            color: var(--growth);
+            font-weight: 600;
+        }
+
+        .chip.active.delivery {
+            background: var(--delivery-bg);
+            border-color: var(--delivery);
+            color: var(--delivery);
+            font-weight: 600;
+        }
+
+        .chip.active.operations {
+            background: var(--operations-bg);
+            border-color: var(--operations);
+            color: var(--operations);
+            font-weight: 600;
+        }
+
+        /* Calendar Grid Layout */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+        }
+
+        @media (max-width: 1024px) {
+            .calendar-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .day-column {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-subtle);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .day-header {
+            background: var(--bg-subtle);
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .day-name {
+            font-weight: 700;
+            font-size: 0.9375rem;
+            letter-spacing: -0.01em;
+            color: var(--text-main);
+        }
+
+        .day-slots {
+            padding: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            flex-grow: 1;
+        }
+
+        /* Task Cards */
+        .task-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 0.875rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .task-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-card);
+            border-color: var(--border-hover);
+        }
+
+        .task-card.hidden {
+            opacity: 0.15;
+            filter: grayscale(80%);
+            pointer-events: none;
+        }
+
+        .task-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.375rem;
+        }
+
+        .task-time {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--text-light);
+        }
+
+        .task-tag {
+            font-size: 0.625rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            padding: 0.125rem 0.375rem;
+            border-radius: 4px;
+        }
+
+        .task-tag.growth { background: var(--growth-bg); color: var(--growth); }
+        .task-tag.delivery { background: var(--delivery-bg); color: var(--delivery); }
+        .task-tag.operations { background: var(--operations-bg); color: var(--operations); }
+
+        .task-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-main);
+            line-height: 1.4;
+        }
+
+        /* Explanation Notes */
+        .architectural-note {
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .architectural-note h4 {
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <span class="badge">Operating Rhythm</span>
+                <h1>Representative Week</h1>
+                <p class="subtitle">A structured breakdown of strategic leadership, execution velocity, and operational clarity. Filter the view dynamically to explore specific focus areas.</p>
+            </div>
+        </header>
+
+        <!-- Controls / Filter Component -->
+        <div class="controls-wrapper">
+            <div class="controls-header">
+                <span class="controls-title">Filter by Strategic Focus</span>
+                <div class="global-actions">
+                    <button class="btn-action" id="btn-all">Select All</button>
+                    <button class="btn-action" id="btn-reset">Reset (All Off)</button>
+                </div>
+            </div>
+
+            <div class="pillars-filter-container">
+                <!-- Growth Pillar -->
+                <div class="pillar-group">
+                    <div class="pillar-heading growth">Growth</div>
+                    <div class="subcat-chips" data-pillar="growth">
+                        <div class="chip" data-category="Strategy">Strategy</div>
+                        <div class="chip" data-category="Partnerships">Partnerships</div>
+                        <div class="chip" data-category="Pipeline">Pipeline</div>
+                    </div>
+                </div>
+
+                <!-- Delivery Pillar -->
+                <div class="pillar-group">
+                    <div class="pillar-heading delivery">Delivery</div>
+                    <div class="subcat-chips" data-pillar="delivery">
+                        <div class="chip" data-category="Client Impact">Client Impact</div>
+                        <div class="chip" data-category="Architecture">Architecture</div>
+                        <div class="chip" data-category="Execution">Execution</div>
+                    </div>
+                </div>
+
+                <!-- Operations Pillar -->
+                <div class="pillar-group">
+                    <div class="pillar-heading operations">Operations</div>
+                    <div class="subcat-chips" data-pillar="operations">
+                        <div class="chip" data-category="Governance">Governance</div>
+                        <div class="chip" data-category="Infrastructure">Infrastructure</div>
+                        <div class="chip" data-category="Review">Review</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar Grid -->
+        <div class="calendar-grid" id="calendar-grid">
+            <!-- Monday -->
+            <div class="day-column">
+                <div class="day-header"><span class="day-name">Monday</span></div>
+                <div class="day-slots">
+                    <div class="task-card" data-category="Strategy">
+                        <div class="task-meta">
+                            <span class="task-time">08:30 - 10:00</span>
+                            <span class="task-tag growth">Growth</span>
+                        </div>
+                        <div class="task-title">Q3 Strategic Roadmap Alignment</div>
+                    </div>
+                    <div class="task-card" data-category="Client Impact">
+                        <div class="task-meta">
+                            <span class="task-time">10:30 - 12:00</span>
+                            <span class="task-tag delivery">Delivery</span>
+                        </div>
+                        <div class="task-title">Enterprise Client Advisory Session</div>
+                    </div>
+                    <div class="task-card" data-category="Governance">
+                        <div class="task-meta">
+                            <span class="task-time">13:30 - 15:00</span>
+                            <span class="task-tag operations">Operations</span>
+                        </div>
+                        <div class="task-title">Operational Governance Sync</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tuesday -->
+            <div class="day-column">
+                <div class="day-header"><span class="day-name">Tuesday</span></div>
+                <div class="day-slots">
+                    <div class="task-card" data-category="Partnerships">
+                        <div class="task-meta">
+                            <span class="task-time">09:00 - 10:30</span>
+                            <span class="task-tag growth">Growth</span>
+                        </div>
+                        <div class="task-title">Ecosystem Partner Sync</div>
+                    </div>
+                    <div class="task-card" data-category="Architecture">
+                        <div class="task-meta">
+                            <span class="task-time">11:00 - 13:00</span>
+                            <span class="task-tag delivery">Delivery</span>
+                        </div>
+                        <div class="task-title">System Architecture Review</div>
+                    </div>
+                    <div class="task-card" data-category="Infrastructure">
+                        <div class="task-meta">
+                            <span class="task-time">14:30 - 16:00</span>
+                            <span class="task-tag operations">Operations</span>
+                        </div>
+                        <div class="task-title">Data Pipeline Optimization</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wednesday -->
+            <div class="day-column">
+                <div class="day-header"><span class="day-name">Wednesday</span></div>
+                <div class="day-slots">
+                    <div class="task-card" data-category="Pipeline">
+                        <div class="task-meta">
+                            <span class="task-time">08:30 - 10:00</span>
+                            <span class="task-tag growth">Growth</span>
+                        </div>
+                        <div class="task-title">New Market Opportunity Mapping</div>
+                    </div>
+                    <div class="task-card" data-category="Execution">
+                        <div class="task-meta">
+                            <span class="task-time">10:30 - 12:30</span>
+                            <span class="task-tag delivery">Delivery</span>
+                        </div>
+                        <div class="task-title">Core Sprint Execution Session</div>
+                    </div>
+                    <div class="task-card" data-category="Review">
+                        <div class="task-meta">
+                            <span class="task-time">14:00 - 15:30</span>
+                            <span class="task-tag operations">Operations</span>
+                        </div>
+                        <div class="task-title">Mid-Week Metrics Audit</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thursday -->
+            <div class="day-column">
+                <div class="day-header"><span class="day-name">Thursday</span></div>
+                <div class="day-slots">
+                    <div class="task-card" data-category="Strategy">
+                        <div class="task-meta">
+                            <span class="task-time">09:00 - 11:00</span>
+                            <span class="task-tag growth">Growth</span>
+                        </div>
+                        <div class="task-title">Long-term Vision & Positioning</div>
+                    </div>
+                    <div class="task-card" data-category="Client Impact">
+                        <div class="task-meta">
+                            <span class="task-time">11:30 - 13:00</span>
+                            <span class="task-tag delivery">Delivery</span>
+                        </div>
+                        <div class="task-title">Implementation Milestone Check-in</div>
+                    </div>
+                    <div class="task-card" data-category="Governance">
+                        <div class="task-meta">
+                            <span class="task-time">14:30 - 16:00</span>
+                            <span class="task-tag operations">Operations</span>
+                        </div>
+                        <div class="task-title">Resource Allocation Review</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Friday -->
+            <div class="day-column">
+                <div class="day-header"><span class="day-name">Friday</span></div>
+                <div class="day-slots">
+                    <div class="task-card" data-category="Partnerships">
+                        <div class="task-meta">
+                            <span class="task-time">09:00 - 10:30</span>
+                            <span class="task-tag growth">Growth</span>
+                        </div>
+                        <div class="task-title">Key Stakeholder Briefing</div>
+                    </div>
+                    <div class="task-card" data-category="Execution">
+                        <div class="task-meta">
+                            <span class="task-time">11:00 - 12:30</span>
+                            <span class="task-tag delivery">Delivery</span>
+                        </div>
+                        <div class="task-title">Deliverable Polish & Sign-off</div>
+                    </div>
+                    <div class="task-card" data-category="Review">
+                        <div class="task-meta">
+                            <span class="task-time">14:00 - 15:30</span>
+                            <span class="task-tag operations">Operations</span>
+                        </div>
+                        <div class="task-title">Weekly Retrospective & Planning</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design System Brief Notes -->
+        <div class="architectural-note">
+            <h4>Design & State Implementation Notes</h4>
+            <p>The layout uses structural separation to eliminate container friction. Sub-categories start unselected (off by default) to establish an intentional opt-in filtering mechanism. Clicking specific sub-tags or using global controls updates card opacities instantly while maintaining grid geometry.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chips = document.querySelectorAll('.chip');
+            const cards = document.querySelectorAll('.task-card');
+            const btnAll = document.getElementById('btn-all');
+            const btnReset = document.getElementById('btn-reset');
+
+            // Helper to get active categories
+            function getActiveCategories() {
+                const activeChips = document.querySelectorAll('.chip.active');
+                return Array.from(activeChips).map(chip => chip.getAttribute('data-category'));
+            }
+
+            // Update card visibility based on active states
+            function updateGridVisibility() {
+                const activeCategories = getActiveCategories();
+                
+                cards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    if (activeCategories.length === 0 || activeCategories.includes(cardCategory)) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            }
+
+            // Chip click handler (Toggle individual state)
+            chips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    const pillarType = chip.closest('.subcat-chips').getAttribute('data-pillar');
+                    chip.classList.toggle('active');
+                    chip.classList.toggle(pillarType);
+                    updateGridVisibility();
+                });
+            });
+
+            // Select All handler
+            btnAll.addEventListener('click', () => {
+                chips.forEach(chip => {
+                    const pillarType = chip.closest('.subcat-chips').getAttribute('data-pillar');
+                    chip.classList.add('active', pillarType);
+                });
+                updateGridVisibility();
+            });
+
+            // Reset handler (All Off)
+            btnReset.addEventListener('click', () => {
+                chips.forEach(chip => {
+                    const pillarType = chip.closest('.subcat-chips').getAttribute('data-pillar');
+                    chip.classList.remove('active', pillarType);
+                });
+                updateGridVisibility();
+            });
+
+            // Initialize with default state (all off, meaning all visible or zero filtering restriction)
+            // Let's check: user requested sub categories off to begin with. If all are off, should cards be fully visible or dimmed? 
+            // Standard opt-in filtering behavior: when zero filters are selected, display all items as default context.
+            updateGridVisibility();
+        });
+    </script>
+</body>
+</html>

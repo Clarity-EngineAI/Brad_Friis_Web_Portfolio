@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operating Rhythm Prototype</title>
+<style>
+  :root {
+    --bg-page: #f9fafb;
+    --bg-card: #ffffff;
+    --text-main: #111827;
+    --text-muted: #6b7280;
+    --border: #e5e7eb;
+    --border-hover: #d1d5db;
+    --focus-ring: #2563eb;
+    
+    /* Category Colors */
+    --cat-commercial: #c05621;
+    --cat-implementation: #2b6cb0;
+    --cat-enablement: #319795;
+    --cat-marketing: #97266d;
+    --cat-support: #b7791f;
+    --cat-finance: #2f855a;
+    --cat-leadership: #4a5568;
+    --cat-partnerships: #c53030;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-page: #111827;
+      --bg-card: #1f2937;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border: #374151;
+      --border-hover: #4b5563;
+      --focus-ring: #60a5fa;
+
+      --cat-commercial: #f6ad55;
+      --cat-implementation: #63b3ed;
+      --cat-enablement: #4fd1c5;
+      --cat-marketing: #f687b3;
+      --cat-support: #f6e05e;
+      --cat-finance: #68d391;
+      --cat-leadership: #a0aec0;
+      --cat-partnerships: #fc8181;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    line-height: 1.5;
+    margin: 0;
+    padding: 2rem 1rem;
+  }
+
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  .intro {
+    max-width: 800px;
+    margin-bottom: 2rem;
+  }
+  
+  .disclaimer {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    border-left: 3px solid var(--border);
+    padding-left: 1rem;
+    margin-top: 1rem;
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .filter-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+  }
+  
+  @media (prefers-reduced-motion) {
+    .filter-btn { transition: none; }
+  }
+
+  .filter-btn[aria-pressed="true"] {
+    background: var(--text-main);
+    color: var(--bg-card);
+    border-color: var(--text-main);
+  }
+
+  .filter-btn:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* Desktop Grid */
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+  }
+
+  .day-column h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    text-transform: capitalize;
+  }
+
+  .slots {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .slot-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Card */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease;
+    border-left-width: 4px;
+  }
+
+  @media (prefers-reduced-motion) {
+    .card { transition: opacity 0.1s; }
+  }
+
+  .card.filtered-out {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-right-color: var(--border-hover);
+    border-top-color: var(--border-hover);
+    border-bottom-color: var(--border-hover);
+  }
+
+  .card:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+  
+  .card.is-related {
+    box-shadow: 0 0 0 2px var(--focus-ring);
+  }
+
+  .card-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .card-summary {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .card-cat-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+  }
+
+  /* Detail Dialog */
+  dialog {
+    padding: 2rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-card);
+    color: var(--text-main);
+    max-width: 500px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  }
+
+  dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .dialog-close {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1.5rem;
+  }
+
+  .detail-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    background: var(--bg-page);
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    color: var(--text-muted);
+  }
+
+  /* Mobile */
+  @media (max-width: 1024px) {
+    .calendar-grid {
+      grid-template-columns: 1fr;
+    }
+    .day-column {
+      margin-bottom: 2rem;
+    }
+    .slots {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .card {
+      flex: 1 1 calc(50% - 1rem);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .slots {
+      flex-direction: column;
+    }
+    .card {
+      flex: 1 1 100%;
+    }
+    dialog {
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      margin-top: auto;
+      border-radius: 12px 12px 0 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="intro">
+    <h1>Operating Rhythm</h1>
+    <p>A demonstration of operational breadth across strategy, commercial systems, and technical delivery.</p>
+    <div class="disclaimer">
+      This calendar is an illustrative composite of recurring responsibilities. It is not a literal record of a specific week and contains no confidential commercial figures or actual customer identities.
+    </div>
+  </div>
+
+  <div class="filters" id="filterContainer" role="group" aria-label="Filter entries by category">
+    <!-- Filter buttons injected here -->
+  </div>
+  
+  <div aria-live="polite" class="sr-only" id="announceArea" style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;"></div>
+
+  <div class="calendar-grid" id="calendarGrid">
+    <!-- Grid injected here -->
+  </div>
+</div>
+
+<dialog id="detailDialog">
+  <div id="dialogContent"></div>
+  <button class="dialog-close" id="closeDialogBtn">Close</button>
+</dialog>
+
+<script>
+  const categories = {
+    commercial: { label: "Commercial and sales", color: "var(--cat-commercial)" },
+    implementation: { label: "Implementation and technical delivery", color: "var(--cat-implementation)" },
+    enablement: { label: "Customer enablement and training", color: "var(--cat-enablement)" },
+    marketing: { label: "Marketing and community", color: "var(--cat-marketing)" },
+    support: { label: "Support and service design", color: "var(--cat-support)" },
+    finance: { label: "Finance, contracts and renewals", color: "var(--cat-finance)" },
+    leadership: { label: "Leadership and governance", color: "var(--cat-leadership)" },
+    partnerships: { label: "Partnerships and public sector", color: "var(--cat-partnerships)" }
+  };
+
+  const days = ["monday", "tuesday", "wednesday", "thursday", "friday"];
+
+  const entryData = [
+    {
+      id: "commercial-priorities",
+      day: "monday",
+      slot: "Morning",
+      title: "Weekly operating priorities",
+      summary: "Review pipeline, delivery, support, renewals and partner commitments.",
+      detail: "I assess activity across the complete operation to identify immediate risks and opportunities. This coordinates the week's priorities and ensures alignment across the team.",
+      primaryCategory: "leadership",
+      relatedCategories: ["commercial", "support"],
+      modes: ["strategy", "leadership", "coordination"],
+      connections: ["board-reporting"]
+    },
+    {
+      id: "prospecting-review",
+      day: "monday",
+      slot: "Morning",
+      title: "Prospecting and lead review",
+      summary: "Evaluate the pipeline and plan required outreach assets.",
+      detail: "I review prospects and outreach activity to determine next commercial actions. I plan the follow-up sequences and supporting assets required to progress priority opportunities.",
+      primaryCategory: "commercial",
+      relatedCategories: ["marketing"],
+      modes: ["strategy", "analysis", "delivery"],
+      connections: ["sales-sequence"]
+    },
+    {
+      id: "sales-sequence",
+      day: "monday",
+      slot: "Afternoon",
+      title: "Sales sequence development",
+      summary: "Develop phone scripts and automated email sequences.",
+      detail: "I design the messaging, timing and follow-up logic for commercial outreach. This connects the communication sequence directly to presentations, demonstrations and proposals.",
+      primaryCategory: "marketing",
+      relatedCategories: ["commercial"],
+      modes: ["system design", "writing", "hands-on production"],
+      connections: ["prospecting-review"]
+    },
+    {
+      id: "platform-demo",
+      day: "monday",
+      slot: "Afternoon",
+      title: "Platform demonstration",
+      summary: "Adapt and deliver a demonstration for a prospective customer.",
+      detail: "I prepare and deliver a product demonstration tailored to the prospect's operating environment. This requires accounting for implementation, onboarding, support and commercial implications during the pitch.",
+      primaryCategory: "commercial",
+      relatedCategories: ["enablement"],
+      modes: ["preparation", "delivery", "commercial judgement"],
+      connections: []
+    },
+    {
+      id: "implementation-plan",
+      day: "tuesday",
+      slot: "Morning",
+      title: "New-customer implementation plan",
+      summary: "Translate requirements into a technical sequence.",
+      detail: "I define stages, responsibilities, dependencies and risks for new deployments. This coordinates technical delivery with onboarding, leadership communication and ongoing support.",
+      primaryCategory: "implementation",
+      relatedCategories: ["support"],
+      modes: ["strategy", "systems design", "project coordination"],
+      connections: ["leadership-onboarding"]
+    },
+    {
+      id: "leadership-onboarding",
+      day: "tuesday",
+      slot: "Morning",
+      title: "Customer leadership onboarding",
+      summary: "Guide customer leaders through adoption priorities.",
+      detail: "I help customer leadership understand the organisational decisions required for successful platform adoption. I adapt the advisory session to their specific operational context.",
+      primaryCategory: "enablement",
+      relatedCategories: ["leadership"],
+      modes: ["advisory", "facilitation", "delivery"],
+      connections: ["implementation-plan"]
+    },
+    {
+      id: "training-programme",
+      day: "tuesday",
+      slot: "Afternoon",
+      title: "Training programme development",
+      summary: "Design a learning pathway for varying user groups.",
+      detail: "I design the curriculum and learning pathway for staff, leadership and support teams. I determine which components require workshops, video content or self-paced resources.",
+      primaryCategory: "enablement",
+      relatedCategories: ["implementation"],
+      modes: ["learning design", "planning", "production"],
+      connections: ["training-resources"]
+    },
+    {
+      id: "training-resources",
+      day: "tuesday",
+      slot: "Afternoon",
+      title: "Training resource production",
+      summary: "Produce practical materials for learning pathways.",
+      detail: "I create the practical materials required to turn the training strategy into a usable experience. This includes workshop assets and self-directed learning guides.",
+      primaryCategory: "enablement",
+      relatedCategories: ["marketing"],
+      modes: ["content design", "visual communication", "hands-on production"],
+      connections: ["training-programme"]
+    },
+    {
+      id: "support-escalation",
+      day: "wednesday",
+      slot: "Morning",
+      title: "Support escalation resolution",
+      summary: "Investigate and coordinate resolution for a technical issue.",
+      detail: "I investigate issues affecting customer use of the platform. I coordinate the immediate technical response while managing communication and documentation to prevent recurrence.",
+      primaryCategory: "support",
+      relatedCategories: ["implementation"],
+      modes: ["problem-solving", "communication", "technical coordination"],
+      connections: ["support-improvement"]
+    },
+    {
+      id: "support-improvement",
+      day: "wednesday",
+      slot: "Morning",
+      title: "Support-system improvement",
+      summary: "Update service standards based on recurring needs.",
+      detail: "I convert patterns in customer enquiries into clearer materials and processes. This ensures service expectations align with actual usage trends.",
+      primaryCategory: "support",
+      relatedCategories: ["operations"],
+      modes: ["systems design", "documentation", "continuous improvement"],
+      connections: ["support-escalation"]
+    },
+    {
+      id: "customer-comms",
+      day: "wednesday",
+      slot: "Afternoon",
+      title: "Customer communications asset",
+      summary: "Translate technical updates into audience-appropriate communication.",
+      detail: "I create concise resources introducing new capabilities or workflows. This translates technical product information into clear guidance using instructional thinking.",
+      primaryCategory: "marketing",
+      relatedCategories: ["support"],
+      modes: ["communication design", "production", "product translation"],
+      connections: []
+    },
+    {
+      id: "community-engagement",
+      day: "wednesday",
+      slot: "Afternoon",
+      title: "Professional community engagement",
+      summary: "Support a nationwide network of roughly 650 teachers.",
+      detail: "I plan engagement that balances resource sharing, peer connection and product adoption. This maintains long-term relationships and delivers ongoing customer value.",
+      primaryCategory: "marketing",
+      relatedCategories: ["partnerships"],
+      modes: ["community strategy", "communication", "facilitation"],
+      connections: []
+    },
+    {
+      id: "financial-projection",
+      day: "thursday",
+      slot: "Morning",
+      title: "Financial projection modelling",
+      summary: "Model the commercial implications of a prospective agreement.",
+      detail: "I model the commercial implications and structural requirements of prospective deals. This connects pricing analysis to licensing, implementation scope and longer-term value.",
+      primaryCategory: "finance",
+      relatedCategories: ["commercial"],
+      modes: ["financial modelling", "commercial strategy", "decision support"],
+      connections: ["proposal-development"]
+    },
+    {
+      id: "proposal-development",
+      day: "thursday",
+      slot: "Morning",
+      title: "Proposal and EULA development",
+      summary: "Prepare commercial documentation for a prospective customer.",
+      detail: "I shape the proposal, commercial structure and licensing requirements. I verify that our commitments can be supported securely through delivery, billing and eventual renewal.",
+      primaryCategory: "commercial",
+      relatedCategories: ["finance"],
+      modes: ["commercial writing", "negotiation preparation", "risk management"],
+      connections: ["financial-projection"]
+    },
+    {
+      id: "renewal-planning",
+      day: "thursday",
+      slot: "Afternoon",
+      title: "Annual renewal planning",
+      summary: "Plan the next stage of the renewal cycle.",
+      detail: "I review customer status to set the renewal approach. This requires assessing adoption metrics, support history, billing and future requirements.",
+      primaryCategory: "finance",
+      relatedCategories: ["commercial", "support"],
+      modes: ["analysis", "relationship strategy", "commercial management"],
+      connections: []
+    },
+    {
+      id: "billing-systems",
+      day: "thursday",
+      slot: "Afternoon",
+      title: "Billing and referral systems",
+      summary: "Manage systems supporting billing and referral activity.",
+      detail: "I review invoicing and reciprocal referral relationships. I connect administrative systems with customer communication, partner management and overall growth.",
+      primaryCategory: "finance",
+      relatedCategories: ["partnerships"],
+      modes: ["operational design", "administration", "relationship management"],
+      connections: []
+    },
+    {
+      id: "reseller-meeting",
+      day: "friday",
+      slot: "Morning",
+      title: "International reseller meeting",
+      summary: "Coordinate priorities with the international platform partner.",
+      detail: "I coordinate strategic priorities with our international platform partner. I liaise across commercial, technical, marketing and support stakeholders to maintain alignment.",
+      primaryCategory: "partnerships",
+      relatedCategories: ["leadership"],
+      modes: ["partnership management", "negotiation", "coordination"],
+      connections: []
+    },
+    {
+      id: "gov-facilitation",
+      day: "friday",
+      slot: "Morning",
+      title: "Government-funded facilitation",
+      summary: "Deliver strategic guidance for a school.",
+      detail: "I deliver professional learning and strategic guidance as an accredited government facilitator. I help school leaders connect technology decisions with teaching and organisational priorities.",
+      primaryCategory: "partnerships",
+      relatedCategories: ["enablement"],
+      modes: ["facilitation", "advisory", "professional learning"],
+      connections: []
+    },
+    {
+      id: "integration-review",
+      day: "friday",
+      slot: "Afternoon",
+      title: "Integration workflow review",
+      summary: "Refine tools to reduce school database administration.",
+      detail: "I contribute technical support and design thinking to integration tools. This requires connecting user needs and data processes with implementation and ongoing support.",
+      primaryCategory: "implementation",
+      relatedCategories: ["support"],
+      modes: ["workflow design", "technical support", "user advocacy"],
+      connections: []
+    },
+    {
+      id: "board-reporting",
+      day: "friday",
+      slot: "Afternoon",
+      title: "Board reporting and team review",
+      summary: "Consolidate performance, risks and resourcing for leadership.",
+      detail: "I connect commercial activity, customer delivery, financial performance and operational risks into a cohesive view. I review required work across internal staff and external contractors.",
+      primaryCategory: "leadership",
+      relatedCategories: ["finance", "operations"],
+      modes: ["governance", "reporting", "people management"],
+      connections: ["commercial-priorities"]
+    }
+  ];
+
+  let currentFilter = 'all';
+
+  function init() {
+    renderFilters();
+    renderGrid();
+  }
+
+  function renderFilters() {
+    const container = document.getElementById('filterContainer');
+    
+    const allBtn = document.createElement('button');
+    allBtn.className = 'filter-btn';
+    allBtn.textContent = 'All';
+    allBtn.setAttribute('aria-pressed', 'true');
+    allBtn.onclick = () => setFilter('all', allBtn);
+    container.appendChild(allBtn);
+
+    Object.entries(categories).forEach(([key, cat]) => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn';
+      btn.textContent = cat.label;
+      btn.setAttribute('aria-pressed', 'false');
+      btn.onclick = () => setFilter(key, btn);
+      container.appendChild(btn);
+    });
+  }
+
+  function setFilter(filterKey, activeBtn) {
+    currentFilter = filterKey;
+    document.querySelectorAll('.filter-btn').forEach(b => b.setAttribute('aria-pressed', 'false'));
+    activeBtn.setAttribute('aria-pressed', 'true');
+
+    const cards = document.querySelectorAll('.card');
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      if (filterKey === 'all' || card.dataset.category === filterKey) {
+        card.classList.remove('filtered-out');
+        card.removeAttribute('aria-hidden');
+        card.tabIndex = 0;
+        visibleCount++;
+      } else {
+        card.classList.add('filtered-out');
+        card.setAttribute('aria-hidden', 'true');
+        card.tabIndex = -1;
+      }
+    });
+
+    document.getElementById('announceArea').textContent = `Showing ${visibleCount} entries.`;
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById('calendarGrid');
+    
+    days.forEach(day => {
+      const col = document.createElement('div');
+      col.className = 'day-column';
+      
+      const header = document.createElement('h2');
+      header.textContent = day;
+      col.appendChild(header);
+
+      const slotsContainer = document.createElement('div');
+      slotsContainer.className = 'slots';
+
+      const dayEntries = entryData.filter(e => e.day === day);
+      
+      dayEntries.forEach(entry => {
+        const cat = categories[entry.primaryCategory];
+        
+        const card = document.createElement('button');
+        card.className = 'card';
+        card.dataset.category = entry.primaryCategory;
+        card.dataset.id = entry.id;
+        card.dataset.connections = JSON.stringify(entry.connections || []);
+        card.style.borderLeftColor = cat.color;
+        
+        card.innerHTML = `
+          <div class="slot-label">${entry.slot}</div>
+          <div class="card-cat-label" style="color: ${cat.color}">${cat.label}</div>
+          <h3 class="card-title">${entry.title}</h3>
+          <p class="card-summary">${entry.summary}</p>
+        `;
+
+        card.onclick = () => openDetail(entry);
+        slotsContainer.appendChild(card);
+      });
+
+      col.appendChild(slotsContainer);
+      grid.appendChild(col);
+    });
+  }
+
+  function openDetail(entry) {
+    const dialog = document.getElementById('detailDialog');
+    const content = document.getElementById('dialogContent');
+    const cat = categories[entry.primaryCategory];
+
+    content.innerHTML = `
+      <div class="card-cat-label" style="color: ${cat.color}; margin-bottom: 1rem;">${cat.label}</div>
+      <h2 style="margin-top:0; font-size: 1.25rem;">${entry.title}</h2>
+      <p style="font-size: 1rem; margin-bottom: 1.5rem;">${entry.detail}</p>
+      
+      <div style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Operating Modes</div>
+      <div class="detail-tags">
+        ${entry.modes.map(m => `<span class="tag">${m}</span>`).join('')}
+      </div>
+    `;
+
+    // Handle related styling
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('is-related'));
+    if (entry.connections && entry.connections.length > 0) {
+      entry.connections.forEach(connId => {
+        const relatedCard = document.querySelector(`.card[data-id="${connId}"]`);
+        if (relatedCard) relatedCard.classList.add('is-related');
+      });
+    }
+
+    dialog.showModal();
+  }
+
+  document.getElementById('closeDialogBtn').onclick = () => {
+    document.getElementById('detailDialog').close();
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('is-related'));
+  };
+
+  // Close dialog on clicking backdrop
+  document.getElementById('detailDialog').addEventListener('click', (e) => {
+    const dialogDimensions = e.target.getBoundingClientRect();
+    if (
+      e.clientX < dialogDimensions.left ||
+      e.clientX > dialogDimensions.right ||
+      e.clientY < dialogDimensions.top ||
+      e.clientY > dialogDimensions.bottom
+    ) {
+      e.target.close();
+      document.querySelectorAll('.card').forEach(c => c.classList.remove('is-related'));
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
