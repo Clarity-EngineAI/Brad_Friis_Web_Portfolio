@@ -3,7 +3,8 @@ import { Image } from "astro:assets";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import ContactPanel from "../components/ContactPanel.astro";
 import BookingButton from "../components/BookingButton.astro";
-import { isStackedLogo, logos } from "../data/logos";
+import { logos } from "../data/logos";
+import { aiLogos } from "../data/aiLogos";
 import portrait from "../assets/brad-friis.jpg";
 
 // Every figure traces to `COPY/brad-verified-claims-transcript.md`.
@@ -132,7 +133,7 @@ const careers = [
     org: "Canwest, RadioWorks",
     title: "Kept the national account for three years",
     detail: "Held the Harvey Norman account for the full three years I was at Canwest Media. Don't recall losing an account in that time.",
-    teaser: { href: "/blog/plastic-bags/", label: "Field notes: door-knocking started long before this, the plastic bags" },
+    teaser: { href: "/blog/plastic-bags/", label: "Observations: door-knocking started long before this, the plastic bags" },
   },
   {
     year: "2009",
@@ -324,13 +325,7 @@ const homeQuotes = [
       <ul aria-label="Companies Brad has sold to and worked with">
         {logos.map((logo) => (
           <li>
-            <Image
-              class:list={{ "logo-stacked": isStackedLogo(logo) }}
-              src={logo.image}
-              alt={logo.name}
-              height={isStackedLogo(logo) ? 80 : 60}
-              loading="lazy"
-            />
+            <Image src={logo.image} alt={logo.name} height={64} loading="lazy" />
           </li>
         ))}
       </ul>
@@ -344,6 +339,17 @@ const homeQuotes = [
         <h2 id="now-heading">A year building AI fluency with the tools.</h2>
         <p class="lead">The past year has been hands-on work with AI tools, the same product-depth habit from the rest of this page applied at a new scale: working fluency with the toolkit, and an eye for where it actually saves a business time.</p>
       </header>
+
+      <div class="shell logo-strip" aria-labelledby="ai-logos-heading">
+        <p class="eyebrow-pill" id="ai-logos-heading">Tools in daily use</p>
+        <ul aria-label="AI and software tools Brad uses">
+          {aiLogos.map((logo) => (
+            <li>
+              <Image src={logo.image} alt={logo.name} height={64} loading="lazy" />
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   </div>
 

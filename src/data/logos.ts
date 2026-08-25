@@ -27,8 +27,3 @@ export const logos: Logo[] = [
   { name: "The Icehouse", image: theIcehouse },
   { name: "NZCA", image: nzca },
 ];
-
-/** Stacked lockups need more height than wordmarks to read at the same optical weight. */
-export function isStackedLogo(logo: Logo): boolean {
-  return logo.image.width / logo.image.height < 2.6;
-}

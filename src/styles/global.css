@@ -1247,24 +1247,23 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 56px;
+  height: 64px;
 }
 
 /* Multiply drops the white grounds that some source files still carry, so the
-   logos sit on the warm band rather than on visible white rectangles. */
+   logos sit on the warm band rather than on visible white rectangles.
+   Every logo renders in the same fixed box regardless of source aspect
+   ratio — object-fit: contain scales each to fit without cropping. The box
+   is close to square so tall/square marks (a triangle-and-wordmark lockup,
+   an octocat) aren't squeezed down to fit a short, wide-only box. */
 .logo-strip img {
-  width: auto;
-  max-width: 108px;
-  height: auto;
-  max-height: 28px;
+  width: 108px;
+  height: 48px;
+  object-fit: contain;
   filter: grayscale(1);
   mix-blend-mode: multiply;
   opacity: 0.72;
   transition: filter 160ms ease, opacity 160ms ease;
-}
-
-.logo-strip img.logo-stacked {
-  max-height: 40px;
 }
 
 .logo-strip li:hover img,
@@ -2029,7 +2028,7 @@ main {
   }
 
   .logo-strip img {
-    max-width: 88px;
+    width: 88px;
   }
 }
 

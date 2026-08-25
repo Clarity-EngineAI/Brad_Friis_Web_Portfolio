@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 import ContactPanel from "../../components/ContactPanel.astro";
-import { isStackedLogo, logos } from "../../data/logos";
+import { logos } from "../../data/logos";
 import { posts } from "../../data/blog";
 import portrait from "../../assets/brad-friis.jpg";
 
@@ -276,13 +276,7 @@ const homeQuotes = [
       <ul aria-label="Companies Brad has sold to and worked with">
         {logos.map((logo) => (
           <li>
-            <Image
-              class:list={{ "logo-stacked": isStackedLogo(logo) }}
-              src={logo.image}
-              alt={logo.name}
-              height={isStackedLogo(logo) ? 80 : 60}
-              loading="lazy"
-            />
+            <Image src={logo.image} alt={logo.name} height={64} loading="lazy" />
           </li>
         ))}
       </ul>
