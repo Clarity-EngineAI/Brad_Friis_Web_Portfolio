@@ -83,10 +83,18 @@ DOCUMENTS: dict[str, str] = {
     "Andrew_Bergh.pdf": "andrew-bergh",
     "Rototuna_High_School_final.png": "rototuna-high-schools",
     "Brad Friis - Reference The Industry School.pdf": "the-industry-school",
+    "PowerSchool.pdf": "powerschool",
 }
 
 # A text layer must not still contain what the boxes appear to cover.
-FORBIDDEN = re.compile(r"[\w.+-]+@[\w-]+\.[\w.]+|\b0[2-9]\d[\s-]?\d{3}[\s-]?\d{3,4}\b")
+# Three shapes: any email address, an NZ number, and a +1 North American number.
+# The last was added on 20 August 2026 for the PowerSchool email, the first source
+# from outside New Zealand — the NZ pattern alone would have passed its phone line.
+FORBIDDEN = re.compile(
+    r"[\w.+-]+@[\w-]+\.[\w.]+"
+    r"|\b0[2-9]\d[\s-]?\d{3}[\s-]?\d{3,4}\b"
+    r"|\+1\s*\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{4}\b"
+)
 
 
 def page_bounds(image: Image.Image) -> tuple[int, int, int, int]:
