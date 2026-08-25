@@ -273,6 +273,33 @@ main {
 
 /* Shared marks: eyebrow pills, enumeration, two-tier captions */
 
+/* The work cards link out to the letter that backs their quote. A pill rather than a text link:
+   it is an action, not an aside, and each card carries at most one so it reads as the card's
+   footer button. Shares the eyebrow pill's shape tokens but keeps sentence case and body weight
+   — uppercase letter-spacing on a person's name reads as a label, not a destination. */
+.letter-pill {
+  display: inline-block;
+  /* The work cards are flex columns (`.hairline-grid > *`), so a stretch-aligned child would run
+     the full cell width and stop reading as a button. */
+  align-self: flex-start;
+  margin: 4px 0 0;
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  color: var(--accent);
+  font-size: var(--text-nav);
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: background-color 0.18s ease, border-color 0.18s ease;
+}
+
+.letter-pill:hover,
+.letter-pill:focus-visible {
+  border-color: var(--accent);
+  background: var(--recessed);
+}
+
 .eyebrow-pill {
   display: inline-block;
   padding: 4px 10px;
@@ -1540,6 +1567,33 @@ main {
   font-size: var(--text-meta);
 }
 
+/* The organisation's mark sits under the context card. Logos are supplied as dark artwork
+   on white or transparent, so the plate stays light in both themes rather than inverting
+   into an unreadable smudge. */
+.letter-logo {
+  margin: 16px 0 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: #fff;
+  text-align: center;
+}
+
+.letter-logo img {
+  display: inline-block;
+  width: auto;
+  max-width: 100%;
+  max-height: 48px;
+  height: auto;
+}
+
+/* Square and stacked lockups carry their weight in height, not width. Capped at the same 48px
+   they read half the size of a wordmark, so they get the extra height the client scroller
+   already gives its stacked marks. */
+.letter-logo.is-stacked img {
+  max-height: 84px;
+}
+
 .transcription {
   max-width: 66ch;
   padding: 28px 26px;
@@ -1787,10 +1841,6 @@ main {
     align-items: start;
   }
 
-  .hero-aside {
-    max-width: 420px;
-  }
-
   .contact-form {
     border-left: 0;
     border-top: 1px solid var(--line);
@@ -1857,6 +1907,10 @@ main {
      as four links and one button rather than five items of equal weight. */
   .primary-nav .header-contact {
     margin-left: auto;
+  }
+
+  .hero-aside {
+    max-width: 420px;
   }
 
   .section {
@@ -2062,6 +2116,7 @@ main {
   .logo-strip,
   .contact-form,
   .pager,
+  .letter-logo,
   .back-link,
   .status-chip,
   .portrait-well,

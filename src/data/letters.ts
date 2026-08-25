@@ -3,10 +3,18 @@ import adplusScan from "../assets/letters/adplus-advertising.jpg";
 import berghScan1 from "../assets/letters/andrew-bergh-1.png";
 import berghScan2 from "../assets/letters/andrew-bergh-2.png";
 import canwestScan from "../assets/letters/canwest-media.jpg";
+import powerschoolScan from "../assets/letters/powerschool.png";
 import hawkesBayScan from "../assets/letters/hawkes-bay-tourism.jpg";
 import industrySchoolScan1 from "../assets/letters/the-industry-school-1.png";
 import industrySchoolScan2 from "../assets/letters/the-industry-school-2.png";
 import rototunaScan from "../assets/letters/rototuna-high-schools.png";
+import adplusLogo from "../assets/letter-logos/adplus-tracta.jpg";
+import elimLogo from "../assets/letter-logos/elim-christian-college.png";
+import hawkesBayLogo from "../assets/letter-logos/hawkes-bay-tourism.png";
+import mediaworksLogo from "../assets/letter-logos/mediaworks.png";
+import rototunaLogo from "../assets/letter-logos/rototuna-high-schools.png";
+import industrySchoolLogo from "../assets/letter-logos/the-industry-school.png";
+import powerschoolLogo from "../assets/letter-logos/powerschool.png";
 
 export type LetterBlock =
   | { kind: "aside"; text: string }
@@ -28,10 +36,58 @@ export interface Letter {
   body: LetterBlock[];
   /** Page images of the original document, in order. Only redacted derivatives belong here. */
   scans?: { image: ImageMetadata; alt: string }[];
+  /** The organisation's mark, shown under the About-this-document card. Omitted where no
+      usable logo exists, or where showing one would identify a gag-covered employer. */
+  logo?: { image: ImageMetadata; alt: string };
 }
 
 /** Publication order is newest first, set by `Brad Friis Resumes/References/README.md`. */
 export const letters: Letter[] = [
+  {
+    // The only entry that is an email rather than a solicited letter, hence the documentType.
+    // It is also the only reference written by the vendor rather than a customer, which is why
+    // it carries the channel-partner work the customer letters cannot speak to.
+    slug: "powerschool",
+    referee: "Gavin Jeffries",
+    role: "Senior Account Director, Asia",
+    organisation: "PowerSchool",
+    documentType: "Email",
+    date: "2025-05-30",
+    dateLabel: "30 May 2025",
+    context:
+      "Gavin ran PowerSchool's Asia account team and wrote after Brad told him he was considering a move away from the partnership. The reply is unsolicited: Brad had asked for nothing.",
+    pullQuote:
+      "Your deep PowerSchool expertise and strong connections across our team, long-standing relationships with Schoology customers in New Zealand and Australia, and the trust you've built have all added significant value to our presence in the Oceania market.",
+    body: [
+      { kind: "lines", lines: ["Subject: Partnership Considerations and Next Steps", "30 May 2025"] },
+      { kind: "paragraph", text: "Dear Brad," },
+      { kind: "paragraph", text: "It was a pleasure speaking with you yesterday." },
+      {
+        kind: "paragraph",
+        text: "While I'm naturally disappointed to hear that you may be exploring a career shift away from PowerSchool, I'm equally excited about what the future may hold for you.",
+      },
+      {
+        kind: "paragraph",
+        text: "Brad, you've been instrumental in managing the partnership with us. Your deep PowerSchool expertise and strong connections across our team, long-standing relationships with Schoology customers in New Zealand and Australia, and the trust you've built have all added significant value to our presence in the Oceania market.",
+      },
+      {
+        kind: "paragraph",
+        text: "That said, we'll continue to respect and support whatever direction you choose, and respond accordingly. Please do keep us updated as your plans evolve.",
+      },
+      { kind: "paragraph", text: "Wishing you clarity as you take the next step forward." },
+      {
+        kind: "lines",
+        lines: ["Warm regards,", "Gavin Jeffries", "Senior Account Director - Asia", "PowerSchool Group LLC."],
+      },
+    ],
+    scans: [
+      {
+        image: powerschoolScan,
+        alt: "The email on PowerSchool letterhead, ending with Gavin Jeffries' signature block. The two email addresses and the phone number are blanked out.",
+      },
+    ],
+    logo: { image: powerschoolLogo, alt: "PowerSchool" },
+  },
   {
     slug: "andrew-bergh",
     referee: "Andrew Bergh",
@@ -78,6 +134,10 @@ export const letters: Letter[] = [
       { kind: "lines", lines: ["Sincerely,"] },
       { kind: "lines", lines: ["Andrew Bergh", "High School Principal", "[contact details withheld]"] },
     ],
+    logo: {
+      image: elimLogo,
+      alt: "Elim Christian College.",
+    },
     scans: [
       {
         image: berghScan1,
@@ -131,6 +191,10 @@ export const letters: Letter[] = [
       { kind: "lines", lines: ["Kind regards,"] },
       { kind: "lines", lines: ["Pranesh Lad", "IT System Engineer", "[contact details withheld]"] },
     ],
+    logo: {
+      image: rototunaLogo,
+      alt: "Rototuna High Schools \u2014 Te Kura Nui o Rototuna.",
+    },
     scans: [
       {
         image: rototunaScan,
@@ -181,6 +245,10 @@ export const letters: Letter[] = [
         lines: ["Adrian Pilgrim", "Teaching and Learning Manager | Professional Services"],
       },
     ],
+    logo: {
+      image: industrySchoolLogo,
+      alt: "The Industry School.",
+    },
     scans: [
       {
         image: industrySchoolScan1,
@@ -195,13 +263,13 @@ export const letters: Letter[] = [
   {
     slug: "canwest-media",
     referee: "Philip Lemon",
-    role: "Brad's manager at CanWest Media",
-    organisation: "The Radio Network",
+    role: "Sales Manager",
+    organisation: "CanWest Media, Radioworks",
     documentType: "Reference letter",
     date: "2006-02-11",
     dateLabel: "11 February 2006",
     context:
-      "Lemon managed Brad at CanWest Media and wrote after both had left, on the letterhead of The Radio Network, where he had since moved. The letter is about CanWest, not The Radio Network.",
+      "Philip managed Brad at CanWest Media and wrote after both had left, on the letterhead of The Radio Network, where he had since moved. The letter is about CanWest, not The Radio Network.",
     pullQuote:
       "Several of Brad's past clients have mentioned his ability a number of years on from his departure.",
     body: [
@@ -239,6 +307,10 @@ export const letters: Letter[] = [
         text: "[Footer: station logos \u2014 Newstalk ZB, Classic Hits, ZM, Radio Sport, Radio Hauraki, Flava, Viva, Coast]",
       },
     ],
+    logo: {
+      image: mediaworksLogo,
+      alt: "MediaWorks, the company RadioWorks now trades as.",
+    },
     scans: [
       {
         image: canwestScan,
@@ -248,14 +320,14 @@ export const letters: Letter[] = [
   },
   {
     slug: "adplus-advertising",
-    referee: "AR Walker",
+    referee: "Andy Walker",
     role: "Managing Director",
     organisation: "Adplus Advertising (now Tracta)",
     documentType: "Reference letter",
     date: "2003-03-24",
     dateLabel: "24 March 2003",
     context:
-      "Written by Brad's managing director after fifteen months at Adplus. The company now trades as Tracta.",
+      "Andy was Brad's managing director at Adplus, and wrote this after fifteen months there. The company now trades as Tracta.",
     pullQuote:
       "He was always pleasant but somehow managed to obtain an extraordinarily high strike rate from which many clients were converted.",
     body: [
@@ -285,6 +357,10 @@ export const letters: Letter[] = [
       { kind: "lines", lines: ["AR Walker", "Managing Director"] },
       { kind: "aside", text: "[Footer, set in a display face: \u201cBe Healed From Boring Advertising\u201d]" },
     ],
+    logo: {
+      image: adplusLogo,
+      alt: "Tracta, the agency that Adplus Advertising now trades as.",
+    },
     scans: [
       {
         image: adplusScan,
@@ -335,6 +411,10 @@ export const letters: Letter[] = [
       { kind: "aside", text: "[signature]" },
       { kind: "lines", lines: ["Hamish Lowry", "General Manager", "[email withheld]"] },
     ],
+    logo: {
+      image: hawkesBayLogo,
+      alt: "Hawke's Bay Tourism.",
+    },
     scans: [
       {
         image: hawkesBayScan,

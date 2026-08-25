@@ -1,4 +1,5 @@
 ---
+import "@fontsource-variable/inter";
 import "../styles/global.css";
 import { bookingEnabled } from "../data/contact";
 import { contact } from "../data/contact";
@@ -27,7 +28,14 @@ const canonical = new URL(path, Astro.site ?? Astro.url).href;
    Not loaded at all when no Cal link is configured — no third-party request from a site
    with no calendar behind it. */
 const calLoader = `(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-Cal("init", { origin: "https://app.cal.com" });
+Cal("init", { origin: "https://app.cal.com" });`;
+
+/* Microsoft Clarity analytics, verbatim from their tracking snippet. */
+const clarityLoader = `(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "y7rk5mm5h9");
 Cal("ui", { hideEventTypeDetails: false, layout: "month_view", cssVarsPerTheme: { light: { "cal-brand": "#9c3d1e" } } });`;
 ---
 
@@ -51,6 +59,7 @@ Cal("ui", { hideEventTypeDetails: false, layout: "month_view", cssVarsPerTheme: 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{title}</title>
     {bookingEnabled && <script is:inline set:html={calLoader} />}
+    <script is:inline set:html={clarityLoader} />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -59,6 +68,7 @@ Cal("ui", { hideEventTypeDetails: false, layout: "month_view", cssVarsPerTheme: 
       <nav class="primary-nav" aria-label="Primary navigation">
         <a href="/#work">Work</a>
         <a href="/blog/" aria-current={path.startsWith("/blog") ? "page" : undefined}>Field notes</a>
+        <a href="/week/" aria-current={path.startsWith("/week") ? "page" : undefined}>EdTech</a>
         <a href="/letters/" aria-current={path.startsWith("/letters") ? "page" : undefined}>Letters</a>
         <a href="/cv/" aria-current={path.startsWith("/cv") ? "page" : undefined}>CV</a>
         <a class="header-contact" href="/#contact">Contact</a>

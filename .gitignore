@@ -14,6 +14,11 @@ COPY/interviews/
 # Local Netlify folder
 .netlify
 
+# Tool config and caches — local only
+.claude/
+.impeccable/
+scripts/__pycache__/
+
 # Raw design sources for the client logo archive — .ai/.psd/.doc binaries git cannot
 # diff and that bloat the clone. Kept locally; the site ships only exported derivatives.
 Brad Friis Resumes/Company logos - who Ive worked with/99 Corporation/
