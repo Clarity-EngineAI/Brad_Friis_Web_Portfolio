@@ -1252,19 +1252,38 @@ main {
 
 /* Multiply drops the white grounds that some source files still carry, so the
    logos sit on the warm band rather than on visible white rectangles.
-   Every logo renders in the same fixed box regardless of source aspect
-   ratio — object-fit: contain scales each to fit without cropping. The box
-   is close to square so tall/square marks (a triangle-and-wordmark lockup,
-   an octocat) aren't squeezed down to fit a short, wide-only box. */
+   No formula (fixed box, fixed height, fill-area match) makes a near-square
+   mark (GitHub, ar 1.1) and a thin wordmark (Google Antigravity, ar 8.9)
+   read as the same visual weight — the per-logo width overrides below are
+   hand-tuned by eye against each other, not derived from source dimensions. */
 .logo-strip img {
-  width: 108px;
-  height: 48px;
+  height: 40px;
+  width: auto;
+  max-width: 100%;
   object-fit: contain;
   filter: grayscale(1);
   mix-blend-mode: multiply;
   opacity: 0.72;
   transition: filter 160ms ease, opacity 160ms ease;
 }
+
+.logo-strip img[data-logo="Claude"] { width: 100px; }
+.logo-strip img[data-logo="OpenAI"] { width: 104px; }
+.logo-strip img[data-logo="Codex"] { width: 96px; }
+.logo-strip img[data-logo="Gemini"] { width: 100px; }
+.logo-strip img[data-logo="Grok"] { width: 72px; }
+.logo-strip img[data-logo="GitHub"] { width: 68px; }
+.logo-strip img[data-logo="Cursor"] { width: 88px; }
+.logo-strip img[data-logo="Vercel"] { width: 76px; }
+.logo-strip img[data-logo="Supabase"] { width: 112px; }
+.logo-strip img[data-logo="Firebase"] { width: 92px; }
+.logo-strip img[data-logo="Google Cloud"] { width: 100px; }
+.logo-strip img[data-logo="Google Antigravity"] { width: 130px; }
+.logo-strip img[data-logo="n8n"] { width: 72px; }
+.logo-strip img[data-logo="Sanity"] { width: 54px; }
+.logo-strip img[data-logo="Obsidian"] { width: 92px; }
+.logo-strip img[data-logo="CapCut"] { width: 92px; }
+.logo-strip img[data-logo="Base44"] { width: 92px; }
 
 .logo-strip li:hover img,
 .logo-strip li:focus-within img {
@@ -2028,8 +2047,26 @@ main {
   }
 
   .logo-strip img {
-    width: 88px;
+    height: 34px;
   }
+
+  .logo-strip img[data-logo="Claude"] { width: 85px; }
+  .logo-strip img[data-logo="OpenAI"] { width: 88px; }
+  .logo-strip img[data-logo="Codex"] { width: 82px; }
+  .logo-strip img[data-logo="Gemini"] { width: 85px; }
+  .logo-strip img[data-logo="Grok"] { width: 61px; }
+  .logo-strip img[data-logo="GitHub"] { width: 58px; }
+  .logo-strip img[data-logo="Cursor"] { width: 75px; }
+  .logo-strip img[data-logo="Vercel"] { width: 64px; }
+  .logo-strip img[data-logo="Supabase"] { width: 95px; }
+  .logo-strip img[data-logo="Firebase"] { width: 78px; }
+  .logo-strip img[data-logo="Google Cloud"] { width: 85px; }
+  .logo-strip img[data-logo="Google Antigravity"] { width: 110px; }
+  .logo-strip img[data-logo="n8n"] { width: 61px; }
+  .logo-strip img[data-logo="Sanity"] { width: 46px; }
+  .logo-strip img[data-logo="Obsidian"] { width: 78px; }
+  .logo-strip img[data-logo="CapCut"] { width: 78px; }
+  .logo-strip img[data-logo="Base44"] { width: 78px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

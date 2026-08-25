@@ -345,7 +345,7 @@ const homeQuotes = [
         <ul aria-label="AI and software tools Brad uses">
           {aiLogos.map((logo) => (
             <li>
-              <Image src={logo.image} alt={logo.name} height={64} loading="lazy" />
+              <Image src={logo.image} alt={logo.name} data-logo={logo.name} height={64} loading="lazy" />
             </li>
           ))}
         </ul>
