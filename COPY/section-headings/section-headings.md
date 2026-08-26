@@ -138,7 +138,26 @@ the number. Does not claim 100% retention. Adplus mixed-book concession stays on
 **Against.** Adds a third voice in the section header before the cards. Sixteen words is cheap;
 the operate block that follows is the real cost.
 
-### How I operate · **In use** · 26 August 2026
+### How I operate · **In use** · 26 August 2026 · restated same day
+
+> I keep the billing, the contract and the renewal. I name a price that will not hold, a gap in
+> the product, or a renewal at risk, while there is still a next step. New business sits inside
+> that work. It is not the whole job.
+
+Present-tense skills, not a finished record. Brad rejected the first placement for putting past
+job facts (annual licence rises, Google Classroom / Microsoft 365 losses, the outbound-to-consultative
+move) in How I work, where a cold reader has no career row to attach them to. Those facts stay on
+Career and the claims register.
+
+**For.** Same mandate, same hunter/farmer close, no recap of the five cards, no second person, no
+figures. `Keep` is the site's verb for commercial ownership.
+
+**Against.** The inferred “I name a price…” sentence remains. Cut it only if it reads as
+unfalsifiable self-assessment on the page. Do not replace it with a new invention.
+
+### How I operate, first placement · **Rejected** · 26 August 2026
+
+Wrong register for this slot: past-tense record in a capability header.
 
 > The billing, the contract and the renewal stay with the person who won the account. Licence
 > prices rose every year, and accounts renewed through those increases. Some still left, on total
@@ -147,17 +166,6 @@ the operate block that follows is the real cost.
 >
 > I moved out of outbound direct marketing into consultative work and stayed there for the
 > following decade. New business sits inside that work. It is not the whole job.
-
-Scored against `COPY/brad-verified-claims-transcript.md`. Combined insertion with the mandate is
-~110 words. The inferred sentence (“I name a price…”) is the only optional cut, and only after
-seeing it on the page — do not replace it with a new invention.
-
-**For.** Hunter/farmer answered in site voice, register-scored, with the price-rise concession
-travelling with the claim. The 99 Corporation outbound-to-consultative line keeps Option B from
-reviving the voided “ran on renewals rather than new logos”.
-
-**Against.** Adds ~110 words before the cards on a homepage already over the §7 word budget. One
-sentence is inferred rather than a single register row.
 
 ### Recruiter manifesto · **Rejected** · 26 August 2026
 
