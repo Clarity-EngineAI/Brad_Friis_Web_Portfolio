@@ -135,6 +135,17 @@ unchanged. Copy below is Brad's, placed 26 August 2026. Do not rewrite it.
 > If you're a recruiter or hiring manager landing here, and you're looking for a Senior Account
 > Manager who can walk into complex client ecosystems, protect revenue, expand enterprise value,
 > and build genuine trust without needing hand-holding, we have a shared goal.
+>
+> I welcome you to browse my site to get a feel for who I am and what I bring to a business. To
+> discuss a role, consulting opportunity or any other business needs, book a meeting or send me a
+> message.
+
+### Terms line · **In use** · 26 August 2026
+
+Set in `--text-meta` / `--ink-tertiary`, same size as other small print on the site.
+
+> Initial correspondence is kept strictly confidential unless otherwise agreed. I respond to all
+> messages within 24 hours.
 
 Brad supplied this block verbatim after rejecting agent-generated operate copy. Second person is
 his call for this slot.
