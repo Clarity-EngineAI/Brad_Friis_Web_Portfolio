@@ -23,8 +23,10 @@
    2. LEAD      --text-hero-lead / 400 / -0.01em / --ink-secondary, 62ch —
       hero and standfirst paragraphs.
    3. LABEL     --text-enum / 620 / 0.12em / uppercase / hue — card category
-      eyebrows, slot names, dialog eyebrow, filter actions. One tracking
-      value (0.12em) everywhere it appears.
+      eyebrows, dialog eyebrow, filter actions. One tracking value (0.12em)
+      everywhere it appears.
+   4. SLOT      --text-title / 680 / 0.04em / --ink — AM and PM only. Short
+      enough to sit larger than the old MORNING/AFTERNOON enum labels.
    4. TITLE     --text-card-title / 600 / -0.011em / --ink — card titles.
    5. BODY      --text-meta / 400 / --ink-secondary / 1.5 — dialog copy,
       pillar-key copy, day headings. Not used on cards.
@@ -35,49 +37,43 @@
    ============================================================================ */
 
 :root {
-  /* Earth triad — matches the site accent and parchment; no teal, no blue.
-     Growth stays in the accent sienna (tightened so it does not walk into
-     gold). Delivery takes ochre. Operations takes espresso. Separation is
-     hue first (red-brown / gold-brown / ink-brown), then lightness inside
-     each family. Purple remains banned. */
+  /* Three families that have to read apart at chip size, still on parchment.
+     Growth keeps the site sienna (orange-red). Delivery is brick (crimson,
+     not ochre). Operations is the site ink (charcoal, not espresso-brown).
+     No teal, no blue, no purple. */
 
-  /* --- Growth: sienna ---------------------------------------------------
-     The site accent, unmodified, then three neighbouring siennas. */
+  /* --- Growth: sienna --------------------------------------------------- */
   --c-pipeline: #9c3d1e;      /* the site accent, unmodified */
   --c-targeting: #ad4624;
   --c-campaigns: #7e3018;
   --c-measurement: #5c2414;
 
-  /* --- Delivery: ochre --------------------------------------------------
-     Warm gold-brown. Not green, not the accent. Held dark enough that
-     small caps clear 4.5:1 on paper. */
-  --c-implementation: #5c4010;
-  --c-enablement: #6e4c14;
-  --c-learning-design: #7a5414;
-  --c-support: #8a5e16;
+  /* --- Delivery: brick --------------------------------------------------
+     Crimson-red, not gold-brown. Hue sits away from the accent so the two
+     chromatics do not collapse into one terracotta. */
+  --c-implementation: #5e1c20;
+  --c-enablement: #7a2428;
+  --c-learning-design: #8e2f34;
+  --c-support: #a33b40;
 
-  /* --- Operations: espresso ---------------------------------------------
-     Warm ink-brown, the colour of the stat band and the site ink, not a
-     third brand hue. Walks lightness only. */
-  --c-commercial: #2f241e;
-  --c-partnerships: #45352c;
-  --c-people: #5c473a;
-  --c-systems: #735a48;
+  /* --- Operations: ink --------------------------------------------------
+     The site ink, walked lighter. A weight, not a third brand hue. */
+  --c-commercial: #1c1917;
+  --c-partnerships: #2e2b28;
+  --c-people: #3a3632;
+  --c-systems: #5c5751;
 
-  /* Pillar heads: the most identifiable step of each family. */
   --p-growth: #9c3d1e;
-  --p-delivery: #7a5414;
-  --p-operations: #45352c;
+  --p-delivery: #8e2f34;
+  --p-operations: #3a3632;
 
   --wash-growth: rgba(156, 61, 30, 0.05);
-  --wash-delivery: rgba(122, 84, 20, 0.07);
-  --wash-operations: rgba(47, 36, 30, 0.07);
+  --wash-delivery: rgba(142, 47, 52, 0.07);
+  --wash-operations: rgba(28, 25, 23, 0.06);
 
-  /* Inverted (selected) card on --stat-ground. Growth reuses the site's
-     own --accent-on-dark; ochre and taupe are matched to it in lightness. */
   --p-growth-on-dark: #e8935f;
-  --p-delivery-on-dark: #e2b45c;
-  --p-operations-on-dark: #d4b59a;
+  --p-delivery-on-dark: #edb4b0;
+  --p-operations-on-dark: #d8d2cc;
 }
 
 /* `hidden` is set by the page's script on elements that also carry a later
@@ -656,11 +652,11 @@
 }
 
 .slot-head span {
-  font-size: var(--text-enum);
-  font-weight: 620;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-tertiary);
+  font-size: var(--text-title);
+  font-weight: 680;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--ink);
 }
 
 .grid-cell {
@@ -827,11 +823,11 @@
 
 .agenda-slot-head {
   margin: 0;
-  font-size: var(--text-enum);
-  font-weight: 620;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-tertiary);
+  font-size: var(--text-h3);
+  font-weight: 680;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--ink);
 }
 
 /* ------------------------------------------------------------- DETAIL DIALOG */

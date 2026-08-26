@@ -258,7 +258,11 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
     friday: "Friday",
   };
 
-  const slotLabels: Record<string, string> = { morning: "Morning", afternoon: "Afternoon" };
+  const slotLabels: Record<string, string> = { morning: "AM", afternoon: "PM" };
+
+  function slotShort(slot: string) {
+    return slot === "morning" ? "AM" : "PM";
+  }
 
   const state = {
     activeCategories: new Set<string>(),
@@ -348,11 +352,11 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
         aria-expanded="${selected}"
         aria-controls="detail-dialog"
         aria-label="${escapeHtml(
-          `${dayLabels[entry.day]} ${entry.displayTime}. ${entry.title}. ${category.label}, under ${pillarsByKey[pillar].label}.${linkNote}`,
+          `${dayLabels[entry.day]} ${slotShort(entry.slot)}. ${entry.title}. ${category.label}, under ${pillarsByKey[pillar].label}.${linkNote}`,
         )}"
       >
         <span class="entry-cat">${escapeHtml(category.shortLabel)}${
-          showSlot ? `<span class="entry-slot">${entry.displayTime}</span>` : ""
+          showSlot ? `<span class="entry-slot">${slotShort(entry.slot)}</span>` : ""
         }</span>
         <span class="entry-title">${escapeHtml(entry.title)}</span>
         <span class="entry-summary">${escapeHtml(entry.summary)}</span>
@@ -536,7 +540,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
     el.panelEyebrow.innerHTML = `<span class="dot" aria-hidden="true"></span>${escapeHtml(
       category.label,
     )}<span class="detail-pillar-tag">${escapeHtml(pillarsByKey[pillar].label)} · ${dayLabels[entry.day]} ${
-      entry.displayTime
+      slotShort(entry.slot)
     }</span>`;
     el.panelTitle.textContent = entry.title;
     el.panelCopy.textContent = entry.detail;
@@ -562,7 +566,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
              <span class="dot" aria-hidden="true"></span>
              <span class="detail-link-text">
                <span class="detail-link-title">${escapeHtml(connection.title)}</span>
-               <span class="detail-link-where">${dayLabels[connection.day]} ${connection.displayTime.toLowerCase()} · ${escapeHtml(
+               <span class="detail-link-where">${dayLabels[connection.day]} ${slotShort(connection.slot)} · ${escapeHtml(
                  categoriesByKey[connection.category].shortLabel,
                )}</span>
              </span></button>`,
