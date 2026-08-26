@@ -3,7 +3,17 @@ import { Image } from "astro:assets";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import BookingButton from "../components/BookingButton.astro";
 import { isStackedWeekLogo, weekLogos } from "../data/weekLogos";
+import { categories, pillars, vocabulary } from "../data/repWeekCalendar.js";
 import "../styles/week.css";
+
+const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
+  growth:
+    '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="9" width="3.5" height="5.5" rx="0.7"/><rect x="6.25" y="5.5" width="3.5" height="9" rx="0.7"/><rect x="11" y="2" width="3.5" height="12.5" rx="0.7"/></svg>',
+  delivery:
+    '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 4.25h11M2.5 8h11M2.5 11.75h7.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+  operations:
+    '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>',
+};
 ---
 
 <SiteLayout
@@ -19,27 +29,104 @@ import "../styles/week.css";
       strategy needed to sell, implement, support and maintain its solutions in
       New Zealand and Australian schools.
     </p>
+    <p class="career-quote week-pullquote">
+      <span class="career-quote-text">
+        “Brad is a trusted and well-respected figure across the New Zealand edtech community
+        whose expert guidance transformed our digital ecosystem.”
+      </span>
+      <span class="career-quote-source">Lawrence Naicker — Deputy Principal, Sancta Maria College</span>
+    </p>
   </section>
 
   <section class="filter-section shell" aria-labelledby="filter-heading">
-    <div class="filter-bar">
-      <div class="filter-bar-head">
-        <h2 id="filter-heading" class="filter-bar-title">Filters</h2>
-        <div class="filter-head">
-          <button class="filter-action" type="button" data-select-all aria-label="Select every area">All</button>
-          <button class="filter-action" type="button" data-reset aria-label="Clear every selection and return to the full week">Reset</button>
+    <div class="week-menu" id="week-menu">
+      <div class="week-menu-bar">
+        <div class="week-menu-primary">
+          <h2 id="filter-heading" class="week-menu-kicker">View the week</h2>
+          <div class="week-menu-triggers" role="menubar" aria-label="Filter the week by area">
+            {vocabulary.pillars.map((pillarId) => {
+              const pillar = pillars[pillarId as keyof typeof pillars];
+              return (
+                <div
+                  class="week-menu-item"
+                  data-menu-item={pillarId}
+                  style={`--pillar-color: var(--p-${pillarId}); --pillar-wash: var(--wash-${pillarId});`}
+                >
+                  <button
+                    class="week-menu-trigger"
+                    type="button"
+                    data-menu-trigger={pillarId}
+                    data-state="none"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    aria-controls={`week-menu-panel-${pillarId}`}
+                  >
+                    <span class="week-menu-swatch" aria-hidden="true" set:html={pillarMarks[pillarId]} />
+                    <span class="week-menu-copy">
+                      <span class="week-menu-name">{pillar.label}</span>
+                      <span class="week-menu-count" data-menu-count={pillarId}>4 areas</span>
+                    </span>
+                    <svg class="week-menu-chevron" viewBox="0 0 12 12" aria-hidden="true">
+                      <path
+                        d="M2.5 4.5 6 8l3.5-3.5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                  <div class="week-menu-panel" id={`week-menu-panel-${pillarId}`} role="menu" hidden>
+                    <div class="week-menu-panel-head">
+                      <p class="week-menu-panel-title">{pillar.label}</p>
+                      <p class="week-menu-panel-standfirst">{pillar.standfirst}</p>
+                    </div>
+                    <div class="week-menu-options">
+                      {pillar.categories.map((catId: string) => (
+                        <button
+                          class="week-menu-option"
+                          type="button"
+                          role="menuitemcheckbox"
+                          data-cat-toggle={catId}
+                          aria-checked="false"
+                          style={`--cat-color: var(--c-${catId}); --cat-wash: var(--wash-${pillarId});`}
+                        >
+                          <span class="week-menu-check" aria-hidden="true"></span>
+                          <span class="week-menu-option-dot" aria-hidden="true"></span>
+                          <span class="week-menu-option-label">{categories[catId].label}</span>
+                        </button>
+                      ))}
+                    </div>
+                    <div class="week-menu-panel-foot">
+                      <button class="week-menu-foot-action" type="button" data-pillar-toggle={pillarId}>
+                        All {pillar.label}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div class="week-menu-meta">
+          <p class="week-menu-status" data-filter-status aria-live="polite">The full week</p>
+          <div class="week-menu-actions">
+            <button class="filter-action" type="button" data-select-all aria-label="Select every area">
+              All
+            </button>
+            <button
+              class="filter-action"
+              type="button"
+              data-reset
+              aria-label="Clear every selection and return to the full week"
+            >
+              Clear
+            </button>
+          </div>
         </div>
       </div>
-      <div class="filter-bar-body">
-        <div class="filter-groups" id="filter-groups" role="group" aria-label="Filter the week"></div>
-        <p class="career-quote filter-bar-quote">
-          <span class="career-quote-text">
-            “Brad is a trusted and well-respected figure across the New Zealand edtech community
-            whose expert guidance transformed our digital ecosystem.”
-          </span>
-          <span class="career-quote-source">Lawrence Naicker — Deputy Principal, Sancta Maria College</span>
-        </p>
-      </div>
+      <div class="week-menu-chips" data-active-chips hidden></div>
     </div>
   </section>
 
@@ -176,6 +263,7 @@ import "../styles/week.css";
     activeCategories: new Set<string>(),
     selectedId: null as string | null,
     trail: [] as string[],
+    openMenu: null as string | null,
   };
 
   const allCategoryIds = Object.keys(categories);
@@ -185,7 +273,9 @@ import "../styles/week.css";
   const el = {
     grid: document.querySelector("#week-grid")!,
     agenda: document.querySelector("#agenda")!,
-    filterGroups: document.querySelector("#filter-groups")!,
+    menu: document.querySelector("#week-menu")!,
+    status: document.querySelector<HTMLElement>("[data-filter-status]")!,
+    chips: document.querySelector<HTMLElement>("[data-active-chips]")!,
     selectAllButton: document.querySelector<HTMLButtonElement>("[data-select-all]")!,
     resetButton: document.querySelector<HTMLButtonElement>("[data-reset]")!,
     dialog: document.querySelector<HTMLDialogElement>("#detail-dialog")!,
@@ -269,48 +359,106 @@ import "../styles/week.css";
     `;
   }
 
+  function closeMenu({ restoreFocus = false } = {}) {
+    const previous = state.openMenu;
+    state.openMenu = null;
+    document.querySelectorAll<HTMLElement>(".week-menu-item").forEach((item) => {
+      item.classList.remove("is-open");
+      const trigger = item.querySelector<HTMLButtonElement>("[data-menu-trigger]");
+      const panel = item.querySelector<HTMLElement>(".week-menu-panel");
+      if (trigger) trigger.setAttribute("aria-expanded", "false");
+      if (panel) panel.hidden = true;
+    });
+    if (restoreFocus && previous) {
+      document.querySelector<HTMLButtonElement>(`[data-menu-trigger="${previous}"]`)?.focus();
+    }
+  }
+
+  function openMenu(pillarId: string) {
+    if (state.openMenu === pillarId) {
+      closeMenu();
+      return;
+    }
+    closeMenu();
+    state.openMenu = pillarId;
+    const item = document.querySelector<HTMLElement>(`[data-menu-item="${pillarId}"]`);
+    const trigger = item?.querySelector<HTMLButtonElement>("[data-menu-trigger]");
+    const panel = item?.querySelector<HTMLElement>(".week-menu-panel");
+    if (!item || !trigger || !panel) return;
+    item.classList.add("is-open");
+    trigger.setAttribute("aria-expanded", "true");
+    panel.hidden = false;
+  }
+
+  function menuOptions(pillarId: string) {
+    const panel = document.querySelector(`#week-menu-panel-${pillarId}`);
+    return panel ? [...panel.querySelectorAll<HTMLButtonElement>("[data-cat-toggle]")] : [];
+  }
+
   function renderFilters() {
     el.selectAllButton.disabled = everythingSelected();
     el.resetButton.disabled = noSelection();
 
-    el.filterGroups.innerHTML = vocabulary.pillars
-      .map((pillarId) => {
-        const status = pillarState(pillarId);
-        const chips = pillarsByKey[pillarId].categories
-          .map((catId) => {
-            const on = state.activeCategories.has(catId);
-            return `
-          <button
-            class="cat-chip"
-            type="button"
-            data-cat-toggle="${catId}"
-            style="${catVars(catId)}"
-            aria-pressed="${on}"
-            aria-label="${escapeHtml(`${categoriesByKey[catId].label}. ${on ? "Selected." : "Select to add to the view."}`)}"
-          ><span class="dot" aria-hidden="true"></span>${escapeHtml(categoriesByKey[catId].chipLabel)}</button>`;
-          })
-          .join("");
+    const selectedCount = state.activeCategories.size;
+    if (noSelection()) el.status.textContent = "The full week";
+    else if (everythingSelected()) el.status.textContent = "All 12 areas";
+    else el.status.textContent = `${selectedCount} of 12 areas`;
 
+    vocabulary.pillars.forEach((pillarId) => {
+      const status = pillarState(pillarId);
+      const trigger = document.querySelector<HTMLButtonElement>(`[data-menu-trigger="${pillarId}"]`);
+      const count = document.querySelector(`[data-menu-count="${pillarId}"]`);
+      const on = pillarsByKey[pillarId].categories.filter((id) => state.activeCategories.has(id)).length;
+      if (trigger) {
+        trigger.dataset.state = status;
+        const label = pillarsByKey[pillarId].label;
+        const stateCopy =
+          status === "all"
+            ? `All four ${label} areas selected.`
+            : status === "some"
+              ? `${on} of four ${label} areas selected.`
+              : `${label} menu.`;
+        trigger.setAttribute("aria-label", `${label}. ${stateCopy}`);
+      }
+      if (count) count.textContent = status === "none" ? "4 areas" : `${on} of 4`;
+
+      const foot = document.querySelector<HTMLButtonElement>(
+        `[data-menu-item="${pillarId}"] [data-pillar-toggle]`,
+      );
+      if (foot) foot.textContent = status === "all" ? `Clear ${pillarsByKey[pillarId].label}` : `All ${pillarsByKey[pillarId].label}`;
+
+      pillarsByKey[pillarId].categories.forEach((catId) => {
+        const option = document.querySelector<HTMLButtonElement>(`[data-cat-toggle="${catId}"]`);
+        if (!option) return;
+        const onCat = state.activeCategories.has(catId);
+        option.setAttribute("aria-checked", String(onCat));
+      });
+    });
+
+    if (noSelection() || everythingSelected()) {
+      el.chips.hidden = true;
+      el.chips.innerHTML = "";
+      return;
+    }
+
+    el.chips.hidden = false;
+    el.chips.innerHTML = [...state.activeCategories]
+      .map((catId) => {
+        const category = categoriesByKey[catId];
         return `
-        <div class="filter-group" role="group"
-             aria-label="${escapeHtml(pillarsByKey[pillarId].label)}"
-             style="--pillar-color: var(--p-${pillarId}); --pillar-wash: var(--wash-${pillarId});">
           <button
-            class="pillar-toggle"
+            class="week-menu-chip"
             type="button"
-            data-pillar-toggle="${pillarId}"
-            data-state="${status}"
-            aria-pressed="${status !== "none"}"
-            aria-label="${escapeHtml(
-              `${pillarsByKey[pillarId].label}. ${
-                status === "all"
-                  ? "All four areas selected. Select to clear them."
-                  : `Select to show all four ${pillarsByKey[pillarId].label} areas.`
-              }`,
-            )}"
-          >${pillarsByKey[pillarId].label}</button>
-          <div class="filter-group-cats">${chips}</div>
-        </div>`;
+            data-chip-remove="${catId}"
+            style="${catVars(catId)}"
+            aria-label="${escapeHtml(`Remove ${category.label}`)}"
+          >
+            <span class="week-menu-option-dot" aria-hidden="true"></span>
+            ${escapeHtml(category.chipLabel)}
+            <svg viewBox="0 0 12 12" aria-hidden="true">
+              <path d="M3 3l6 6M9 3L3 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+            </svg>
+          </button>`;
       })
       .join("");
   }
@@ -477,6 +625,15 @@ import "../styles/week.css";
   document.addEventListener("click", (event) => {
     const target = event.target as HTMLElement;
 
+    const menuTrigger = target.closest<HTMLElement>("[data-menu-trigger]");
+    if (menuTrigger) return openMenu(menuTrigger.dataset.menuTrigger!);
+
+    const chipRemove = target.closest<HTMLElement>("[data-chip-remove]");
+    if (chipRemove) {
+      state.activeCategories.delete(chipRemove.dataset.chipRemove!);
+      return commit();
+    }
+
     const pillarButton = target.closest<HTMLElement>("[data-pillar-toggle]");
     if (pillarButton) return togglePillar(pillarButton.dataset.pillarToggle!);
 
@@ -485,11 +642,15 @@ import "../styles/week.css";
 
     if (target.closest("[data-select-all]")) return selectAll();
 
-    if (target.closest("[data-reset]")) return reset();
+    if (target.closest("[data-reset]")) {
+      closeMenu();
+      return reset();
+    }
 
     const entryButton = target.closest<HTMLElement>("[data-entry]");
     if (entryButton) {
       const id = entryButton.dataset.entry!;
+      closeMenu();
       return id === state.selectedId ? closeDetail() : openDetail(id);
     }
 
@@ -503,6 +664,50 @@ import "../styles/week.css";
     if (goto) return openDetail(goto.dataset.goto!, { from: state.selectedId });
 
     if (target.closest("[data-close]")) return closeDetail();
+  });
+
+  document.addEventListener("pointerdown", (event) => {
+    if (!state.openMenu) return;
+    if (!el.menu.contains(event.target as Node)) closeMenu();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const target = event.target as HTMLElement;
+
+    if (event.key === "Escape" && state.openMenu) {
+      event.preventDefault();
+      closeMenu({ restoreFocus: true });
+      return;
+    }
+
+    const trigger = target.closest<HTMLElement>("[data-menu-trigger]");
+    if (trigger && (event.key === "ArrowDown" || event.key === "Enter" || event.key === " ")) {
+      event.preventDefault();
+      const pillarId = trigger.dataset.menuTrigger!;
+      if (state.openMenu !== pillarId) openMenu(pillarId);
+      menuOptions(pillarId)[0]?.focus();
+      return;
+    }
+
+    if (!state.openMenu) return;
+    const options = menuOptions(state.openMenu);
+    const current = target.closest<HTMLButtonElement>("[data-cat-toggle]");
+    const index = current ? options.indexOf(current) : -1;
+    if (index < 0) return;
+
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      options[(index + 1) % options.length]?.focus();
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
+      options[(index - 1 + options.length) % options.length]?.focus();
+    } else if (event.key === "Home") {
+      event.preventDefault();
+      options[0]?.focus();
+    } else if (event.key === "End") {
+      event.preventDefault();
+      options[options.length - 1]?.focus();
+    }
   });
 
   el.dialog.addEventListener("close", () => {
