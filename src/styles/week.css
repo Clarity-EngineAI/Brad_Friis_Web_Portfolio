@@ -318,8 +318,8 @@
   display: grid;
   place-items: center;
   flex: none;
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 6px;
   background: var(--pillar-color);
   color: #fff;
@@ -327,8 +327,8 @@
 
 .week-menu-swatch svg {
   display: block;
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
 }
 
 .week-menu-copy {
