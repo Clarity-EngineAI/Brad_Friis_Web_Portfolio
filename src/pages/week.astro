@@ -584,7 +584,7 @@ import "../styles/week.css";
     if (target.closest("[data-explorer-back]")) return closeDetail();
 
     const entryButton = target.closest<HTMLElement>("[data-entry]");
-    if (entryButton) {
+    if (entryButton && !(entryButton instanceof SVGElement)) {
       const id = entryButton.dataset.entry!;
       if (id === state.selectedId) return closeDetail();
       const fromFocus = entryButton.dataset.fromFocus === "true" && state.selectedId;

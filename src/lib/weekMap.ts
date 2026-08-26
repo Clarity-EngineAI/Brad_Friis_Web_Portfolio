@@ -54,9 +54,7 @@ export function createWeekMap(options: MapOptions) {
   labelLayer.setAttribute('class', 'map-pillar-labels');
   const nodeLayer = document.createElementNS(ns, 'g');
   nodeLayer.setAttribute('class', 'map-nodes');
-  const titleLayer = document.createElementNS(ns, 'g');
-  titleLayer.setAttribute('class', 'map-titles');
-  viewport.append(linkLayer, labelLayer, nodeLayer, titleLayer);
+  viewport.append(linkLayer, labelLayer, nodeLayer);
 
   const applyTransform = () => {
     viewport.setAttribute('transform', `translate(${transform.x} ${transform.y}) scale(${transform.k})`);
@@ -81,7 +79,44 @@ export function createWeekMap(options: MapOptions) {
     return node.degree >= 4;
   };
 
-  function draw() {
+  const nodeClass = (node: GraphNode, state: MapState, neighbours: Set<string>) =>
+    `map-node${state.selectedId === node.id ? ' is-selected' : ''}${
+      neighbours.has(node.id) ? ' is-linked' : ''
+    }${isFaded(node, state) ? ' is-faded' : ''}${
+      node.themes.includes('relationships') ? ' is-related' : ''
+    }`;
+
+  function paint() {
+    const state = getState();
+    const focus = state.selectedId ?? hoverId;
+    const neighbours = focus ? neighboursOf(focus) : new Set<string>();
+
+    for (const line of linkLayer.querySelectorAll('line')) {
+      const source = line.getAttribute('data-source');
+      const target = line.getAttribute('data-target');
+      const cross = line.getAttribute('data-cross') === 'true';
+      const hot = Boolean(focus && (source === focus || target === focus));
+      const dim = Boolean(focus && !hot);
+      line.setAttribute(
+        'class',
+        `map-link${cross ? ' is-cross' : ''}${hot ? ' is-hot' : ''}${dim ? ' is-dim' : ''}`
+      );
+    }
+
+    for (const group of nodeLayer.querySelectorAll<SVGGElement>('.map-node')) {
+      const node = nodes.find((item) => item.id === group.dataset.entry);
+      if (!node) continue;
+      group.setAttribute('class', nodeClass(node, state, neighbours));
+      group.setAttribute('tabindex', isFaded(node, state) ? '-1' : '0');
+      group.setAttribute('aria-pressed', String(state.selectedId === node.id));
+      const title = group.querySelector('.map-title-group');
+      title?.setAttribute('visibility', shouldShowTitle(node, state, neighbours) ? 'visible' : 'hidden');
+    }
+
+    applyTransform();
+  }
+
+  function rebuild() {
     const state = getState();
     const focus = state.selectedId ?? hoverId;
     const neighbours = focus ? neighboursOf(focus) : new Set<string>();
@@ -96,12 +131,10 @@ export function createWeekMap(options: MapOptions) {
         line.setAttribute('y1', String(source.y));
         line.setAttribute('x2', String(target.x));
         line.setAttribute('y2', String(target.y));
-        const hot = Boolean(focus && (link.source === focus || link.target === focus));
-        const dim = Boolean(focus && !hot);
-        line.setAttribute(
-          'class',
-          `map-link${link.crossPillar ? ' is-cross' : ''}${hot ? ' is-hot' : ''}${dim ? ' is-dim' : ''}`
-        );
+        line.setAttribute('data-source', link.source);
+        line.setAttribute('data-target', link.target);
+        line.setAttribute('data-cross', String(link.crossPillar));
+        line.setAttribute('class', 'map-link');
         return line;
       })
     );
@@ -122,20 +155,19 @@ export function createWeekMap(options: MapOptions) {
     nodeLayer.replaceChildren(
       ...nodes.map((node) => {
         const group = document.createElementNS(ns, 'g');
-        const faded = isFaded(node, state);
-        const selected = state.selectedId === node.id;
-        const linked = neighbours.has(node.id);
-        group.setAttribute(
-          'class',
-          `map-node${selected ? ' is-selected' : ''}${linked ? ' is-linked' : ''}${faded ? ' is-faded' : ''}${
-            node.themes.includes('relationships') ? ' is-related' : ''
-          }`
-        );
+        group.setAttribute('class', nodeClass(node, state, neighbours));
         group.dataset.entry = node.id;
-        group.setAttribute('tabindex', faded ? '-1' : '0');
+        group.setAttribute('tabindex', isFaded(node, state) ? '-1' : '0');
         group.setAttribute('role', 'button');
         group.setAttribute('aria-label', node.title);
-        group.setAttribute('aria-pressed', String(selected));
+        group.setAttribute('aria-pressed', String(state.selectedId === node.id));
+
+        const hit = document.createElementNS(ns, 'circle');
+        hit.setAttribute('class', 'map-node-hit');
+        hit.setAttribute('cx', String(node.x));
+        hit.setAttribute('cy', String(node.y));
+        hit.setAttribute('r', String(Math.max(16, node.radius + 10)));
+        group.append(hit);
 
         if (node.themes.includes('relationships')) {
           const ring = document.createElementNS(ns, 'circle');
@@ -154,13 +186,34 @@ export function createWeekMap(options: MapOptions) {
         circle.style.fill = `var(--c-${node.category})`;
         group.append(circle);
 
+        const titleGroup = document.createElementNS(ns, 'g');
+        titleGroup.setAttribute('class', 'map-title-group');
+        titleGroup.setAttribute('visibility', shouldShowTitle(node, state, neighbours) ? 'visible' : 'hidden');
+        const x = node.x + node.radius + 6;
+        const y = node.y + 4;
+        const widthGuess = Math.min(220, Math.max(36, node.title.length * 5.6 + 8));
+        const rect = document.createElementNS(ns, 'rect');
+        rect.setAttribute('class', 'map-title-back');
+        rect.setAttribute('x', String(x - 3));
+        rect.setAttribute('y', String(y - 10));
+        rect.setAttribute('width', String(widthGuess));
+        rect.setAttribute('height', '14');
+        rect.setAttribute('rx', '2');
+        const text = document.createElementNS(ns, 'text');
+        text.setAttribute('class', 'map-title');
+        text.setAttribute('x', String(x));
+        text.setAttribute('y', String(y));
+        text.textContent = node.title;
+        titleGroup.append(rect, text);
+        group.append(titleGroup);
+
         group.addEventListener('pointerenter', () => {
           hoverId = node.id;
-          draw();
+          paint();
         });
         group.addEventListener('pointerleave', () => {
           if (hoverId === node.id) hoverId = null;
-          draw();
+          paint();
         });
         group.addEventListener('click', (event) => {
           event.stopPropagation();
@@ -177,33 +230,8 @@ export function createWeekMap(options: MapOptions) {
       })
     );
 
-    const titled = nodes.filter((node) => shouldShowTitle(node, state, neighbours));
-
-    titleLayer.replaceChildren(
-      ...titled.map((node) => {
-        const group = document.createElementNS(ns, 'g');
-        group.setAttribute('class', 'map-title-group');
-        const x = node.x + node.radius + 6;
-        const y = node.y + 4;
-        const widthGuess = Math.min(220, Math.max(36, node.title.length * 5.6 + 8));
-        const rect = document.createElementNS(ns, 'rect');
-        rect.setAttribute('class', 'map-title-back');
-        rect.setAttribute('x', String(x - 3));
-        rect.setAttribute('y', String(y - 10));
-        rect.setAttribute('width', String(widthGuess));
-        rect.setAttribute('height', '14');
-        rect.setAttribute('rx', '2');
-        const text = document.createElementNS(ns, 'text');
-        text.setAttribute('class', 'map-title');
-        text.setAttribute('x', String(x));
-        text.setAttribute('y', String(y));
-        text.textContent = node.title;
-        group.append(rect, text);
-        return group;
-      })
-    );
-
     applyTransform();
+    paint();
   }
 
   function relayout() {
@@ -214,7 +242,7 @@ export function createWeekMap(options: MapOptions) {
     const graph = layoutGraph(buildGraph(getEntries()), width, height);
     nodes = graph.nodes;
     links = graph.links;
-    draw();
+    rebuild();
   }
 
   if (!reducedMotion) {
@@ -231,7 +259,7 @@ export function createWeekMap(options: MapOptions) {
         transform.x = px - (px - transform.x) * scale;
         transform.y = py - (py - transform.y) * scale;
         transform.k = next;
-        draw();
+        paint();
       },
       { passive: false }
     );
@@ -256,9 +284,9 @@ export function createWeekMap(options: MapOptions) {
 
   return {
     relayout,
-    draw,
+    draw: paint,
     focus() {
-      draw();
+      paint();
     }
   };
 }

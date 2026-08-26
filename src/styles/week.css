@@ -548,6 +548,11 @@
   cursor: pointer;
 }
 
+.map-node-hit {
+  fill: transparent;
+  pointer-events: all;
+}
+
 .map-node:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
@@ -579,7 +584,7 @@
 }
 
 .map-title-group {
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .map-title-back {
