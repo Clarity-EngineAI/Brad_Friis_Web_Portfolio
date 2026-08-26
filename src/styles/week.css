@@ -35,49 +35,49 @@
    ============================================================================ */
 
 :root {
-  /* --- Growth: sienna to amber ------------------------------------------
-     Built outward from the site accent, which is step 1 unmodified. */
+  /* Earth triad — matches the site accent and parchment; no teal, no blue.
+     Growth stays in the accent sienna (tightened so it does not walk into
+     gold). Delivery takes ochre. Operations takes espresso. Separation is
+     hue first (red-brown / gold-brown / ink-brown), then lightness inside
+     each family. Purple remains banned. */
+
+  /* --- Growth: sienna ---------------------------------------------------
+     The site accent, unmodified, then three neighbouring siennas. */
   --c-pipeline: #9c3d1e;      /* the site accent, unmodified */
-  --c-targeting: #a4501c;
-  --c-campaigns: #9a5c14;
-  --c-measurement: #8a6510;
+  --c-targeting: #ad4624;
+  --c-campaigns: #7e3018;
+  --c-measurement: #5c2414;
 
-  /* --- Delivery: deep teal to green -------------------------------------
-     Held inside H199 -> H144. It must not walk further toward yellow-green:
-     past ~H140 it starts closing on Growth's amber end and the two families
-     stop being separable at chip size. */
-  --c-implementation: #08696b;
-  --c-enablement: #0d6a58;
-  --c-learning-design: #166b46;
-  --c-support: #256c33;
+  /* --- Delivery: ochre --------------------------------------------------
+     Warm gold-brown. Not green, not the accent. Held dark enough that
+     small caps clear 4.5:1 on paper. */
+  --c-implementation: #5c4010;
+  --c-enablement: #6e4c14;
+  --c-learning-design: #7a5414;
+  --c-support: #8a5e16;
 
-  /* --- Operations: deep blue, dark to light ------------------------------
-     Brad's rule: NO PURPLE, anywhere on the page (set 25 August 2026 after
-     the violet-magenta family was rejected). The family therefore holds one
-     blue hue (~H207) and walks LIGHTNESS instead of hue — the same way a
-     type scale walks size. It cannot drift toward violet because the hue
-     never moves. Separation from Delivery is hue (blue vs green-teal);
-     separation inside the family is lightness. */
-  --c-commercial: #1b4a75;
-  --c-partnerships: #235a8a;
-  --c-people: #2c699e;
-  --c-systems: #3273ab;
+  /* --- Operations: espresso ---------------------------------------------
+     Warm ink-brown, the colour of the stat band and the site ink, not a
+     third brand hue. Walks lightness only. */
+  --c-commercial: #2f241e;
+  --c-partnerships: #45352c;
+  --c-people: #5c473a;
+  --c-systems: #735a48;
 
-  /* Pillar heads take step 1 of their family. */
+  /* Pillar heads: the most identifiable step of each family. */
   --p-growth: #9c3d1e;
-  --p-delivery: #08696b;
-  --p-operations: #1b4a75;
+  --p-delivery: #7a5414;
+  --p-operations: #45352c;
 
   --wash-growth: rgba(156, 61, 30, 0.05);
-  --wash-delivery: rgba(8, 105, 107, 0.05);
-  --wash-operations: rgba(27, 74, 117, 0.05);
+  --wash-delivery: rgba(122, 84, 20, 0.07);
+  --wash-operations: rgba(47, 36, 30, 0.07);
 
-  /* For the inverted (selected) card on --stat-ground. Growth reuses the
-     site's own --accent-on-dark; the other two are matched to it in
-     lightness so the three read as one set. 7.67 / 8.67 / 7.98 : 1. */
-  --p-growth-on-dark: #e8935f;   /* the site's own token, unchanged */
-  --p-delivery-on-dark: #5cc4a8;
-  --p-operations-on-dark: #85bce6;
+  /* Inverted (selected) card on --stat-ground. Growth reuses the site's
+     own --accent-on-dark; ochre and taupe are matched to it in lightness. */
+  --p-growth-on-dark: #e8935f;
+  --p-delivery-on-dark: #e2b45c;
+  --p-operations-on-dark: #d4b59a;
 }
 
 /* `hidden` is set by the page's script on elements that also carry a later
