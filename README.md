@@ -4,7 +4,8 @@
 
 A bespoke static site whose job is to get Brad Friis hired into a commercial/SaaS role. Built with
 **Astro 7** (TypeScript strict, static output, no framework integrations, no CMS). Deploys to
-**Netlify**; `netlify.toml` is committed and needs no configuration in the Netlify interface.
+**Cloudflare** only; `wrangler.jsonc` points the platform at the static `dist/` output. Security
+headers live in `public/_headers`. The site does not deploy to Netlify.
 
 ## Read this before changing anything
 
