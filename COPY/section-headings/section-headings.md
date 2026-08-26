@@ -113,6 +113,114 @@ is why the count is nowhere in the hero display line.
 
 ---
 
+## How I work
+
+Homepage capabilities section. Placed 26 August 2026. Header is left-aligned (`section-head-left`)
+so the mandate and operate block do not tower in the centred 55ch stack. The five cards are
+unchanged.
+
+### Lead · **In use**
+
+> Read the business, find the priced-wrong offer, keep what I win, own the terms, and know the
+> product well enough to trust the pitch.
+
+Already live before this round. Recorded here so the line is not redrafted. Character budget for
+`.lead` is 90–150 / hard 180; this line is already ~140. Do not fold the mandate into it.
+
+### Mandate · **In use** · 26 August 2026
+
+> I take over key accounts, hold them, and grow what they spend.
+
+**For.** Answers hunter-versus-farmer below the fold, after the proof strip, without touching the
+hero. Seat-seeking, not a figure. Aligns with land-keep-grow from 2001 and retention/expansion as
+the number. Does not claim 100% retention. Adplus mixed-book concession stays on Career.
+
+**Against.** Adds a third voice in the section header before the cards. Sixteen words is cheap;
+the operate block that follows is the real cost.
+
+### How I operate · **In use** · 26 August 2026
+
+> The billing, the contract and the renewal stay with the person who won the account. Licence
+> prices rose every year, and accounts renewed through those increases. Some still left, on total
+> cost against Google Classroom or Microsoft 365. I name a price that will not hold, a gap in the
+> product, or a renewal at risk, while there is still a next step.
+>
+> I moved out of outbound direct marketing into consultative work and stayed there for the
+> following decade. New business sits inside that work. It is not the whole job.
+
+Scored against `COPY/brad-verified-claims-transcript.md`. Combined insertion with the mandate is
+~110 words. The inferred sentence (“I name a price…”) is the only optional cut, and only after
+seeing it on the page — do not replace it with a new invention.
+
+**For.** Hunter/farmer answered in site voice, register-scored, with the price-rise concession
+travelling with the claim. The 99 Corporation outbound-to-consultative line keeps Option B from
+reviving the voided “ran on renewals rather than new logos”.
+
+**Against.** Adds ~110 words before the cards on a homepage already over the §7 word budget. One
+sentence is inferred rather than a single register row.
+
+### Recruiter manifesto · **Rejected** · 26 August 2026
+
+Submitted as homepage copy. Do not put on the site. Kept so the same ground is not drafted twice.
+Spellings are as submitted.
+
+> Let's Skip the Pitch. Here's How I Actually Manage Enterprise Relationships.
+> If you're a recruiter or hiring manager landing here, you're looking for a Senior Account Manager
+> who can walk into complex client ecosystems, protect revenue, expand enterprise value, and build
+> genuine trust without needing hand-holding.
+>
+> To save us both time, let's look straight at how I operate, where my edges are, and how I
+> approach account strategy.
+>
+> 1. Transparency First (The Reciprocity Principle)
+> Before we talk about my resume or your open headcount, let's look at what is actually happening
+> in enterprise retention right now. Markets are tight, client scrutiny is high, and too many
+> account teams rely on reactive firefighting instead of proactive value creation.
+>
+> If you are trying to solve churn, shorten sales cycles, or lock down key enterprise accounts, I
+> know the exact friction points you're dealing with. I'm happy to share those operational insights
+> with you upfront, whether we end up working together or not.
+>
+> 2. No Smoke and Mirrors (The Pratfall Effect)
+> Let's be honest: every candidate profile claims they are "relationship-driven, proactive, and
+> quota-crushing." It's noise.
+>
+> Here is my reality: I am fiercely protective of client trust, deeply analytical about account
+> health, and I have zero patience for internal bureaucracy or "vanity metrics" that don't drive
+> bottom-line revenue. If you need a smooth-talker who just tells enterprise clients what they want
+> to hear to close a quarter, I am not your person. But if you need an operator who is radically
+> honest with clients, navigates hard conversations early, and builds bulletproof retention—let's
+> talk.
+>
+> 3. Finding the Right Fit (The Compromise Effect)
+> When companies bring on a Senior Account Manager, the mandate usually falls into one of three
+> buckets:
+>
+> Option A: A purely defensive, retention-focused role to stop bleeding in a high-churn portfolio.
+>
+> Option B: A balanced growth role where I take over key accounts, stabilize relationships, and
+> systematically expand net-revenue retention (NRR) through cross-sell and upsell.
+>
+> Option C: A high-risk, zero-to-one enterprise acquisition role focused entirely on hunting new
+> logos from scratch.
+>
+> Most organizations find Option B is the sweet spot—protecting your existing revenue base while
+> actively driving strategic growth.
+>
+> Let's Have a Real Conversation
+> If your team needs a Senior Account Manager who cuts through corporate fluff, tells you the
+> unvarnished truth about client health, and knows how to drive long-term value, let's connect.
+>
+> [ Get in touch or book a brief chat. ]
+
+**Why rejected.** Second person, labelled psychology, self-adjectives, comparison to other
+candidates, `Get in touch`, `vanity metrics`, `bulletproof`, `NRR`, `zero-to-one`, A/B/C packages,
+US spelling (`organize`/`stabilize`), and a withheld-method teaser. The live homepage already does
+the forty-second recruiter read with evidence first. Option B survived only as the mandate sentence
+above, not as this framing.
+
+---
+
 ## The five-campus save
 
 ### Eyebrow · **In use**
