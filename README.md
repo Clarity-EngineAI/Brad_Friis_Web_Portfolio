@@ -23,6 +23,7 @@ in `archive - do not use/framer-and-prolens-era/`. Do not restore it and do not 
 | --- | --- |
 | What's the current direction, and where does everything else fit? | `design/00-current-direction.md` — **read this first** |
 | What am I doing next? | `NEXT-SESSION-PROMPT.md` |
+| What should a Cloud Agent always know? | `AGENTS.md` |
 | What may the site say? | `COPY/` — one file per category, each entry with a status. `COPY/README.md` explains the structure |
 | How should it look? | `design/08-visual-direction.md` |
 | Which references may be published? | `Brad Friis Resumes/References/README.md`, `design/01d-reference-archive-audit.md` |
