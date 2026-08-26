@@ -23,11 +23,12 @@ artefacts; do not migrate one into the other.
 Sanity is not a live connection. The site is static, built once and served as files, so
 hitting Publish changes nothing until a build runs:
 
-    Publish in Studio → Sanity webhook → Netlify build hook → astro build → bradfriis.com
+    Publish in Studio → Sanity webhook → Cloudflare deploy hook → astro build → bradfriis.com
 
-The Netlify build hook is `Sanity publish` on project `brad-friis`. The Sanity webhook
-that calls it must be created once in the Sanity dashboard — see Setup below. **Without
-that webhook, Publish silently does nothing.**
+The live host is Cloudflare only (`wrangler.jsonc`). An earlier Netlify build hook does
+not publish the site. The Sanity webhook that calls Cloudflare must be created once in
+the Sanity dashboard — see Setup below. **Without that webhook, Publish silently does
+nothing.**
 
 A build takes about two minutes. Changes are not instant.
 
@@ -82,13 +83,14 @@ blog index would silently show the wrong posts first.
 3. **Create the Sanity webhook** at
    https://sanity.io/manage/project/ao34shul/api#webhooks
 
-   - URL: `https://api.netlify.com/build_hooks/6a846a4b47c6fe61af6b385a`
+   - URL: the Cloudflare deploy hook for this project (Workers / Pages), **not** the
+     old Netlify hook
    - Dataset: `production` · Trigger on: Create, Update, Delete
    - Filter: `_type == "post"` · HTTP method: POST
 
 4. **Verify end to end.** Change a post's standfirst, hit Publish, watch a deploy appear
-   at https://app.netlify.com/projects/brad-friis/deploys, then confirm the change on
-   bradfriis.com. Until this passes, the CMS is not installed.
+   in the Cloudflare dashboard, then confirm the change on bradfriis.com. Until this
+   passes, the CMS is not installed.
 
 ## Local development
 
@@ -97,4 +99,4 @@ blog index would silently show the wrong posts first.
 
 If Sanity is unreachable at build time, the build falls back to `src/data/blog.ts` and
 prints `[sanity] ...` on stderr. A blog page that looks stale is the signal to check
-that warning in the Netlify deploy log.
+that warning in the Cloudflare deploy log.
