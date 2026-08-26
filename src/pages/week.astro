@@ -112,19 +112,14 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
         </div>
         <div class="week-menu-meta">
           <p class="week-menu-status" data-filter-status aria-live="polite">The full week</p>
-          <div class="week-menu-actions">
-            <button class="filter-action" type="button" data-select-all aria-label="Select every area">
-              All
-            </button>
-            <button
-              class="filter-action"
-              type="button"
-              data-reset
-              aria-label="Clear every selection and return to the full week"
-            >
-              Clear
-            </button>
-          </div>
+          <button
+            class="week-menu-revert"
+            type="button"
+            data-reset
+            hidden
+          >
+            Show the full week
+          </button>
         </div>
       </div>
       <div class="week-menu-chips" data-active-chips hidden></div>
@@ -278,10 +273,8 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
   const el = {
     grid: document.querySelector("#week-grid")!,
     agenda: document.querySelector("#agenda")!,
-    menu: document.querySelector("#week-menu")!,
     status: document.querySelector<HTMLElement>("[data-filter-status]")!,
     chips: document.querySelector<HTMLElement>("[data-active-chips]")!,
-    selectAllButton: document.querySelector<HTMLButtonElement>("[data-select-all]")!,
     resetButton: document.querySelector<HTMLButtonElement>("[data-reset]")!,
     dialog: document.querySelector<HTMLDialogElement>("#detail-dialog")!,
     panelTitle: document.querySelector("#detail-title")!,
@@ -401,8 +394,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
   }
 
   function renderFilters() {
-    el.selectAllButton.disabled = everythingSelected();
-    el.resetButton.disabled = noSelection();
+    el.resetButton.hidden = noSelection();
 
     const selectedCount = state.activeCategories.size;
     if (noSelection()) el.status.textContent = "The full week";
@@ -630,14 +622,21 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
     commit();
   }
 
-  function selectAll() {
-    allCategoryIds.forEach((id) => state.activeCategories.add(id));
-    commit();
-  }
-
   function reset() {
     state.activeCategories.clear();
     commit();
+  }
+
+  function eventInsideOpenMenu(event: Event) {
+    if (!state.openMenu) return false;
+    const item = document.querySelector(`[data-menu-item="${state.openMenu}"]`);
+    const target = event.target;
+    return Boolean(item && target instanceof Node && item.contains(target));
+  }
+
+  function dismissMenuIfOutside(event: Event) {
+    if (!state.openMenu) return;
+    if (!eventInsideOpenMenu(event)) closeMenu();
   }
 
   function commit() {
@@ -664,8 +663,6 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
     const catButton = target.closest<HTMLElement>("[data-cat-toggle]");
     if (catButton) return toggleCategory(catButton.dataset.catToggle!);
 
-    if (target.closest("[data-select-all]")) return selectAll();
-
     if (target.closest("[data-reset]")) {
       closeMenu();
       return reset();
@@ -690,10 +687,8 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
     if (target.closest("[data-close]")) return closeDetail();
   });
 
-  document.addEventListener("pointerdown", (event) => {
-    if (!state.openMenu) return;
-    if (!el.menu.contains(event.target as Node)) closeMenu();
-  });
+  document.addEventListener("pointerdown", dismissMenuIfOutside, true);
+  document.addEventListener("focusin", dismissMenuIfOutside);
 
   document.addEventListener("keydown", (event) => {
     const target = event.target as HTMLElement;

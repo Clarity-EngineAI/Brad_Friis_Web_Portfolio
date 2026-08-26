@@ -410,6 +410,10 @@
   box-shadow: 0 14px 32px rgba(28, 25, 23, 0.1);
 }
 
+.week-menu-panel[hidden] {
+  display: none !important;
+}
+
 .week-menu-panel-head {
   padding: 10px 12px;
   border-radius: calc(var(--r-md) - 3px) calc(var(--r-md) - 3px) 0 0;
@@ -419,11 +423,11 @@
 
 .week-menu-panel-title {
   margin: 0;
-  font-size: var(--text-title);
-  font-weight: 680;
-  letter-spacing: -0.026em;
-  line-height: 1.1;
-  color: var(--pillar-color);
+  font-size: var(--text-nav);
+  font-weight: 500;
+  letter-spacing: -0.014em;
+  line-height: 1.2;
+  color: var(--ink);
 }
 
 .week-menu-panel-standfirst {
@@ -452,7 +456,7 @@
   background: transparent;
   color: var(--ink);
   font-size: var(--text-body);
-  font-weight: 520;
+  font-weight: 400;
   font-family: inherit;
   letter-spacing: -0.011em;
   text-align: left;
@@ -508,7 +512,7 @@
   border-radius: var(--r-pill);
   font-family: inherit;
   font-size: var(--text-meta);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--pillar-color);
   cursor: pointer;
 }
@@ -520,52 +524,40 @@
 .week-menu-meta {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   margin-left: auto;
 }
 
 .week-menu-status {
   margin: 0;
   font-size: var(--text-meta);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--ink-tertiary);
   letter-spacing: -0.01em;
 }
 
-.week-menu-actions {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  padding: 2px;
+.week-menu-revert {
   border: 1px solid var(--line);
-  border-radius: var(--r-pill);
   background: var(--paper);
-}
-
-.filter-action {
-  border: 1px solid transparent;
-  background: none;
-  min-height: 28px;
-  padding: 4px 10px;
+  min-height: 32px;
+  padding: 4px 12px;
   border-radius: var(--r-pill);
   font-family: inherit;
   font-size: var(--text-meta);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.01em;
-  color: var(--ink-secondary);
+  color: var(--ink);
   cursor: pointer;
-  transition: color 180ms ease, background 180ms ease;
+  transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
 }
 
-.filter-action:hover:not(:disabled) {
-  color: var(--accent);
+.week-menu-revert:hover {
+  border-color: var(--line-hover);
   background: var(--recessed);
 }
 
-.filter-action:disabled {
-  color: var(--ink-tertiary);
-  opacity: 0.45;
-  cursor: default;
+.week-menu-revert[hidden] {
+  display: none;
 }
 
 .week-menu-chips {
