@@ -51,12 +51,17 @@ import "../styles/week.css";
     <h2 id="week-heading" class="visually-hidden">The work</h2>
     <div class="week-map-wrap" data-panel="map">
       <p class="visually-hidden" id="map-hint">
-        A map of the role. Click a node for more detail. Switch to Week for the representative calendar.
-        A ring on a node marks relationship work that cut across the role.
+        A map of the role, as one graph. Hover a node for its name. Zoom in and
+        one-word labels appear only where they do not overlap. Click a node for
+        more detail. Switch to Week for the representative calendar.
       </p>
       <svg class="week-map" id="week-map" aria-describedby="map-hint"></svg>
+      <div class="map-zoom" role="group" aria-label="Zoom the map">
+        <button class="map-zoom-btn" type="button" data-map-zoom="out" aria-label="Zoom out">−</button>
+        <button class="map-zoom-btn" type="button" data-map-zoom="in" aria-label="Zoom in">+</button>
+      </div>
       <p class="map-caption map-caption--desktop">
-        A ring marks relationship work that cut across the role. Drag to pan, scroll to zoom.
+        Scroll or use + to zoom. Hover a node for its name. Words appear only where they fit.
       </p>
       <p class="map-caption map-caption--mobile">
         Choose an area, then the work connected to it. A ring in the desktop map marks relationship work.
@@ -565,6 +570,10 @@ import "../styles/week.css";
 
   document.addEventListener("click", (event) => {
     const target = event.target as HTMLElement;
+
+    const zoomButton = target.closest<HTMLButtonElement>("[data-map-zoom]");
+    if (zoomButton?.dataset.mapZoom === "in") return weekMap.zoomBy(1);
+    if (zoomButton?.dataset.mapZoom === "out") return weekMap.zoomBy(-1);
 
     const viewButton = target.closest<HTMLButtonElement>("[data-view]");
     if (viewButton?.dataset.view === "map" || viewButton?.dataset.view === "week") {

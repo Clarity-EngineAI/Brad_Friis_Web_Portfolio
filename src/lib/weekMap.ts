@@ -22,6 +22,8 @@ type MapOptions = {
   reducedMotion: boolean;
 };
 
+type LabelMode = 'none' | 'word' | 'title';
+
 const PILLAR_LABEL: Record<string, string> = {
   growth: 'Growth',
   delivery: 'Delivery',
@@ -32,7 +34,7 @@ export function createWeekMap(options: MapOptions) {
   const { host, getEntries, getState, onSelect, reducedMotion } = options;
 
   let width = 800;
-  let height = 560;
+  let height = 640;
   let nodes: GraphNode[] = [];
   let links: GraphLink[] = [];
   let hoverId: string | null = null;
@@ -72,11 +74,10 @@ export function createWeekMap(options: MapOptions) {
   const isFaded = (node: GraphNode, state: MapState) =>
     state.activeCategories.size > 0 && !state.activeCategories.has(node.category);
 
-  const shouldShowTitle = (node: GraphNode, state: MapState, neighbours: Set<string>) => {
-    if (state.selectedId === node.id || hoverId === node.id || neighbours.has(node.id)) return true;
-    if (transform.k >= 1.5) return true;
-    if (transform.k >= 1.2 && node.degree >= 2) return true;
-    return node.degree >= 4;
+  const labelMode = (): LabelMode => {
+    if (transform.k >= 2.1) return 'title';
+    if (transform.k >= 1.45) return 'word';
+    return 'none';
   };
 
   const nodeClass = (node: GraphNode, state: MapState, neighbours: Set<string>) =>
@@ -90,6 +91,29 @@ export function createWeekMap(options: MapOptions) {
     const state = getState();
     const focus = state.selectedId ?? hoverId;
     const neighbours = focus ? neighboursOf(focus) : new Set<string>();
+    const mode = labelMode();
+    const labelScale = 1 / transform.k;
+    const placed: Array<{ x: number; y: number; w: number; h: number }> = [];
+
+    const overlaps = (box: { x: number; y: number; w: number; h: number }) =>
+      placed.some(
+        (other) =>
+          box.x < other.x + other.w &&
+          box.x + box.w > other.x &&
+          box.y < other.y + other.h &&
+          box.y + box.h > other.y
+      );
+
+    const screenBox = (node: GraphNode, text: string) => {
+      const originX = (node.x + node.radius + 5) * transform.k + transform.x;
+      const originY = (node.y + 3) * transform.k + transform.y;
+      return {
+        x: originX,
+        y: originY - 9,
+        w: text.length * 7.4 + 10,
+        h: 16
+      };
+    };
 
     for (const line of linkLayer.querySelectorAll('line')) {
       const source = line.getAttribute('data-source');
@@ -103,14 +127,49 @@ export function createWeekMap(options: MapOptions) {
       );
     }
 
+    const ranked = [...nodes].sort((a, b) => {
+      const aFocus = Number(a.id === state.selectedId || a.id === hoverId);
+      const bFocus = Number(b.id === state.selectedId || b.id === hoverId);
+      if (aFocus !== bFocus) return bFocus - aFocus;
+      return b.degree - a.degree;
+    });
+    const allowed = new Set<string>();
+    for (const node of ranked) {
+      const focused = node.id === state.selectedId || node.id === hoverId;
+      const text = focused && mode === 'title' ? node.title : node.word;
+      if (focused) {
+        placed.push(screenBox(node, text));
+        allowed.add(node.id);
+        continue;
+      }
+      if (mode === 'none') continue;
+      const box = screenBox(node, node.word);
+      if (overlaps(box)) continue;
+      placed.push(box);
+      allowed.add(node.id);
+    }
+
     for (const group of nodeLayer.querySelectorAll<SVGGElement>('.map-node')) {
       const node = nodes.find((item) => item.id === group.dataset.entry);
       if (!node) continue;
       group.setAttribute('class', nodeClass(node, state, neighbours));
       group.setAttribute('tabindex', isFaded(node, state) ? '-1' : '0');
       group.setAttribute('aria-pressed', String(state.selectedId === node.id));
-      const title = group.querySelector('.map-title-group');
-      title?.setAttribute('visibility', shouldShowTitle(node, state, neighbours) ? 'visible' : 'hidden');
+
+      const focused = state.selectedId === node.id || hoverId === node.id;
+      const label = group.querySelector('.map-label');
+      if (label) {
+        label.textContent = focused && mode === 'title' ? node.title : node.word;
+        const x = node.x + node.radius + 5;
+        const y = node.y + 3;
+        label.setAttribute('transform', `translate(${x} ${y}) scale(${labelScale})`);
+        label.setAttribute('visibility', allowed.has(node.id) ? 'visible' : 'hidden');
+      }
+    }
+
+    const pillarOpacity = mode === 'none' ? '0.72' : mode === 'word' ? '0.28' : '0.1';
+    for (const text of labelLayer.querySelectorAll('text')) {
+      text.setAttribute('opacity', pillarOpacity);
     }
 
     applyTransform();
@@ -144,8 +203,9 @@ export function createWeekMap(options: MapOptions) {
         const text = document.createElementNS(ns, 'text');
         text.setAttribute('class', 'map-pillar-label');
         text.setAttribute('x', String(PILLAR_ANCHORS[pillar].x * width));
-        text.setAttribute('y', String(PILLAR_ANCHORS[pillar].y * height - 72));
+        text.setAttribute('y', String(PILLAR_ANCHORS[pillar].y * height - (pillar === 'operations' ? 72 : 54)));
         text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('dominant-baseline', 'middle');
         text.textContent = PILLAR_LABEL[pillar];
         text.style.fill = `var(--p-${pillar})`;
         return text;
@@ -166,7 +226,7 @@ export function createWeekMap(options: MapOptions) {
         hit.setAttribute('class', 'map-node-hit');
         hit.setAttribute('cx', String(node.x));
         hit.setAttribute('cy', String(node.y));
-        hit.setAttribute('r', String(Math.max(16, node.radius + 10)));
+        hit.setAttribute('r', String(Math.max(14, node.radius + 8)));
         group.append(hit);
 
         if (node.themes.includes('relationships')) {
@@ -174,7 +234,7 @@ export function createWeekMap(options: MapOptions) {
           ring.setAttribute('class', 'map-node-ring');
           ring.setAttribute('cx', String(node.x));
           ring.setAttribute('cy', String(node.y));
-          ring.setAttribute('r', String(node.radius + 4));
+          ring.setAttribute('r', String(node.radius + 3.5));
           group.append(ring);
         }
 
@@ -186,26 +246,11 @@ export function createWeekMap(options: MapOptions) {
         circle.style.fill = `var(--c-${node.category})`;
         group.append(circle);
 
-        const titleGroup = document.createElementNS(ns, 'g');
-        titleGroup.setAttribute('class', 'map-title-group');
-        titleGroup.setAttribute('visibility', shouldShowTitle(node, state, neighbours) ? 'visible' : 'hidden');
-        const x = node.x + node.radius + 6;
-        const y = node.y + 4;
-        const widthGuess = Math.min(220, Math.max(36, node.title.length * 5.6 + 8));
-        const rect = document.createElementNS(ns, 'rect');
-        rect.setAttribute('class', 'map-title-back');
-        rect.setAttribute('x', String(x - 3));
-        rect.setAttribute('y', String(y - 10));
-        rect.setAttribute('width', String(widthGuess));
-        rect.setAttribute('height', '14');
-        rect.setAttribute('rx', '2');
-        const text = document.createElementNS(ns, 'text');
-        text.setAttribute('class', 'map-title');
-        text.setAttribute('x', String(x));
-        text.setAttribute('y', String(y));
-        text.textContent = node.title;
-        titleGroup.append(rect, text);
-        group.append(titleGroup);
+        const label = document.createElementNS(ns, 'text');
+        label.setAttribute('class', 'map-label');
+        label.setAttribute('visibility', 'hidden');
+        label.setAttribute('dominant-baseline', 'middle');
+        group.append(label);
 
         group.addEventListener('pointerenter', () => {
           hoverId = node.id;
@@ -235,9 +280,10 @@ export function createWeekMap(options: MapOptions) {
   }
 
   function relayout() {
+    transform = { x: 0, y: 0, k: 1 };
     const box = host.getBoundingClientRect();
     width = Math.max(640, Math.round(box.width) || 800);
-    height = Math.max(480, Math.round(box.height) || 560);
+    height = Math.max(520, Math.round(box.height) || 640);
     host.setAttribute('viewBox', `0 0 ${width} ${height}`);
     const graph = layoutGraph(buildGraph(getEntries()), width, height);
     nodes = graph.nodes;
@@ -245,21 +291,31 @@ export function createWeekMap(options: MapOptions) {
     rebuild();
   }
 
+  function zoomToward(next: number, px: number, py: number) {
+    const bounded = Math.min(2.8, Math.max(0.65, next));
+    const scale = bounded / transform.k;
+    transform.x = px - (px - transform.x) * scale;
+    transform.y = py - (py - transform.y) * scale;
+    transform.k = bounded;
+    paint();
+  }
+
+  function zoomBy(direction: 1 | -1) {
+    const rect = host.getBoundingClientRect();
+    zoomToward(transform.k * (direction > 0 ? 1.28 : 0.78), rect.width / 2, rect.height / 2);
+  }
+
   if (!reducedMotion) {
     host.addEventListener(
       'wheel',
       (event) => {
         event.preventDefault();
-        const factor = event.deltaY < 0 ? 1.08 : 0.92;
-        const next = Math.min(2.4, Math.max(0.7, transform.k * factor));
         const rect = host.getBoundingClientRect();
-        const px = event.clientX - rect.left;
-        const py = event.clientY - rect.top;
-        const scale = next / transform.k;
-        transform.x = px - (px - transform.x) * scale;
-        transform.y = py - (py - transform.y) * scale;
-        transform.k = next;
-        paint();
+        zoomToward(
+          transform.k * (event.deltaY < 0 ? 1.1 : 0.9),
+          event.clientX - rect.left,
+          event.clientY - rect.top
+        );
       },
       { passive: false }
     );
@@ -285,6 +341,7 @@ export function createWeekMap(options: MapOptions) {
   return {
     relayout,
     draw: paint,
+    zoomBy,
     focus() {
       paint();
     }

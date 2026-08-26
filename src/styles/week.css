@@ -480,6 +480,7 @@
 }
 
 .week-map-wrap {
+  position: relative;
   border: 1px solid var(--line);
   border-radius: var(--r-card);
   background: var(--paper);
@@ -489,13 +490,18 @@
 .week-map {
   display: none;
   width: 100%;
-  height: 560px;
+  height: min(72vh, 720px);
+  min-height: 540px;
   cursor: grab;
   touch-action: none;
 }
 
 .week-map:active {
   cursor: grabbing;
+}
+
+.map-zoom {
+  display: none;
 }
 
 .map-caption {
@@ -513,35 +519,31 @@
 }
 
 .map-link {
-  stroke: var(--line);
-  stroke-width: 1;
-  opacity: 0.42;
+  stroke: var(--ink);
+  stroke-width: 0.85;
+  opacity: 0.22;
+  vector-effect: non-scaling-stroke;
 }
 
 .map-link.is-cross {
-  stroke: var(--ink-tertiary);
-  stroke-dasharray: 3 4;
-  opacity: 0.5;
+  opacity: 0.08;
 }
 
 .map-link.is-hot {
   stroke: var(--ink);
-  stroke-width: 1.45;
-  stroke-dasharray: none;
-  opacity: 0.82;
+  stroke-width: 1.2;
+  opacity: 0.55;
 }
 
 .map-link.is-dim {
-  opacity: 0.08;
+  opacity: 0.04;
 }
 
 .map-pillar-label {
-  font-size: var(--text-enum);
-  font-weight: 620;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.022em;
   pointer-events: none;
-  opacity: 0.55;
 }
 
 .map-node {
@@ -583,20 +585,15 @@
   opacity: 0.75;
 }
 
-.map-title-group {
-  pointer-events: auto;
-}
-
-.map-title-back {
-  fill: var(--paper);
-  opacity: 0.88;
-}
-
-.map-title {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+.map-label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
   fill: var(--ink);
+  stroke: var(--paper);
+  stroke-width: 4px;
+  paint-order: stroke fill;
+  pointer-events: none;
 }
 
 .map-explorer {
@@ -1226,6 +1223,41 @@ html:has(.detail-dialog[open]) {
 
   .week-map {
     display: block;
+  }
+
+  .map-zoom {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    z-index: 2;
+    right: 14px;
+    bottom: 56px;
+    border: 1px solid var(--line-hover);
+    border-radius: var(--r-md);
+    background: var(--paper);
+    box-shadow: 0 1px 2px rgba(28, 25, 23, 0.06);
+    overflow: hidden;
+  }
+
+  .map-zoom-btn {
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    background: transparent;
+    font-size: 1.125rem;
+    line-height: 1;
+    color: var(--ink-secondary);
+    cursor: pointer;
+  }
+
+  .map-zoom-btn:last-child {
+    border-bottom: 0;
+  }
+
+  .map-zoom-btn:hover {
+    color: var(--ink);
+    background: var(--recessed);
   }
 
   .map-explorer,
