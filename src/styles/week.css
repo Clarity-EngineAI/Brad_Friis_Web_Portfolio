@@ -77,9 +77,9 @@
   /* Card faces. Mixing the dark WCAG inks into white left the calendar
      looking like parchment. These fills are muted pastels in the same
      three hues, strong enough to scan. */
-  --fill-growth: #e8c8b8;
-  --fill-delivery: #c8d4b4;
-  --fill-operations: #c5d0d8;
+  --fill-growth: #e0b49e;
+  --fill-delivery: #b4c694;
+  --fill-operations: #b0c0cc;
 
   --p-growth-on-dark: #e8935f;
   --p-delivery-on-dark: #c5d48a;
@@ -697,6 +697,10 @@
   font: inherit;
   color: inherit;
 }
+
+.entry[data-pillar='growth'] { --cat-fill: var(--fill-growth); }
+.entry[data-pillar='delivery'] { --cat-fill: var(--fill-delivery); }
+.entry[data-pillar='operations'] { --cat-fill: var(--fill-operations); }
 
 .entry:hover:not([aria-expanded='true']) {
   border-color: var(--line-hover);
