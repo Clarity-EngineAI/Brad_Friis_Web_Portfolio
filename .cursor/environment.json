@@ -1,0 +1,17 @@
+{
+  "name": "Brad Friis personal site",
+  "install": "npm ci",
+  "terminals": [
+    {
+      "name": "astro-dev",
+      "command": "ASTRO_TELEMETRY_DISABLED=1 npm run dev -- --host 0.0.0.0",
+      "description": "Astro dev server on http://localhost:4321"
+    }
+  ],
+  "ports": [
+    {
+      "name": "astro-dev",
+      "port": 4321
+    }
+  ]
+}
