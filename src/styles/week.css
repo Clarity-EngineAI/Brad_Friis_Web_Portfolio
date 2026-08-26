@@ -95,7 +95,7 @@
    filters (see FILTER MENU below), so the hero carries only the statement. */
 
 .week-hero {
-  padding-block: 40px 8px;
+  padding-block: 40px 0;
 }
 
 .week-hero .eyebrow-pill {
@@ -125,7 +125,7 @@
 
 @media (min-width: 62rem) {
   .week-hero {
-    padding-block: 48px 10px;
+    padding-block: 48px 0;
   }
 
   .week-hero .hero-lead {
@@ -145,7 +145,7 @@
 }
 
 .week-pullquote {
-  margin-top: 28px;
+  margin-top: 22px;
   max-width: 48ch;
 }
 
@@ -250,26 +250,29 @@
    the calendar already uses these hues for. */
 
 .filter-section {
-  padding-block: 18px 8px;
+  padding-block: 16px 6px;
 }
 
 .week-menu {
   display: grid;
-  gap: 12px;
+  gap: 8px;
 }
 
 .week-menu-bar {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
-  gap: 18px 28px;
+  gap: 10px 16px;
   flex-wrap: wrap;
 }
 
 .week-menu-primary {
-  display: grid;
-  gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   min-width: 0;
+  flex: 1 1 18rem;
+  flex-wrap: wrap;
 }
 
 .week-menu-kicker {
@@ -284,7 +287,7 @@
 .week-menu-triggers {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
 .week-menu-item {
@@ -294,11 +297,11 @@
 .week-menu-trigger {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  min-height: 48px;
-  padding: 6px 12px 6px 6px;
+  gap: 8px;
+  min-height: 36px;
+  padding: 4px 10px 4px 4px;
   border: 1px solid var(--line);
-  border-radius: var(--r-md);
+  border-radius: var(--r-sm);
   background: var(--paper);
   color: var(--ink);
   font-family: inherit;
@@ -315,22 +318,24 @@
   display: grid;
   place-items: center;
   flex: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
   background: var(--pillar-color);
   color: #fff;
 }
 
 .week-menu-swatch svg {
-  width: 16px;
-  height: 16px;
-  fill: currentColor;
+  display: block;
+  width: 14px;
+  height: 14px;
 }
 
 .week-menu-copy {
-  display: grid;
-  gap: 1px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
   text-align: left;
 }
 
@@ -338,20 +343,20 @@
   font-size: var(--text-nav);
   font-weight: 650;
   letter-spacing: -0.018em;
-  line-height: 1.15;
+  line-height: 1.1;
 }
 
 .week-menu-count {
   font-size: var(--text-enum);
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-weight: 620;
+  letter-spacing: 0.02em;
   color: var(--ink-tertiary);
+  font-variant-numeric: tabular-nums;
 }
 
 .week-menu-chevron {
-  width: 12px;
-  height: 12px;
-  margin-left: 4px;
+  width: 10px;
+  height: 10px;
   color: var(--ink-tertiary);
   transition: transform 180ms ease;
 }
@@ -390,20 +395,20 @@
 
 .week-menu-panel {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 4px);
   left: 0;
   z-index: 40;
-  width: min(22rem, calc(100vw - 2 * var(--gutter)));
+  width: min(20rem, calc(100vw - 2 * var(--gutter)));
   padding: 4px;
   border: 1px solid var(--line);
-  border-radius: var(--r-panel);
+  border-radius: var(--r-md);
   background: var(--paper);
-  box-shadow: 0 18px 40px rgba(28, 25, 23, 0.1);
+  box-shadow: 0 14px 32px rgba(28, 25, 23, 0.1);
 }
 
 .week-menu-panel-head {
-  padding: 14px 14px 12px;
-  border-radius: calc(var(--r-panel) - 3px) calc(var(--r-panel) - 3px) 0 0;
+  padding: 10px 12px;
+  border-radius: calc(var(--r-md) - 3px) calc(var(--r-md) - 3px) 0 0;
   background: var(--pillar-wash);
   border-bottom: 1px solid var(--line-soft);
 }
@@ -418,25 +423,26 @@
 }
 
 .week-menu-panel-standfirst {
-  margin: 8px 0 0;
+  margin: 6px 0 0;
   font-size: var(--text-meta);
   color: var(--ink-secondary);
-  line-height: 1.45;
+  line-height: 1.4;
   text-wrap: pretty;
 }
 
 .week-menu-options {
   display: grid;
-  padding: 6px 4px;
+  padding: 4px;
+  gap: 1px;
 }
 
 .week-menu-option {
   display: grid;
-  grid-template-columns: 18px 8px minmax(0, 1fr);
+  grid-template-columns: 16px 7px minmax(0, 1fr);
   align-items: center;
-  gap: 10px;
-  min-height: 42px;
-  padding: 8px 10px;
+  gap: 8px;
+  min-height: 36px;
+  padding: 6px 8px;
   border: 0;
   border-radius: var(--r-sm);
   background: transparent;
@@ -455,10 +461,10 @@
 }
 
 .week-menu-check {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   border: 1px solid var(--line-hover);
-  border-radius: 5px;
+  border-radius: 4px;
   background: var(--paper);
   transition: background 160ms ease, border-color 160ms ease;
 }
@@ -473,8 +479,8 @@
 }
 
 .week-menu-option-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--cat-color);
 }
@@ -486,15 +492,15 @@
 .week-menu-panel-foot {
   display: flex;
   justify-content: flex-end;
-  padding: 4px 8px 8px;
+  padding: 2px 6px 6px;
   border-top: 1px solid var(--line-soft);
 }
 
 .week-menu-foot-action {
   border: 0;
   background: none;
-  min-height: 34px;
-  padding: 6px 8px;
+  min-height: 30px;
+  padding: 4px 8px;
   border-radius: var(--r-pill);
   font-family: inherit;
   font-size: var(--text-meta);
@@ -510,9 +516,8 @@
 .week-menu-meta {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   margin-left: auto;
-  padding-bottom: 6px;
 }
 
 .week-menu-status {
@@ -536,8 +541,8 @@
 .filter-action {
   border: 1px solid transparent;
   background: none;
-  min-height: 32px;
-  padding: 6px 12px;
+  min-height: 28px;
+  padding: 4px 10px;
   border-radius: var(--r-pill);
   font-family: inherit;
   font-size: var(--text-meta);
@@ -562,15 +567,15 @@
 .week-menu-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 4px;
 }
 
 .week-menu-chip {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  min-height: 30px;
-  padding: 4px 8px 4px 10px;
+  gap: 6px;
+  min-height: 26px;
+  padding: 4px 6px 4px 8px;
   border: 1px solid color-mix(in srgb, var(--cat-color) 28%, var(--line));
   border-radius: var(--r-pill);
   background: var(--cat-wash);
@@ -593,9 +598,9 @@
 /* ---------------------------------------------------------------- CALENDAR */
 
 .calendar-section {
-  padding-block: 22px 56px;
+  padding-block: 14px 56px;
   border-top: 1px solid var(--line);
-  margin-top: 4px;
+  margin-top: 8px;
 }
 
 @media (min-width: 62rem) {
@@ -1150,6 +1155,10 @@ html:has(.detail-dialog[open]) {
 /* ================================================================= MOBILE */
 
 @media (max-width: 40rem) {
+  .week-menu-kicker {
+    flex-basis: 100%;
+  }
+
   .week-menu-bar {
     align-items: stretch;
   }

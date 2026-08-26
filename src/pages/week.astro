@@ -6,13 +6,14 @@ import { isStackedWeekLogo, weekLogos } from "../data/weekLogos";
 import { categories, pillars, vocabulary } from "../data/repWeekCalendar.js";
 import "../styles/week.css";
 
+/* Growth: the book expanding. Delivery: stood up and in use. Operations: vendor, team and commercial as one system. */
 const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
   growth:
-    '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="9" width="3.5" height="5.5" rx="0.7"/><rect x="6.25" y="5.5" width="3.5" height="9" rx="0.7"/><rect x="11" y="2" width="3.5" height="12.5" rx="0.7"/></svg>',
+    '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 12.5c2.4.1 3.5-4 6.1-6.3L13.2 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M9.1 3.1h4.1V7.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   delivery:
-    '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 4.25h11M2.5 8h11M2.5 11.75h7.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+    '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2.2" y="3.1" width="11.6" height="9.8" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M5.2 8.3 7.15 10.2 10.9 5.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   operations:
-    '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>',
+    '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="3.35" r="1.7" fill="currentColor"/><circle cx="3.25" cy="12.45" r="1.7" fill="currentColor"/><circle cx="12.75" cy="12.45" r="1.7" fill="currentColor"/><path d="M7.1 4.85 4.2 10.85M8.9 4.85l2.9 6M4.95 12.45h6.1" fill="none" stroke="currentColor" stroke-width="1.45"/></svg>',
 };
 ---
 
@@ -64,7 +65,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
                     <span class="week-menu-swatch" aria-hidden="true" set:html={pillarMarks[pillarId]} />
                     <span class="week-menu-copy">
                       <span class="week-menu-name">{pillar.label}</span>
-                      <span class="week-menu-count" data-menu-count={pillarId}>4 areas</span>
+                      <span class="week-menu-count" data-menu-count={pillarId} hidden></span>
                     </span>
                     <svg class="week-menu-chevron" viewBox="0 0 12 12" aria-hidden="true">
                       <path
@@ -407,7 +408,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
     vocabulary.pillars.forEach((pillarId) => {
       const status = pillarState(pillarId);
       const trigger = document.querySelector<HTMLButtonElement>(`[data-menu-trigger="${pillarId}"]`);
-      const count = document.querySelector(`[data-menu-count="${pillarId}"]`);
+      const count = document.querySelector<HTMLElement>(`[data-menu-count="${pillarId}"]`);
       const on = pillarsByKey[pillarId].categories.filter((id) => state.activeCategories.has(id)).length;
       if (trigger) {
         trigger.dataset.state = status;
@@ -420,7 +421,15 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
               : `${label} menu.`;
         trigger.setAttribute("aria-label", `${label}. ${stateCopy}`);
       }
-      if (count) count.textContent = status === "none" ? "4 areas" : `${on} of 4`;
+      if (count) {
+        if (status === "none") {
+          count.hidden = true;
+          count.textContent = "";
+        } else {
+          count.hidden = false;
+          count.textContent = `${on}/4`;
+        }
+      }
 
       const foot = document.querySelector<HTMLButtonElement>(
         `[data-menu-item="${pillarId}"] [data-pillar-toggle]`,
