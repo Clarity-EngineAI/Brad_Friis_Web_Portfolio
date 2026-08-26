@@ -1826,6 +1826,10 @@ main {
   margin-top: 4px;
 }
 
+.cv-entry .letter-pill {
+  margin-top: 12px;
+}
+
 /* Thanks page */
 
 .thanks {
@@ -2157,7 +2161,8 @@ main {
   .status-chip,
   .portrait-well,
   .portfolio-trigger,
-  .portfolio-dialog {
+  .portfolio-dialog,
+  .letter-pill {
     display: none;
   }
 
