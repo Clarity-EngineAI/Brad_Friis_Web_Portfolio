@@ -430,7 +430,7 @@
 .week-menu-panel-title {
   margin: 0;
   font-size: var(--text-nav);
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: -0.014em;
   line-height: 1.2;
   color: var(--ink);
@@ -460,7 +460,7 @@
   border: 0;
   border-radius: var(--r-sm);
   background: transparent;
-  color: var(--ink);
+  color: var(--ink-secondary);
   font-size: var(--text-body);
   font-weight: 400;
   font-family: inherit;
@@ -501,6 +501,10 @@
 
 .week-menu-option-label {
   min-width: 0;
+}
+
+.week-menu-option[aria-checked='true'] .week-menu-option-label {
+  color: var(--ink);
 }
 
 .week-menu-panel-foot {

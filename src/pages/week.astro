@@ -637,7 +637,20 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
 
   function dismissMenuIfOutside(event: Event) {
     if (!state.openMenu) return;
-    if (!eventInsideOpenMenu(event)) closeMenu();
+    if (eventInsideOpenMenu(event)) return;
+    const target = event.target;
+    const hitReset = target instanceof Element && Boolean(target.closest("[data-reset]"));
+    closeMenu();
+    if (!hitReset) return;
+    reset();
+    /* On mobile the panel is in-flow. Closing it shifts Show the full week,
+       so the following click would miss and hit a calendar card. */
+    const swallow = (next: Event) => {
+      next.preventDefault();
+      next.stopPropagation();
+      document.removeEventListener("click", swallow, true);
+    };
+    document.addEventListener("click", swallow, true);
   }
 
   function commit() {
