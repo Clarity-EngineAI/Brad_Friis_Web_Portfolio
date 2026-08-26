@@ -158,7 +158,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
   <section class="pillar-section shell" aria-labelledby="pillars-heading">
     <h2 id="pillars-heading" class="week-zone-label">The three pillars</h2>
     <div class="pillar-key">
-      <div class="pillar-cell" style="--pillar-color: var(--p-growth); --pillar-wash: var(--wash-growth);">
+      <div class="pillar-cell" style="--pillar-color: var(--p-growth); --pillar-wash: var(--wash-growth); --pillar-fill: var(--fill-growth);">
         <div class="pillar-cell-head">
           <h3>Growth</h3>
         </div>
@@ -171,7 +171,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
         </ul>
       </div>
 
-      <div class="pillar-cell" style="--pillar-color: var(--p-delivery); --pillar-wash: var(--wash-delivery);">
+      <div class="pillar-cell" style="--pillar-color: var(--p-delivery); --pillar-wash: var(--wash-delivery); --pillar-fill: var(--fill-delivery);">
         <div class="pillar-cell-head">
           <h3>Delivery</h3>
         </div>
@@ -184,7 +184,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
         </ul>
       </div>
 
-      <div class="pillar-cell" style="--pillar-color: var(--p-operations); --pillar-wash: var(--wash-operations);">
+      <div class="pillar-cell" style="--pillar-color: var(--p-operations); --pillar-wash: var(--wash-operations); --pillar-fill: var(--fill-operations);">
         <div class="pillar-cell-head">
           <h3>Operations</h3>
         </div>
@@ -334,7 +334,8 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
   }
 
   function catVars(categoryId: string) {
-    return `--cat-color: var(--c-${categoryId}); --cat-wash: var(--wash-${categoriesByKey[categoryId].pillar});`;
+    const pillar = categoriesByKey[categoryId].pillar;
+    return `--cat-color: var(--c-${categoryId}); --cat-wash: var(--wash-${pillar}); --cat-fill: var(--fill-${pillar});`;
   }
 
   function entryMarkup(entry: (typeof calendarEntries)[number], linked: boolean, { showSlot = false } = {}) {
