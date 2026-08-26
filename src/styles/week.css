@@ -69,9 +69,11 @@
   --p-delivery: #4e662c;
   --p-operations: #2c3a42;
 
-  --wash-growth: rgba(156, 61, 30, 0.14);
-  --wash-delivery: rgba(78, 102, 44, 0.16);
-  --wash-operations: rgba(36, 48, 56, 0.12);
+  /* Large surfaces (pillar key, menu hover). Cards mix the category ink
+     themselves at a higher stop — see .entry — so the calendar actually reads. */
+  --wash-growth: rgba(156, 61, 30, 0.16);
+  --wash-delivery: rgba(78, 102, 44, 0.18);
+  --wash-operations: rgba(36, 48, 56, 0.14);
 
   --p-growth-on-dark: #e8935f;
   --p-delivery-on-dark: #c5d48a;
@@ -681,9 +683,9 @@
   padding: 9px 11px;
   text-align: left;
   border: 1px solid var(--line);
-  border-left: 3px solid var(--cat-color);
+  border-left: 4px solid var(--cat-color);
   border-radius: var(--r-sm);
-  background: var(--cat-wash);
+  background: color-mix(in srgb, var(--cat-color) 26%, var(--paper));
   cursor: pointer;
   transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
   font: inherit;
@@ -693,7 +695,7 @@
 .entry:hover:not([aria-expanded='true']) {
   border-color: var(--line-hover);
   border-left-color: var(--cat-color);
-  background: var(--paper);
+  background: color-mix(in srgb, var(--cat-color) 34%, var(--paper));
   transform: translateY(-1px);
   box-shadow: 0 1px 2px rgba(28, 25, 23, 0.05), 0 8px 20px -12px rgba(28, 25, 23, 0.18);
 }
