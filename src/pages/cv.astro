@@ -21,6 +21,7 @@ const roles: {
   summary: string;
   points: string[];
   portfolio?: { label: string; href: string };
+  pageLink?: { label: string; href: string };
 }[] = [
   {
     title: "Independent consultant",
@@ -58,6 +59,10 @@ const roles: {
       "When pandemic server load caused the vendor to cancel the channel contract, formed a replacement partnership with itslearning, a Norwegian LMS, keeping a product in market for the year until the vendor returned.",
       "Built the adoption programme school by school: 108 one-to-one teacher interviews across lockdown, courses at beginner, intermediate and advanced level, and a teacher network of around 600 at its peak.",
     ],
+    // Primary entry to /week/: the reader is at the exact moment of doubting the
+    // unnamed ten-year role's scope. Surfacing rec 25 August 2026; letter-pill
+    // matches the homepage work cards. Hidden on print with the other web actions.
+    pageLink: { label: "See a representative week", href: "/week/" },
   },
   {
     title: "National Sales and Marketing Manager",
@@ -202,6 +207,9 @@ const tools = "Salesforce, HubSpot, Pipedrive, Asana, Workflow Max, Microsoft 36
                     <li>{point}</li>
                   ))}
                 </ul>
+              )}
+              {role.pageLink && (
+                <a class="letter-pill" href={role.pageLink.href}>{role.pageLink.label}</a>
               )}
               {role.portfolio && (
                 <button
