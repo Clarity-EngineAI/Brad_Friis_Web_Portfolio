@@ -37,10 +37,13 @@
    ============================================================================ */
 
 :root {
-  /* Three families that have to read apart at chip size, still on parchment.
-     Growth keeps the site sienna (orange-red). Delivery is brick (crimson,
-     not ochre). Operations is the site ink (charcoal, not espresso-brown).
-     No teal, no blue, no purple. */
+  /* Three families that have to read apart at chip size AND on calendar cards.
+     Growth is the site sienna (orange-red, hue ~15). Delivery is olive
+     (yellow-green, hue ~85) — earth green, not the teal the site already
+     rejected (teal sits near hue 170). Operations is cool charcoal
+     (hue ~204). No second red, no gold-brown next to sienna, no teal,
+     no blue, no purple. Washes are strong enough that a card face carries
+     the family, not only the 3px left rule. */
 
   /* --- Growth: sienna --------------------------------------------------- */
   --c-pipeline: #9c3d1e;      /* the site accent, unmodified */
@@ -48,32 +51,31 @@
   --c-campaigns: #7e3018;
   --c-measurement: #5c2414;
 
-  /* --- Delivery: brick --------------------------------------------------
-     Crimson-red, not gold-brown. Hue sits away from the accent so the two
-     chromatics do not collapse into one terracotta. */
-  --c-implementation: #5e1c20;
-  --c-enablement: #7a2428;
-  --c-learning-design: #8e2f34;
-  --c-support: #a33b40;
+  /* --- Delivery: olive --------------------------------------------------
+     Yellow-green earth, not cyan-teal. All four pass 4.5:1 on parchment. */
+  --c-implementation: #3f5424;
+  --c-enablement: #4a5e28;
+  --c-learning-design: #4e662c;
+  --c-support: #5a6828;
 
-  /* --- Operations: ink --------------------------------------------------
-     The site ink, walked lighter. A weight, not a third brand hue. */
-  --c-commercial: #1c1917;
-  --c-partnerships: #2e2b28;
-  --c-people: #3a3632;
-  --c-systems: #5c5751;
+  /* --- Operations: cool charcoal ----------------------------------------
+     A cool weight against warm sienna and olive, not a third brown. */
+  --c-commercial: #1e2a32;
+  --c-partnerships: #243038;
+  --c-people: #2c3a42;
+  --c-systems: #3d4a52;
 
   --p-growth: #9c3d1e;
-  --p-delivery: #8e2f34;
-  --p-operations: #3a3632;
+  --p-delivery: #4e662c;
+  --p-operations: #2c3a42;
 
-  --wash-growth: rgba(156, 61, 30, 0.05);
-  --wash-delivery: rgba(142, 47, 52, 0.07);
-  --wash-operations: rgba(28, 25, 23, 0.06);
+  --wash-growth: rgba(156, 61, 30, 0.14);
+  --wash-delivery: rgba(78, 102, 44, 0.16);
+  --wash-operations: rgba(36, 48, 56, 0.12);
 
   --p-growth-on-dark: #e8935f;
-  --p-delivery-on-dark: #edb4b0;
-  --p-operations-on-dark: #d8d2cc;
+  --p-delivery-on-dark: #c5d48a;
+  --p-operations-on-dark: #c8d0d4;
 }
 
 /* `hidden` is set by the page's script on elements that also carry a later
