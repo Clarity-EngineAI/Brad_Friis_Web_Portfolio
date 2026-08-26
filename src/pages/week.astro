@@ -343,6 +343,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
         type="button"
         style="${catVars(entry.category)} --pillar-on-dark: var(--p-${pillar}-on-dark);"
         data-entry="${entry.id}"
+        data-pillar="${pillar}"
         aria-expanded="${selected}"
         aria-controls="detail-dialog"
         aria-label="${escapeHtml(
