@@ -128,6 +128,18 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
 
   <section class="calendar-section shell" aria-labelledby="week-heading">
     <h2 id="week-heading" class="visually-hidden">The week</h2>
+    <p class="week-open-hint">
+      <svg viewBox="0 0 12 12" aria-hidden="true">
+        <path
+          d="M6 2.2v7.6M2.2 6h7.6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+        />
+      </svg>
+      Each card opens.
+    </p>
     <div class="week-grid" id="week-grid"></div>
     <div class="agenda" id="agenda"></div>
   </section>
@@ -331,6 +343,9 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
     return `--cat-color: var(--c-${categoryId}); --cat-wash: var(--wash-${pillar}); --cat-fill: var(--fill-${pillar});`;
   }
 
+  const openMark =
+    '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2.2v7.6M2.2 6h7.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+
   function entryMarkup(entry: (typeof calendarEntries)[number], linked: boolean, { showSlot = false } = {}) {
     const selected = state.selectedId === entry.id;
     const category = categoriesByKey[entry.category];
@@ -355,6 +370,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
         }</span>
         <span class="entry-title">${escapeHtml(entry.title)}</span>
         <span class="entry-summary">${escapeHtml(entry.summary)}</span>
+        <span class="entry-open" aria-hidden="true">${openMark}</span>
       </button>
     `;
   }
@@ -475,7 +491,9 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
     const linked = linkedIds();
 
     el.grid.innerHTML = `
-      <div class="grid-corner" aria-hidden="true"></div>
+      <div class="grid-corner">
+        <p class="week-open-key">${openMark}<span>Open</span></p>
+      </div>
       ${vocabulary.days.map((day) => `<div class="day-head"><h3>${dayLabels[day]}</h3></div>`).join("")}
       ${vocabulary.slots
         .map(
