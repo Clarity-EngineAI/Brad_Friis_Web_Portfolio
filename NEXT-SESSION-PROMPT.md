@@ -12,17 +12,12 @@ on `cursor/land-approved-work-56c6`:
 3. Combined week stack: graphic filter menus, earth palette, click-outside dismiss, **Show the
    full week**, bound card fills, and the plus / Open key (PR #3 base + PR #4 unique commit).
    PRs #2, #3 and #4 are superseded — do not merge them separately.
-4. How I work mandate kept. Operate block restated in present tense as skills currently delivered
-   (no past job facts). First operate placement banked as Rejected. Manifesto stays Rejected.
+4. How I work header is Brad's copy, placed verbatim: *Let's Skip the Pitch.* Do not rewrite it.
 
 # Next task
 
-No open implementation task from this round. Natural next steps if Brad wants them:
-
-- Review the live How I work block. The inferred sentence (“I name a price that will not hold…”)
-  is still the only optional cut, and only after seeing it on the page.
-- Merge this branch once the browser pass is accepted.
-- Delete the dumped node-map branch `cursor/edtech-node-map-fb3a` if it is still on the remote.
+Wait for Brad's next copy. Do not generate How I work copy. Do not reopen the manifesto as a rewrite
+job. Do not put nodes back on `/week/`. Do not edit the hero.
 
 Do not reopen the manifesto. Do not put nodes back on `/week/`. Do not edit the hero.
 

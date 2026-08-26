@@ -115,45 +115,51 @@ is why the count is nowhere in the hero display line.
 
 ## How I work
 
-Homepage capabilities section. Placed 26 August 2026. Header is left-aligned (`section-head-left`)
-so the mandate and operate block do not tower in the centred 55ch stack. The five cards are
-unchanged.
+Homepage capabilities section. Header is left-aligned (`section-head-left`). The five cards are
+unchanged. Copy below is Brad's, placed 26 August 2026. Do not rewrite it.
 
-### Lead · **In use**
+### Eyebrow · **In use**
+
+> How I work
+
+### Heading · **In use** · 26 August 2026
+
+> Let's Skip the Pitch.
+
+### Subheading · **In use** · 26 August 2026
+
+> To save us both time, let's look straight at how I operate, and how I approach account strategy.
+
+### Body · **In use** · 26 August 2026
+
+> If you're a recruiter or hiring manager landing here, and you're looking for a Senior Account
+> Manager who can walk into complex client ecosystems, protect revenue, expand enterprise value,
+> and build genuine trust without needing hand-holding, we have a shared goal.
+
+Brad supplied this block verbatim after rejecting agent-generated operate copy. Second person is
+his call for this slot.
+
+### Lead, amalgamation · **Held** · 26 August 2026
 
 > Read the business, find the priced-wrong offer, keep what I win, own the terms, and know the
 > product well enough to trust the pitch.
 
-Already live before this round. Recorded here so the line is not redrafted. Character budget for
-`.lead` is 90–150 / hard 180; this line is already ~140. Do not fold the mandate into it.
+Was the How I work lead until this replacement. Still describes the five cards. Do not put it
+back without Brad asking.
 
-### Mandate · **In use** · 26 August 2026
+### Mandate · **Rejected** · 26 August 2026
 
 > I take over key accounts, hold them, and grow what they spend.
 
-**For.** Answers hunter-versus-farmer below the fold, after the proof strip, without touching the
-hero. Seat-seeking, not a figure. Aligns with land-keep-grow from 2001 and retention/expansion as
-the number. Does not claim 100% retention. Adplus mixed-book concession stays on Career.
+Rejected with the generated operate block: it restated the card headings.
 
-**Against.** Adds a third voice in the section header before the cards. Sixteen words is cheap;
-the operate block that follows is the real cost.
-
-### How I operate · **In use** · 26 August 2026 · restated same day
+### How I operate, present-tense restatement · **Rejected** · 26 August 2026
 
 > I keep the billing, the contract and the renewal. I name a price that will not hold, a gap in
 > the product, or a renewal at risk, while there is still a next step. New business sits inside
 > that work. It is not the whole job.
 
-Present-tense skills, not a finished record. Brad rejected the first placement for putting past
-job facts (annual licence rises, Google Classroom / Microsoft 365 losses, the outbound-to-consultative
-move) in How I work, where a cold reader has no career row to attach them to. Those facts stay on
-Career and the claims register.
-
-**For.** Same mandate, same hunter/farmer close, no recap of the five cards, no second person, no
-figures. `Keep` is the site's verb for commercial ownership.
-
-**Against.** The inferred “I name a price…” sentence remains. Cut it only if it reads as
-unfalsifiable self-assessment on the page. Do not replace it with a new invention.
+Rejected: repeated the card headings.
 
 ### How I operate, first placement · **Rejected** · 26 August 2026
 
