@@ -499,12 +499,23 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
       .map((day) => {
         const dayEntries = entries.filter((entry) => entry.day === day);
         if (!dayEntries.length) return "";
+        const slots = vocabulary.slots
+          .map((slot) => {
+            const slotEntries = dayEntries.filter((entry) => entry.slot === slot);
+            if (!slotEntries.length) return "";
+            return `
+            <div class="agenda-slot">
+              <h4 class="agenda-slot-head">${slotLabels[slot]}</h4>
+              ${slotEntries.map((entry) => entryMarkup(entry, linked.has(entry.id))).join("")}
+            </div>`;
+          })
+          .join("");
         return `
         <section class="agenda-day" aria-labelledby="agenda-${day}">
           <header class="agenda-day-head">
             <h3 id="agenda-${day}">${dayLabels[day]}</h3>
           </header>
-          ${dayEntries.map((entry) => entryMarkup(entry, linked.has(entry.id), { showSlot: true })).join("")}
+          ${slots}
         </section>`;
       })
       .join("");

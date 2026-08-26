@@ -300,7 +300,7 @@
   gap: 8px;
   min-height: 36px;
   padding: 4px 10px 4px 4px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--pillar-color);
   border-radius: var(--r-sm);
   background: var(--paper);
   color: var(--ink);
@@ -310,8 +310,12 @@
 }
 
 .week-menu-trigger:hover {
-  border-color: var(--line-hover);
-  background: var(--recessed);
+  border-color: var(--pillar-color);
+  background: var(--pillar-wash);
+}
+
+.week-menu-trigger:focus-visible {
+  outline-color: var(--pillar-color);
 }
 
 .week-menu-swatch {
@@ -808,6 +812,26 @@
 .agenda-day {
   display: grid;
   gap: 8px;
+}
+
+.agenda-slot {
+  display: grid;
+  gap: 8px;
+}
+
+.agenda-slot + .agenda-slot {
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.agenda-slot-head {
+  margin: 0;
+  font-size: var(--text-enum);
+  font-weight: 620;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
 }
 
 /* ------------------------------------------------------------- DETAIL DIALOG */
