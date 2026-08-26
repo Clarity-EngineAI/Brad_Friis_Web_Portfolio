@@ -33,9 +33,9 @@
  *
  * @typedef {Object} CalendarEntry
  * @property {string} id
- * @property {CalendarDay} day
- * @property {CalendarSlot} slot
- * @property {string} displayTime
+ * @property {CalendarDay} [day]     Present only on the representative-week subset.
+ * @property {CalendarSlot} [slot]
+ * @property {string} [displayTime]
  * @property {string} title
  * @property {string} summary
  * @property {string} detail
@@ -43,6 +43,7 @@
  *                                   twice; a second copy is a second thing to keep in sync.
  * @property {string[]} alsoRanInto  Other pillars this work touched. Text in the panel only.
  * @property {string[]} connections
+ * @property {string[]} [themes]     Optional cross-cutting marks (e.g. relationships).
  */
 
 export const vocabulary = Object.freeze({

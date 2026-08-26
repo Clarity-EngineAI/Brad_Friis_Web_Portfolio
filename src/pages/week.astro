@@ -17,13 +17,17 @@ import "../styles/week.css";
       I managed a ten-year channel partnership with one of the largest K-12 education
       technology providers in the United States. My role was to design and execute every
       strategy needed to sell, implement, support and maintain its solutions in
-      New Zealand and Australian schools.
+      New Zealand and Australian schools. The week is a sample of time. The map is the system.
     </p>
   </section>
 
   <section class="filter-section shell" aria-labelledby="filter-heading">
     <div class="filter-bar">
       <div class="filter-bar-head">
+        <div class="view-toggle" role="group" aria-label="Choose a view">
+          <button class="view-toggle-btn" type="button" data-view="map" aria-pressed="true">Map</button>
+          <button class="view-toggle-btn" type="button" data-view="week" aria-pressed="false">Week</button>
+        </div>
         <h2 id="filter-heading" class="filter-bar-title">Filters</h2>
         <div class="filter-head">
           <button class="filter-action" type="button" data-select-all aria-label="Select every area">All</button>
@@ -31,7 +35,7 @@ import "../styles/week.css";
         </div>
       </div>
       <div class="filter-bar-body">
-        <div class="filter-groups" id="filter-groups" role="group" aria-label="Filter the week"></div>
+        <div class="filter-groups" id="filter-groups" role="group" aria-label="Filter the work"></div>
         <p class="career-quote filter-bar-quote">
           <span class="career-quote-text">
             “Brad is a trusted and well-respected figure across the New Zealand edtech community
@@ -43,10 +47,26 @@ import "../styles/week.css";
     </div>
   </section>
 
-  <section class="calendar-section shell" aria-labelledby="week-heading">
-    <h2 id="week-heading" class="visually-hidden">The week</h2>
-    <div class="week-grid" id="week-grid"></div>
-    <div class="agenda" id="agenda"></div>
+  <section class="calendar-section shell" aria-labelledby="week-heading" data-week-view="map">
+    <h2 id="week-heading" class="visually-hidden">The work</h2>
+    <div class="week-map-wrap" data-panel="map">
+      <p class="visually-hidden" id="map-hint">
+        A map of the role. Click a node for more detail. Switch to Week for the representative calendar.
+        A ring on a node marks relationship work that cut across the role.
+      </p>
+      <svg class="week-map" id="week-map" aria-describedby="map-hint"></svg>
+      <p class="map-caption map-caption--desktop">
+        A ring marks relationship work that cut across the role. Drag to pan, scroll to zoom.
+      </p>
+      <p class="map-caption map-caption--mobile">
+        Choose an area, then the work connected to it. A ring in the desktop map marks relationship work.
+      </p>
+      <div class="map-explorer" id="week-explorer"></div>
+    </div>
+    <div data-panel="week">
+      <div class="week-grid" id="week-grid"></div>
+      <div class="agenda" id="agenda"></div>
+    </div>
   </section>
 
   <section class="shell logo-strip week-logo-strip" aria-labelledby="week-logos-heading">
@@ -157,7 +177,9 @@ import "../styles/week.css";
 </SiteLayout>
 
 <script>
-  import { calendarEntries, categories, pillars, vocabulary } from "../data/repWeekCalendar.js";
+  import { categories, pillars, vocabulary } from "../data/repWeekCalendar.js";
+  import { weekEntries, workEntries } from "../data/weekWork.js";
+  import { createWeekMap, explorerMarkup } from "../lib/weekMap";
 
   const pillarsByKey = pillars as Record<string, (typeof pillars)[keyof typeof pillars]>;
   const categoriesByKey = categories as Record<string, (typeof categories)[keyof typeof categories]>;
@@ -173,6 +195,7 @@ import "../styles/week.css";
   const slotLabels: Record<string, string> = { morning: "Morning", afternoon: "Afternoon" };
 
   const state = {
+    view: "map" as "map" | "week",
     activeCategories: new Set<string>(),
     selectedId: null as string | null,
     trail: [] as string[],
@@ -185,6 +208,9 @@ import "../styles/week.css";
   const el = {
     grid: document.querySelector("#week-grid")!,
     agenda: document.querySelector("#agenda")!,
+    explorer: document.querySelector("#week-explorer")!,
+    calendarSection: document.querySelector<HTMLElement>("[data-week-view]")!,
+    mapSvg: document.querySelector<SVGSVGElement>("#week-map")!,
     filterGroups: document.querySelector("#filter-groups")!,
     selectAllButton: document.querySelector<HTMLButtonElement>("[data-select-all]")!,
     resetButton: document.querySelector<HTMLButtonElement>("[data-reset]")!,
@@ -201,11 +227,44 @@ import "../styles/week.css";
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const desktopQuery = window.matchMedia("(min-width: 62rem)");
-  const byId = new Map(calendarEntries.map((entry) => [entry.id, entry]));
+  const byId = new Map(workEntries.map((entry) => [entry.id, entry]));
 
   document.documentElement.classList.add("js-ready");
 
-  const pillarOf = (entry: (typeof calendarEntries)[number]) => categoriesByKey[entry.category].pillar;
+  const pillarOf = (entry: (typeof workEntries)[number]) => categoriesByKey[entry.category].pillar;
+
+  function readHash() {
+    const hash = window.location.hash.replace("#", "");
+    if (hash === "week" || hash === "map") state.view = hash;
+  }
+
+  function writeHash() {
+    const next = `#${state.view}`;
+    if (window.location.hash !== next) history.replaceState(null, "", next);
+  }
+
+  function syncViewChrome() {
+    document.querySelectorAll<HTMLButtonElement>("[data-view]").forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.view === state.view));
+    });
+    el.calendarSection.dataset.weekView = state.view;
+  }
+
+  function setView(view: "map" | "week") {
+    state.view = view;
+    writeHash();
+    syncViewChrome();
+    render();
+    if (view === "map") requestAnimationFrame(() => weekMap.relayout());
+  }
+
+  const weekMap = createWeekMap({
+    host: el.mapSvg,
+    getEntries: () => workEntries,
+    getState: () => ({ selectedId: state.selectedId, activeCategories: state.activeCategories }),
+    onSelect: (id) => (id === state.selectedId ? closeDetail() : openDetail(id)),
+    reducedMotion: reducedMotion.matches,
+  });
 
   function pillarState(pillarId: string) {
     const children = pillarsByKey[pillarId].categories;
@@ -215,16 +274,17 @@ import "../styles/week.css";
     return "some";
   }
 
-  function visibleEntries() {
-    if (noSelection()) return calendarEntries;
-    return calendarEntries.filter((entry) => state.activeCategories.has(entry.category));
+  function visibleWeekEntries() {
+    if (noSelection()) return weekEntries;
+    return weekEntries.filter((entry) => state.activeCategories.has(entry.category));
   }
 
   function linkedIds() {
     if (!state.selectedId) return new Set<string>();
-    const selected = byId.get(state.selectedId)!;
+    const selected = byId.get(state.selectedId);
+    if (!selected) return new Set<string>();
     const ids = new Set(selected.connections);
-    for (const entry of calendarEntries) {
+    for (const entry of workEntries) {
       if (entry.connections.includes(selected.id)) ids.add(entry.id);
     }
     ids.delete(selected.id);
@@ -242,11 +302,28 @@ import "../styles/week.css";
     return `--cat-color: var(--c-${categoryId}); --cat-wash: var(--wash-${categoriesByKey[categoryId].pillar});`;
   }
 
-  function entryMarkup(entry: (typeof calendarEntries)[number], linked: boolean, { showSlot = false } = {}) {
+  function whereLine(entry: (typeof workEntries)[number]) {
+    const category = categoriesByKey[entry.category].shortLabel;
+    if (entry.day && entry.displayTime) {
+      return `${dayLabels[entry.day]} ${entry.displayTime.toLowerCase()} · ${category}`;
+    }
+    return category;
+  }
+
+  function eyebrowWhen(entry: (typeof workEntries)[number]) {
+    if (entry.day && entry.displayTime) {
+      return `${dayLabels[entry.day]} ${entry.displayTime}`;
+    }
+    return categoriesByKey[entry.category].shortLabel;
+  }
+
+  function entryMarkup(entry: (typeof weekEntries)[number], linked: boolean, { showSlot = false } = {}) {
     const selected = state.selectedId === entry.id;
     const category = categoriesByKey[entry.category];
     const pillar = pillarOf(entry);
     const linkNote = linked ? " Connected to the open entry." : "";
+    const day = entry.day ? dayLabels[entry.day] : "";
+    const time = entry.displayTime ?? "";
 
     return `
       <button
@@ -257,11 +334,11 @@ import "../styles/week.css";
         aria-expanded="${selected}"
         aria-controls="detail-dialog"
         aria-label="${escapeHtml(
-          `${dayLabels[entry.day]} ${entry.displayTime}. ${entry.title}. ${category.label}, under ${pillarsByKey[pillar].label}.${linkNote}`,
+          `${day} ${time}. ${entry.title}. ${category.label}, under ${pillarsByKey[pillar].label}.${linkNote}`,
         )}"
       >
         <span class="entry-cat">${escapeHtml(category.shortLabel)}${
-          showSlot ? `<span class="entry-slot">${entry.displayTime}</span>` : ""
+          showSlot && entry.displayTime ? `<span class="entry-slot">${entry.displayTime}</span>` : ""
         }</span>
         <span class="entry-title">${escapeHtml(entry.title)}</span>
         <span class="entry-summary">${escapeHtml(entry.summary)}</span>
@@ -316,7 +393,7 @@ import "../styles/week.css";
   }
 
   function render() {
-    const entries = visibleEntries();
+    const entries = visibleWeekEntries();
     const linked = linkedIds();
 
     el.grid.innerHTML = `
@@ -351,6 +428,9 @@ import "../styles/week.css";
         </section>`;
       })
       .join("");
+
+    el.explorer.innerHTML = explorerMarkup(workEntries, state.selectedId, state.activeCategories);
+    weekMap.draw();
   }
 
   function openDetail(id: string, { focusPanel = true, from = null as string | null } = {}) {
@@ -367,9 +447,9 @@ import "../styles/week.css";
 
     el.panelEyebrow.innerHTML = `<span class="dot" aria-hidden="true"></span>${escapeHtml(
       category.label,
-    )}<span class="detail-pillar-tag">${escapeHtml(pillarsByKey[pillar].label)} · ${dayLabels[entry.day]} ${
-      entry.displayTime
-    }</span>`;
+    )}<span class="detail-pillar-tag">${escapeHtml(pillarsByKey[pillar].label)} · ${escapeHtml(
+      eyebrowWhen(entry),
+    )}</span>`;
     el.panelTitle.textContent = entry.title;
     el.panelCopy.textContent = entry.detail;
 
@@ -384,7 +464,9 @@ import "../styles/week.css";
     if (cameFrom) el.backButton.setAttribute("aria-label", `Back to ${cameFrom.title}`);
     else el.backButton.removeAttribute("aria-label");
 
-    const connections = entry.connections.map((cid) => byId.get(cid)).filter(Boolean) as typeof calendarEntries;
+    const connections = entry.connections
+      .map((cid) => byId.get(cid))
+      .filter((connection): connection is NonNullable<typeof connection> => Boolean(connection));
     el.panelLinksBlock.hidden = connections.length === 0;
     el.panelLinks.innerHTML = connections
       .map(
@@ -394,9 +476,7 @@ import "../styles/week.css";
              <span class="dot" aria-hidden="true"></span>
              <span class="detail-link-text">
                <span class="detail-link-title">${escapeHtml(connection.title)}</span>
-               <span class="detail-link-where">${dayLabels[connection.day]} ${connection.displayTime.toLowerCase()} · ${escapeHtml(
-                 categoriesByKey[connection.category].shortLabel,
-               )}</span>
+               <span class="detail-link-where">${escapeHtml(whereLine(connection))}</span>
              </span></button>`,
       )
       .join("");
@@ -405,6 +485,16 @@ import "../styles/week.css";
     render();
 
     if (focusPanel) el.dialog.focus({ preventScroll: true });
+  }
+
+  function isRestoreTarget(element: Element) {
+    if (element instanceof SVGElement) {
+      const svg = element.ownerSVGElement;
+      if (!svg) return false;
+      const style = getComputedStyle(svg);
+      return style.display !== "none" && style.visibility !== "hidden";
+    }
+    return (element as HTMLElement).offsetParent !== null;
   }
 
   function closeDetail({ restoreFocus = true } = {}) {
@@ -418,11 +508,10 @@ import "../styles/week.css";
     if (restoreFocus && originId) {
       requestAnimationFrame(() => {
         const candidates = document.querySelectorAll(`[data-entry="${CSS.escape(originId)}"]`);
-        const visible = [...candidates].find((element) => (element as HTMLElement).offsetParent !== null) as
-          | HTMLElement
-          | undefined;
+        const visible = [...candidates].find(isRestoreTarget) as HTMLElement | SVGElement | undefined;
         if (!visible) return;
         visible.focus({ preventScroll: true });
+        if (!(visible instanceof HTMLElement)) return;
         visible.scrollIntoView({
           block: "nearest",
           behavior: reducedMotion.matches ? "auto" : "smooth",
@@ -477,6 +566,11 @@ import "../styles/week.css";
   document.addEventListener("click", (event) => {
     const target = event.target as HTMLElement;
 
+    const viewButton = target.closest<HTMLButtonElement>("[data-view]");
+    if (viewButton?.dataset.view === "map" || viewButton?.dataset.view === "week") {
+      return setView(viewButton.dataset.view);
+    }
+
     const pillarButton = target.closest<HTMLElement>("[data-pillar-toggle]");
     if (pillarButton) return togglePillar(pillarButton.dataset.pillarToggle!);
 
@@ -487,10 +581,14 @@ import "../styles/week.css";
 
     if (target.closest("[data-reset]")) return reset();
 
+    if (target.closest("[data-explorer-back]")) return closeDetail();
+
     const entryButton = target.closest<HTMLElement>("[data-entry]");
     if (entryButton) {
       const id = entryButton.dataset.entry!;
-      return id === state.selectedId ? closeDetail() : openDetail(id);
+      if (id === state.selectedId) return closeDetail();
+      const fromFocus = entryButton.dataset.fromFocus === "true" && state.selectedId;
+      return openDetail(id, fromFocus ? { from: state.selectedId } : {});
     }
 
     if (target.closest("#detail-back")) {
@@ -515,6 +613,7 @@ import "../styles/week.css";
 
   desktopQuery.addEventListener("change", () => {
     if (state.selectedId) closeDetail({ restoreFocus: false });
+    if (state.view === "map") weekMap.relayout();
   });
 
   function syncStickyOffsets() {
@@ -526,13 +625,27 @@ import "../styles/week.css";
     );
   }
 
+  readHash();
+  writeHash();
+  syncViewChrome();
   renderFilters();
   render();
+  requestAnimationFrame(() => weekMap.relayout());
   syncStickyOffsets();
+
+  const mapResize = new ResizeObserver(() => {
+    if (state.view === "map") weekMap.relayout();
+  });
+  mapResize.observe(el.mapSvg);
 
   let resizeFrame: number | null = null;
   window.addEventListener("resize", () => {
     if (resizeFrame) cancelAnimationFrame(resizeFrame);
     resizeFrame = requestAnimationFrame(syncStickyOffsets);
+  });
+
+  window.addEventListener("hashchange", () => {
+    const hash = window.location.hash.replace("#", "");
+    if (hash === "week" || hash === "map") setView(hash);
   });
 </script>
