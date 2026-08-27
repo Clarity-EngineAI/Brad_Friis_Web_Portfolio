@@ -126,19 +126,23 @@ unchanged. Copy below is Brad's, placed 26 August 2026. Do not rewrite it.
 
 > Let's Skip the Pitch.
 
-### Subheading · **In use** · 26 August 2026
+### Subheading · **In use** · 27 August 2026
+
+> Is your business trying to solve churn, shorten sales cycles, or lock down key enterprise
+> accounts? I know the exact friction points you're dealing with and how to help.
+
+### Subheading, first placement · **Rejected** · 26 August 2026
 
 > To save us both time, let's look straight at how I operate, and how I approach account strategy.
 
-### Body · **In use** · 26 August 2026
+### Body · **In use** · 26 August 2026 · close restated 27 August 2026
 
 > If you're a recruiter or hiring manager landing here, and you're looking for a Senior Account
 > Manager who can walk into complex client ecosystems, protect revenue, expand enterprise value,
 > and build genuine trust without needing hand-holding, we have a shared goal.
 >
-> I welcome you to browse my site to get a feel for who I am and what I bring to a business. To
-> discuss a role, consulting opportunity or any other business needs, book a meeting or send me a
-> message.
+> I welcome you to browse my site. To discuss a role, consulting opportunity or any other business
+> needs, book a meeting or send me a message.
 
 ### Terms line · **In use** · 26 August 2026
 
