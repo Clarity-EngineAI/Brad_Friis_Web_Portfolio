@@ -2,13 +2,15 @@
 
 <!-- impeccable:product-schema 1 -->
 
+**Updated:** Thursday 27 August 2026, 2:33 PM NZST
+
 ## Platform
 
 web
 
 ## Stack
 
-Astro 7, TypeScript strict, static output, no framework integrations, no CMS for homepage/CV copy (Sanity is used for blog post bodies only). Deploys to Cloudflare (moved from Netlify — Netlify stopped building after exceeded credit; headers and build hook do not carry across).
+Astro 7, TypeScript strict, static output, no framework integrations, no CMS for homepage/CV copy (Sanity is used for blog post bodies only). Deploys to Cloudflare (moved from Netlify — Netlify stopped building after exceeded credit; headers were carried into `public/_headers`. The Sanity publish webhook must target a Cloudflare Deploy Hook — see `studio/README.md`).
 
 ## Users
 
@@ -36,7 +38,7 @@ The through-line across thirty years is capability, not a hunting record: readin
 
 - Reference letters and a scanned-document redaction pipeline (`scripts/prepare-scans.py`) are core to the evidence model — quotes publish beside the source letter so every claim is checkable in one click.
 - The CV is a separate, forwardable artifact (not just a web page).
-- The blog runs on Sanity CMS for post bodies (installed and verified end-to-end); homepage/CV copy stays inline in `.astro` files, not in the CMS.
+- The blog runs on Sanity CMS for post bodies (Studio deployed, posts in `production`). The publish webhook still needs pointing at a Cloudflare Deploy Hook after the Netlify move — until that is done, Publish does not rebuild the live site. Homepage/CV copy stays inline in `.astro` files, not in the CMS.
 - Copy is governed by a versioned library (`COPY/`) — every line has a status (In use / Available / Held / Rejected) and nothing rejected is deleted.
 
 ## Capabilities and Constraints

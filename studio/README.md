@@ -1,5 +1,7 @@
 # Sanity Studio — Brad Friis
 
+**Updated:** Thursday 27 August 2026, 2:33 PM NZST
+
 The editing interface for bradfriis.com. Sanity-hosted, so the Astro site stays fully
 static and gains no SSR surface.
 
@@ -25,10 +27,10 @@ hitting Publish changes nothing until a build runs:
 
     Publish in Studio → Sanity webhook → Cloudflare deploy hook → astro build → bradfriis.com
 
-The live host is Cloudflare only (`wrangler.jsonc`). An earlier Netlify build hook does
-not publish the site. The Sanity webhook that calls Cloudflare must be created once in
-the Sanity dashboard — see Setup below. **Without that webhook, Publish silently does
-nothing.**
+The site deploys as a Cloudflare Worker (`brad-friis-web-portfolio`, `wrangler.jsonc`).
+The Sanity webhook must POST to a Cloudflare **Deploy Hook** for that Worker — see Setup
+below. **Without that webhook, Publish silently does nothing.** The old Netlify build
+hook does not apply.
 
 A build takes about two minutes. Changes are not instant.
 
@@ -62,35 +64,43 @@ Every query sorts `date desc` explicitly. The old array relied on hand-ordering 
 comment; a query without an explicit sort returns documents in an arbitrary order and the
 blog index would silently show the wrong posts first.
 
+## What is already done
+
+- Studio is deployed at https://bradfriis.sanity.studio (application id pinned in
+  `sanity.cli.ts`).
+- Posts are in the `production` dataset. Do **not** re-run `scripts/import-posts.mjs`
+  — it overwrites live documents, including titles Brad has since edited in Studio.
+
 ## Setup — remaining one-off steps
 
-1. **Install and deploy the Studio**
+These need Brad's Cloudflare and Sanity logins. The deploy-hook URL is a secret;
+do not commit it.
+
+1. **Create a Cloudflare Deploy Hook**
+
+   Workers & Pages → `brad-friis-web-portfolio` → Settings → Builds → Deploy Hooks.
+   Name it `Sanity publish`. Branch: the production git branch. Copy the URL.
+
+2. **Point a Sanity webhook at that URL** at
+   https://sanity.io/manage/project/ao34shul/api#webhooks
+
+   - Name: `Cloudflare rebuild`
+   - URL: the Deploy Hook from step 1 (not the old Netlify hook)
+   - Dataset: `production` · HTTP method: POST
+   - Trigger on: Create, Update, Delete
+   - Filter: `_type == "post"`
+   - Drafts: off (a draft save must not rebuild the site)
+
+3. **Deploy the Studio** whenever `studio/` schemas or config change
 
        cd studio
        npm install
        npx sanity login
        npx sanity deploy
 
-   Deploys to https://bradfriis.sanity.studio.
-
-2. **Import the two existing posts** (from the repo root, once)
-
-       SANITY_TOKEN=<write token> node scripts/import-posts.mjs
-
-   Create the token at https://sanity.io/manage/project/ao34shul/api#tokens with Editor
-   permissions. The script is idempotent — re-running updates rather than duplicates.
-
-3. **Create the Sanity webhook** at
-   https://sanity.io/manage/project/ao34shul/api#webhooks
-
-   - URL: the Cloudflare deploy hook for this project (Workers / Pages), **not** the
-     old Netlify hook
-   - Dataset: `production` · Trigger on: Create, Update, Delete
-   - Filter: `_type == "post"` · HTTP method: POST
-
-4. **Verify end to end.** Change a post's standfirst, hit Publish, watch a deploy appear
-   in the Cloudflare dashboard, then confirm the change on bradfriis.com. Until this
-   passes, the CMS is not installed.
+4. **Verify end to end.** Change a post's standfirst, hit Publish, watch a build
+   appear on the Worker, then confirm the change on bradfriis.com. Until this
+   passes, Publish does not update the live site.
 
 ## Local development
 
@@ -99,4 +109,4 @@ blog index would silently show the wrong posts first.
 
 If Sanity is unreachable at build time, the build falls back to `src/data/blog.ts` and
 prints `[sanity] ...` on stderr. A blog page that looks stale is the signal to check
-that warning in the Cloudflare deploy log.
+that warning in the Cloudflare build log. The fallback array is not the live titles.
