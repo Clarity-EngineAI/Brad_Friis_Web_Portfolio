@@ -8,6 +8,7 @@ const {
   eyebrow = "Contact Me",
   heading = "Start a conversation.",
   disciplines = "Sales Growth · Revenue Systems · Product Adoption · AI",
+  disciplinesVariant,
 } = Astro.props;
 ---
 
@@ -15,7 +16,7 @@ const {
   <div class="contact-details">
     <p class="eyebrow-pill">{eyebrow}</p>
     <h2 id="contact-heading">{heading}</h2>
-    <p class="contact-disciplines">{disciplines}</p>
+    <p class:list={["contact-disciplines", disciplinesVariant && `contact-disciplines--${disciplinesVariant}`]}>{disciplines}</p>
     <dl class="contact-list">
       <div>
         <dt>Email</dt>

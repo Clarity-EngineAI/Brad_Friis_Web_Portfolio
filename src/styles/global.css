@@ -1393,6 +1393,14 @@ main {
   text-wrap: balance;
 }
 
+/* A full sentence, not a keyword run — reverts to the panel's normal lead-paragraph
+   measure and size instead of the keyword-run treatment above. Used on /blog/. */
+.contact-details > p.contact-disciplines--sentence {
+  max-width: 44ch;
+  font-size: var(--text-lead);
+  letter-spacing: normal;
+}
+
 .contact-list {
   display: grid;
   gap: 14px;
