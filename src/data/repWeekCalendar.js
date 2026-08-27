@@ -209,7 +209,7 @@ export const calendarEntries = Object.freeze([
       'Run calls with the network of teachers and school leaders across the country who use it to share resources and ideas with each other. Keep the relationships genuine: help people with things that have nothing to sell attached. Most of our best introductions come from someone in that network mentioning us to a colleague, and that only happens if you are useful to people between sales.',
     category: 'pipeline',
     alsoRanInto: ['delivery'],
-    connections: ['sales-strategy-pipeline-review', 'funded-programme-facilitation', 'national-conference']
+    connections: ['sales-strategy-pipeline-review', 'funded-programme-facilitation']
   },
   {
     id: 'renewal-board-prep',
@@ -248,7 +248,7 @@ export const calendarEntries = Object.freeze([
       'I make all of our sales material: presentations, demos, phone scripts, email sequences. Once it is in use, pay attention to what it actually produces. An asset generating downloads but no conversations gets rewritten or retired. The test is always the same: does this start a conversation with a school we genuinely suit?',
     category: 'measurement',
     alsoRanInto: ['delivery'],
-    connections: ['marketing-automation-review', 'feature-launch-media', 'national-conference']
+    connections: ['marketing-automation-review', 'feature-launch-media', 'ai-feature-website-content']
   },
   {
     id: 'marketing-automation-review',
@@ -463,17 +463,17 @@ export const calendarEntries = Object.freeze([
     connections: ['feature-launch-media', 'feature-training-design', 'annual-uplift-planning']
   },
   {
-    id: 'national-conference',
+    id: 'ai-feature-website-content',
     day: 'tuesday',
     slot: 'afternoon',
     displayTime: 'Afternoon',
-    title: 'National conference',
-    summary: 'Run our stand at the national education conference, where most of the sector is in one building for three days.',
+    title: 'Website content for a new AI feature',
+    summary: 'Write the copy and source the imagery that make a new AI feature land as a benefit, not a buzzword.',
     detail:
-      'Once a year the sector turns up in one place. Plan the stand, brief whoever is working it alongside me, and spend the three days having the same conversation forty times: what we do, who it suits, what it costs. It is tiring in a way a normal week is not, but there is no substitute for a principal deciding they trust you because you stood in front of them and answered a straight question straight.',
-    category: 'partnerships',
-    alsoRanInto: ['growth'],
-    connections: ['network-building-partner-calls', 'lead-generation-hooks-assets']
+      'The platform is shipping a new AI feature and the website page announcing it is mine to build: the copy, the imagery, the whole argument for why a school should care. "AI" on its own means nothing to a principal, so the page has to earn its place by naming the actual problem it removes and showing, not claiming, what changes for a teacher who uses it. That is the difference between a feature page and a hype page.',
+    category: 'campaigns',
+    alsoRanInto: ['delivery'],
+    connections: ['feature-launch-media', 'lead-generation-hooks-assets']
   },
   {
     id: 'international-reseller-sync',

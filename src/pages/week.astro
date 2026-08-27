@@ -30,13 +30,6 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
       strategy needed to sell, implement, support and maintain its solutions in
       New Zealand and Australian schools.
     </p>
-    <p class="career-quote week-pullquote">
-      <span class="career-quote-text">
-        “Brad is a trusted and well-respected figure across the New Zealand edtech community
-        whose expert guidance transformed our digital ecosystem.”
-      </span>
-      <span class="career-quote-source">Lawrence Naicker — Deputy Principal, Sancta Maria College</span>
-    </p>
   </section>
 
   <section class="filter-section shell" aria-labelledby="filter-heading">
@@ -110,15 +103,21 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
             })}
           </div>
         </div>
+        <!-- The visible "8 of 12 areas" counter was removed 27 August 2026: a running tally of
+             an arbitrary taxonomy is not information a reader wants, and it sat at the loudest
+             point of the control bar. The element is kept, visually hidden, purely as the
+             aria-live target — a screen reader user filtering by voice or keyboard does need to
+             be told the result changed, and the chips below convey that visually. Reset stays
+             and is now the only visible thing here, which is what it should always have been. -->
         <div class="week-menu-meta">
-          <p class="week-menu-status" data-filter-status aria-live="polite">The full week</p>
+          <p class="week-menu-status visually-hidden" data-filter-status aria-live="polite">The full week</p>
           <button
             class="week-menu-revert"
             type="button"
             data-reset
             hidden
           >
-            Show the full week
+            Reset
           </button>
         </div>
       </div>
@@ -142,6 +141,13 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
     </p>
     <div class="week-grid" id="week-grid"></div>
     <div class="agenda" id="agenda"></div>
+    <p class="career-quote week-pullquote">
+      <span class="career-quote-text">
+        “Brad is a trusted and well-respected figure across the New Zealand edtech community
+        whose expert guidance transformed our digital ecosystem.”
+      </span>
+      <span class="career-quote-source">Lawrence Naicker — Deputy Principal, Sancta Maria College</span>
+    </p>
   </section>
 
   <section class="shell logo-strip week-logo-strip" aria-labelledby="week-logos-heading">
@@ -165,7 +171,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
   <section class="pillar-section shell" aria-labelledby="pillars-heading">
     <h2 id="pillars-heading" class="week-zone-label">The three pillars</h2>
     <div class="pillar-key">
-      <div class="pillar-cell" style="--pillar-color: var(--p-growth); --pillar-wash: var(--wash-growth); --pillar-fill: var(--fill-growth);">
+      <div class="pillar-cell" style="--pillar-color: var(--p-growth); --pillar-wash: var(--wash-growth);">
         <div class="pillar-cell-head">
           <h3>Growth</h3>
         </div>
@@ -178,7 +184,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
         </ul>
       </div>
 
-      <div class="pillar-cell" style="--pillar-color: var(--p-delivery); --pillar-wash: var(--wash-delivery); --pillar-fill: var(--fill-delivery);">
+      <div class="pillar-cell" style="--pillar-color: var(--p-delivery); --pillar-wash: var(--wash-delivery);">
         <div class="pillar-cell-head">
           <h3>Delivery</h3>
         </div>
@@ -191,7 +197,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
         </ul>
       </div>
 
-      <div class="pillar-cell" style="--pillar-color: var(--p-operations); --pillar-wash: var(--wash-operations); --pillar-fill: var(--fill-operations);">
+      <div class="pillar-cell" style="--pillar-color: var(--p-operations); --pillar-wash: var(--wash-operations);">
         <div class="pillar-cell-head">
           <h3>Operations</h3>
         </div>
@@ -265,7 +271,11 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
     friday: "Friday",
   };
 
-  const slotLabels: Record<string, string> = { morning: "AM", afternoon: "PM" };
+  /* Full words, 27 August 2026. "AM"/"PM" were rail labels — they worked as a two-letter
+     marker on a 92px spine, but as a card eyebrow they read as an abbreviation the reader has
+     to expand. The reference spells them out. slotShort() still returns the abbreviation and
+     is used where space is genuinely tight: aria-labels and the dialog's connection list. */
+  const slotLabels: Record<string, string> = { morning: "Morning", afternoon: "Afternoon" };
 
   function slotShort(slot: string) {
     return slot === "morning" ? "AM" : "PM";
@@ -365,9 +375,8 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
           `${dayLabels[entry.day]} ${slotShort(entry.slot)}. ${entry.title}. ${category.label}, under ${pillarsByKey[pillar].label}.${linkNote}`,
         )}"
       >
-        <span class="entry-cat">${escapeHtml(category.shortLabel)}${
-          showSlot ? `<span class="entry-slot">${slotShort(entry.slot)}</span>` : ""
-        }</span>
+        ${showSlot ? `<span class="entry-slot">${escapeHtml(slotLabels[entry.slot])}</span>` : ""}
+        <span class="entry-cat">${escapeHtml(category.shortLabel)}</span>
         <span class="entry-title">${escapeHtml(entry.title)}</span>
         <span class="entry-summary">${escapeHtml(entry.summary)}</span>
         <span class="entry-open" aria-hidden="true">${openMark}</span>
@@ -490,26 +499,35 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
     const entries = visibleEntries();
     const linked = linkedIds();
 
-    el.grid.innerHTML = `
-      <div class="grid-corner">
-        <p class="week-open-key">${openMark}<span>Open</span></p>
-      </div>
-      ${vocabulary.days.map((day) => `<div class="day-head"><h3>${dayLabels[day]}</h3></div>`).join("")}
-      ${vocabulary.slots
-        .map(
-          (slot) => `
-        <div class="slot-head"><span>${slotLabels[slot]}</span></div>
-        ${vocabulary.days
-          .map((day) => {
-            const cell = entries.filter((entry) => entry.day === day && entry.slot === slot);
-            return `<div class="grid-cell">${cell
-              .map((entry) => entryMarkup(entry, linked.has(entry.id)))
-              .join("")}</div>`;
-          })
-          .join("")}`,
-        )
-        .join("")}
-    `;
+    /* Rebuilt 27 August 2026 to the V3 reference structure. Was a 6-column table: an AM/PM
+       rail down the left, a .grid-corner legend in the dead top-left cell, and two banded
+       .slot-head rows carving the week into quadrants. That rail plus the internal cell
+       borders is what made the calendar read as a spreadsheet rather than as the site's
+       card system — the colour was never the main offender.
+
+       Now five day columns, each a plain stack of cards in chronological order, with the
+       slot carried inside the card as a MORNING/AFTERNOON eyebrow (showSlot) exactly as the
+       reference does. The day name is a label above the column, not a filled header band.
+       Entry order per column preserves vocabulary.slots order, so morning still precedes
+       afternoon without a structural row to enforce it. */
+    el.grid.innerHTML = vocabulary.days
+      .map((day) => {
+        const dayEntries = vocabulary.slots.flatMap((slot) =>
+          entries.filter((entry) => entry.day === day && entry.slot === slot),
+        );
+        // A day with no matches under the active filter used to render as a bare heading
+        // over empty space — indistinguishable from a loading glitch on the fixed 5-column
+        // grid. 27 August 2026.
+        const dayBody = dayEntries.length
+          ? dayEntries.map((entry) => entryMarkup(entry, linked.has(entry.id), { showSlot: true })).join("")
+          : `<p class="day-empty">Nothing this day in the current filter.</p>`;
+        return `
+        <div class="day-col">
+          <h3 class="day-name">${dayLabels[day]}</h3>
+          <div class="day-stack">${dayBody}</div>
+        </div>`;
+      })
+      .join("");
 
     el.agenda.innerHTML = vocabulary.days
       .map((day) => {

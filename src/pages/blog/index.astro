@@ -12,12 +12,13 @@ const posts = await getPosts();
 >
   <div class="band">
     <header class="page-hero shell">
-      <p class="eyebrow-pill">Observations & stories</p>
+      <p class="eyebrow-pill">Observations</p>
       <h1>A few things that happened.</h1>
-      <p class="page-intro">Stories, published as written. Nothing here is a pitch.</p>
+      <p class="page-intro">Stories, published as written. Nothing here is a pitch — but the way I notice and solve problems shows up in them too.</p>
     </header>
 
-    <section class="letter-index shell" aria-label="Blog posts">
+    <section class="letter-index blog-index shell" aria-label="Blog posts">
+      {posts.length === 0 && <p>Nothing published yet.</p>}
       <ol class="row-list">
         {posts.map((post) => (
           <li class="letter-row">
@@ -25,11 +26,10 @@ const posts = await getPosts();
               <p class="tier-name">
                 <a href={`/blog/${post.slug}/`}>{post.title}</a>
               </p>
-              <p class="tier-meta">{post.category}</p>
-              <p class="tier-meta"><time datetime={post.date}>{post.dateLabel}</time></p>
+              <p class="tier-meta">{post.category} · <time datetime={post.date}>{post.dateLabel}</time></p>
             </div>
             <div class="letter-quote">
-              <blockquote>{post.dek}</blockquote>
+              <p class="dek">{post.dek}</p>
               <a class="text-link" href={`/blog/${post.slug}/`}>
                 Read<span class="visually-hidden"> {post.title}</span>
               </a>
@@ -42,7 +42,11 @@ const posts = await getPosts();
 
   <div class="band band-alt">
     <section class="section shell" id="contact" aria-labelledby="contact-heading">
-      <ContactPanel />
+      <ContactPanel
+        eyebrow="Get in touch"
+        heading="Say hello."
+        disciplines="No pitch, no form to fill in for its own sake — just a way to reach me."
+      />
     </section>
   </div>
 </SiteLayout>

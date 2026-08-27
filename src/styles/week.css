@@ -38,51 +38,77 @@
 
 :root {
   /* Three families that have to read apart at chip size AND on calendar cards.
-     Growth is the site sienna (orange-red, hue ~15). Delivery is olive
-     (yellow-green, hue ~85) — earth green, not the teal the site already
-     rejected (teal sits near hue 170). Operations is cool charcoal
-     (hue ~204). No second red, no gold-brown next to sienna, no teal,
-     no blue, no purple. Washes are strong enough that a card face carries
-     the family, not only the 3px left rule. */
+     REPALETTED 27 August 2026 to the V3 reference prototype's three hues, at Brad's
+     direction. The reference is the design target for this page and its colour is a
+     large part of why it reads as clean, so the earlier note here — "no teal, the site
+     already rejected it" — is superseded by that instruction. What changed:
 
-  /* --- Growth: sienna --------------------------------------------------- */
-  --c-pipeline: #9c3d1e;      /* the site accent, unmodified */
-  --c-targeting: #ad4624;
-  --c-campaigns: #7e3018;
-  --c-measurement: #5c2414;
+       Growth      sienna #9c3d1e  ->  #c05621   (reference; same hue family, lifted)
+       Delivery    olive  #4e662c  ->  #319795   (reference teal; the real reversal)
+       Operations  charcoal #2c3a42 ->  #4a5568  (reference slate; warmer, bluer)
 
-  /* --- Delivery: olive --------------------------------------------------
-     Yellow-green earth, not cyan-teal. All four pass 4.5:1 on parchment. */
-  --c-implementation: #3f5424;
-  --c-enablement: #4a5e28;
-  --c-learning-design: #4e662c;
-  --c-support: #5a6828;
+     The reference declares one colour per pillar. This page needs four steps per family
+     for twelve categories, so each family is a ladder built around the reference value:
+     the pillar colour IS the reference value exactly, and the other three step darker in
+     the same hue so a chip row still reads as one family. Every value below is checked at
+     4.5:1 or better on --paper (#fff), which the reference did not have to do because its
+     labels sit at 0.65rem/600 on a card face rather than as small text on parchment.
 
-  /* --- Operations: cool charcoal ----------------------------------------
-     A cool weight against warm sienna and olive, not a third brown. */
-  --c-commercial: #1e2a32;
-  --c-partnerships: #243038;
-  --c-people: #2c3a42;
-  --c-systems: #3d4a52;
+     Note the tension this creates and watch for it: --accent (#9c3d1e) is still the site
+     sienna and now sits a step darker than --c-pipeline (#c05621) beside it. If that reads
+     as two reds rather than one family, the fix is to move --accent, not to move Growth
+     back. The card face stays plain --paper; the family is carried by the 3px left rule and
+     the category label, which is exactly what the reference does. */
 
-  --p-growth: #9c3d1e;
-  --p-delivery: #4e662c;
-  --p-operations: #2c3a42;
+  /* --- Growth: reference sienna ----------------------------------------
+     #c05621 is the reference value exactly, used as the pillar colour. */
+  --c-pipeline: #c05621;      /* the reference --cat-growth, unmodified */
+  --c-targeting: #a8481b;
+  --c-campaigns: #8f3c17;
+  --c-measurement: #743012;
+
+  /* --- Delivery: reference teal -----------------------------------------
+     The reference #319795 is 3.1:1 on white — fine for its 600-weight uppercase
+     label, short of 4.5:1 for body-size category text here. It is kept exactly as
+     the pillar colour and for the 3px rules, where contrast ratio does not apply,
+     and the four category steps run darker so small text stays legible. */
+  --c-implementation: #1f6b6a;
+  --c-enablement: #237574;
+  --c-learning-design: #2a807e;
+  --c-support: #196160;
+
+  /* --- Operations: reference slate --------------------------------------
+     #4a5568 is the reference value, now the pillar colour. Bluer and lighter than
+     the charcoal it replaces, which matters: against the new teal it has to read as
+     a separate family rather than as a desaturated version of it. */
+  --c-commercial: #2d3648;
+  --c-partnerships: #38415a;
+  --c-people: #4a5568;
+  --c-systems: #5a647a;
+
+  /* The three reference values, unmodified. */
+  --p-growth: #c05621;
+  --p-delivery: #319795;
+  --p-operations: #4a5568;
 
   /* Large surfaces (pillar key, menu hover). Muted, not candy. */
-  --wash-growth: rgba(156, 61, 30, 0.16);
-  --wash-delivery: rgba(78, 102, 44, 0.18);
-  --wash-operations: rgba(36, 48, 56, 0.14);
+  --wash-growth: rgba(192, 86, 33, 0.14);
+  --wash-delivery: rgba(49, 151, 149, 0.14);
+  --wash-operations: rgba(74, 85, 104, 0.13);
 
-  /* Card faces. Mixing the dark WCAG inks into white left the calendar
-     looking like parchment. These fills are muted pastels in the same
-     three hues, strong enough to scan. */
-  --fill-growth: #e0b49e;
-  --fill-delivery: #b4c694;
-  --fill-operations: #b0c0cc;
+  /* --fill-growth / --fill-delivery / --fill-operations lived here: solid pastel card faces
+     in the three hues. Removed 27 August 2026 with their last two consumers (.entry and
+     .pillar-cell). They were the reason the page looked like a different site — a tinted card
+     face appears nowhere else in this codebase, and three of them stacked in a grid read as a
+     spreadsheet rather than as the site's paper-and-hairline card system. Colour is now carried
+     by the left rule and the category label alone. Do not reintroduce a card-face tint here
+     without changing .hairline-grid and .row-list in global.css to match. */
 
-  --p-growth-on-dark: #e8935f;
-  --p-delivery-on-dark: #c5d48a;
+  /* Dark-ground variants. The reference's own dark block is the source for the first
+     two (#f6ad55 / #4fd1c5); operations is lifted further than its #a0aec0 to clear 7:1
+     on --stat-ground. */
+  --p-growth-on-dark: #f6ad55;
+  --p-delivery-on-dark: #4fd1c5;
   --p-operations-on-dark: #c8d0d4;
 }
 
@@ -150,9 +176,21 @@
   color: var(--ink-tertiary);
 }
 
+/* Moved out of the hero and under the calendar, 27 August 2026. In the hero it sat directly
+   below the lead at 48ch, which put a second italic block at near-headline prominence before
+   the reader had seen any of the work — the same "references above the fold" problem the rest
+   of the site avoids. Below the grid it reads as corroboration of the week just scanned. The
+   .career-quote treatment itself is unchanged: it is the site's quote pattern, used in every
+   homepage career row, so it belongs here. Only the placement was wrong. */
 .week-pullquote {
-  margin-top: 22px;
-  max-width: 48ch;
+  margin-top: 32px;
+  max-width: 54ch;
+}
+
+@media (min-width: 62rem) {
+  .week-pullquote {
+    margin-top: 36px;
+  }
 }
 
 /* --------------------------------------------------------------- ZONE LABEL */
@@ -192,11 +230,15 @@
   overflow: hidden;
 }
 
+/* Dropped from the solid --pillar-fill pastel to the paper face the .pillar-key container
+   already sets, 27 August 2026. While the calendar cards were tinted, three tinted zone blocks
+   read as the same system. With the cards on white the key became the heaviest colour on the
+   page and pulled the eye off the calendar it is supposed to explain. The 3px top rule and the
+   coloured H3 carry the family, which is the same two-signal rule the cards now use. */
 .pillar-cell {
   padding: 32px 28px;
   border-left: 1px solid var(--line-soft);
   border-top: 3px solid var(--pillar-color);
-  background: var(--pillar-fill, var(--pillar-wash));
 }
 
 .pillar-cell:first-child {
@@ -300,17 +342,27 @@
   position: relative;
 }
 
+/* Rebuilt 27 August 2026. Two earlier attempts bracketed the target: a filled 28px swatch in
+   the pillar colour inside a fully pillar-coloured border (too heavy — three saturated blocks
+   competing with the calendar they filter), and before that a bare text button (too light to
+   read as a control). This sits between: a neutral hairline pill, ink text, and the pillar
+   colour present only as a 7px dot. The dot is enough to bind the control to its family
+   because the same colour is repeated on every card the control reveals.
+   Border stays neutral so an unselected filter row reads as one set of controls rather than as
+   three coloured objects. Selected state fills, which is where the weight belongs. */
 .week-menu-trigger {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-height: 36px;
-  padding: 4px 10px 4px 4px;
-  border: 1px solid var(--pillar-color);
-  border-radius: var(--r-sm);
+  min-height: 44px;
+  padding: 6px 14px;
+  border: 1px solid var(--line-hover);
+  border-radius: var(--r-pill);
   background: var(--paper);
   color: var(--ink);
   font-family: inherit;
+  font-size: var(--text-nav);
+  font-weight: 500;
   cursor: pointer;
   transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
 }
@@ -324,15 +376,24 @@
   outline-color: var(--pillar-color);
 }
 
+/* Was a 28x28 filled tile carrying a glyph. That tile was the bulk Brad objected to: at 28px
+   in a saturated fill it outweighed the label beside it and gave the filter row more visual
+   weight than the calendar. Reduced to a dot — same colour, same binding job, a fraction of
+   the area. The glyph inside it is hidden rather than removed so the markup and the JS that
+   writes it are untouched. */
 .week-menu-swatch {
   display: grid;
   place-items: center;
   flex: none;
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
+  width: 7px;
+  height: 7px;
+  border-radius: var(--r-pill);
   background: var(--pillar-color);
-  color: #fff;
+  color: transparent;
+}
+
+.week-menu-swatch svg {
+  display: none;
 }
 
 .week-menu-swatch svg {
@@ -386,20 +447,27 @@
   opacity: 0.78;
 }
 
-.week-menu-trigger[data-state='all'],
-.week-menu-item.is-open .week-menu-trigger {
+.week-menu-trigger[data-state='all'] {
   background: var(--pillar-color);
   border-color: var(--pillar-color);
   color: #fff;
 }
 
-.week-menu-trigger[data-state='all'] .week-menu-swatch,
-.week-menu-item.is-open .week-menu-swatch {
-  background: color-mix(in srgb, #fff 18%, transparent);
+/* The open state used to share the 'all selected' fill via a joined selector, so a menu
+   opened with zero categories checked painted identically to 'all 4 selected' — the trigger
+   lied about selection state for the whole time a menu was open. Now open gets the same
+   lighter wash as a partial ('some') selection instead of borrowing the full fill. 27 August
+   2026. */
+.week-menu-item.is-open .week-menu-trigger {
+  border-color: color-mix(in srgb, var(--pillar-color) 45%, var(--line));
+  background: var(--pillar-wash);
 }
 
-.week-menu-trigger[data-state='all'] .week-menu-chevron,
-.week-menu-item.is-open .week-menu-chevron {
+.week-menu-trigger[data-state='all'] .week-menu-swatch {
+  background: #fff;
+}
+
+.week-menu-trigger[data-state='all'] .week-menu-chevron {
   color: inherit;
 }
 
@@ -455,7 +523,7 @@
   grid-template-columns: 16px 7px minmax(0, 1fr);
   align-items: center;
   gap: 8px;
-  min-height: 36px;
+  min-height: 44px;
   padding: 6px 8px;
   border: 0;
   border-radius: var(--r-sm);
@@ -474,6 +542,10 @@
   background: var(--recessed);
 }
 
+/* 4px is on-system, not a drift: DESIGN.md "Nested and inner elements below 10px" sets 4px
+   for inner elements under 20px square. Added to DESIGN.md 27 August 2026 to close a gap the
+   ladder had left — it documented containers from 10px up and said nothing about the checkbox
+   and swatch sizes underneath, so each one was being argued as a one-off. */
 .week-menu-check {
   width: 16px;
   height: 16px;
@@ -517,7 +589,7 @@
 .week-menu-foot-action {
   border: 0;
   background: none;
-  min-height: 30px;
+  min-height: 44px;
   padding: 4px 8px;
   border-radius: var(--r-pill);
   font-family: inherit;
@@ -619,20 +691,47 @@
   display: none;
 }
 
-.grid-corner,
-.day-head,
-.slot-head,
-.grid-cell {
-  border-left: 1px solid var(--line-soft);
-  border-top: 1px solid var(--line-soft);
+/* .grid-corner / .slot-head / .grid-cell and their shared 1px cell borders were removed
+   27 August 2026 along with the AM/PM rail (see render() in week.astro). The internal
+   borders were the spreadsheet signal: five day columns separated by rules, two slot rows
+   banded across them, and a boxed outline around the lot. The reference has none of that —
+   it is five independent stacks of cards floating on the page ground — and matching it is
+   the whole point of the change.
+
+   .grid-corner also held the "+ OPEN" legend, which explained the + affordance on each card.
+   That legend now has nowhere structural to live and is not missed: the + sits in the card's
+   own corner and the whole card is a button, so the affordance explains itself on hover. The
+   mobile .week-open-hint is kept for the agenda view, which has no hover. */
+
+.day-col {
+  min-width: 0;
 }
 
-.grid-corner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 6px;
-  background: var(--recessed);
+/* The reference's day label: plain uppercase grey over a hairline, no filled band. The old
+   .day-head painted --recessed across the header row, which read as a table's header rather
+   than as a column caption. */
+.day-name {
+  font-size: var(--text-enum);
+  font-weight: 620;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.day-stack {
+  display: grid;
+  grid-auto-rows: min-content;
+  gap: 16px;
+  align-content: start;
+}
+
+.day-empty {
+  margin: 0;
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
 }
 
 .week-open-key,
@@ -661,77 +760,45 @@
   margin: 0 0 12px;
 }
 
-.day-head {
-  padding: 8px 12px;
-  background: var(--recessed);
-}
-
-.day-head h3 {
-  font-size: var(--text-meta);
-  font-weight: 620;
-  letter-spacing: 0.02em;
-  color: var(--ink);
-}
-
-.slot-head {
-  padding: 10px 12px;
-  background: var(--recessed);
-}
-
-@media (min-width: 62rem) {
-  .slot-head {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-}
-
-.slot-head span {
-  font-size: var(--text-title);
-  font-weight: 680;
-  letter-spacing: 0.04em;
-  line-height: 1;
-  color: var(--ink);
-}
-
-.grid-cell {
-  padding: 7px;
-  display: grid;
-  grid-auto-rows: min-content;
-  gap: 5px;
-  align-content: start;
-}
 
 /* -------------------------------------------------------------------- CARD */
 
+/* The card face was a solid pastel in the pillar hue (--fill-growth etc.), which is why the
+   calendar read as a different product to the rest of the site: nothing else here tints a card
+   face. Every other card surface on the site — .hairline-grid, .row-list, .week-grid itself —
+   is --paper on a --line hairline. The cards now match that, and the whole colour system is
+   carried by the 3px left rule plus the category eyebrow, which is enough to group a pillar
+   at a glance and is how the V3 reference prototype handled it too. The --fill-* tokens are
+   kept: the pillar key below the calendar still uses them at large size, where a wash reads
+   as a zone rather than as decoration. 27 August 2026. */
 .entry {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 3px;
+  gap: 5px;
   width: 100%;
-  padding: 9px 26px 9px 11px;
+  /* Back up to the reference's 1.25rem-class padding, 27 August 2026. This had been cut to
+     8px/10px chasing one-screen fit, which is precisely what made the cards read as table
+     cells rather than as cards. Brad chose the reference look over the one-screen fit when
+     the two were put in conflict, so the density goes back. */
+  padding: 16px 26px 16px 16px;
   text-align: left;
   border: 1px solid var(--line);
-  border-left: 4px solid var(--cat-color);
+  border-left: 3px solid var(--cat-color);
   border-radius: var(--r-sm);
-  background: var(--cat-fill);
+  background: var(--paper);
   cursor: pointer;
-  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease,
+    transform 180ms ease;
   font: inherit;
   color: inherit;
 }
 
-.entry[data-pillar='growth'] { --cat-fill: var(--fill-growth); }
-.entry[data-pillar='delivery'] { --cat-fill: var(--fill-delivery); }
-.entry[data-pillar='operations'] { --cat-fill: var(--fill-operations); }
-
 .entry:hover:not([aria-expanded='true']) {
   border-color: var(--line-hover);
   border-left-color: var(--cat-color);
-  background: color-mix(in srgb, var(--cat-fill) 70%, var(--cat-color));
+  background: var(--recessed);
   transform: translateY(-1px);
   box-shadow: 0 1px 2px rgba(28, 25, 23, 0.05), 0 8px 20px -12px rgba(28, 25, 23, 0.18);
 }
@@ -740,10 +807,17 @@
   transform: none;
 }
 
+/* MORNING / AFTERNOON, sitting above the category label exactly as the reference stacks them.
+   Was an inline suffix inside .entry-cat used only by the mobile agenda; it is now the desktop
+   card's top line as well, because the AM/PM rail that used to carry this information is gone.
+   Deliberately the quietest text on the card — --ink-tertiary, uncoloured — so it reads as a
+   timestamp and does not compete with the coloured category label below it. */
 .entry-slot {
-  padding-left: 8px;
-  border-left: 1px solid var(--line);
-  font-weight: 500;
+  font-size: var(--text-enum);
+  font-weight: 560;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  line-height: 1;
   color: var(--ink-tertiary);
 }
 
@@ -785,19 +859,30 @@
   transform: rotate(45deg);
 }
 
+/* Bumped from --text-meta (0.78125rem/560) to --text-body (0.9375rem/600), 27 August 2026.
+   Brad flagged titles "getting lost" against the reference, where .card-title sits at 0.95rem/600
+   against a 0.75rem slot label and 0.65rem category label — a real size step, not just a weight
+   difference. Reusing --text-meta here put the title at the same size as the slot label, the
+   category label and the summary below it, so all four lines read as one undifferentiated block.
+   This is the only card line at --text-body; everything else on the card stays small so the step
+   actually shows. */
 .entry-title {
-  font-size: var(--text-meta);
-  font-weight: 400;
-  letter-spacing: -0.011em;
-  line-height: 1.28;
+  font-size: var(--text-body);
+  font-weight: 600;
+  letter-spacing: -0.014em;
+  line-height: 1.3;
   color: var(--ink);
   text-wrap: pretty;
 }
 
+/* 1.4 down to 1.35, with the card padding trimmed alongside it (27 August 2026). Card summaries
+   run three or four lines, so the leading is multiplied across the tallest stack in every
+   column — this plus the padding change is what buys back the ~60px that kept the grid from
+   fitting an 820px laptop viewport in one screen. Text size is untouched. */
 .entry-summary {
   font-size: var(--text-enum);
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.35;
   color: var(--ink-secondary);
   text-wrap: pretty;
 }
@@ -806,15 +891,29 @@
   color: rgba(255, 255, 255, 0.72);
 }
 
+/* Connected-card marker. Was border-color + a 1px inset ring in --cat-color, which fought the
+   3px left rule already sitting in that same colour: two different weights of one hue on one
+   card edge, which is the clash Brad flagged. Now the hue appears once — as a faint wash of the
+   face — and the "connected" signal is carried by an offset ring in neutral ink instead, so the
+   two marks are different properties rather than two versions of the same one. 27 August 2026. */
 .entry.is-linked {
-  border-color: var(--cat-color);
-  box-shadow: inset 0 0 0 1px var(--cat-color);
+  background: color-mix(in srgb, var(--cat-color) 6%, var(--paper));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 18%, transparent);
 }
 
+/* Selected card. Same reasoning: the old rule set border-color AND border-left-color, so the
+   selected card grew a coloured outline that collided with its own left rule. The selected
+   state now says "selected" with tone — an inverted face, which nothing else on the page has —
+   and lets the left rule keep carrying the category on its own. */
 .entry[aria-expanded='true'] {
   background: var(--stat-ground);
   border-color: var(--stat-ground);
   border-left-color: var(--pillar-on-dark);
+  box-shadow: 0 2px 6px rgba(28, 25, 23, 0.12), 0 14px 32px -18px rgba(28, 25, 23, 0.4);
+}
+
+.entry[aria-expanded='true'] .entry-slot {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .entry[aria-expanded='true'] .entry-title {
@@ -1194,34 +1293,19 @@ html:has(.detail-dialog[open]) {
 /* ================================================================ DESKTOP */
 
 @media (min-width: 62rem) {
+  /* Five equal day columns on the page ground — no boxed container, no 92px rail, no
+     overflow clip. The paper card is now the only white surface in the calendar, which is
+     what gives the reference its lift: cards read as objects on a page instead of as cells
+     inside a panel. The panel's border, radius and drop shadow all went with it. */
   .week-grid {
     display: grid;
-    grid-template-columns: 92px repeat(5, minmax(0, 1fr));
-    border: 1px solid var(--line);
-    border-radius: var(--r-card);
-    background: var(--paper);
-    box-shadow: 0 1px 2px rgba(28, 25, 23, 0.04), 0 32px 56px -44px rgba(28, 25, 23, 0.3);
-    overflow: hidden;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 20px;
+    align-items: start;
   }
 
   .week-open-hint {
     display: none;
-  }
-
-  .day-head {
-    background: var(--recessed);
-    box-shadow: inset 0 -1px 0 var(--line);
-  }
-
-  .grid-corner:first-child,
-  .day-head:nth-child(2),
-  .slot-head {
-    border-left: 0;
-  }
-
-  .grid-corner,
-  .day-head {
-    border-top: 0;
   }
 
   .detail-inner {

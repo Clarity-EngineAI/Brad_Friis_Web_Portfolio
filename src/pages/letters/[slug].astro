@@ -24,7 +24,7 @@ const { letter, previous, next } = Astro.props;
 >
   <div class="band">
     <header class="page-hero shell">
-      <a class="back-link" href="/letters/">← All references</a>
+      <a class="back-link" href="/letters/"><span class="back-link-arrow">←</span> All references</a>
       <p class="eyebrow-pill">{letter.documentType} · {letter.dateLabel}</p>
       <h1>{letter.referee}</h1>
       <p class="page-intro">{letter.role}, {letter.organisation}. <time datetime={letter.date}>{letter.dateLabel}</time>.</p>
@@ -35,20 +35,27 @@ const { letter, previous, next } = Astro.props;
         <p class="eyebrow-pill">About this document</p>
         <p class="context">{letter.context}</p>
 
+        {letter.scans && <a class="text-link skip-to-scan" href="#scan">Jump to the scanned original ↓</a>}
+
         {letter.logo && (
-          <div class={`letter-logo${letter.logo.image.width / letter.logo.image.height < 2.6 ? " is-stacked" : ""}`}>
+          <div
+            class={`letter-logo${letter.logo.image.width / letter.logo.image.height < 2.6 ? " is-stacked" : ""}`}
+            style={`--logo-ratio: ${letter.logo.image.width} / ${letter.logo.image.height}`}
+          >
             <Image src={letter.logo.image} alt={letter.logo.alt} widths={[180, 360]} sizes="180px" />
           </div>
         )}
       </aside>
 
       <div>
+        <blockquote class="letter-pull-quote">“{letter.pullQuote}”</blockquote>
+
         <article class="transcription">
           <Transcription blocks={letter.body} />
         </article>
 
         {letter.scans && (
-          <figure class="scan">
+          <figure class="scan" id="scan">
             {letter.scans.map((page) => (
               <Image src={page.image} alt={page.alt} widths={[640, 960, 1280]} sizes="(max-width: 900px) calc(100vw - 28px), 560px" />
             ))}

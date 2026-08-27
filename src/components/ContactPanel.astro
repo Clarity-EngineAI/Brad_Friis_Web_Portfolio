@@ -3,13 +3,19 @@ import { contact } from "../data/contact";
 import BookingButton from "./BookingButton.astro";
 
 const reasons = ["A role", "A project or consulting", "Something else"];
+
+const {
+  eyebrow = "Contact Me",
+  heading = "Start a conversation.",
+  disciplines = "Sales Growth · Revenue Systems · Product Adoption · AI",
+} = Astro.props;
 ---
 
 <div class="contact-panel">
   <div class="contact-details">
-    <p class="eyebrow-pill">Contact Me</p>
-    <h2 id="contact-heading">Start a conversation.</h2>
-    <p class="contact-disciplines">Sales Growth · SaaS · Revenue Systems · Product Adoption · AI</p>
+    <p class="eyebrow-pill">{eyebrow}</p>
+    <h2 id="contact-heading">{heading}</h2>
+    <p class="contact-disciplines">{disciplines}</p>
     <dl class="contact-list">
       <div>
         <dt>Email</dt>

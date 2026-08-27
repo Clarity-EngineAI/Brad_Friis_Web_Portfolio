@@ -8,6 +8,8 @@ import hawkesBayScan from "../assets/letters/hawkes-bay-tourism.jpg";
 import industrySchoolScan1 from "../assets/letters/the-industry-school-1.png";
 import industrySchoolScan2 from "../assets/letters/the-industry-school-2.png";
 import rototunaScan from "../assets/letters/rototuna-high-schools.png";
+import sanctaMariaScan1 from "../assets/letters/sancta-maria-college-1.png";
+import sanctaMariaScan2 from "../assets/letters/sancta-maria-college-2.png";
 import adplusLogo from "../assets/letter-logos/adplus-tracta.jpg";
 import elimLogo from "../assets/letter-logos/elim-christian-college.png";
 import hawkesBayLogo from "../assets/letter-logos/hawkes-bay-tourism.png";
@@ -15,6 +17,7 @@ import mediaworksLogo from "../assets/letter-logos/mediaworks.png";
 import rototunaLogo from "../assets/letter-logos/rototuna-high-schools.png";
 import industrySchoolLogo from "../assets/letter-logos/the-industry-school.png";
 import powerschoolLogo from "../assets/letter-logos/powerschool.png";
+import sanctaMariaLogo from "../assets/letter-logos/sancta-maria-college.png";
 
 export type LetterBlock =
   | { kind: "aside"; text: string }
@@ -43,6 +46,87 @@ export interface Letter {
 
 /** Publication order is newest first, set by `Brad Friis Resumes/References/README.md`. */
 export const letters: Letter[] = [
+  {
+    slug: "sancta-maria-college",
+    referee: "Lawrence Naicker",
+    role: "Senior Leadership Team",
+    organisation: "Sancta Maria College",
+    documentType: "Reference letter",
+    date: "2025-10-04",
+    dateLabel: "4 October 2025",
+    context:
+      "Eight years across two schools: Sancta Maria College, where Brad led the Schoology rollout to 100% staff adoption in a single term, and a Decile 1 school Lawrence moved to afterwards and chose to bring Brad in again.",
+    pullQuote:
+      "He never tried to make his own product fit a need when it clearly was not the right solution. He was prepared to give up a commercial opportunity if it meant the school got the right outcome.",
+    body: [
+      { kind: "lines", lines: ["04-10-2025"] },
+      { kind: "paragraph", text: "To Whom It May Concern," },
+      {
+        kind: "paragraph",
+        text: "I am very happy to recommend Brad Friis. I worked with Brad for more than eight years across two schools and came to know him as someone who was dependable, commercially sharp and genuinely invested in getting the right result for the people he worked with.",
+      },
+      {
+        kind: "paragraph",
+        text: "At Sancta Maria College, Brad worked closely with our leadership team as we selected and introduced Schoology as our learning management system. He was involved from the early discussions and commercial negotiations right through to implementation, staff training and ongoing support.",
+      },
+      {
+        kind: "paragraph",
+        text: "One of the things Brad did particularly well was understand the school before recommending the solution. He listened properly. He asked good questions. He understood the practical issues teachers and leaders were dealing with and worked from there. That mattered because introducing new technology into a school is rarely just a technology project. With Brad leading the implementation and onboarding, we achieved 100% staff adoption within a single school term. That was a significant result and largely unheard of in the NZ education sector.",
+      },
+      {
+        kind: "paragraph",
+        text: "Brad was very good at getting people on board. He could explain the value of the platform in a way that made sense to teachers, and he was prepared to spend the time needed to build confidence with staff rather than assuming that training alone would be enough. Brad understood that successful technology adoption depends on people as much as it depends on the technology.",
+      },
+      {
+        kind: "paragraph",
+        text: "He was also a strong negotiator. Brad understood the commercial realities of the business he represented, but he also understood the financial pressures schools work under. I always found him fair, transparent and pragmatic in those discussions.",
+      },
+      {
+        kind: "paragraph",
+        text: "What stood out even more was that Brad never tried to make his own product fit a need when it clearly was not the right solution. On a number of occasions, when we had requirements that fell outside what he could provide, Brad referred us to other education technology providers who were better placed to help. That told me a great deal about the way he worked. He was prepared to give up a commercial opportunity if it meant the school got the right outcome. That built trust very quickly, because we knew his advice was not being driven only by what he had to sell.",
+      },
+      {
+        kind: "paragraph",
+        text: "Brad knew how to negotiate hard without damaging the relationship, and he knew when not to sell at all. Once an agreement was signed, Brad remained closely involved. He developed implementation plans, organised training, kept projects moving and dealt with issues when they arose. He was proactive about new features and changes to the platform and made sure we understood how they could be used before they became relevant. He did not treat the contract as the end of the sale. He treated it as the start of the relationship.",
+      },
+      {
+        kind: "paragraph",
+        text: "Brad also had a wider view of the education sector than I expected from someone in a commercial role. I saw him bring together school leaders, Ministry of Education representatives and international technology partners to discuss how learning technology could work better in New Zealand schools. That required credibility with very different groups of people. Brad was able to get commercial, technical and education leaders around the same table and keep the conversation focused on outcomes.",
+      },
+      {
+        kind: "paragraph",
+        text: "When I later moved to a Decile 1 school, I chose to work with Brad again and introduced the same platform there. That environment was more challenging and required a different approach. Brad adapted to it. He took the time to understand the circumstances of the school and gave us the same level of attention and support that we had received at Sancta Maria. Brad did not need ideal conditions to deliver a good result.",
+      },
+      {
+        kind: "paragraph",
+        text: "Over the years, I renewed our agreement with Brad and his team repeatedly. Schoology remains in use at Sancta Maria College today. For me, that says more than any sales presentation or testimonial could. We trusted Brad enough to continue working with him for eight years.",
+      },
+      {
+        kind: "paragraph",
+        text: "When I moved schools, I chose to work with him again. That is probably the clearest recommendation I can give.",
+      },
+      {
+        kind: "paragraph",
+        text: "Brad is commercially capable, reliable, good with people and very strong at turning technology projects into practical outcomes.",
+      },
+      { kind: "paragraph", text: "I recommend him without reservation." },
+      { kind: "lines", lines: ["Lawrence Naicker", "Senior Leadership Team", "Sancta Maria College"] },
+    ],
+    logo: {
+      image: sanctaMariaLogo,
+      alt: "Sancta Maria College.",
+    },
+    scans: [
+      {
+        image: sanctaMariaScan1,
+        alt: "Page one of the original two-page reference letter, on Sancta Maria College letterhead, dated 4 October 2025.",
+      },
+      {
+        image: sanctaMariaScan2,
+        alt: "Page two of the letter, ending with Lawrence Naicker's name and title.",
+      },
+    ],
+  },
   {
     // The only entry that is an email rather than a solicited letter, hence the documentType.
     // It is also the only reference written by the vendor rather than a customer, which is why

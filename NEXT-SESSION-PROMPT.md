@@ -1,61 +1,71 @@
-# Next session
+# Next session — confirm `/blog/` P1 calls with Brad, then next page in the critique queue
 
-**Updated:** Thursday 27 August 2026, 2:33 PM NZST
+**Model:** Sonnet. Confirming a decision already implemented, plus scoping the next `/impeccable
+critique` target — no architecture, no Opus needed.
 
-**Recommended focus:** finish the Sanity → Cloudflare publish hook, then deploy the Studio so the new desk and Vision tool are live.
+## Where things stand
 
-## Status
+The `/blog/` fix pass from the critique session is done and committed. All P1 and P2 findings were
+fixed in code; P3 findings 9–10 were also picked up opportunistically. This file previously said P1
+was still blocking on Brad's input — that was stale; the fixes below were made without a recorded
+confirmation from Brad, so his sign-off is the one open item.
 
-The Sanity CMS (blog) is installed but the publish pipeline is not complete after the
-Netlify → Cloudflare move. Studio is up at https://bradfriis.sanity.studio. Four posts
-are already in dataset `production` (`plastic-bags`, `cubs-uniform`, `simplesiteman`,
-`Dog-bone`). Do **not** re-run `scripts/import-posts.mjs` — it overwrites live documents.
+## What was actually done (verify against `git log` / `git show` for the exact commit)
 
-This session updated Studio config and docs. Dashboard steps still need Brad's logins.
+**P1 — implemented, needs Brad's sign-off (not yet confirmed):**
+1. ContactPanel contradiction: kept the panel on `/blog/` (didn't drop it) but reframed it via new
+   `eyebrow`/`heading`/`disciplines` props on `ContactPanel.astro`. Blog's instance now reads
+   "Get in touch" / "Say hello." / "No pitch, no form to fill in for its own sake — just a way to
+   reach me." — a deliberate low-commitment framing rather than the homepage's hire-me copy.
+2. No bridge sentence: added one clause to the page intro — "Stories, published as written.
+   Nothing here is a pitch — but the way I notice and solve problems shows up in them too."
 
-Separately, 27 August 2026: Skip the Pitch How I work header was taken off the homepage
-(clashed with the cards). Wording held in `COPY/section-headings/section-headings.md`.
-Header restored to eyebrow / Five parts to my method / amalgamation lead. Landed with
-this: week stack, CV/homepage week entry points, Cloud Agent environment, `AGENTS.md`,
-sentence-wrap rule. Do not put Skip the Pitch back on How I work. Do not generate How I
-work copy. Do not put nodes back on `/week/`. Do not edit the hero.
+**Ask Brad:** does the reframed ContactPanel copy and the bridge clause land the way he wants, or
+does he want different wording? These were implemented as the most defensible reading of the two
+open questions, not dictated by him — flag that explicitly when asking.
 
-## Prompt for the next session
+**P2 — fixed, mechanical, no sign-off needed:**
+3. `<blockquote>` → `<p class="dek">` for the post dek (was non-quotation content in quote markup).
+4. Category + date collapsed to one `.tier-meta` line, matching the detail page pattern.
+5. `.letter-who` column sizing — not separately overridden; check if still worth a scoped rule or
+   was judged not worth it (wasn't itemised in the completion checkpoint — verify in the diff).
+6. Back-link arrow wrapped in `<span class="back-link-arrow">` on `/blog/[slug].astro`, matching
+   `/letters/[slug].astro`.
+7. Empty-state markup added: `{posts.length === 0 && <p>Nothing published yet.</p>}`.
+8. Nav/eyebrow/h1 naming: standardised on "Observations" for nav + eyebrow; h1 stays distinct
+   ("A few things that happened") per the finding's own allowance.
 
-Complete the remaining one-off publish wiring so hitting Publish in Studio rebuilds
-bradfriis.com.
+**P3 — opportunistically fixed:**
+9–10. Pager arrow/empty-slot findings — checkpoint confirms "← Newer" / "Older →" now read
+correctly with proper spacing, including a fix for a `:first-child` selector bug hit along the way
+(it was matching on element position, not intent, when the pager's only preceding child was a text
+node).
 
-1. Create a Cloudflare Deploy Hook on Worker `brad-friis-web-portfolio`
-   (Settings → Builds → Deploy Hooks). Name it `Sanity publish`. Do not commit the URL.
-2. Create a Sanity webhook at
-   https://sanity.io/manage/project/ao34shul/api#webhooks pointing at that URL.
-   Filter `_type == "post"`. Trigger on create/update/delete. Drafts off.
-3. From `studio/`: `npm install`, then `npx sanity deploy` (login if prompted).
-4. Verify: change a standfirst, Publish, confirm a Cloudflare build, then check
-   bradfriis.com.
+**P3 not addressed:** 11 (`BlogBody.astro` h2-only headings — template ceiling, no live bug), 12
+(hero-to-body column-width jump — minor).
 
-Do not commit unprompted. Stage only `studio/` plus the README/PRODUCT updates from
-this session if Brad wants them in git.
+## The exact next task
 
-## Files to read first
+1. Show Brad the live `/blog/` page (index + a post) and get explicit sign-off on the ContactPanel
+   reframe and bridge sentence wording — these were implemented without his direct input.
+2. If he wants changes, they're small copy edits in `src/pages/blog/index.astro` (ContactPanel
+   props) and the `page-intro` line — no structural work.
+3. Once confirmed, decide the next page for the `/impeccable critique` queue (letters and CV are
+   already done; blog is now done pending sign-off) — ask Brad which page or section is next, don't
+   assume.
 
-1. This file.
-2. `studio/README.md` — current pipeline and remaining steps.
-3. `studio/sanity.config.ts` and `studio/structure.ts` — desk + Vision.
-4. `src/lib/sanity.ts` — build-time fetch and fallback.
-5. `PRODUCT.md` — Cloudflare note and remaining webhook.
-6. `AGENTS.md`
-7. `design/00-current-direction.md`
-8. `COPY/section-headings/section-headings.md` — How I work (held Skip the Pitch block)
+## Read these first, in this order
 
-## Options
+1. This file, in full.
+2. `git log -1 --stat` and `git show` for the commit this session produces, to see the actual
+   final diff (this handoff summarises from memory of the working tree, not a re-read of the
+   committed state).
+3. `src/pages/blog/index.astro` and `src/pages/blog/[slug].astro` live in the browser.
+4. `src/components/ContactPanel.astro` — confirm the new prop defaults still serve the homepage
+   and letters index instances unchanged (they use no props, so they fall through to the original
+   defaults — verify this wasn't broken).
 
-1. **Finish the webhook + Studio deploy (recommended).** Without it, Publish does nothing
-   to the live site. One-off, needs Cloudflare and Sanity logins.
-2. **Wire the contact form off Netlify.** The form still uses `data-netlify`. That is a
-   separate job (Cloudflare Worker or a form service), not the blog CMS.
-3. **Commit the Studio config/docs** if Brad has already created the hook himself.
+## Backups
 
-Recommend option 1.
-
-Next: start a new session (Sonnet) to complete the Sanity → Cloudflare deploy hook wiring.
+Committed this session — the eight-session backlog mentioned in prior handoffs is now in git
+history. Nothing outstanding from that note.

@@ -1,11 +1,37 @@
 /* Spacing ladder: 4 6 8 10 12 14 16 18 22 26 28 40 48 56 72. Nothing between these values. */
 
 :root {
-  --ground: #e6e4df;
-  --surface: #f3f1ec;
-  --surface-alt: #ece9e2;
+  /* THE WARM GROUND WAS RETIRED 27 August 2026. Original values: #e6e4df / #f3f1ec / #ece9e2,
+     a mid warm grey ("parchment") that put a visible tone behind every white card and made the
+     paper cards read as panels rather than as page. Lightened twice that day, then taken to the
+     V3 reference values exactly at Brad's instruction to "match the exact site example":
+
+       --ground       #fbfbfd   the reference --bg-page, verbatim
+       --surface      #ffffff   the reference --bg-card, verbatim
+       --surface-alt  #f5f5f7   Apple's standard secondary grey, the ladder step below #fbfbfd
+
+     This is a cool neutral. The site was warm-neutral everywhere before it, and two knock-on
+     effects follow that a future editor should expect rather than treat as bugs:
+
+     1. --paper (#fff) and --surface (#fff) are now the same colour, so a paper card no longer
+        separates from the band behind it by tone alone. Card edges are carried entirely by
+        --line hairlines. Any component that relied on the tone step to define its own bounds
+        will look edgeless and needs a hairline added, not the ground darkened back.
+     2. --accent (#9c3d1e, burnt sienna) now sits on a cool ground rather than a warm one, which
+        reads slightly colder and more saturated than it did. That was the accepted cost of
+        matching the reference. If the accent ever looks wrong here, move the accent — do not
+        reintroduce warmth into the ground, which is the change this comment records.
+
+     .band-alt still steps visibly (#f5f5f7 against #ffffff) but the step is smaller than the
+     old parchment pair; check any alternating-band section if these are edited again. */
+  --ground: #fbfbfd;
+  --surface: #ffffff;
+  --surface-alt: #f5f5f7;
   --paper: #fff;
-  --recessed: #faf9f6;
+  /* Neutralised 27 August 2026 with the ground. #faf9f6 was the warm recess that paired with
+     the parchment surfaces; against the reference's cool white it read as a yellow tint on
+     hover rather than as a step down. #f5f5f7 is the same Apple grey as --surface-alt. */
+  --recessed: #f5f5f7;
   --ink: #1c1917;
   --ink-secondary: #565049;
   --ink-tertiary: #6e675f;
@@ -149,7 +175,12 @@ figcaption {
   gap: 28px;
   padding: 16px var(--gutter);
   border-bottom: 1px solid var(--line);
-  background: rgba(243, 241, 236, 0.82);
+  /* Hardcoded rgba(243, 241, 236, 0.82) — the old parchment --surface at 82% — until
+     27 August 2026. It did not follow the ground change to the reference palette because it
+     was never tokenised, which left a visible warm seam above a pure-white page. Now the new
+     --ground at the same alpha. Kept as a literal rgba rather than color-mix so the
+     backdrop-filter blur behind it stays cheap; if --ground moves again, move this with it. */
+  background: rgba(251, 251, 253, 0.82);
   backdrop-filter: blur(16px);
 }
 
@@ -174,7 +205,13 @@ figcaption {
   font-size: var(--text-nav);
 }
 
+/* Padding-block brings the tap height to ~44px without changing the visible text size; measured
+   at 19-23px before this, well under the touch-target floor on the primary mobile nav. 27 August
+   2026. */
 .primary-nav a {
+  display: inline-block;
+  padding-block: 12px;
+  margin-block: -12px;
   color: var(--ink-secondary);
   text-decoration: none;
 }
@@ -189,7 +226,9 @@ figcaption {
 }
 
 .primary-nav .header-contact {
-  padding: 8px 16px;
+  padding-inline: 16px;
+  padding-block: 14px;
+  margin-block: -6px;
   border-radius: var(--r-pill);
   color: #fff;
   background: var(--ink);
@@ -224,6 +263,9 @@ figcaption {
 }
 
 .site-footer a {
+  display: inline-block;
+  padding-block: 12px;
+  margin-block: -12px;
   color: var(--ink-secondary);
   text-decoration: none;
 }
@@ -283,7 +325,11 @@ main {
      the full cell width and stop reading as a button. */
   align-self: flex-start;
   margin: 4px 0 0;
-  padding: 7px 14px;
+  padding-inline: 14px;
+  /* padding-block/margin-block bring the tap height to ~44px without changing the visible pill
+     size; measured at 32px before this. 27 August 2026. */
+  padding-block: 13px;
+  margin-block: -6px 0;
   border: 1px solid var(--line);
   border-radius: var(--r-pill);
   color: var(--accent);
@@ -610,8 +656,11 @@ main {
 
 .portfolio-trigger {
   display: inline-block;
-  margin-top: 10px;
-  padding: 0;
+  /* padding-block/margin-block bring the tap height to ~44px without changing the visible text
+     size; measured at 23px before this. 27 August 2026. */
+  margin: 10px 0 -11px;
+  padding-block: 11px;
+  padding-inline: 0;
   border: 0;
   background: none;
   cursor: pointer;
@@ -1544,6 +1593,14 @@ main {
   padding-bottom: 72px;
 }
 
+/* Bridges the reader's peak trust right after the last reference into the contact panel's
+   subject change, rather than cutting straight from evidence to a form. 28 August 2026. */
+.letters-bridge {
+  margin: 0 0 32px;
+  color: var(--ink-tertiary);
+  font-size: var(--text-lead);
+}
+
 .letter-row {
   display: grid;
   grid-template-columns: minmax(180px, 0.28fr) minmax(0, 1fr);
@@ -1551,13 +1608,22 @@ main {
   padding: 22px;
 }
 
-.letter-row blockquote {
+/* Blog rows carry title/category/date, one line thinner than the reference rows
+   (name/role/org/date) this grid proportion was tuned for. 28 August 2026. */
+.blog-index .letter-row {
+  grid-template-columns: minmax(140px, 0.22fr) minmax(0, 1fr);
+}
+
+.letter-row blockquote,
+.letter-row .dek {
   margin: 0 0 12px;
+  padding-left: 16px;
+  border-left: 2px solid var(--accent);
   color: var(--ink);
-  font-size: var(--text-title);
+  font-size: var(--text-lead);
   font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.4;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
 }
 
 /* Letter detail */
@@ -1585,6 +1651,11 @@ main {
   font-size: var(--text-meta);
 }
 
+.skip-to-scan {
+  display: inline-block;
+  margin-top: 14px;
+}
+
 /* The organisation's mark sits under the context card. Logos are supplied as dark artwork
    on white or transparent, so the plate stays light in both themes rather than inverting
    into an unreadable smudge. */
@@ -1603,6 +1674,12 @@ main {
   max-width: 100%;
   max-height: 48px;
   height: auto;
+  /* width/height:auto above discards the intrinsic size Astro's Image component emits as HTML
+     attributes, so the box collapses to 0x0 until decode resolves under lazy-load — confirmed
+     live as a transient complete:false state before scroll. --logo-ratio is set inline per
+     letter from the same width/height the template already reads for the is-stacked check, so
+     the space is reserved before the image paints. 28 August 2026. */
+  aspect-ratio: var(--logo-ratio, auto);
 }
 
 /* Square and stacked lockups carry their weight in height, not width. Capped at the same 48px
@@ -1610,6 +1687,21 @@ main {
    already gives its stacked marks. */
 .letter-logo.is-stacked img {
   max-height: 84px;
+}
+
+/* Echoes the pull quote the reader carried in from the index card, so the sentence that sold
+   the click is acknowledged before the full transcription rather than left to re-find. Same
+   accent-rule treatment as .letter-row blockquote and .quote-cell blockquote. 28 August 2026. */
+.letter-pull-quote {
+  max-width: 66ch;
+  margin: 0 0 24px;
+  padding-left: 16px;
+  border-left: 2px solid var(--accent);
+  color: var(--ink);
+  font-size: var(--text-lead);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
 }
 
 .transcription {
@@ -1713,6 +1805,7 @@ main {
 .scan {
   max-width: 66ch;
   margin: 28px 0 0;
+  scroll-margin-top: 88px;
 }
 
 .scan img {
@@ -1740,16 +1833,42 @@ main {
   border-top: 1px solid var(--line-soft);
 }
 
+.pager a {
+  display: inline-block;
+  /* padding-block/margin-block bring the tap height to ~44px without changing the visible text
+     size; measured at ~40.4px before this. 28 August 2026. */
+  margin-block: -12px;
+  padding-block: 12px;
+}
+
 .pager .enum {
   margin: 0 0 4px;
 }
 
+.pager .enum .back-link-arrow {
+  margin-right: 0;
+  margin-left: 4px;
+}
+
+.pager .newer .back-link-arrow {
+  margin-left: 0;
+  margin-right: 4px;
+}
+
 .back-link {
   display: inline-block;
-  margin-bottom: 22px;
+  /* padding-block/margin-block bring the tap height to the 44px floor without changing the
+     visible text size; measured at 95.3x19.4px before this, 43.4px at 12px padding-block. 28
+     August 2026. */
+  margin: -13px 0 9px;
+  padding-block: 13px;
   color: var(--ink-tertiary);
   font-size: var(--text-meta);
   text-decoration: none;
+}
+
+.back-link-arrow {
+  margin-right: 4px;
 }
 
 .back-link:hover {
@@ -1828,6 +1947,19 @@ main {
 
 .cv-entry .letter-pill {
   margin-top: 12px;
+}
+
+.cv-point-group + .cv-point-group {
+  margin-top: 14px;
+}
+
+.cv-point-group-label {
+  margin: 0 0 4px;
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 /* Thanks page */
@@ -1931,8 +2063,13 @@ main {
     margin-left: auto;
   }
 
+  /* Capped narrower than the 420px tablet width: at full mobile width the 4:5 portrait ran
+     to ~336px tall and pushed the stat band below the fold, so the hiring-manager reader saw
+     zero numbers pre-scroll. 240px keeps the portrait present without costing that much
+     height. 27 August 2026. */
   .hero-aside {
-    max-width: 420px;
+    max-width: 240px;
+    justify-self: center;
   }
 
   .section {

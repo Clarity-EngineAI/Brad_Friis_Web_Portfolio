@@ -1,4 +1,11 @@
 > **Still current and authoritative, 13 August 2026.** This document and `Brad Friis Resumes/References/README.md` together govern which reference letters may be published, and neither is superseded by the move from Framer to Astro. Note one correction recorded in the References README: the CanWest scan is **not** redaction-free, and is withheld until a redacted derivative exists.
+>
+> **Count is now eight, not six.** PowerSchool (Gavin Jeffries, unprompted) and Lawrence Naicker
+> (Sancta Maria College, `sancta-maria-college` slug) were added after this document was written,
+> both with Brad's consent — PowerSchool by his own instruction when it arrived, Naicker by
+> supplying the letter himself on 28 August 2026 and asking for it to be added. Neither this
+> document nor its "six" language below has been rewritten to match; the README's table is the
+> current source for what publishes.
 
 # Stage 1d — The reference archive, audited
 

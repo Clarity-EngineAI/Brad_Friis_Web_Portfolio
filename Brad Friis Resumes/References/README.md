@@ -1,19 +1,23 @@
 # The reference archive
 
-Ten documents. Each source file has a `.md` transcription beside it. **The transcription is what
+Twelve documents. Each source file has a `.md` transcription beside it. **The transcription is what
 ships as the page; the image is the receipt behind it.** A page of JPEGs is unreadable to a screen
 reader, unsearchable, unselectable and uncopyable.
 
 Audit, publish/withhold table and image treatment spec:
 [`design/01d-reference-archive-audit.md`](../../design/01d-reference-archive-audit.md).
 
-**Settled by Brad, 11 August 2026. Six documents publish and four do not.** All six publishing
-referees have consented. Decisions and their costs: `design/01d-reference-archive-audit.md` §11.
+**Settled by Brad, 11 August 2026: six documents publish and four do not.** PowerSchool (added
+20 Aug 2026) and Lawrence Naicker/Sancta Maria College (added 28 Aug 2026) came later, both by
+Brad's own instruction, bringing the published count to **eight**. All eight publishing referees
+have consented. Decisions and their costs for the original six: `design/01d-reference-archive-audit.md` §11.
 
 | Source | Transcription | Date | Type | Decision |
 | --- | --- | --- | --- | --- |
+| `PowerSchool reference.pdf` | — | 30 May 2025 | Email | **Publish.** Unsolicited, added 20 Aug 2026 |
+| `Lawrence_Naicker_Reference.pdf` | — | 4 Oct 2025 | Reference | **Publish.** Consented — Brad supplied the letter himself and asked for it, 28 Aug 2026. No redaction needed: no contact details anywhere in the document |
 | `Brad Friis Reference Letter.pdf` | `Brad_Friis_Dr. A_Bergh_Reference_Letter.md` | 16 Jun 2025 | Reference | **Publish.** Consented |
-| `A Big Thank You from Rototuna High Schools .pdf` | `Brad_Friis_Rototuna_Reference_Letter.md` | 26 May 2025 | Reference, unsolicited | **Publish.** Consented. The only unsolicited document in the archive |
+| `A Big Thank You from Rototuna High Schools .pdf` | `Brad_Friis_Rototuna_Reference_Letter.md` | 26 May 2025 | Reference, unsolicited | **Publish.** Consented. The only unsolicited document in the original archive |
 | `Brad Friis - Reference The Industry School.pdf` | `Brad_Friis_The-Industry-School-Reference.md` | 2025 | Reference | **Publish.** Consented |
 | `Canwest Media.jpg` | `Brad_Friis_Canwest_Media_Reference_Letter.md` | 11 Feb 2006 | Reference | **Publish.** Consented 11 Aug 2026 |
 | `Adplus Advertising.jpg` | `Brad_Friis_Adplus_Advertising_Reference_Letter.md` | 24 Mar 2003 | Reference | **Publish.** Consented 11 Aug 2026 |

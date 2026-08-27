@@ -84,6 +84,10 @@ DOCUMENTS: dict[str, str] = {
     "Rototuna_High_School_final.png": "rototuna-high-schools",
     "Brad Friis - Reference The Industry School.pdf": "the-industry-school",
     "PowerSchool.pdf": "powerschool",
+    # No redaction needed: the letter carries no address, phone or email anywhere
+    # on either page, only the Sancta Maria College crest and Naicker's typed
+    # signature block.
+    "Lawrence_Naicker_Reference.pdf": "sancta-maria-college",
 }
 
 # A text layer must not still contain what the boxes appear to cover.

@@ -20,6 +20,7 @@ const roles: {
   dates?: string;
   summary: string;
   points: string[];
+  pointGroups?: { label: string; points: string[] }[];
   portfolio?: { label: string; href: string };
   pageLink?: { label: string; href: string };
 }[] = [
@@ -47,17 +48,38 @@ const roles: {
     dates: "2015–2025",
     summary:
       "Senior leader charged with establishing and driving the education sector of the business. Designed its revenue model across the customer lifecycle and held the vendor relationship for the decade.",
-    points: [
-      "Grew the licensed user base from 2,800 to 29,784 across New Zealand and Australia.",
-      "Retained a five-campus account that was actively evaluating a competitor, then expanded it: paid consultancy, an annual managed services agreement, and a sixth campus added to the organisation-wide agreement.",
-      "Renegotiated the reseller agreement in full, covering buy price, terms and licensing framework: moved from compulsory upfront purchase of expiring licences to buy-as-needed at a fixed price with no upfront cost, and won the right to invoice customers directly in local currency, taking billing off the vendor and owning the renewal relationship.",
-      "Held firm against the vendor's standard 500-licence minimum and removed it, opening the smaller end of the market: a fifty-licence school went on the books as a result.",
-      "Identified support as a separable line and created a managed services agreement: structured monthly, billed annually in advance, worth around $40,000 to $50,000 a year against work already being delivered.",
-      "Originated an SIS integration that imported school data directly into the platform on a 24-hour refresh, removing a manual annual export job. Charged as a service, generating around $30,000 a year.",
-      "Never lost a school on an annual price increase; did lose the occasional school on overall cost against government-subsidised alternatives.",
-      "Became a Ministry of Education approved facilitator with partner Digital Circus, opening government training funds to the schools he worked with.",
-      "When pandemic server load caused the vendor to cancel the channel contract, formed a replacement partnership with itslearning, a Norwegian LMS, keeping a product in market for the year until the vendor returned.",
-      "Built the adoption programme school by school: 108 one-to-one teacher interviews across lockdown, courses at beginner, intermediate and advanced level, and a teacher network of around 600 at its peak.",
+    points: [],
+    pointGroups: [
+      {
+        label: "Growth",
+        points: [
+          "Grew the licensed user base from 2,800 to 29,784 across New Zealand and Australia.",
+          "Retained a five-campus account that was actively evaluating a competitor, then expanded it: paid consultancy, an annual managed services agreement, and a sixth campus added to the organisation-wide agreement.",
+          "Held firm against the vendor's standard 500-licence minimum and removed it, opening the smaller end of the market: a fifty-licence school went on the books as a result.",
+        ],
+      },
+      {
+        label: "Commercial terms",
+        points: [
+          "Renegotiated the reseller agreement in full, covering buy price, terms and licensing framework: moved from compulsory upfront purchase of expiring licences to buy-as-needed at a fixed price with no upfront cost, and won the right to invoice customers directly in local currency, taking billing off the vendor and owning the renewal relationship.",
+          "Identified support as a separable line and created a managed services agreement: structured monthly, billed annually in advance, worth around $40,000 to $50,000 a year against work already being delivered.",
+          "Originated an SIS integration that imported school data directly into the platform on a 24-hour refresh, removing a manual annual export job. Charged as a service, generating around $30,000 a year.",
+        ],
+      },
+      {
+        label: "Retention",
+        points: [
+          "Never lost a school on an annual price increase; did lose the occasional school on overall cost against government-subsidised alternatives.",
+          "Became a Ministry of Education approved facilitator with partner Digital Circus, opening government training funds to the schools he worked with.",
+        ],
+      },
+      {
+        label: "Product and adoption",
+        points: [
+          "When pandemic server load caused the vendor to cancel the channel contract, formed a replacement partnership with itslearning, a Norwegian LMS, keeping a product in market for the year until the vendor returned.",
+          "Built the adoption programme school by school: 108 one-to-one teacher interviews across lockdown, courses at beginner, intermediate and advanced level, and a teacher network of around 600 at its peak.",
+        ],
+      },
     ],
     // Primary entry to /week/: the reader is at the exact moment of doubting the
     // unnamed ten-year role's scope. Surfacing rec 25 August 2026; letter-pill
@@ -136,14 +158,14 @@ const tools = "Salesforce, HubSpot, Pipedrive, Asana, Workflow Max, Microsoft 36
 
 <SiteLayout
   title="CV: Brad Friis"
-  description="Brad Friis: commercial operator across SaaS growth, sales, revenue systems, product adoption and AI enablement."
+  description="Brad Friis: commercial operator across sales growth, revenue systems, product adoption and AI enablement."
 >
   <div class="band">
     <header class="page-hero shell">
       <p class="eyebrow-pill">Curriculum vitae</p>
       <h1>Brad Friis</h1>
       <p class="page-intro">
-        Commercial operator for SaaS growth: sales, revenue systems, product adoption and AI enablement.
+        Commercial operator for sales growth: revenue systems, product adoption and AI enablement.
       </p>
     </header>
 
@@ -201,12 +223,25 @@ const tools = "Salesforce, HubSpot, Pipedrive, Asana, Workflow Max, Microsoft 36
                 {role.dates ? `${role.organisation} · ${role.dates}` : role.organisation}
               </p>
               <p>{role.summary}</p>
-              {role.points.length > 0 && (
-                <ul>
-                  {role.points.map((point) => (
-                    <li>{point}</li>
-                  ))}
-                </ul>
+              {role.pointGroups ? (
+                role.pointGroups.map((group) => (
+                  <div class="cv-point-group">
+                    <p class="cv-point-group-label">{group.label}</p>
+                    <ul>
+                      {group.points.map((point) => (
+                        <li>{point}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))
+              ) : (
+                role.points.length > 0 && (
+                  <ul>
+                    {role.points.map((point) => (
+                      <li>{point}</li>
+                    ))}
+                  </ul>
+                )
               )}
               {role.pageLink && (
                 <a class="letter-pill" href={role.pageLink.href}>{role.pageLink.label}</a>
@@ -242,7 +277,7 @@ const tools = "Salesforce, HubSpot, Pipedrive, Asana, Workflow Max, Microsoft 36
         <section class="cv-section" aria-labelledby="cv-references">
           <h2 id="cv-references">References</h2>
           <p>
-            Six written references from customers, clients and managers, 2003 to 2025, published in
+            Eight written references from customers, clients and managers, 2003 to 2025, published in
             full at bradfriis.com/letters.{" "}
             <span class="screen-only"><a class="text-link" href="/letters/">Read the letters</a>.</span>
           </p>

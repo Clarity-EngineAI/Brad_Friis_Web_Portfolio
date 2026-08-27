@@ -45,14 +45,12 @@ const capabilities = [
     body: "When a vendor cancelled the channel agreement, I negotiated its replacement personally: buy-as-needed pricing, no upfront cost, and the right to invoice schools directly in local currency, plus a 50% deposit structure at 99 Corporation that changed the business's cashflow.",
     evidence: "Rob Nieuwland: the deposit change made “a massive difference to cashflow and operations.”",
   },
-  {
-    id: "product",
-    title: "Know the product, not just the pitch",
-    summary: "The piece that makes the rest of it work",
-    body: "MySimpleSiteMan taught me the hard way that knowing how to use a tool isn't the same as the tool working for the customer. Every role since has meant going deep on the product: localising US course material for NZ schools, designing an SIS integration, and this past year, working fluency with AI tools to find where they actually save a business time.",
-    evidence: "Pranesh Lad: “your deep knowledge has been key to solving every issue we've thrown your way.”",
-  },
 ];
+// Cut 27 August 2026: a 5th "product" card broke the site's own 4-item chunking pattern
+// (every other capability/stat/era/quote group on this page holds to 4) and its body copy
+// named MySimpleSiteMan, which a 17 August decision removed from the CV, homepage and blog
+// entirely. Its product-fluency claim ("designing an SIS integration", AI-tools fluency) is
+// still covered by the "Right now" section further down the page.
 
 const graphicEras = [
   { year: "2001", label: "Ad revenue up 60% in 3 years" },
@@ -214,11 +212,20 @@ const homeQuotes = [
     relation: "IT Systems Engineer, Rototuna High Schools · May 2025",
     slug: "rototuna-high-schools",
   },
+  {
+    // Naicker's letter carries two standout lines; the other (integrity/walked-away-from-a-sale)
+    // is the `pullQuote` in src/data/letters.ts. Brad chose this split, 28 August 2026.
+    quote:
+      "We trusted Brad enough to continue working with him for eight years. When I moved schools, I chose to work with him again. That is probably the clearest recommendation I can give.",
+    name: "Lawrence Naicker",
+    relation: "Senior Leadership Team, Sancta Maria College · October 2025",
+    slug: "sancta-maria-college",
+  },
 ];
 
 ---
 
-<SiteLayout>
+<SiteLayout title="I win, grow and renew accounts — Brad Friis">
   <div class="band">
     <section class="hero shell">
       <div>
@@ -226,11 +233,12 @@ const homeQuotes = [
         <h1>I win, grow and renew accounts.</h1>
         <p class="hero-copy">I run key accounts end to end: I learn the customer’s business, find where they’re leaving value on the table, and put a solution in front of them that renews and grows.</p>
         <div class="hero-actions">
-          {/* Booking is the filled button and the form is outlined, not the other way
-              round: a booking is a committed action, a contact form is a maybe. Attribute
-              8 allows exactly one accent fill, so only one of these two can be filled. */}
+          {/* Booking is the filled button, the only accent fill in the hero: a booking is a
+              committed action. "Send a message" was removed 27 August — it asked the reader
+              to choose before they'd seen a single stat, which the persona notes name as a
+              loss condition. The #contact form is still one scroll away and needs no second
+              hero-level entry point. */}
           <BookingButton variant="hero" />
-          <a class="button button-secondary" href="#contact">Send a message</a>
         </div>
       </div>
       <div class="hero-aside">
@@ -405,8 +413,8 @@ const homeQuotes = [
     <section class="section shell" aria-labelledby="letters-heading">
       <header class="section-head">
         <p class="eyebrow-pill">References</p>
-        <h2 id="letters-heading">Six reference letters, published in full.</h2>
-        <p class="lead">Three of the six were written in 2025. Two describe an account kept that had a reason to go; the third arrived unasked.</p>
+        <h2 id="letters-heading">Eight reference letters, published in full.</h2>
+        <p class="lead">Four of the eight were written in 2025. Three describe an account kept that had a reason to go; the fourth arrived unasked.</p>
       </header>
       <div class="hairline-grid">
         {homeQuotes.map((item) => (
@@ -420,7 +428,7 @@ const homeQuotes = [
           </article>
         ))}
       </div>
-      <p class="section-link"><a class="text-link" href="/letters/">Read all six reference letters</a></p>
+      <p class="section-link"><a class="text-link" href="/letters/">Read all eight reference letters</a></p>
     </section>
   </div>
 

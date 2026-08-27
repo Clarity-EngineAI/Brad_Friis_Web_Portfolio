@@ -1,12 +1,12 @@
 ---
 name: Brad Friis — Personal Website
-description: An evidence-first commercial CV site — warm neutral paper tones, one burnt-sienna accent, hairline-bordered record cards instead of shadows.
+description: An evidence-first commercial CV site — cool neutral paper, one burnt-sienna accent, hairline-bordered record cards instead of shadows.
 colors:
-  ground: "#e6e4df"
-  surface: "#f3f1ec"
-  surface-alt: "#ece9e2"
+  ground: "#fbfbfd"
+  surface: "#ffffff"
+  surface-alt: "#f5f5f7"
   paper: "#ffffff"
-  recessed: "#faf9f6"
+  recessed: "#f5f5f7"
   ink: "#1c1917"
   ink-secondary: "#565049"
   ink-tertiary: "#6e675f"
@@ -49,6 +49,8 @@ typography:
     fontSize: "0.6875rem"
     letterSpacing: "0.06em"
 rounded:
+  inner-xs: "4px"
+  inner-sm: "6px"
   sm: "10px"
   md: "12px"
   card: "14px"
@@ -99,14 +101,14 @@ components:
 
 **Creative North Star: "The Quiet Ledger"**
 
-This site presents a commercial track record the way a well-kept ledger presents a decade of accounts: plainly, in order, with every figure traceable to its source. The palette is warm paper and near-black ink, not corporate blue-and-white — grounds, surfaces, and text all sit in the same low-saturation warm-neutral family, so nothing competes with the one deliberate hue in the system: a single burnt-sienna accent, spent sparingly on links, the primary button, the eyebrow pill, and the rule beside a pull-quote. Structure carries the credibility, not embellishment — reference-letter quotes sit inside bordered cards a click away from their scanned source, and the signature `.hairline-grid` pattern (a shared 1px divider grid, refined over several documented iterations to fix optical-balance bugs) is the clearest expression of the whole system: cards that read as filed records, not marketing tiles.
+This site presents a commercial track record the way a well-kept ledger presents a decade of accounts: plainly, in order, with every figure traceable to its source. The palette is cool neutral paper and warm near-black ink — grounds and surfaces sit in a near-white Apple-system family (#fbfbfd → #ffffff → #f5f5f7) while the ink and the accent stay warm, so nothing competes with the one deliberate hue in the system: a single burnt-sienna accent, spent sparingly on links, the primary button, the eyebrow pill, and the rule beside a pull-quote. The grounds were a warm parchment family (#e6e4df / #f3f1ec / #ece9e2) until 27 August 2026, when they were taken to these values to match a reference prototype; the warm ink and sienna accent were deliberately kept, and that warm-on-cool tension is now the system's signature rather than an inconsistency to resolve. Structure carries the credibility, not embellishment — reference-letter quotes sit inside bordered cards a click away from their scanned source, and the signature `.hairline-grid` pattern (a shared 1px divider grid, refined over several documented iterations to fix optical-balance bugs) is the clearest expression of the whole system: cards that read as filed records, not marketing tiles.
 
 There is effectively no shadow system. Depth is drawn from hairline borders (`--line`, `--line-soft`) and background-tone steps (`--ground` → `--surface` → `--paper` → `--recessed`), not elevation. The one true `box-shadow` in the codebase belongs to a genuine floating overlay (the portfolio embed dialog); everything else stays flat at rest. This is a considered constraint, not an oversight — a site making an evidence argument should not feel like it is trying to sell anything.
 
 Typography runs on Inter, self-hosted via `@fontsource-variable/inter` and imported in `SiteLayout.astro` so it loads on every page. The `--sans` token stays declared as Inter-first because that is the intended type character (a clean, humanist grotesque suited to a ledger-like density of numbers and short labels).
 
 **Key Characteristics:**
-- Warm paper-and-ink neutral palette; one burnt-sienna accent used on well under 10% of any screen
+- Cool near-white grounds under warm near-black ink; one burnt-sienna accent used on well under 10% of any screen
 - Flat by default — depth from hairline borders and tone steps, not shadows
 - A single fixed content shell (1180px) and one explicit spacing ladder (4/6/8/10/12/14/16/18/22/26/28/40/48/56/72px) — nothing between these values
 - Shared-divider bordered-card grids (`.hairline-grid`, `.row-list`) as the signature record-keeping motif
@@ -114,7 +116,7 @@ Typography runs on Inter, self-hosted via `@fontsource-variable/inter` and impor
 
 ## Colors
 
-A warm, low-saturation neutral system — every ground, surface, and ink tone shares the same beige-brown cast — interrupted by exactly one true hue.
+A low-saturation neutral system in two temperatures — cool near-white grounds and surfaces, warm beige-brown inks — interrupted by exactly one true hue.
 
 ### Primary
 - **Burnt Sienna** (`#9c3d1e`): the system's one accent. Link color, primary `.button` fill, eyebrow-pill and letter-pill text, focus-ring outline, the motion-track node dot, and the left rule beside every pull-quote (`.career-quote`, `.quote-cell blockquote`). Its rarity is deliberate — see the One Accent Rule below.
@@ -122,11 +124,11 @@ A warm, low-saturation neutral system — every ground, surface, and ink tone sh
 - **Burnt Sienna Lifted** (`#e8935f`, `accent-on-dark`): a contrast-corrected accent variant used only for `.stat-figure` text on the near-black stat band. The base accent reads 2.4:1 there and fails contrast; this lifted variant clears 7:1. Never substitute the base accent on a dark ground — use this token instead.
 
 ### Neutral
-- **Ground** (`#e6e4df`): the outermost `<html>` background, visible only as a sliver behind `--surface`.
-- **Surface** (`#f3f1ec`): the default section/band background and the base tone of the translucent sticky header.
-- **Surface Alt** (`#ece9e2`): alternating band background (`.band-alt`) and the hover fill on secondary buttons.
+- **Ground** (`#fbfbfd`): the outermost `<html>` background, visible only as a sliver behind `--surface`, and the base tone of the translucent sticky header (at 82% alpha).
+- **Surface** (`#ffffff`): the default section/band background. Identical in value to `--paper` — see the Hairline Boundary Rule.
+- **Surface Alt** (`#f5f5f7`): alternating band background (`.band-alt`) and the hover fill on secondary buttons. Carries the only visible tonal step in the light palette.
 - **Paper** (`#ffffff`): card and panel fill — hairline-grid cells, row-list items, the contact panel, the letter transcription, the portfolio dialog.
-- **Recessed** (`#faf9f6`): sunken/inset fill for content nested inside a card — evidence blocks, the contact form, the letter context card.
+- **Recessed** (`#f5f5f7`): sunken/inset fill for content nested inside a card — evidence blocks, the contact form, the letter context card — and the hover fill on calendar cards.
 - **Ink** (`#1c1917`): primary heading and text color.
 - **Ink Secondary** (`#565049`): the default body-copy color, set once on the `body` element.
 - **Ink Tertiary** (`#6e675f`): muted meta text — captions, dates, labels, footer copy.
@@ -136,6 +138,8 @@ A warm, low-saturation neutral system — every ground, surface, and ink tone sh
 **The One Accent Rule.** Burnt Sienna is the only hue in the system. It appears on links, the primary button, pills, the focus ring, and pull-quote rules — never as a background fill larger than a pill or button, never doubled up with a second accent color. If a screen needs a second signal color, that is a sign the layout needs restructuring, not a second hue.
 
 **The Tone-Step Rule.** Depth between nested surfaces is expressed as a step along `--ground → --surface → --paper → --recessed`, never as a shadow. A card sits on `--paper` inside a `--surface` band; content nested inside that card that needs to read as "inset" drops to `--recessed`. Never invent a fifth tone — reuse this ladder.
+
+**The Hairline Boundary Rule.** *(Supersedes part of the Tone-Step Rule as of 27 August 2026.)* `--surface` and `--paper` are now the same value (`#ffffff`), so the middle step of the tone ladder carries no contrast: a white card on a white band is separated by its 1px `--line` hairline alone, not by tone. Every card, panel and container must therefore declare its own hairline border — a component that relied on the tone step to define its bounds will read as edgeless. When a surface looks unbounded, add the hairline; never darken the ground back to recreate the step. The ladder still holds at its ends (`--ground` behind, `--recessed` within), and `--surface-alt` remains the one visible band contrast.
 
 ## Typography
 
@@ -188,6 +192,13 @@ This system is flat by default. There is no shadow-based elevation scale — dep
 ## Shapes
 
 Corners scale with the size and formality of the container, on a fixed radius ladder: 10px (form fields, skip-link) → 12px (chips, scan images, small cards) → 14px (hairline-grid, row-list) → 16px (panels — contact panel, transcription, portfolio dialog) → 18–22px (the hero portrait well, largest and softest corner in the system) → 999px (full pill — every button, tag, and label-chip in the site). Borders are exclusively 1px hairlines at low opacity (`--line` at 10%, `--line-soft` at 6%, `--line-hover` at 24% for hover-only emphasis) — never a solid saturated border color. The one true circle in the system is the small accent dot on the career/motion timeline track (`border-radius: 50%`), deliberately distinct from the pill token.
+
+**Nested and inner elements below 10px.** The ladder above governs *containers*. Elements that sit inside a container and are smaller than roughly 32px — checkboxes, icon swatches, indicator tiles, inner panel heads — sit below the ladder's floor, because a 10px radius on a 16px square is very nearly a circle and reads as a mistake rather than as a corner. These take one of two forms, and no others:
+
+- **A proportional radius of 4–6px** (`rounded.inner-xs` / `rounded.inner-sm`), chosen so the corner is visually the same softness as its parent at the smaller size. Use 4px below 20px square, 6px from 20px to 32px.
+- **`calc(<parent radius> - <gap>)`** where the element sits flush inside a rounded parent, so the two corners stay concentric — e.g. `calc(var(--r-md) - 3px)` for an element inset 3px from an `--r-md` container.
+
+Anything at or above 32px returns to the ladder. This rule exists because the ladder's silence below 10px was being read as a prohibition, and each new swatch or checkbox was being handled as a one-off exception instead of by a stated convention.
 
 ## Components
 
