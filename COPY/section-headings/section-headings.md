@@ -115,52 +115,42 @@ is why the count is nowhere in the hero display line.
 
 ## How I work
 
-Homepage capabilities section. Header is left-aligned (`section-head-left`). The five cards are
-unchanged. Copy below is Brad's, placed 26 August 2026. Do not rewrite it.
+Homepage capabilities section. Centred header, five cards underneath. The Skip the Pitch block
+was taken off the page on 27 August 2026 — it clashed with the cards. Copy is held, not deleted.
 
 ### Eyebrow · **In use**
 
 > How I work
 
-### Heading · **In use** · 26 August 2026
+### Heading · **In use**
+
+> Five parts to my method.
+
+### Lead · **In use** · restored 27 August 2026
+
+> Read the business, find the priced-wrong offer, keep what I win, own the terms, and know the
+> product well enough to trust the pitch.
+
+### Skip the Pitch block · **Held** · 27 August 2026
+
+Taken off the homepage. Do not put it back without Brad asking. Latest wording:
 
 > Let's Skip the Pitch.
-
-### Subheading · **In use** · 27 August 2026
-
+>
 > Is your business trying to solve churn, shorten sales cycles, or lock down key enterprise
 > accounts? I know the exact friction points you're dealing with and how to help.
-
-### Subheading, first placement · **Rejected** · 26 August 2026
-
-> To save us both time, let's look straight at how I operate, and how I approach account strategy.
-
-### Body · **In use** · 26 August 2026 · close restated 27 August 2026
-
+>
 > If you're a recruiter or hiring manager landing here, and you're looking for a Senior Account
 > Manager who can walk into complex client ecosystems, protect revenue, expand enterprise value,
 > and build genuine trust without needing hand-holding, we have a shared goal.
 >
 > I welcome you to browse my site. To discuss a role, consulting opportunity or any other business
 > needs, book a meeting or send me a message.
+>
+> Initial correspondence is kept strictly confidential unless otherwise agreed.
+> I respond to messages within 24 hours.
 
-### Terms line · **In use** · 26 August 2026
-
-Set in `--text-meta` / `--ink-tertiary`, same size as other small print on the site.
-
-> Initial correspondence is kept strictly confidential unless otherwise agreed. I respond to all
-> messages within 24 hours.
-
-Brad supplied this block verbatim after rejecting agent-generated operate copy. Second person is
-his call for this slot.
-
-### Lead, amalgamation · **Held** · 26 August 2026
-
-> Read the business, find the priced-wrong offer, keep what I win, own the terms, and know the
-> product well enough to trust the pitch.
-
-Was the How I work lead until this replacement. Still describes the five cards. Do not put it
-back without Brad asking.
+The last two sentences sit on separate lines so a new sentence never starts with one leftover word.
 
 ### Mandate · **Rejected** · 26 August 2026
 

@@ -24,9 +24,10 @@ These are not style preferences. Full list is in `README.md` and `PRODUCT.md`.
 2. Reference quotes are verbatim single sentences. Never splice, never drop a hedge.
 3. No invented figures. Nothing that implies an AI product has shipped.
 4. New Zealand English in all copy, comments, and UI: organise, colour, analyse, centre, recognise, personalised, licence (noun), defence.
-5. Copy changes go through `COPY/` with a status (In use / Available / Held / Rejected). Nothing rejected is deleted.
-6. Never create backup, temp, or versioned copies of files.
-7. This repository is private and must stay private.
+5. Never begin a new sentence with one or two words at the end of a line and wrap the rest. Put the whole sentence on the next line — a new `<p>`, or a break after the previous full stop. Wrong: `…agreed. I` / `respond to all messages…`. Right: end the first sentence, then `I respond to messages within 24 hours.` on its own line.
+6. Copy changes go through `COPY/` with a status (In use / Available / Held / Rejected). Nothing rejected is deleted.
+7. Never create backup, temp, or versioned copies of files.
+8. This repository is private and must stay private.
 
 Voice (everything except the blog): first person; no second person; no industry noun in display type; no advertising-device rhythm. Spec: `design/01-positioning-brief.md` §7.
 

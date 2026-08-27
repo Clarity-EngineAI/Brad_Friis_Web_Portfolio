@@ -474,14 +474,6 @@ main {
   max-width: 62ch;
 }
 
-.section-head-left .how-i-work-terms {
-  max-width: 62ch;
-  margin: 0;
-  color: var(--ink-tertiary);
-  font-size: var(--text-meta);
-  line-height: 1.5;
-}
-
 /* Hero */
 
 /* `align-items: end` bottom-aligned a 255px text column against a 425px portrait, which

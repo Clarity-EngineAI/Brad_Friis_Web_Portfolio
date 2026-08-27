@@ -1,0 +1,23 @@
+---
+description: Never wrap a new sentence after one or two leftover words
+globs: "**/*.{astro,md,mdx}"
+alwaysApply: true
+---
+
+# Sentence line breaks
+
+A new sentence must not start with one or two words at the end of a line and then fold. Put the whole sentence on the next line (new `<p>`, or a break after the previous full stop).
+
+Wrong:
+
+```
+Initial correspondence is kept strictly confidential unless otherwise agreed. I
+respond to all messages within 24 hours.
+```
+
+Right:
+
+```
+Initial correspondence is kept strictly confidential unless otherwise agreed.
+I respond to messages within 24 hours.
+```
