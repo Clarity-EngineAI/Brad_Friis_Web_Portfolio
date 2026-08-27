@@ -160,7 +160,7 @@ To stand out to recruiters and executive hiring managers, the visual design must
 
 ### Stop 2: Stat Strip
 - Render as a full-width hairline-bordered band (`1px solid rgba(0,0,0,0.08)`).
-- Use monospace tabular numbers for figures (`5 campuses`, `2,800 → 24,500`) to emphasize mathematical precision.
+- Use monospace tabular numbers for figures (`5 campuses`, `2,800 → 29,784`) to emphasize mathematical precision.
 
 ### Stop 3: 2×2 Capability Grid
 - Replace traditional card boxes with **continuous hairline dividers** (thin border grid).
@@ -197,7 +197,7 @@ To stand out to recruiters and executive hiring managers, the visual design must
                                    |
 +-----------------------------------------------------------------------+
 | STOP 2: STAT STRIP (Hairline 4-Up Grid, Tabular Numerals)              |
-| 5 Campuses  |  2,800 → 24,500  |  +30% Lift  |  10 Years           |
+| 5 Campuses  |  2,800 → 29,784  |  +30% Lift  |  10 Years           |
 +-----------------------------------------------------------------------+
                                    |
 +-----------------------------------------------------------------------+

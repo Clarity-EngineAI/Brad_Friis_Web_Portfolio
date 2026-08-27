@@ -173,7 +173,7 @@ lesson. If the timeline looks long on mobile, use these seven entries before add
 
 - Title: Grow the territory, then keep it growing
 - Subtitle: Sales and Marketing Manager, then General Manager. NZ and Australia.
-- Body: Ten years selling, demoing, proposing, forecasting, enabling and supporting a SaaS platform. Licensed users grew from 2,800 to 24,500 while key accounts stayed and expanded.
+- Body: Ten years selling, demoing, proposing, forecasting, enabling and supporting a SaaS platform. Licensed users grew from 2,800 to 29,784 while key accounts stayed and expanded.
 
 #### 7. 2025 → Now
 

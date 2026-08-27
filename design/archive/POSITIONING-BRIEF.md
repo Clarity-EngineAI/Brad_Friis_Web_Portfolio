@@ -323,7 +323,7 @@ The strongest proof points are:
 - SaaS experience that began at Xplore with monthly-fee bolt-on modules and continued through later
   SaaS-driven solutions.
 - Ten years of SaaS growth in the education market across New Zealand and Australia.
-- Licensed users growing from 2,800 to 24,500.
+- Licensed users growing from 2,800 to 29,784.
 - A key account retained and expanded under competitive pressure.
 - Full-cycle prospecting to close, including demos, proposals, Pipedrive pipeline management,
   conference sponsorship and presentation.

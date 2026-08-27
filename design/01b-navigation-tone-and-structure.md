@@ -236,7 +236,7 @@ Brad Friis        Signed    Shipped    Argued    Taking work        [ CV ]
 | Destination | Gloss |
 | --- | --- |
 | Signed | Five letters with signatures on them |
-| Shipped | What actually happened. 2,800 to 24,500, the save, the decade |
+| Shipped | What actually happened. 2,800 to 29,784, the save, the decade |
 | Argued | The writing. Positions taken, with reasons |
 | Taking work | Clarity Engine AI, and what I am open to |
 

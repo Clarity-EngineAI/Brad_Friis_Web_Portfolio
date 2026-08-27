@@ -186,7 +186,7 @@ These go beyond what either review proposed. Each is flagged for how much it cos
 "measured" discipline, since that's the actual constraint that has to be respected, not just an
 aesthetic preference.
 
-**1. A single quiet growth line, not a chart.** Brad's core evidence — 2,800 to 24,500 licensed
+**1. A single quiet growth line, not a chart.** Brad's core evidence — 2,800 to 29,784 licensed
 users over ten years — is currently a static number pair in the stat strip. A one-line hairline
 sparkline behind or beside that figure (a thin rising stroke, no axis, no gridlines, sized to sit
 inside the existing stat cell) turns a number into a shape without adding a single word or

@@ -182,7 +182,7 @@ A continuous sequence across seven distinct roles: finding the operational need,
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │ 2015–2025 | Sales & Marketing Manager ➔ General Manager                      │
 │ Challenge: Complex multi-region commercial management and channel retention. │
-│ Focus: Held exclusive vendor partnership for 10 years; scaled base to 24,500│
+│ Focus: Held exclusive vendor partnership for 10 years; scaled base to 29,784│
 │ active users across NZ & AU. Zero churn during 2020 disruption.             │
 └──────────────────────────────────────────────────────────────────────────────┘
                                       │

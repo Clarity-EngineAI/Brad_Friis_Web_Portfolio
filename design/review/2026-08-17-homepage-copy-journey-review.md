@@ -145,7 +145,7 @@ not usable, however good the copy is.
 | Figure | Label |
 |---|---|
 | 5 campuses | Account retained mid-defection, then expanded |
-| 2.8K → 24.5K | Licensed users, NZ and Australia |
+| 2.8K → 29.8K | Licensed users, NZ and Australia |
 | +30% | Lift in initial client investment |
 | 10 years | Holding the vendor channel relationship |
 

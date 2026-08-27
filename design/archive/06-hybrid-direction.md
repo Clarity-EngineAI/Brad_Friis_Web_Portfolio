@@ -48,7 +48,7 @@ The live artefact is the Desktop view in `06-hybrid-direction.html`.
 - Primary button Contact Brad. Secondary View CV.
 - Trust line: six written references.
 - Portrait panel with a quiet availability chip. Employment stays on this screen; consulting does not.
-- Proof strip in the same first view: 2,800 → 24,500; six letters; full-cycle sales.
+- Proof strip in the same first view: 2,800 → 29,784; six letters; full-cycle sales.
 
 This screen is a senior commercial landing page. It should still work if every window chrome treatment below it were deleted.
 
@@ -84,7 +84,7 @@ Mobile is not a shrunk desktop. If a panel needs two columns to make sense, it d
 | --- | --- | --- | --- | --- |
 | Nav | Find Work, Letters, CV, Contact without learning a UI | Menu bar. Contact is the only filled button | Wordmark + Contact. Tabs at the bottom | Can a recruiter reach CV in one tap? |
 | Hero | Who, hire-for, contact | Name, subhead, tags, two actions, portrait | Same stack, smaller type, tags wrap | Answers questions 1, 2 and 4 without scroll |
-| Proof strip | Question 3 before personality | Three facts on one row | One fact: 2,800 → 24,500 | Number is checkable later; letters are the witnessed proof |
+| Proof strip | Question 3 before personality | Three facts on one row | One fact: 2,800 → 29,784 | Number is checkable later; letters are the witnessed proof |
 | Capabilities | Show the system, not a slogan | One window, list/detail | Grouped list | Selecting a row reveals proof, not decoration |
 | Work | Breadth across sales, adoption, AI, UX | Second window, four cases | Grouped list, newest commercial case first | Education is one row, not the category |
 | Letters | Evidence, not praise | Four document cards | One quote + path to Letters | Every quote has a named author and a destination |

@@ -3,7 +3,7 @@
 Auckland, New Zealand | +64 22 854 9696 | brad@clarityengine.co | linkedin.com/in/bradfriis
 
 ## PROFILE
-Commercial manager who has carried a territory and a number for over 25 years, ten of them running the New Zealand and Australian business for a United States software vendor’s channel partner. Grew the licensed base from 2,800 to 24,500, lifted initial client investment by 30 percent through tiered licensing and renewal pricing, and pulled back an account that was actively evaluating a competitor. Looking for an account management seat where retention and expansion are the number, not new logos alone.
+Commercial manager who has carried a territory and a number for over 25 years, ten of them running the New Zealand and Australian business for a United States software vendor’s channel partner. Grew the licensed base from 2,800 to 29,784, lifted initial client investment by 30 percent through tiered licensing and renewal pricing, and pulled back an account that was actively evaluating a competitor. Looking for an account management seat where retention and expansion are the number, not new logos alone.
 
 ## PROFESSIONAL EXPERIENCE
 
@@ -15,7 +15,7 @@ Consultancy work for Pikle, an ecommerce product discovery platform, alongside p
 
 ### General Manager, New Zealand and Australia · GCT Education · June 2015 to September 2025
 Channel partner for PowerSchool Schoology and itslearning across New Zealand and Australia.
-*   Grew the licensed user base from 2,800 to 24,500 across the decade.
+*   Grew the licensed user base from 2,800 to 29,784 across the decade.
 *   Grew revenue per account through tiered licensing, renewal pricing and upsell into additional sites and departments.
 *   Retained a five-campus account that was actively evaluating a move to a competitor, then converted it into an expanded investment. Written reference available.
 *   Directed multi-year licensing agreements, renewal pricing and staggered billing tiers, lifting initial client investment by 30 percent.

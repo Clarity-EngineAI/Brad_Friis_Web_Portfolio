@@ -3,7 +3,7 @@
 Auckland, New Zealand | +64 22 854 9696 | brad@clarityengine.co | linkedin.com/in/bradfriis
 
 ## PROFILE
-Customer success and account manager currently consulting in ecommerce product discovery, covering catalogue data quality, search, filtering, recommendations and shopping assistants for Shopify and WooCommerce stores. Behind that, ten years running a software vendor’s New Zealand and Australian business: 2,800 to 24,500 licensed users, an onboarding and adoption programme built from scratch, and a five-campus account saved from an active competitor evaluation. Strongest where the customer is commercially motivated but not technical.
+Customer success and account manager currently consulting in ecommerce product discovery, covering catalogue data quality, search, filtering, recommendations and shopping assistants for Shopify and WooCommerce stores. Behind that, ten years running a software vendor’s New Zealand and Australian business: 2,800 to 29,784 licensed users, an onboarding and adoption programme built from scratch, and a five-campus account saved from an active competitor evaluation. Strongest where the customer is commercially motivated but not technical.
 
 ## PROFESSIONAL EXPERIENCE
 
@@ -17,7 +17,7 @@ Customer success and account manager currently consulting in ecommerce product d
 * Channel partner for PowerSchool Schoology and itslearning across New Zealand and Australia.
 * Built the onboarding, training and adoption programme, running hands-on and remote workshops for non-technical staff across the customer base.
 * Retained a five-campus account that was actively evaluating a move to a competitor, then converted it into an expanded investment. Written reference available.
-* Grew the licensed user base from 2,800 to 24,500 across the decade.
+* Grew the licensed user base from 2,800 to 29,784 across the decade.
 * Held accounts through a platform migration, sector reform and the shift to remote delivery, with clients reporting no loss of service continuity.
 * Grew revenue per account through tiered licensing, renewal pricing and upsell into additional sites and departments.
 * Ran the full cycle from prospecting to close: demos, written proposals, pipeline management in Pipedrive, and conference sponsorship and presentation.

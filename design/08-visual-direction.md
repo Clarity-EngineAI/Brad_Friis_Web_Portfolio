@@ -100,7 +100,7 @@ beside the fixed token block, three byte-identical, which is how the scale drift
 so a new section cannot invent an eighth value.
 
 `.stat-figure` is the one deliberate exception and keeps its own clamp. Reason, previously unrecorded:
-the figures are `nowrap` in a four-up band and `2,800 → 24,500` is the widest string on the site — at
+the figures are `nowrap` in a four-up band and `2,800 → 29,784` is the widest string on the site — at
 the section step's `3.4vw` middle term it overruns its column between 900px and 1100px. Same floor and
 ceiling, slower middle term.
 

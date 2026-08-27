@@ -238,7 +238,7 @@ actually about capability, not biography. Both are open.
 - Lead: `Demand, pipeline, proposals, adoption. Then AI, product and UX. The whole revenue path.`
 
 *What the section holds:* four work cells — ten years selling and growing a SaaS platform across NZ
-and Australia (licensed users 2,800 to 24,500); current AI product consulting; a sales operations
+and Australia (licensed users 2,800 to 29,784); current AI product consulting; a sales operations
 role that included the process behind a fourteen-person telemarketing team and the billing
 structure; and the earlier media and web growth years. *Problem:* "The system is the proof" is
 abstract and does not say what a reader gets. The lead is a list of nouns with no verb.
@@ -321,7 +321,7 @@ is open.
    sentence as though they are one fact, and never derive a third number from them.**
 5. **99 Corporation, 2013.** Put a price on work the business had been giving away free, and set up
    the billing structure behind it.
-6. **2015–2025.** Territory growth: licensed users from 2,800 to 24,500 across NZ and Australia,
+6. **2015–2025.** Territory growth: licensed users from 2,800 to 29,784 across NZ and Australia,
    with key accounts retained and expanded. **The employer is never named anywhere in site output.**
    Row 6 is currently present tense and covers a finished role — flag whether it should move to past
    tense.

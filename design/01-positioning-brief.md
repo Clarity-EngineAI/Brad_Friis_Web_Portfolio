@@ -128,7 +128,7 @@ Is he commercial, or is he pleasant? Nothing on the site answers this today.
 
 | Evidence | Currently filed as | What it actually is |
 | --- | --- | --- |
-| ~~Exclusive reseller agreements negotiated in Australia, the United States and Europe~~ **Corrected 12 Aug 2026: one reseller agreement, for one product, sold into New Zealand and Australia. No sub-resellers.** | §4 rank 3, "the ten-year exclusive vendor relationship" — durability | ~~**Origination.** Three territories that did not exist as revenue until he negotiated them. The best evidence of building a revenue stream in the whole archive~~ **Void.** What it actually evidences: **contracts, pricing matrices and international negotiation.** Nothing about building a channel. The origination evidence is elsewhere — 2,800 → 24,500, and the two further distribution agreements at §11 correction 5 |
+| ~~Exclusive reseller agreements negotiated in Australia, the United States and Europe~~ **Corrected 12 Aug 2026: one reseller agreement, for one product, sold into New Zealand and Australia. No sub-resellers.** | §4 rank 3, "the ten-year exclusive vendor relationship" — durability | ~~**Origination.** Three territories that did not exist as revenue until he negotiated them. The best evidence of building a revenue stream in the whole archive~~ **Void.** What it actually evidences: **contracts, pricing matrices and international negotiation.** Nothing about building a channel. The origination evidence is elsewhere — 2,800 → 29,784, and the two further distribution agreements at §11 correction 5 |
 | Walker, 24 Mar 2003: *"an extraordinarily high strike rate… with little or no material backup what so ever"* | Not in the proof ordering at all. Slated as a `/letters` caption about a missing word | A managing director stating in writing that Brad sells cold, without collateral. The direct answer to the hunter objection, currently spent on the page's dry joke |
 | Full-cycle prospecting to close, in Pipedrive, across the channel-partner decade | CV line | Process evidence. It is also why *"ran on renewals rather than new logos"* was voided on 11 Aug 2026 — that line was never true and its absence is now load-bearing |
 
@@ -154,7 +154,7 @@ capability is not a second positioning competing with the first. **It is the def
 > This whole section ranks **achievements**. The interview of 12 August inverted the architecture:
 > the site now leads with what Brad knows, and each thing he knows carries its evidence in the same
 > viewport. The ordering below is therefore ranking the wrong class of thing — the five-campus save
-> and 2,800 → 24,500 still appear, but as proof of a stated method rather than as the headline, and
+> and 2,800 → 29,784 still appear, but as proof of a stated method rather than as the headline, and
 > the Walker 2003 quote is promoted out of a `/letters` caption into the ordering proper.
 >
 > It is **not** rewritten here. The correct ordering depends on which propositions lead, which
@@ -207,7 +207,7 @@ This leads because it is the only asset that is simultaneously a story with tens
 
 Placement: a named section on the homepage, told in full at roughly 150 words, with the pull-quote inside the same viewport as the claim, and a link to the complete letter.
 
-### Rank 2 — 2,800 to 24,500 licensed users. Hero support line.
+### Rank 2 — 2,800 to 29,784 licensed users. Hero support line.
 
 The scale number. It sits in the hero support paragraph and in the proof strip immediately below the fold, and it is stated exactly once in each place with no elaboration.
 
@@ -246,7 +246,7 @@ Five options. The recommendation is C, and the reasoning for each is the point o
 ### A — Declarative
 
 > ### I keep software customers.
-> Twenty-five years in software, media and agency work, ten of them running a United States vendor's New Zealand and Australian business. The licensed base went from 2,800 to 24,500. Three customers wrote references nobody asked them for.
+> Twenty-five years in software, media and agency work, ten of them running a United States vendor's New Zealand and Australian business. The licensed base went from 2,800 to 29,784. Three customers wrote references nobody asked them for.
 
 **For:** Four words, no hedge, and it states the proposition directly. The support paragraph does heavy lifting in one breath and the last sentence is the strongest thing on the site.
 **Against:** "Keep" is quiet. A hiring manager scanning for growth verbs may read it as maintenance rather than expansion, which undersells the 30 percent investment lift and the expanded five-campus account.
@@ -262,14 +262,14 @@ Five options. The recommendation is C, and the reasoning for each is the point o
 ### C — Recommended
 
 > ### Twenty-five years selling software. Ten years keeping it sold.
-> I ran a United States vendor's New Zealand and Australian business as its only local partner. The licensed base went from 2,800 to 24,500, an account that was actively evaluating a competitor stayed and expanded, and three customers wrote references I never asked for.
+> I ran a United States vendor's New Zealand and Australian business as its only local partner. The licensed base went from 2,800 to 29,784, an account that was actively evaluating a competitor stayed and expanded, and three customers wrote references I never asked for.
 
 **For:** The full proposition in nine words, with a rhythm that survives being repeated. The two halves do different jobs: the first establishes depth, the second names the discipline that most CVs cannot claim. It separates new-logo work from retention and expansion, which is exactly the seat being applied for, and it reads correctly for all four resume positionings without modification. It also sets up the entire page, because everything below it is either selling or keeping.
 **Against:** "Keeping it sold" is a shade informal and one conservative reader in ten may find it glib. That risk is acceptable and arguably useful — it sounds like a person rather than a profile.
 
 ### D — Number as hero
 
-> ### 2,800 → 24,500
+> ### 2,800 → 29,784
 > Brad Friis grew a software vendor's New Zealand and Australian licensed base by 8.75 times in ten years.
 
 **For:** Maximum confidence and it stops the eye. Photographs well.
@@ -299,7 +299,7 @@ Diff the four resume variants and count what actually changes.
 
 | Evidence | Master | B2B SaaS | Channel | Ecommerce / retail | Prof. services |
 | --- | :---: | :---: | :---: | :---: | :---: |
-| 2,800 → 24,500 licensed users | ● | ● | ● | ● | ● |
+| 2,800 → 29,784 licensed users | ● | ● | ● | ● | ● |
 | Five-campus retention and expansion | ● | ● | ● | ● | ● |
 | Tiered licensing, +30 percent initial investment | ● | ● | ● | ● | ● |
 | Pikle positioning, messaging and sales kit | ● | ● | ● | ● | ● |
@@ -350,7 +350,7 @@ The reference letters describe warmth, patience, humour, humility and generosity
 Rules:
 
 - **Specific over impressive.** "An account that was actively evaluating a competitor" beats "a challenging retention scenario". Every time.
-- **State numbers once, plainly.** 2,800 to 24,500. Thirty percent. Ten years. No exclamation, no "an incredible", no rounding up to make a better rhythm.
+- **State numbers once, plainly.** 2,800 to 29,784. Thirty percent. Ten years. No exclamation, no "an incredible", no rounding up to make a better rhythm.
 - **Let the customers do the praising.** Brad never writes that he is patient or trusted. Adrian Pilgrim and Andrew Bergh already did, in writing, and quoting them is worth more than any self-description.
 - **Warmth through concreteness, humour through restraint.** One dry line per page at most. The Rototuna smiley does more work than any joke Brad could write.
 - **Banned:** passionate, results-driven, proven track record, journey, thrilled, excited to share, leveraged, synergy, "I'm not just X, I'm Y", and any sentence a hundred other candidates could have written.
@@ -434,7 +434,7 @@ Not an either/or. Each does a job the other cannot.
 Twenty-five years selling software. Ten years keeping it sold.
 │
 ├── Proof of keeping           the five-campus save, with Pilgrim's letter behind it   [leads]
-├── Proof of scale             2,800 → 24,500 over a decade                            [hero support]
+├── Proof of scale             2,800 → 29,784 over a decade                            [hero support]
 ├── Proof of durability        ten years, one vendor, sole NZ and AU responsibility    [career block]
 ├── Proof of adoption          Bergh on change-resistant staff, 95 percent pass rate   [mid-page + /proof]
 └── Proof of character         Rototuna, unedited                                      [/proof + /about]
@@ -560,7 +560,7 @@ phases of copy lead with achievements. The agreed replacement:
 - *How you ready a person to sell a product on value* → the ramp sequence itself, shown, with four businesses under it. **A strong candidate for the lead**, because it is the only one that answers the half of the proposition §3.1 says the site cannot prove
 
 The six letters stop being a trophy cabinet and become the footings under a set of arguments. The
-five-campus save and 2,800 → 24,500 still appear — as proof of a stated method, not as the headline.
+five-campus save and 2,800 → 29,784 still appear — as proof of a stated method, not as the headline.
 The governing rule of §4 survives intact; only the ordering changes. `/record` and `/cv` carry
 chronology.
 
@@ -575,7 +575,7 @@ hero, stats and capabilities. See §7.1 for the scope, the current breach and th
 | 2 | Employers | NZ/AU software vendors; offshore vendors needing a NZ/AU territory; NZ early-stage. Brad added that the skills map to any business with a product. **Resolved: the site targets software; breadth is proven by the archive, never announced.** Two of six letters are advertising and tourism; `/record` spans software, media and agency |
 | 3 | Leading a team | **Yes — player-coach.** Two to six reports while carrying a number. Hero support line gains a fourth term |
 | 4 | Deal breakers | All four: no ownership of the relationship; pure new-logo churn; a product he can't argue for; targets set without evidence. Through-line for positioning: **ownership and evidence** |
-| 5 | Origination | 2,800 → 24,500 licensed users, plus the two negotiated distribution agreements (correction 5). Reseller framing corrected |
+| 5 | Origination | 2,800 → 29,784 licensed users, plus the two negotiated distribution agreements (correction 5). Reseller framing corrected |
 | 6 | Enablement | **Reopened and restored** — see correction 3. PowerSchool programme rebuilt for NZ/AU; ramp built from nothing at 99 Corporation; strategy in role at Adplus and Xplore. Appears **as method, shown**, never as a results claim |
 | 7 | Failure | **Legally excluded by settlement. Permanent** |
 | 8 | Point of view | **Collateral is a substitute for knowing.** Evidenced by Walker, 2003 |

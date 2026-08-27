@@ -108,7 +108,7 @@ line down**, into the support paragraph. The reasoning is in J and K below.
 >
 > Brad Friis — account management, customer success and channel partnerships, Auckland. Twenty-five
 > years in software, media and agency work, ten of them running a United States vendor's New Zealand
-> and Australian business as its only local partner. The licensed base went from 2,800 to 24,500,
+> and Australian business as its only local partner. The licensed base went from 2,800 to 29,784,
 > and an account that was actively evaluating a competitor stayed and expanded. Six people have put
 > it in writing; the oldest is from February 2003.
 
@@ -129,7 +129,7 @@ display line is also the longest in the file at nine words.
 surviving candidate in this file, because it makes no claim about solicitation and needs no rewriting
 when the count changes. **The support paragraph is new.** Option I's version claimed *"the last
 decade ran on renewals rather than new logos"*, which is not supported — the CV records full-cycle
-prospecting to close throughout the channel-partner decade, and a licensed base going from 2,800 to 24,500 in a
+prospecting to close throughout the channel-partner decade, and a licensed base going from 2,800 to 29,784 in a
 small market almost certainly includes new schools. That clause is void; see the restatus under I.
 
 **Design consequence.** The support paragraph names six documents, so the governing rule requires the
@@ -148,7 +148,7 @@ names in the same viewport. See the attribution line in
 >
 > Brad Friis — account management, customer success and channel partnerships, Auckland. Twenty-five
 > years in software, media and agency work, ten of them running a United States vendor's New Zealand
-> and Australian business as its only local partner. The licensed base went from 2,800 to 24,500,
+> and Australian business as its only local partner. The licensed base went from 2,800 to 29,784,
 > and an account that was actively evaluating a competitor stayed and expanded.
 
 **For.** It preserves what was good about option G exactly: the most unusual fact on the site, stated
@@ -220,7 +220,7 @@ mine*, which is on the letters page and in L above.
 >
 > Twenty-five years in software, media and agency work. Ten of them running a United States
 > vendor's New Zealand and Australian business as its only local partner, where the licensed base
-> went from 2,800 to 24,500 and an account that was actively evaluating a competitor stayed and
+> went from 2,800 to 29,784 and an account that was actively evaluating a competitor stayed and
 > expanded.
 
 **For.** The most unusual fact on the site, and it is third-party rather than a claim Brad makes
@@ -258,7 +258,7 @@ span rather than solicitation.
 >
 > Brad Friis. Account management, customer success and channel partnerships, Auckland. I ran a
 > United States vendor's New Zealand and Australian business as its only local partner for ten
-> years. The licensed base went from 2,800 to 24,500, and an account that was actively evaluating
+> years. The licensed base went from 2,800 to 29,784, and an account that was actively evaluating
 > a competitor stayed and expanded.
 
 **For.** Five words, and it contradicts every commercial CV in the market. Anyone carrying a
@@ -282,7 +282,7 @@ standfirst on a piece of writing about renewals.
 >
 > Brad Friis — account management, customer success and channel partnerships. Ten years running a
 > United States vendor's New Zealand and Australian business as its only local partner, 2,800 to
-> 24,500 licensed users, and three references I never asked for.
+> 29,784 licensed users, and three references I never asked for.
 
 **For.** The only option with narrative tension. Eight words holding a threat and a resolution. A
 reader who reads nothing else on the page still remembers it.
@@ -304,7 +304,7 @@ section takes `Five campuses, one strategy` instead.
 > for" is untrue — the 11 August solicitation correction. Second, and found on 11 August in round
 > three: **"the last decade ran on renewals rather than new logos" is not supported by anything.**
 > The master CV records the full cycle from prospecting to close throughout the channel-partner decade, and a
-> licensed base going from 2,800 to 24,500 in a market the size of New Zealand and Australia
+> licensed base going from 2,800 to 29,784 in a market the size of New Zealand and Australia
 > self-evidently includes schools that were not customers before. The clause was written to sharpen
 > the retention story and it overstates it. It must not be revived anywhere on the site, including
 > on `/record`, where the same temptation will present itself.
@@ -315,7 +315,7 @@ section takes `Five campuses, one strategy` instead.
 > ### I have kept the same customers for ten years at a time.
 >
 > Twenty-five years selling software, media and agency work. The last decade ran on renewals
-> rather than new logos: 2,800 to 24,500 licensed users for a United States vendor's New Zealand
+> rather than new logos: 2,800 to 29,784 licensed users for a United States vendor's New Zealand
 > and Australian business, and three customers who wrote references I never asked for.
 
 **For.** Nothing to object to. Warm, unhurried, senior, no wordplay at all, and impossible to write
@@ -333,7 +333,7 @@ than growth — the same objection that sank option A.
 > ### I keep software customers.
 >
 > Twenty-five years in software, media and agency work, ten of them running a United States
-> vendor's New Zealand and Australian business. The licensed base went from 2,800 to 24,500. Three
+> vendor's New Zealand and Australian business. The licensed base went from 2,800 to 29,784. Three
 > customers wrote references nobody asked them for.
 
 **For.** Four words, no hedge, states the proposition directly. **Against.** "Keep" is quiet enough
@@ -360,7 +360,7 @@ Same line as H with a thinner support paragraph. H is the better-supported versi
 > ### Twenty-five years selling software. Ten years keeping it sold.
 >
 > I ran a United States vendor's New Zealand and Australian business as its only local partner. The
-> licensed base went from 2,800 to 24,500, an account that was actively evaluating a competitor
+> licensed base went from 2,800 to 29,784, an account that was actively evaluating a competitor
 > stayed and expanded, and three customers wrote references I never asked for.
 
 **For.** The full proposition in nine words with a rhythm that survives repetition, and it separates
@@ -375,7 +375,7 @@ clean and is the best support material in this file.
 
 ### D — Number as hero · **Rejected at Stage 1**
 
-> ### 2,800 → 24,500
+> ### 2,800 → 29,784
 >
 > Brad Friis grew a software vendor's New Zealand and Australian licensed base by 8.75 times in ten
 > years.

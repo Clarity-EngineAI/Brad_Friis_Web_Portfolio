@@ -5,7 +5,7 @@ Auckland, New Zealand | +64 22 854 9696 | brad@clarityengine.co | [linkedin.com/
 ---
 
 ## PROFILE
-Channel and partnership manager with ten years running a United States software vendor’s New Zealand and Australian business as its exclusive local partner. Negotiated exclusive reseller agreements in Australia, the United States and Europe, owned territory pricing, forecasting and the vendor reporting line, and grew the licensed base from 2,800 to 24,500. Comfortable on both sides of a partner relationship: carrying the vendor’s standards into the market, and carrying the market’s reality back to the vendor.
+Channel and partnership manager with ten years running a United States software vendor’s New Zealand and Australian business as its exclusive local partner. Negotiated exclusive reseller agreements in Australia, the United States and Europe, owned territory pricing, forecasting and the vendor reporting line, and grew the licensed base from 2,800 to 29,784. Comfortable on both sides of a partner relationship: carrying the vendor’s standards into the market, and carrying the market’s reality back to the vendor.
 
 ---
 
@@ -29,7 +29,7 @@ Channel partner for PowerSchool Schoology and itslearning across New Zealand and
 
 * Negotiated exclusive reseller agreements in Australia, the United States and Europe, and held the vendor channel relationship for ten years.
 * Held sole responsibility for the New Zealand and Australian territory, including pricing, forecasting and the reporting line back to the vendor.
-* Grew the licensed user base from 2,800 to 24,500 across the decade.
+* Grew the licensed user base from 2,800 to 29,784 across the decade.
 * Ran the partner-side enablement: product training, demo delivery, proposal support and the technical escalation path into the vendor.
 * Directed multi-year licensing agreements, renewal pricing and staggered billing tiers, lifting initial client investment by 30 percent.
 * Retained a five-campus account that was actively evaluating a move to a competitor, then converted it into an expanded investment. Written reference available.

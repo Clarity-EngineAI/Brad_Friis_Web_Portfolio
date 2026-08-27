@@ -56,7 +56,7 @@ Ignore `Brad Friis Resumes/IGNORE -DOCX VERSIONS RESUMES/` and any `.docx` or `~
   a detail. It is the site's governing rule applied to its own headline.
 - **No claim appears without its evidence in the same viewport**, and every quote links to the full
   letter at `/proof`. A section that separates a claim from its proof has failed.
-- **Proof leads with the five-campus save**, not the 2,800 to 24,500 figure.
+- **Proof leads with the five-campus save**, not the 2,800 to 29,784 figure.
 - **The audience lens is confirmed dropped.** No visible switcher. `/resume/[lens]` survives as four
   routes Brad sets on outbound links.
 - **No family content.** Community and governance sit on `/about`.

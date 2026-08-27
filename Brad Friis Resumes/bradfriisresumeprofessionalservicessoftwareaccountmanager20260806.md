@@ -3,7 +3,7 @@
 Auckland, New Zealand | +64 22 854 9696 | brad@clarityengine.co | linkedin.com/in/bradfriis
 
 ## PROFILE
-Account manager with over 25 years in software and services, specialising in getting busy, non-technical professionals to actually adopt the system they are paying for. Ten years running a software vendor’s New Zealand and Australian business: 2,800 to 24,500 licensed users, a multi-site client unified onto one strategy across five locations, and an account pulled back from an active competitor evaluation. Written references describe the same thing twice: bringing change-resistant staff along without losing the account.
+Account manager with over 25 years in software and services, specialising in getting busy, non-technical professionals to actually adopt the system they are paying for. Ten years running a software vendor’s New Zealand and Australian business: 2,800 to 29,784 licensed users, a multi-site client unified onto one strategy across five locations, and an account pulled back from an active competitor evaluation. Written references describe the same thing twice: bringing change-resistant staff along without losing the account.
 
 ## PROFESSIONAL EXPERIENCE
 
@@ -20,7 +20,7 @@ Channel partner for PowerSchool Schoology and itslearning across New Zealand and
 *   Consulted with leadership to set organisation-wide goals, then worked site by site across a five-campus client to deliver one unified strategy, cutting duplicated effort.
 *   Retained a five-campus account that was actively evaluating a move to a competitor, then converted it into an expanded investment. Written reference available.
 *   Built the onboarding, training and adoption programme, running hands-on and remote workshops for non-technical staff across the customer base.
-*   Grew the licensed user base from 2,800 to 24,500 across the decade.
+*   Grew the licensed user base from 2,800 to 29,784 across the decade.
 *   Directed multi-year licensing agreements, renewal pricing and staggered billing tiers, lifting initial client investment by 30 percent.
 *   Held accounts through a platform migration, sector reform and the shift to remote delivery, with clients reporting no loss of service continuity.
 

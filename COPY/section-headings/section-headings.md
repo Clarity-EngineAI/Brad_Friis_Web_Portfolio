@@ -72,7 +72,7 @@ Four figures, stated once, no elaboration. **In use** from Stage 2.
 
 | Figure | Caption |
 | --- | --- |
-| 2,800 → 24,500 | Licensed users, grown over a decade |
+| 2,800 → 29,784 | Licensed users, grown over a decade |
 | 10 years | One vendor relationship, held exclusively |
 | 5 campuses | Retained mid-competitor-evaluation, then expanded |
 | ~~3 references~~ ~~5 references~~ **6 references** | ~~Written, signed, unsolicited~~ ~~Written, signed, reproduced in full~~ ~~Six people, four industries, reproduced in full~~ **Two bosses and four customers, 2003 to 2025** |
