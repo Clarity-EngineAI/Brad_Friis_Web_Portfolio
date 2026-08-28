@@ -4,6 +4,10 @@ import ContactPanel from "../../components/ContactPanel.astro";
 import { getPosts } from "../../lib/sanity";
 
 const posts = await getPosts();
+
+/* Categories are free text on each Sanity post — no fixed taxonomy — so the filter pills are
+   computed from whatever categories actually exist in the fetched posts, in first-seen order. */
+const categories = [...new Set(posts.map((post) => post.category))];
 ---
 
 <SiteLayout
@@ -17,28 +21,65 @@ const posts = await getPosts();
       <p class="page-intro">Practical thinking across business, from strategy and sales to AI, written to help you understand it faster. Plus the odd amusing tale from the field.</p>
     </header>
 
-    <section class="letter-index blog-index shell" aria-label="Blog posts">
+    <section class="blog-index shell" aria-label="Blog posts">
       {posts.length === 0 && <p>Nothing published yet.</p>}
-      <ol class="row-list">
+      {posts.length > 0 && categories.length > 1 && (
+        <ul class="category-filter" role="group" aria-label="Filter by category">
+          <li><button type="button" data-filter="all" aria-pressed="true">All</button></li>
+          {categories.map((category) => (
+            <li><button type="button" data-filter={category} aria-pressed="false">{category}</button></li>
+          ))}
+        </ul>
+      )}
+      <div class="hairline-grid">
         {posts.map((post) => (
-          <li class="letter-row">
-            <div class="letter-who">
-              <p class="tier-name">
-                <a href={`/blog/${post.slug}/`}>{post.title}</a>
-              </p>
-              <p class="tier-meta">{post.category} · <time datetime={post.date}>{post.dateLabel}</time></p>
-            </div>
-            <div class="letter-quote">
-              <p class="dek">{post.dek}</p>
-              <a class="text-link" href={`/blog/${post.slug}/`}>
-                Read<span class="visually-hidden"> {post.title}</span>
-              </a>
-            </div>
-          </li>
+          <article class="blog-card" data-category={post.category}>
+            <div class="thumb" aria-hidden="true"></div>
+            <p class="eyebrow-pill">{post.category}</p>
+            <h2>
+              <a href={`/blog/${post.slug}/`}>{post.title}</a>
+            </h2>
+            <p class="meta"><time datetime={post.date}>{post.dateLabel}</time></p>
+            <p>{post.dek}</p>
+            <a class="text-link" href={`/blog/${post.slug}/`}>
+              Read<span class="visually-hidden"> {post.title}</span>
+            </a>
+          </article>
         ))}
-      </ol>
+      </div>
     </section>
   </div>
+
+  {categories.length > 1 && (
+    <script>
+      const buttons = document.querySelectorAll<HTMLButtonElement>(".category-filter button");
+      const cards = document.querySelectorAll<HTMLElement>(".blog-card");
+
+      /* .hairline-grid's CSS spans an odd trailing cell across both columns, but that selector
+         is static and can't see which cards the filter below has hidden — a filtered set landing
+         on an odd count (most often 1) needs the same span applied dynamically. */
+      function updateTrailingSpan() {
+        const visible = [...cards].filter((card) => !card.hidden);
+        cards.forEach((card) => card.classList.remove("is-trailing-odd"));
+        if (visible.length % 2 === 1) {
+          visible[visible.length - 1].classList.add("is-trailing-odd");
+        }
+      }
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
+          const filter = button.dataset.filter;
+          cards.forEach((card) => {
+            card.hidden = filter !== "all" && card.dataset.category !== filter;
+          });
+          updateTrailingSpan();
+        });
+      });
+
+      updateTrailingSpan();
+    </script>
+  )}
 
   <div class="band band-alt">
     <section class="section shell" id="contact" aria-labelledby="contact-heading">

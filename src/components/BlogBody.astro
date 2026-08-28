@@ -1,17 +1,58 @@
 ---
+import { Image } from "astro:assets";
 import type { BlogBlock } from "../data/blog";
+import { getBlogImage } from "../data/blogImages";
 
 interface Props {
   blocks: BlogBlock[];
 }
 
 const { blocks } = Astro.props;
+
+/* Sanity's paragraph/list-item fields are plain strings — bold is authored inline as
+   **text** rather than through a rich-text editor, matching this schema's "discrete
+   block types, no Portable Text" design (see blockContent.ts). Splitting on the marker
+   keeps the renderer free of any HTML-from-CMS trust boundary. */
+function renderInline(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part) =>
+    part.startsWith("**") && part.endsWith("**") ? { bold: part.slice(2, -2) } : part
+  );
+}
 ---
 
 {
   blocks.map((block) => {
     if (block.kind === "heading") return <h2>{block.text}</h2>;
     if (block.kind === "break") return <hr />;
-    return <p>{block.text}</p>;
+    if (block.kind === "image") {
+      const source = getBlogImage(block.key);
+      return (
+        <figure class="blog-figure">
+          <Image src={source} alt={block.alt} widths={[640, 960, 1280]} sizes="(min-width: 48rem) 40rem, 100vw" />
+          {block.caption && <figcaption>{block.caption}</figcaption>}
+        </figure>
+      );
+    }
+    if (block.kind === "list") {
+      const ListTag = block.style === "number" ? "ol" : "ul";
+      return (
+        <ListTag>
+          {block.items.map((item) => (
+            <li>
+              {renderInline(item).map((part) =>
+                typeof part === "string" ? part : <strong>{part.bold}</strong>
+              )}
+            </li>
+          ))}
+        </ListTag>
+      );
+    }
+    return (
+      <p>
+        {renderInline(block.text).map((part) =>
+          typeof part === "string" ? part : <strong>{part.bold}</strong>
+        )}
+      </p>
+    );
   })
 }

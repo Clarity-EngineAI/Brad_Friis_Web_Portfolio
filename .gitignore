@@ -25,3 +25,8 @@ Brad Friis Resumes/Company logos - who Ive worked with/99 Corporation/
 
 # Unoptimized source logos for the AI tools strip — kept locally, site ships optimized only.
 src/assets/ai-logos/_backup/
+
+# API keys — local only, never committed.
+.env
+.env.*
+!.env.example

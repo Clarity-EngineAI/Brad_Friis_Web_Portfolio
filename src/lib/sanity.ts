@@ -15,8 +15,19 @@ const client = createClient({
 /* Sanity's document shape, before it is mapped to the site's BlogPost. The _type on each
    body block is the schema name; the site's discriminant is `kind`. */
 interface SanityBlock {
-  _type: "headingBlock" | "paragraphBlock" | "breakBlock";
+  _type: "headingBlock" | "paragraphBlock" | "listBlock" | "breakBlock" | "imageBlock";
   text?: string;
+  style?: "bullet" | "number";
+  items?: string[];
+  key?: string;
+  alt?: string;
+  caption?: string;
+}
+
+interface SanityImage {
+  key?: string;
+  alt?: string;
+  caption?: string;
 }
 
 interface SanityPost {
@@ -25,6 +36,7 @@ interface SanityPost {
   dek: string;
   date: string;
   category: string;
+  image: SanityImage | null;
   body: SanityBlock[] | null;
 }
 
@@ -37,7 +49,8 @@ const POSTS_QUERY = `*[_type == "post" && defined(slug.current)] | order(date de
   dek,
   date,
   category,
-  body[]{ _type, text }
+  image{ key, alt, caption },
+  body[]{ _type, text, style, items, key, alt, caption }
 }`;
 
 /** en-NZ long date, matching the hand-written dateLabel format ("15 August 2026"). */
@@ -52,10 +65,25 @@ function formatDateLabel(date: string): string {
   }).format(parsed);
 }
 
+function toLeadImage(image: SanityImage | null): BlogPost["image"] {
+  if (!image?.key || !image.alt) return undefined;
+  return { key: image.key, alt: image.alt, caption: image.caption };
+}
+
 function toBlogBlocks(blocks: SanityBlock[] | null): BlogBlock[] {
   if (!blocks) return [];
   return blocks.flatMap<BlogBlock>((block) => {
     if (block._type === "breakBlock") return [{ kind: "break" }];
+    if (block._type === "imageBlock") {
+      /* Alt text is required in the schema, so an image missing one is a document that
+         predates the field. Dropping it beats publishing an unlabelled image. */
+      if (!block.key || !block.alt) return [];
+      return [{ kind: "image", key: block.key, alt: block.alt, caption: block.caption }];
+    }
+    if (block._type === "listBlock") {
+      if (!block.items?.length) return [];
+      return [{ kind: "list", style: block.style ?? "bullet", items: block.items }];
+    }
     if (!block.text) return [];
     if (block._type === "headingBlock") return [{ kind: "heading", text: block.text }];
     return [{ kind: "paragraph", text: block.text }];
@@ -95,6 +123,7 @@ export async function getPosts(): Promise<BlogPost[]> {
     date: post.date,
     dateLabel: formatDateLabel(post.date),
     category: post.category,
+    image: toLeadImage(post.image),
     body: toBlogBlocks(post.body),
   }));
 }

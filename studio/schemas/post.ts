@@ -45,14 +45,23 @@ export const post = defineType({
       validation: (rule) => rule.required().max(40).custom(checkGuardrails),
     }),
     defineField({
+      name: "image",
+      title: "Lead image",
+      type: "imageBlock",
+      description:
+        "Optional image shown above the body, under the standfirst. Same rule as an in-body image: the file lives in src/assets/blog and this records its key.",
+    }),
+    defineField({
       name: "body",
       title: "Body",
       type: "array",
-      description: `Built from three kinds of block: heading, paragraph, and section break. ${GUARDRAIL_NOTE}`,
+      description: `Built from five kinds of block: heading, paragraph, list, section break, and image. ${GUARDRAIL_NOTE}`,
       of: [
         { type: "headingBlock" },
         { type: "paragraphBlock" },
+        { type: "listBlock" },
         { type: "breakBlock" },
+        { type: "imageBlock" },
       ],
       validation: (rule) =>
         rule.required().min(1).custom((blocks) => {
@@ -61,6 +70,13 @@ export const post = defineType({
             const text = (block as { text?: unknown })?.text;
             const result = checkGuardrails(text);
             if (result !== true) return result;
+            const items = (block as { items?: unknown })?.items;
+            if (Array.isArray(items)) {
+              for (const item of items) {
+                const itemResult = checkGuardrails(item);
+                if (itemResult !== true) return itemResult;
+              }
+            }
           }
           return true;
         }),

@@ -1601,6 +1601,97 @@ main {
   padding-bottom: 72px;
 }
 
+/* Blog index: filter pills plus a two-up hairline grid, distinct from the letters row-list.
+   Category is real Sanity free text, so pills are computed from whatever categories exist at
+   build time rather than a fixed set. 28 August 2026. */
+.category-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.category-filter button {
+  padding: 6px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--ink-secondary);
+  font-family: inherit;
+  font-size: var(--text-meta);
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.category-filter button:hover {
+  border-color: var(--line-hover);
+  background: var(--surface-alt);
+}
+
+.category-filter button[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--paper);
+}
+
+.blog-card {
+  align-items: flex-start;
+}
+
+.blog-card .thumb {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  margin: 0 0 16px;
+  border-radius: var(--r-sm);
+  background: var(--surface-alt);
+}
+
+.blog-card h2 {
+  max-width: 46ch;
+  margin: 0 0 8px;
+  font-size: var(--text-title);
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.blog-card .meta {
+  margin: 0 0 14px;
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+}
+
+.blog-card p {
+  margin: 0 0 18px;
+  color: var(--ink-secondary);
+}
+
+.blog-card .text-link {
+  margin-top: auto;
+}
+
+/* Mirrors .hairline-grid > :last-child:nth-child(odd) for the filtered state: that selector is
+   static and can't see which cards script.ts above has hidden, so a filtered set landing on an
+   odd count gets this class applied dynamically to its last visible card instead. */
+@media (min-width: 641px) {
+  .blog-card.is-trailing-odd {
+    grid-column: 1 / -1;
+  }
+
+  /* Full-span doubles the card's available width, which would double the 16:9 thumb's height
+     too — cap it back to a single column's width so a lone filtered result doesn't balloon. */
+  .blog-card.is-trailing-odd .thumb {
+    max-width: calc(50% - 11px);
+  }
+}
+
+.blog-card[hidden] {
+  display: none;
+}
+
 /* Bridges the reader's peak trust right after the last reference into the contact panel's
    subject change, rather than cutting straight from evidence to a form. 28 August 2026. */
 .letters-bridge {
@@ -1810,6 +1901,48 @@ main {
   margin-block: 40px;
 }
 
+.blog-post ul,
+.blog-post ol {
+  padding-left: 1.3em;
+  color: var(--ink-secondary);
+  line-height: 1.7;
+}
+
+.blog-post li + li {
+  margin-top: 8px;
+}
+
+.blog-post strong {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+/* A blog image gets more air than a paragraph gap (22px) because it is a break in the reading,
+   the same reason a section rule gets 40px. Border and radius match .scan so the two kinds of
+   figure on the site read as one treatment. */
+.blog-figure {
+  margin-block: 40px;
+}
+
+.blog-figure-lead {
+  margin-top: 0;
+}
+
+.blog-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+}
+
+.blog-figure figcaption {
+  margin-top: 12px;
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+  line-height: 1.5;
+}
+
 .scan {
   max-width: 66ch;
   margin: 28px 0 0;
@@ -1868,7 +2001,7 @@ main {
   /* padding-block/margin-block bring the tap height to the 44px floor without changing the
      visible text size; measured at 95.3x19.4px before this, 43.4px at 12px padding-block. 28
      August 2026. */
-  margin: -13px 0 9px;
+  margin: -13px 0 18px;
   padding-block: 13px;
   color: var(--ink-tertiary);
   font-size: var(--text-meta);

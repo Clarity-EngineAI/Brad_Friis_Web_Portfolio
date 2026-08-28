@@ -1,7 +1,9 @@
 export type BlogBlock =
   | { kind: "heading"; text: string }
   | { kind: "paragraph"; text: string }
-  | { kind: "break" };
+  | { kind: "list"; style: "bullet" | "number"; items: string[] }
+  | { kind: "break" }
+  | { kind: "image"; key: string; alt: string; caption?: string };
 
 export interface BlogPost {
   slug: string;
@@ -10,6 +12,8 @@ export interface BlogPost {
   date: string;
   dateLabel: string;
   category: string;
+  /** Optional lead image, shown above the body. */
+  image?: { key: string; alt: string; caption?: string };
   body: BlogBlock[];
 }
 

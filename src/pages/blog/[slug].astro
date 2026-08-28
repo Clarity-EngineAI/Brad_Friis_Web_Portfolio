@@ -1,6 +1,8 @@
 ---
+import { Image } from "astro:assets";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 import BlogBody from "../../components/BlogBody.astro";
+import { getBlogImage } from "../../data/blogImages";
 import { getPosts } from "../../lib/sanity";
 
 export async function getStaticPaths() {
@@ -17,6 +19,7 @@ export async function getStaticPaths() {
 }
 
 const { post, previous, next } = Astro.props;
+const leadImage = post.image ? getBlogImage(post.image.key) : null;
 ---
 
 <SiteLayout
@@ -33,6 +36,12 @@ const { post, previous, next } = Astro.props;
 
     <div class="shell">
       <article class="blog-post">
+        {leadImage && post.image && (
+          <figure class="blog-figure blog-figure-lead">
+            <Image src={leadImage} alt={post.image.alt} widths={[640, 960, 1280]} sizes="(min-width: 48rem) 40rem, 100vw" />
+            {post.image.caption && <figcaption>{post.image.caption}</figcaption>}
+          </figure>
+        )}
         <BlogBody blocks={post.body} />
       </article>
 
