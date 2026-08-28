@@ -56,11 +56,12 @@ const images = [
   {
     key: "agentic-ecommerce-intent-model",
     /* IMAGE 2 - EXPLAINER GRAPHIC. Two stacked flows compared.
-       gpt-image-1 cannot render reliable text, so the labels are carried by the
-       caption and alt text in the CMS instead. The picture supplies structure only.
        Rewritten with an explicit node list and relationship (see blog-image-theme.mjs)
        after the first version came out visually ambiguous — "rigid vs flowing" named
-       a mood, not a mechanism. */
+       a mood, not a mechanism. In-image text labels were then added back deliberately
+       (SHORT_LABELS in blog-image-theme.mjs) because shape alone couldn't carry
+       "customer segment" vs "intent signals"; see that file's typography instructions
+       for the follow-up fix to soft/synthetic-looking label rendering. */
     prompt: buildPrompt({
       type: "diagram",
       subject: "Two competing models of ecommerce personalisation, stacked one above the other for direct comparison.",
@@ -72,13 +73,22 @@ const images = [
       relationship:
         "The upper row shows this three-step chain as rigid and linear: identical square nodes, straight arrows, " +
         "flat grey, one fixed destination shape, feeling closed and predetermined. The lower row shows a second, " +
-        "different three-step chain — current behaviour, then intent signals, then a continuously adapting " +
-        "experience — as fluid: rounded nodes in the single accent colour, curved arrows, and the final node " +
-        "actively branching into three or four small varied output shapes rather than one fixed shape, feeling " +
-        "live and responsive. A few small dots flow into the lower chain from below to represent the customer's " +
-        "historical data still feeding in as one input among several, not the whole story. The two rows must be " +
-        "readable as two different structures (closed chain vs branching chain), not just two different colours.",
-      detail: "Vertically stacked, generous gap between the two rows, both rows the same width and scale so they compare directly.",
+        "different three-step chain (current behaviour, then intent signals, then a continuously adapting " +
+        "experience) as fluid: rounded nodes in the single accent colour, curved arrows, feeling live and " +
+        "responsive. The critical difference between the two rows is what happens at the end. The upper row " +
+        "ends in exactly one output shape. The lower row fans out into a spray of four separate small output " +
+        "shapes, stacked in a vertical column at the far right, each a different silhouette (a square, a " +
+        "circle, a tall rectangle, a wide rectangle), with its own curved arrow reaching it from the final " +
+        "node, so the fan of four is the single most eye-catching thing in the lower row. One output against " +
+        "four outputs is the whole point of the picture. A few small dots flow into the lower chain from below " +
+        "to represent the customer's historical data still feeding in as one input among several, not the " +
+        "whole story. The two rows must be readable as two different structures, a closed chain against a " +
+        "branching chain, not just two different colours.",
+      detail:
+        "Vertically stacked, generous gap between the two rows, both rows the same width and scale so they " +
+        "compare directly. The two rows share one column grid: the first node of the lower row sits directly " +
+        "beneath the first node of the upper row, the second beneath the second, the third beneath the third, " +
+        "with the arrows between them the same length in both rows.",
     }),
   },
   {

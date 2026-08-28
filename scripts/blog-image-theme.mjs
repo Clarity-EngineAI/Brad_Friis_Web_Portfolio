@@ -21,26 +21,39 @@ export const THEME = {
 
 const HOUSE_STYLE_BASE =
   `Editorial illustration for a business article. Restrained, flat, modern vector style. ` +
-  `Background is a light neutral off-white, close to ${GROUND_HEX}. The one accent colour used ` +
-  `for emphasis is a specific burnt sienna, ${ACCENT_HEX} — not orange, not amber, not a generic ` +
-  `warm tone, exactly this muted brick-terracotta. Secondary shapes use warm greys and muted sage, ` +
+  `The background is one flat pale off-white, ${GROUND_HEX}: a bright, light, clean, airy, evenly lit ` +
+  `page, the same pale tone edge to edge and corner to corner, as plain and empty as fresh paper under ` +
+  `flat light. Every corner and every edge is exactly as pale and bright as the centre. No gradient, ` +
+  `no vignette, no shading, no darkened or warmed corners or edges, no texture, no paper grain, no ` +
+  `tint. The one accent colour, used only to fill shapes, is hex ${ACCENT_HEX}, a dark muted brick. ` +
+  `Secondary shapes use warm greys and muted sage, ` +
   `never a second bright colour. Line and shadow work, where used, is a dark warm charcoal close to ` +
   `${INK_HEX}, never pure black. Generous white space. Calm and professional, not playful. ` +
   `No logos, no watermarks, no user interface chrome, no photorealism, no 3D render, ` +
   `no stock-photo look, no clip art.`;
 
-/* Scene images (hero, applied-visual) stay text-free — a person or product grid with
+/* Scene images (hero, applied-visual) stay text-free. A person or product grid with
    text baked in reads as a screenshot, not an illustration. Diagrams are the one
    exception: the first version of "agentic-ecommerce-intent-model" followed the
    no-text rule and came out structurally ambiguous, because shape alone couldn't
    carry "customer segment" vs "intent signals". Short labels resolved it, so
    diagrams now ask for them deliberately instead of relying on the model to break
-   the rule on its own. */
+   the rule on its own.
+
+   Keep this block SHORT. Six generations on that one diagram, 28 August 2026, sort
+   by prompt length and nothing else: the two runs with a terse label instruction
+   produced a flat background and clean glyphs, and the four runs with an expanded
+   typography paragraph (asking for "crisp", "professionally typeset", "layout grid")
+   all produced an olive gradient, glow haloes and garbled text. Asking harder for
+   crisp type appears to invoke the model's UI-mockup vocabulary, which is rendering
+   effects, and the text degrades with the background. Do not re-expand this to fix
+   a typography complaint. */
 const NO_TEXT = `No text, no words, no letters, no numbers, no labels.`;
 const SHORT_LABELS =
-  `Each node carries one short text label (one or two words, e.g. "Customer segment") set in a ` +
-  `clean simple sans-serif, small and unobtrusive relative to the shape it labels. No other text ` +
-  `anywhere in the image — no titles, no captions, no numbers, no logos.`;
+  `Each node carries one short text label (one or two words, e.g. "Customer segment") set in a `
+  + `clean simple sans-serif, small and unobtrusive relative to the shape it labels. Place every `
+  + `label the same way: centred just below the shape it names, never inside the shape. No other `
+  + `text anywhere in the image, no titles, no captions, no numbers, no logos.`;
 
 /**
  * A concept is a structured description of what the image must communicate, not
