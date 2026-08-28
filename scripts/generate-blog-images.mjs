@@ -1,9 +1,7 @@
 /**
- * Generates the blog images for "Agentic ecommerce" with OpenAI's DALL·E 3.
- *
- * The prompts below are transcribed from the IMAGE 1/2/3 specs in
- * COPY/blog/Articles_Library/Agentic ecommerce.md. That file stays the source of
- * truth: if a spec changes there, change the prompt here to match.
+ * Generates blog images with OpenAI's gpt-image-1, styled to a fixed house theme so
+ * every article's images read as one consistent set rather than independently
+ * re-imagined each run.
  *
  * Run:
  *   node scripts/generate-blog-images.mjs              # only missing images
@@ -14,8 +12,8 @@
  * the filename in src/assets/blog. Those three names must agree or the build
  * fails at getBlogImage, which is the intended behaviour.
  *
- * Costs money. gpt-image-1 at 1536x1024 high is roughly USD 0.17 per image, so a
- * full run of three is about USD 0.50. The skip-if-exists default is deliberate.
+ * Costs money. gpt-image-1 at 1536x1024 high is roughly USD 0.17 per image.
+ * The skip-if-exists default is deliberate so a re-run cannot silently double-bill.
  *
  * Model note: this was written for dall-e-3, which the API has since retired
  * ("The model 'dall-e-3' does not exist"). gpt-image-1 replaces it and drops the
@@ -24,6 +22,7 @@
 import { mkdir, writeFile, access } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { buildPrompt } from "./blog-image-theme.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const outputDir = join(here, "..", "src", "assets", "blog");
@@ -38,59 +37,66 @@ if (!apiKey) {
   process.exit(1);
 }
 
-/* A shared clause on every prompt. The site's blog is editorial, not a product
-   brochure, so the images need to read as illustration rather than stock photography
-   or a UI screenshot. Naming what to avoid does more work here than naming a style. */
-const HOUSE_STYLE =
-  "Editorial illustration for a business article. Restrained, flat, modern vector style " +
-  "with a light neutral background and a single muted accent colour. Generous white space. " +
-  "Calm and professional, not playful. No text, no words, no letters, no numbers, no labels, " +
-  "no logos, no watermarks, no user interface chrome, no photorealism, no 3D render, " +
-  "no stock-photo look, no clip art.";
-
 const images = [
   {
     key: "agentic-ecommerce-hero",
     /* IMAGE 1 - HERO. Visual message: same person, different mission. */
-    prompt:
-      "Split-screen composition, divided vertically down the centre. The same woman appears on " +
-      "both halves, clearly recognisable as one person. On the left half she is browsing for " +
-      "running shoes and activewear, and the abstract product shapes floating behind her are " +
-      "athletic: trainers, shorts, a water bottle. On the right half the same woman is browsing " +
-      "for a formal outfit for a winter wedding, and the shapes behind her are elegant: a long " +
-      "dress, heeled shoes, a clutch bag. The two halves are visibly different in mood but share " +
-      "one colour palette so they read as a single picture. " +
-      HOUSE_STYLE,
+    prompt: buildPrompt({
+      type: "scene",
+      subject:
+        "Split-screen composition, divided vertically down the centre. The same woman appears on " +
+        "both halves, clearly recognisable as one person. On the left half she is browsing for " +
+        "running shoes and activewear, and the abstract product shapes floating behind her are " +
+        "athletic: trainers, shorts, a water bottle. On the right half the same woman is browsing " +
+        "for a formal outfit for a winter wedding, and the shapes behind her are elegant: a long " +
+        "dress, heeled shoes, a clutch bag.",
+      detail: "The two halves are visibly different in mood but share one colour palette so they read as a single picture.",
+    }),
   },
   {
     key: "agentic-ecommerce-intent-model",
     /* IMAGE 2 - EXPLAINER GRAPHIC. Two stacked flows compared.
-       DALL·E cannot render reliable text, so the labels are carried by the caption
-       and alt text in the CMS instead. The picture supplies structure only. */
-    prompt:
-      "A clean abstract diagram comparing two processes, arranged as two horizontal rows stacked " +
-      "one above the other. The upper row is a rigid linear chain of three identical square nodes " +
-      "joined by straight arrows, ending in a single fixed shape, drawn in a flat grey to feel " +
-      "static and predetermined. The lower row is a flowing chain of three rounded nodes joined by " +
-      "curved arrows, ending in a shape that branches into several adapting variations, drawn in a " +
-      "single warm accent colour to feel live and responsive. Several small signal dots feed into " +
-      "the lower row from below. The contrast between rigid and adaptive is the whole point of the " +
-      "picture. " +
-      HOUSE_STYLE,
+       gpt-image-1 cannot render reliable text, so the labels are carried by the
+       caption and alt text in the CMS instead. The picture supplies structure only.
+       Rewritten with an explicit node list and relationship (see blog-image-theme.mjs)
+       after the first version came out visually ambiguous — "rigid vs flowing" named
+       a mood, not a mechanism. */
+    prompt: buildPrompt({
+      type: "diagram",
+      subject: "Two competing models of ecommerce personalisation, stacked one above the other for direct comparison.",
+      nodes: [
+        "customer history (a small archive/stack icon)",
+        "customer segment (one fixed labelled-looking box)",
+        "predetermined experience (a single static output shape)",
+      ],
+      relationship:
+        "The upper row shows this three-step chain as rigid and linear: identical square nodes, straight arrows, " +
+        "flat grey, one fixed destination shape, feeling closed and predetermined. The lower row shows a second, " +
+        "different three-step chain — current behaviour, then intent signals, then a continuously adapting " +
+        "experience — as fluid: rounded nodes in the single accent colour, curved arrows, and the final node " +
+        "actively branching into three or four small varied output shapes rather than one fixed shape, feeling " +
+        "live and responsive. A few small dots flow into the lower chain from below to represent the customer's " +
+        "historical data still feeding in as one input among several, not the whole story. The two rows must be " +
+        "readable as two different structures (closed chain vs branching chain), not just two different colours.",
+      detail: "Vertically stacked, generous gap between the two rows, both rows the same width and scale so they compare directly.",
+    }),
   },
   {
     key: "agentic-ecommerce-category-page",
     /* IMAGE 3 - APPLIED ECOMMERCE VISUAL. One category page, early vs late session. */
-    prompt:
-      "Two abstract product grids side by side, separated by a thin vertical divider, each drawn " +
-      "as a simplified rectangle of card shapes representing an online shop's category listing. " +
-      "The left grid is visually mixed and unfocused: many different silhouettes of outdoor " +
-      "furniture, tables, chairs and loungers, in assorted sizes and muted colours, with no " +
-      "apparent order. The right grid is the same size but visibly resolved: the top rows are " +
-      "filled with repeating matched shapes of one large outdoor dining table with six chairs, " +
-      "highlighted in a single accent colour, while the remaining unrelated shapes fade towards " +
-      "the bottom. The left reads as broad and scattered, the right as narrowed and confident. " +
-      HOUSE_STYLE,
+    prompt: buildPrompt({
+      type: "scene",
+      subject:
+        "Two abstract product grids side by side, separated by a thin vertical divider, each drawn " +
+        "as a simplified rectangle of card shapes representing an online shop's category listing. " +
+        "The left grid is visually mixed and unfocused: many different silhouettes of outdoor " +
+        "furniture, tables, chairs and loungers, in assorted sizes and muted colours, with no " +
+        "apparent order. The right grid is the same size but visibly resolved: the top rows are " +
+        "filled with repeating matched shapes of one large outdoor dining table with six chairs, " +
+        "highlighted in the single accent colour, while the remaining unrelated shapes fade towards " +
+        "the bottom.",
+      detail: "The left reads as broad and scattered, the right as narrowed and confident.",
+    }),
   },
 ];
 
