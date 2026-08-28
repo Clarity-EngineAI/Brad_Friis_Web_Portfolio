@@ -1,96 +1,81 @@
 # Next session
 
-**Model:** Sonnet. This is finishing and verifying work already designed, not new architecture.
+**Model:** Sonnet for the investigation and a first attempt. If prompt-only fixes don't get the
+text quality where Brad wants it, the decision about switching approach (see options below) is
+Brad's, not a model-tier question.
 
 ## Start here
 
-**The feature is finished and verified live. Nothing is committed.** The task is to review the
-work and commit it.
+Brad looked at the regenerated `agentic-ecommerce-intent-model.png` and flagged that the in-image
+text labels ("Customer segment", "Predetermined experience", etc.) look AI-generated — likely
+uneven padding inside the node shapes, off typographic weight/kerning versus the site's real type.
+Screenshot it again first to see current state:
 
 ```sh
-git status --short
-git diff
+npx astro dev stop; (npm run dev > /tmp/astro-dev.log 2>&1 &)
+# wait for "Dev server running", then load and screenshot:
+# http://localhost:4321/blog/your-customer-hasnt-changed
 ```
 
-Then commit. Note the separation problem in "Open, for Brad to decide" item 3 before you do:
-the tree carries unrelated uncommitted work from earlier sessions.
-
-Suggested split, if Brad wants clean history:
-
-1. `feat(blog): add imageBlock schema and local-asset image pipeline` — the studio schema,
-   `blogImages.ts`, the renderer and styles, `generate-blog-images.mjs`, the three PNGs, `.gitignore`
-2. The pre-existing list-block and inline-bold work as its own commit
+The diagram is the second figure on the page (scroll ~3900px). Compare its label rendering against
+the surrounding page type.
 
 ## Where things stand
 
-Everything below is done and verified.
+**Committed, on `main`:**
+- `0d98112` — `scripts/blog-image-theme.mjs` (new): locks the exact accent/ground/ink hex values
+  from `global.css` into every generated-image prompt, and a `buildPrompt()` helper that takes a
+  structured concept (`type: "scene"` or `type: "diagram"`) instead of raw prose. Diagram concepts
+  require an explicit `nodes` list and a `relationship` string (the mechanism the image must show),
+  and now deliberately request short text labels on each node rather than following a blanket
+  no-text rule — the first version of this diagram had no text and was structurally ambiguous
+  (flagged by Brad); the second version has text but the text rendering itself is the new complaint.
+- `a5a1d19` — the original imageBlock schema, image pipeline, and list/bold rendering (from the
+  prior session).
 
-**Published and rendering.** The post `your-customer-hasnt-changed` is live in Sanity with 172 body
-blocks including all three `imageBlock`s. `npm run build` is green at 21 pages, and the rendered HTML
-at `dist/blog/your-customer-hasnt-changed/index.html` contains 3 figures, 3 responsive srcsets,
-3 captions, correct alt text on each, and 12 generated WebP variants.
+**Not yet resolved:** the regenerated `src/assets/blog/agentic-ecommerce-intent-model.png` has
+readable, correctly-positioned *content* (right nodes, right branching structure — that problem is
+fixed) but the *typography* inside it looks synthetic. This is a known ceiling for diffusion image
+models: they approximate letterforms and spacing rather than setting real type, so kerning, padding
+and baseline alignment will never be as clean as CSS/SVG text.
 
-To re-verify at any point, query the live API, **not** `apicdn.sanity.io` — the CDN caches and will
-show stale results:
+## The actual decision needed
 
-```sh
-curl -s 'https://ao34shul.api.sanity.io/v2026-08-19/data/query/production?query=*%5Bslug.current%3D%3D%22your-customer-hasnt-changed%22%5D%7B%22imgs%22%3Abody%5B_type%3D%3D%22imageBlock%22%5D.key%7D'
-```
+Prompt engineering can probably nudge this (tighter instructions on padding/alignment, asking for
+"minimalist infographic style with precise typography" etc.) but is unlikely to fully close the gap
+— it's a model limitation, not a prompting miss. Options, roughly in order of effort:
 
-The import script is idempotent (fixed `_id`, `createOrReplace`), so re-running it is safe.
+1. **Iterate the prompt further.** Cheap (~USD 0.17/attempt), stay inside `blog-image-theme.mjs` and
+   `generate-blog-images.mjs`. Try `gpt-image-1` `quality: "high"` is already set; could try more
+   explicit typography instructions in `SHORT_LABELS`. Ceiling is real but not yet proven reached —
+   worth one or two more tries before concluding it can't work.
+2. **Generate the diagram shapes/colours only (no text), overlay real HTML/CSS or SVG labels at
+   render time.** Bigger change: `BlogBody.astro`'s `imageBlock` renderer would need a way to know
+   this is a "labelled diagram" and overlay positioned `<span>` elements or an SVG `<text>` layer
+   using the site's actual font. Gets pixel-perfect type but needs label positions authored somewhere
+   (schema field per node, or a fixed layout assumption) — real design work, not a script tweak.
+3. **Build the diagram as native SVG/CSS instead of a generated image.** Drops gpt-image-1 for this
+   image entirely. Most control, most effort, and stops using the image generator for diagram-type
+   content going forward (scene images like the hero would presumably stay generated).
+4. **Accept it as-is.** The structural ambiguity Brad's earlier complaint was about is fixed; the
+   typography quality may be a "good enough for a blog post" bar he's fine with once he sees it
+   again in context, or not.
 
-**Studio schema** — `imageBlock` added to [blockContent.ts](studio/schemas/blockContent.ts), registered
-in [index.ts](studio/schemas/index.ts), and a post-level optional `image` (lead image) added to
-[post.ts](studio/schemas/post.ts).
-
-**Site rendering** — [blogImages.ts](src/data/blogImages.ts) (new) resolves a CMS key to a local file;
-types and GROQ in [blog.ts](src/data/blog.ts) and [sanity.ts](src/lib/sanity.ts); rendering in
-[BlogBody.astro](src/components/BlogBody.astro) and [[slug].astro](src/pages/blog/[slug].astro);
-styles in [global.css](src/styles/global.css). Smoke-tested end to end: lead and inline images render,
-WebP with 640/960/1280 srcsets, captions carried through. `astro check` 0 errors, build green at 21 pages.
-
-**Three images generated**, in `src/assets/blog/`, each checked against its spec in the article:
-`agentic-ecommerce-hero`, `agentic-ecommerce-intent-model`, `agentic-ecommerce-category-page`.
-
-**`.env` added to [.gitignore](.gitignore)** — it was missing, only `.venv/` was listed.
-
-## Decisions made, and why
-
-**Images are repo files, not Sanity uploads.** Sanity stores only a *key*; the file lives in
-`src/assets/blog` and is imported through Astro's asset pipeline, keeping hashing, generated widths
-and build-time dimensions. A Sanity asset would be a CDN URL and would leave that pipeline entirely.
-The cost: adding a blog image is a repo change **and** a CMS change. This is the trade Brad has not
-yet explicitly ratified — worth confirming before the next article.
-
-**OpenAI `gpt-image-1`, not DALL·E 3.** Brad chose DALL·E 3, but the API returns
-`The model 'dall-e-3' does not exist` — it has been retired. `gpt-image-1` is the replacement and drops
-the `style` and `response_format` parameters. The schema needed no change for this: it stores a
-filename, so the generator is irrelevant to it.
-
-**Secrets go in `.env`, never on the command line.** A Sanity token was exposed in shell history this
-session and has been rotated. Do not suggest `SANITY_TOKEN=... node ...`.
-
-## Open, for Brad to decide
-
-1. **The intent-model image uses a brighter orange** than the muted beige and sage of the other two.
-   Side by side in one article it reads louder than its neighbours. Regenerate with
-   `node --env-file=.env scripts/generate-blog-images.mjs intent --force` (about USD 0.17) if it bothers him.
-2. **IMAGE 2's labels are not in the picture.** The article specifies labelled nodes
-   (`Customer history -> Customer segment -> ...`). Generative models cannot render reliable text, so the
-   labels live in the caption and alt text instead. Getting them visibly into the image needs a real
-   diagram tool, not a model.
-3. **Nothing is committed.** The working tree also carries pre-existing uncommitted work from earlier
-   sessions (list blocks and inline bold in `BlogBody.astro`, `blog.ts`, `sanity.ts`) that is **not**
-   from this session. Separate the two before committing if that matters.
+Don't default to option 1 without asking — this is a judgement call about how much polish this
+image deserves, not a bug to silently patch. Bring Brad the tradeoffs and let him choose before
+spending more generation budget or engineering time.
 
 ## Files to read first, in order
 
-1. `src/data/blogImages.ts` — the key-to-file bridge, and the header explaining the trade
-2. `studio/schemas/blockContent.ts` — the `imageBlock` type
-3. `scripts/generate-blog-images.mjs` — the three prompts, transcribed from the article specs
-4. `COPY/blog/Articles_Library/Agentic ecommerce.md` — IMAGE 1/2/3 specs at lines 33, 123, 259
+1. `scripts/blog-image-theme.mjs` — the `SHORT_LABELS` clause is what's currently asking for text;
+   read the comment above it for why text was added back in after being removed once
+2. `scripts/generate-blog-images.mjs` — the `agentic-ecommerce-intent-model` concept block, with the
+   node list and relationship string
+3. Current `src/assets/blog/agentic-ecommerce-intent-model.png` — look at it directly before doing
+   anything else
 
 ## Cost note
 
-Image generation is billed. About USD 0.17 per image at 1536x1024 high. The script skips existing
-files by default so a re-run cannot silently double-bill; `--force` overrides that deliberately.
+Regeneration is billed, about USD 0.17 per attempt at 1536x1024 high. Don't loop attempts without
+checking each result — the skip-if-exists default on the script prevents accidental double-billing,
+but `--force` bypasses that deliberately, so use it once per considered change, not experimentally.
