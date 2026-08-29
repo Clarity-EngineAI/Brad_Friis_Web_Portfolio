@@ -451,6 +451,14 @@
   background: var(--pillar-wash);
 }
 
+/* Equal specificity to the open-state rule above, declared after it, so an 'all selected'
+   trigger keeps its solid accent fill even while its own menu is open. 30 August 2026. */
+.week-menu-item.is-open .week-menu-trigger[data-state='all'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
 .week-menu-trigger[data-state='all'] .week-menu-swatch {
   background: #fff;
 }
