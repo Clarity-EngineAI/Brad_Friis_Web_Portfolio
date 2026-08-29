@@ -1,6 +1,8 @@
 name: Palette preview screenshots
 
 on:
+  push:
+    branches: [palette-preview-20260830]
   workflow_dispatch:
 
 jobs:
