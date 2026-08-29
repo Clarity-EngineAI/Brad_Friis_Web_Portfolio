@@ -1,61 +1,73 @@
-# Next session
+# Next session: decide the pillar-key dots, optionally fix the open-menu fill bug
 
-Model: Sonnet (briefing needed, no design decision pending)
+**Model: Sonnet.** Both items are small, bounded CSS/copy decisions. Neither needs Opus.
+
+---
 
 ## Status
 
-Evidence-card print-cap is FIXED and verified (29 Aug 2026). Brad's call: keep the full
-on-screen report untouched, add a compact print-only evidence card so all 4 survive on paper.
+Direction B ("one sienna, three densities") shipped on `/week` in commit `d700e01`,
+30 August 2026. Twelve category hues and three pillar hues are gone; colour is now three
+densities of the site `--accent` (`#9c3d1e`), split into rule/border values
+(`--p-growth`/`--p-delivery`/`--p-operations`) and separate text-safe values
+(`--p-growth-text`/`--p-delivery-text`/`--p-operations-text`) so small type never sits on
+a sub-4.5:1 tint. Filter pills fill solid `--accent` with white text when selected, matching
+the CTA treatment elsewhere. Build is clean, mobile checked at 390px with device emulation,
+and a script-based sweep confirmed no text anywhere resolves to the two non-text-safe rule
+colours (`#c58a6f`, `#e0c9bd`).
 
-Change made in `src/pages/fit.astro`, in the print-render script only (~line 709-721): each
-print evidence card now renders claim + the first evidence sentence only + the attributed
-letter quote. Dropped from print: the second evidence sentence and the concession paragraph.
-`src/data/fitEvidence.ts` was NOT touched — the data still carries both evidence sentences and
-the required concessions in full, and the on-screen (`#fit-evidence-list`) render path is
-unchanged, so the full version is still what's shown on screen and what `check-fit-claims.mjs`
-audits.
+Two things came out of that session that were explicitly left for Brad or left unfixed.
+Nothing else about the colour system is open.
 
-Verified via headless Chrome print-to-PDF against `http://localhost:4321/fit/?print=1&a=aaaaaba`
-(the strongest path, Strong 95): now 2 pages, confirmed with `pdfinfo`. Rasterized and
-visually inspected both pages — page 2 ends with clear margin to spare, not cramped. Ran
-`node scripts/check-fit-claims.mjs` (PASS) and `npm run build` (22 pages, clean) after the
-change.
+---
 
-Before this fix landed, a visual-proof artifact was published for Brad showing the actual
-3-page overflow and the two remediation options, at his request ("I need to see it first")
-before deciding: `https://claude.ai/code/artifact/a38b6cfb-2312-4df6-b728-d6a0ccb878d4`. That
-artifact is now historical — the fix it led to is shipped.
+## Item 1: the pillar-key dots (Brad's call, not yours)
 
-Two pre-existing uncommitted changes were found already in the working tree at session start,
-neither made this session: a one-word claim wording tweak in `fitEvidence.ts` ("actually" →
-"genuinely" on the adoption card) and earlier print-CSS density tightening in `fit.css`
-(the `@media print` block's line-height/margins). Left both as-is — not this task's scope, no
-reason to revert someone else's in-progress work.
+After repointing every category colour to its pillar, the "three pillars" key at the bottom
+of `/week` now shows four identical dots per pillar group (`src/pages/week.astro`, the
+`.pillar-key` block, currently around lines 166 to 205). All four `Growth` dots are the same
+sienna, all four `Delivery` dots the same mid-tint, all four `Operations` dots the same pale
+tint. A key that lists four categories against one repeated dot is arguably no longer a key.
 
-Still unverified: Safari print rendering (only Chrome headless has ever been checked, across
-three sessions now). Worth a real check next time the fit tool is touched, not urgent enough to
-justify its own session alone.
+Ask Brad directly: keep the dots as they are (now purely decorative, not encoding anything),
+drop them and let the four category names run as plain text under each pillar heading, or
+remove the category list entirely and leave just the three pillar descriptions. Do not choose
+for him and do not build a variant speculatively before he answers. Whichever he picks is a
+small edit to `.pillar-cats` and its `<li>` markup in `week.astro` plus its rule in
+`src/styles/week.css` (search `pillar-cats`).
 
-Nothing has been committed. `git status` will show the `fit.astro` change plus the two
-pre-existing unrelated diffs — review and commit (or split) before moving on.
+---
 
-## Also open, untracked
+## Item 2: pre-existing cascade bug in the filter trigger (found, not fixed)
 
-Client Questionnaire thread (`Client Questionnaire/` folder) — Brad mentioned this exists but
-scope was never briefed: which client, what was asked, what's been submitted, deadline, whether
-any site content needs to feed into it. Get a briefing before doing anything with it. This has
-now carried over three sessions unbriefed — worth prioritising next.
+Not caused by the Direction B work, and not touched this session. While verifying the
+selected-pill fill in a browser, opening a pillar's dropdown with all four categories
+checked showed the trigger button falling back to the pale pillar-wash background instead
+of staying solid `--accent` with white text. Closing the dropdown restores the correct
+accent fill immediately.
 
-## Standing, unchanged
+Cause: in `src/styles/week.css`, `.week-menu-trigger[data-state='all']` (solid fill) and
+`.week-menu-item.is-open .week-menu-trigger` (wash fill, for the open state) have equal
+specificity, and the open-state rule is declared after the data-state rule, so source order
+lets it win whenever both are true at once, i.e. exactly when someone opens a fully-selected
+pillar's menu. Search `week-menu-trigger[data-state` and `is-open .week-menu-trigger` in
+`week.css` to find both rules.
 
-1. **CV variants.** `src/pages/cv.astro` is the single source of truth; the five `.md` files in
-   `Brad Friis Resumes/` are superseded, not maintained, not to be edited.
-2. **Gaps-trigger / dimension model.** Live model in `fitDiagnostic.ts` keeps eight dimensions,
-   `new-logo-hunting` at 0.30. Do not reopen without a fresh decision from Brad.
-3. **Fit tool needs multi-select.** Logged 29 Aug 2026, not scoped: Brad wants the ability to
-   select more than one answer per question on `/fit/`. This is a scoring-model change (the
-   8-dimension ceiling model in `fitDiagnostic.ts` currently assumes one answer per question),
-   not a UI tweak — needs its own design pass before implementation, own session.
+This is cosmetic (only visible while that one dropdown is open) and pre-dates this session,
+so it was not fixed under the Direction B task's scope. Worth a five-minute fix next time
+anyone is in this file: give the `[data-state='all']` rule higher priority when the item is
+also open, e.g. add `.week-menu-item.is-open .week-menu-trigger[data-state='all']` as its own
+rule after the open-state rule, restoring the solid accent fill in that combined state.
 
-Next: start a new session (Sonnet) to review and commit the fit.astro print-cap fix, then get
-the Client Questionnaire briefing.
+---
+
+## Standing constraints (unchanged)
+
+- NZ English throughout: colour, not color, in comments and copy.
+- No em dashes anywhere. Commas, full stops or parentheses.
+- No emojis in code, UI or documentation.
+- One task per session. Item 1 needs Brad's answer before any code changes; get that answer
+  first, implement it, then stop. Do not also fix Item 2 in the same session unless Brad asks
+  for both.
+- The working tree may again carry unrelated changes by the time this is picked up. Check
+  `git status` and `git diff --stat` before assuming these two files are clean.
