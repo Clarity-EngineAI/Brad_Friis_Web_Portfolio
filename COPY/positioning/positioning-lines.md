@@ -41,6 +41,8 @@ here. Useful as raw phrasing to pull from, not as finished, evidence-backed copy
 - **Helping ambitious businesses convert potential into practical, measurable results.**
 - **Complex products and services become clear customer value when I get involved.**
 
+- **Commercial technology problem-solver who understands customers, SaaS, adoption and emerging AI well enough to connect business problems with useful technology - and get the change implemented.**
+
 ## For a recruiter
 
 - **Commercial and customer-focused operator across SaaS sales, account management and digital

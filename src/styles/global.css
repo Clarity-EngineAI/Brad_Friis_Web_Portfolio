@@ -225,6 +225,67 @@ figcaption {
   font-weight: 600;
 }
 
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown summary {
+  display: inline-block;
+  padding-block: 12px;
+  margin-block: -12px;
+  color: var(--ink-secondary);
+  cursor: pointer;
+  list-style: none;
+}
+
+.nav-dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.nav-dropdown summary:hover,
+.nav-dropdown[open] summary {
+  color: var(--accent);
+}
+
+.nav-dropdown summary[aria-current="page"] {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--paper);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+}
+
+.nav-dropdown-menu a {
+  padding: 10px 12px;
+  border-radius: var(--r-sm);
+  color: var(--ink-secondary);
+  font-size: var(--text-nav);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-dropdown-menu a:hover {
+  color: var(--ink);
+  background: var(--surface-alt);
+}
+
+.nav-dropdown-menu a[aria-current="page"] {
+  color: var(--ink);
+  font-weight: 600;
+}
+
 .primary-nav .header-contact {
   padding-inline: 16px;
   padding-block: 14px;
