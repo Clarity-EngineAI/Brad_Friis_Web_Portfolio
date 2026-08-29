@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import BookingButton from "../components/BookingButton.astro";
-import { isStackedWeekLogo, weekLogos } from "../data/weekLogos";
+import { weekLogos } from "../data/weekLogos";
 import { categories, pillars, vocabulary } from "../data/repWeekCalendar.js";
 import "../styles/week.css";
 
@@ -44,7 +44,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
                 <div
                   class="week-menu-item"
                   data-menu-item={pillarId}
-                  style={`--pillar-color: var(--p-${pillarId}); --pillar-wash: var(--wash-${pillarId});`}
+                  style={`--pillar-color: var(--p-${pillarId}); --pillar-text: var(--p-${pillarId}-text); --pillar-wash: var(--wash-${pillarId});`}
                 >
                   <button
                     class="week-menu-trigger"
@@ -84,7 +84,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
                           role="menuitemcheckbox"
                           data-cat-toggle={catId}
                           aria-checked="false"
-                          style={`--cat-color: var(--c-${catId}); --cat-wash: var(--wash-${pillarId});`}
+                          style={`--cat-color: var(--p-${pillarId}); --cat-text: var(--p-${pillarId}-text); --cat-wash: var(--wash-${pillarId});`}
                         >
                           <span class="week-menu-check" aria-hidden="true"></span>
                           <span class="week-menu-option-dot" aria-hidden="true"></span>
@@ -152,17 +152,10 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
 
   <section class="shell logo-strip week-logo-strip" aria-labelledby="week-logos-heading">
     <p class="eyebrow-pill" id="week-logos-heading">Schools from this partnership</p>
-    <p class="logo-note">A sample of the schools and organisations this work touched. Not current clients, and not an endorsement.</p>
     <ul aria-label="Schools and organisations from the PowerSchool partnership">
       {weekLogos.map((logo) => (
         <li>
-          <Image
-            class:list={{ "logo-stacked": isStackedWeekLogo(logo) }}
-            src={logo.image}
-            alt={logo.name}
-            height={isStackedWeekLogo(logo) ? 80 : 60}
-            loading="lazy"
-          />
+          <Image src={logo.image} alt={logo.name} height={60} loading="lazy" />
         </li>
       ))}
     </ul>
@@ -171,62 +164,55 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
   <section class="pillar-section shell" aria-labelledby="pillars-heading">
     <h2 id="pillars-heading" class="week-zone-label">The three pillars</h2>
     <div class="pillar-key">
-      <div class="pillar-cell" style="--pillar-color: var(--p-growth); --pillar-wash: var(--wash-growth);">
+      <div class="pillar-cell" style="--pillar-color: var(--p-growth); --pillar-text: var(--p-growth-text); --pillar-wash: var(--wash-growth);">
         <div class="pillar-cell-head">
           <h3>Growth</h3>
         </div>
         <p>Finding the right schools, winning them, and keeping them at renewal time.</p>
         <ul class="pillar-cats">
-          <li style="--dot: var(--c-pipeline);">Pipeline and renewals</li>
-          <li style="--dot: var(--c-targeting);">Data and targeting</li>
-          <li style="--dot: var(--c-campaigns);">Campaigns and launches</li>
-          <li style="--dot: var(--c-measurement);">Measurement and attribution</li>
+          <li style="--dot: var(--p-growth);">Pipeline and renewals</li>
+          <li style="--dot: var(--p-growth);">Data and targeting</li>
+          <li style="--dot: var(--p-growth);">Campaigns and launches</li>
+          <li style="--dot: var(--p-growth);">Measurement and attribution</li>
         </ul>
       </div>
 
-      <div class="pillar-cell" style="--pillar-color: var(--p-delivery); --pillar-wash: var(--wash-delivery);">
+      <div class="pillar-cell" style="--pillar-color: var(--p-delivery); --pillar-text: var(--p-delivery-text); --pillar-wash: var(--wash-delivery);">
         <div class="pillar-cell-head">
           <h3>Delivery</h3>
         </div>
         <p>Getting schools set up, trained and confident enough that the platform actually got used.</p>
         <ul class="pillar-cats">
-          <li style="--dot: var(--c-implementation);">Technical implementation</li>
-          <li style="--dot: var(--c-enablement);">Customer enablement</li>
-          <li style="--dot: var(--c-learning-design);">Learning design and facilitation</li>
-          <li style="--dot: var(--c-support);">Support and service design</li>
+          <li style="--dot: var(--p-delivery);">Technical implementation</li>
+          <li style="--dot: var(--p-delivery);">Customer enablement</li>
+          <li style="--dot: var(--p-delivery);">Learning design and facilitation</li>
+          <li style="--dot: var(--p-delivery);">Support and service design</li>
         </ul>
       </div>
 
-      <div class="pillar-cell" style="--pillar-color: var(--p-operations); --pillar-wash: var(--wash-operations);">
+      <div class="pillar-cell" style="--pillar-color: var(--p-operations); --pillar-text: var(--p-operations-text); --pillar-wash: var(--wash-operations);">
         <div class="pillar-cell-head">
           <h3>Operations</h3>
         </div>
         <p>The money, the contracts, the vendor relationship and the team behind all of it.</p>
         <ul class="pillar-cats">
-          <li style="--dot: var(--c-commercial);">Commercial and finance</li>
-          <li style="--dot: var(--c-partnerships);">Partnerships and suppliers</li>
-          <li style="--dot: var(--c-people);">People and resourcing</li>
-          <li style="--dot: var(--c-systems);">Systems and governance</li>
+          <li style="--dot: var(--p-operations);">Commercial and finance</li>
+          <li style="--dot: var(--p-operations);">Partnerships and suppliers</li>
+          <li style="--dot: var(--p-operations);">People and resourcing</li>
+          <li style="--dot: var(--p-operations);">Systems and governance</li>
         </ul>
       </div>
     </div>
-    <p class="week-hero-note">
-      Beyond the platform partnership itself, no employer, customer, school or contract is
-      named here, and no figures are given. The work is described at the level of what it
-      required, which is the part that transfers.
-    </p>
   </section>
 
   <section class="week-close-section shell">
     <h2>That's the shape of the job.</h2>
     <p class="hero-lead">
-      One person held all of this, every week, for ten years. If some of it looks like
-      work you need done, I'd enjoy the conversation.
+      If any of these areas of expertise are relevant to your business right now, get in
+      touch and let's have a chat about how I can help you.
     </p>
     <div class="week-close-actions">
       <BookingButton variant="hero" label="Book a conversation" />
-      <a class="button button-secondary" href="/cv/">Back to the CV</a>
-      <a class="text-link" href="/letters/">Read the reference letters</a>
     </div>
   </section>
 
@@ -350,13 +336,13 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
 
   function catVars(categoryId: string) {
     const pillar = categoriesByKey[categoryId].pillar;
-    return `--cat-color: var(--c-${categoryId}); --cat-wash: var(--wash-${pillar}); --cat-fill: var(--fill-${pillar});`;
+    return `--cat-color: var(--p-${pillar}); --cat-text: var(--p-${pillar}-text); --cat-wash: var(--wash-${pillar});`;
   }
 
   const openMark =
     '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2.2v7.6M2.2 6h7.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
 
-  function entryMarkup(entry: (typeof calendarEntries)[number], linked: boolean, { showSlot = false } = {}) {
+  function entryMarkup(entry: (typeof calendarEntries)[number], linked: boolean) {
     const selected = state.selectedId === entry.id;
     const category = categoriesByKey[entry.category];
     const pillar = pillarOf(entry);
@@ -375,7 +361,6 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
           `${dayLabels[entry.day]} ${slotShort(entry.slot)}. ${entry.title}. ${category.label}, under ${pillarsByKey[pillar].label}.${linkNote}`,
         )}"
       >
-        ${showSlot ? `<span class="entry-slot">${escapeHtml(slotLabels[entry.slot])}</span>` : ""}
         <span class="entry-cat">${escapeHtml(category.shortLabel)}</span>
         <span class="entry-title">${escapeHtml(entry.title)}</span>
         <span class="entry-summary">${escapeHtml(entry.summary)}</span>
@@ -499,32 +484,35 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
     const entries = visibleEntries();
     const linked = linkedIds();
 
-    /* Rebuilt 27 August 2026 to the V3 reference structure. Was a 6-column table: an AM/PM
-       rail down the left, a .grid-corner legend in the dead top-left cell, and two banded
-       .slot-head rows carving the week into quadrants. That rail plus the internal cell
-       borders is what made the calendar read as a spreadsheet rather than as the site's
-       card system — the colour was never the main offender.
-
-       Now five day columns, each a plain stack of cards in chronological order, with the
-       slot carried inside the card as a MORNING/AFTERNOON eyebrow (showSlot) exactly as the
-       reference does. The day name is a label above the column, not a filled header band.
-       Entry order per column preserves vocabulary.slots order, so morning still precedes
-       afternoon without a structural row to enforce it. */
-    el.grid.innerHTML = vocabulary.days
-      .map((day) => {
-        const dayEntries = vocabulary.slots.flatMap((slot) =>
-          entries.filter((entry) => entry.day === day && entry.slot === slot),
-        );
-        // A day with no matches under the active filter used to render as a bare heading
-        // over empty space — indistinguishable from a loading glitch on the fixed 5-column
-        // grid. 27 August 2026.
-        const dayBody = dayEntries.length
-          ? dayEntries.map((entry) => entryMarkup(entry, linked.has(entry.id), { showSlot: true })).join("")
-          : `<p class="day-empty">Nothing this day in the current filter.</p>`;
+    /* Rebuilt 27 August 2026 to the V3 reference structure, then 29 August 2026 to drop the
+       repeated MORNING/AFTERNOON eyebrow from every card, then again same day once the
+       per-column slot heading proved unworkable: each day's heading sat at whatever height
+       that day's card stack happened to start, so the five headings staggered instead of
+       lining up. MORNING and AFTERNOON are now single headings that span the full grid,
+       each followed by its own 5-column row of day stacks — one heading, one aligned row,
+       per slot. A day with nothing in a slot still gets an empty column so the five stacks
+       stay aligned under the shared heading. */
+    el.grid.innerHTML = vocabulary.slots
+      .map((slot) => {
+        const dayCols = vocabulary.days
+          .map((day) => {
+            const slotEntries = entries.filter((entry) => entry.day === day && entry.slot === slot);
+            const stack = slotEntries.length
+              ? `<div class="day-stack">${slotEntries
+                  .map((entry) => entryMarkup(entry, linked.has(entry.id)))
+                  .join("")}</div>`
+              : `<p class="day-empty">Nothing this slot in the current filter.</p>`;
+            return `
+            <div class="day-col">
+              <h3 class="day-name">${dayLabels[day]}</h3>
+              ${stack}
+            </div>`;
+          })
+          .join("");
         return `
-        <div class="day-col">
-          <h3 class="day-name">${dayLabels[day]}</h3>
-          <div class="day-stack">${dayBody}</div>
+        <div class="slot-row">
+          <h4 class="day-slot-head">${slotLabels[slot]}</h4>
+          <div class="slot-row-cols">${dayCols}</div>
         </div>`;
       })
       .join("");
@@ -592,7 +580,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
       .map(
         (connection) =>
           `<button class="detail-link" type="button" data-goto="${connection.id}"
-             style="--link-color: var(--c-${connection.category});">
+             style="--link-color: var(--p-${categoriesByKey[connection.category].pillar});">
              <span class="dot" aria-hidden="true"></span>
              <span class="detail-link-text">
                <span class="detail-link-title">${escapeHtml(connection.title)}</span>

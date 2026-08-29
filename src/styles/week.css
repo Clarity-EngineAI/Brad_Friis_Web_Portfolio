@@ -37,64 +37,32 @@
    ============================================================================ */
 
 :root {
-  /* Three families that have to read apart at chip size AND on calendar cards.
-     REPALETTED 27 August 2026 to the V3 reference prototype's three hues, at Brad's
-     direction. The reference is the design target for this page and its colour is a
-     large part of why it reads as clean, so the earlier note here — "no teal, the site
-     already rejected it" — is superseded by that instruction. What changed:
+  /* One family, three densities. 30 August 2026.
 
-       Growth      sienna #9c3d1e  ->  #c05621   (reference; same hue family, lifted)
-       Delivery    olive  #4e662c  ->  #319795   (reference teal; the real reversal)
-       Operations  charcoal #2c3a42 ->  #4a5568  (reference slate; warmer, bluer)
+     The twelve --c-* values are gone. Colour no longer encodes category, only pillar,
+     and the three pillar values are densities of the site accent rather than three
+     separate hues. The reason: twelve saturated values were being carried at very low
+     surface area (a 3px rule, a 7px dot), which is not enough of any one colour for it
+     to read as deliberate. It is also what created the two-reds problem this block used
+     to predict: --accent at #9c3d1e sitting one step off the old --c-pipeline at #c05621.
+     There is now only one red.
 
-     The reference declares one colour per pillar. This page needs four steps per family
-     for twelve categories, so each family is a ladder built around the reference value:
-     the pillar colour IS the reference value exactly, and the other three step darker in
-     the same hue so a chip row still reads as one family. Every value below is checked at
-     4.5:1 or better on --paper (#fff), which the reference did not have to do because its
-     labels sit at 0.65rem/600 on a card face rather than as small text on parchment.
+     Note the rule/text split. #c58a6f is 2.9:1 on --paper and #e0c9bd is 1.58:1, so
+     neither may carry text. They are used only as the 3px left rule and as borders,
+     where contrast ratio does not apply. The -text values below are what small type
+     uses, at 5.26:1 and 5.57:1. */
 
-     Note the tension this creates and watch for it: --accent (#9c3d1e) is still the site
-     sienna and now sits a step darker than --c-pipeline (#c05621) beside it. If that reads
-     as two reds rather than one family, the fix is to move --accent, not to move Growth
-     back. The card face stays plain --paper; the family is carried by the 3px left rule and
-     the category label, which is exactly what the reference does. */
+  --p-growth: #9c3d1e;          /* --accent, unmodified */
+  --p-delivery: #c58a6f;        /* 50% tint */
+  --p-operations: #e0c9bd;      /* 22% tint */
 
-  /* --- Growth: reference sienna ----------------------------------------
-     #c05621 is the reference value exactly, used as the pillar colour. */
-  --c-pipeline: #c05621;      /* the reference --cat-growth, unmodified */
-  --c-targeting: #a8481b;
-  --c-campaigns: #8f3c17;
-  --c-measurement: #743012;
+  --p-growth-text: #9c3d1e;
+  --p-delivery-text: #8a6353;
+  --p-operations-text: var(--ink-tertiary);
 
-  /* --- Delivery: reference teal -----------------------------------------
-     The reference #319795 is 3.1:1 on white — fine for its 600-weight uppercase
-     label, short of 4.5:1 for body-size category text here. It is kept exactly as
-     the pillar colour and for the 3px rules, where contrast ratio does not apply,
-     and the four category steps run darker so small text stays legible. */
-  --c-implementation: #1f6b6a;
-  --c-enablement: #237574;
-  --c-learning-design: #2a807e;
-  --c-support: #196160;
-
-  /* --- Operations: reference slate --------------------------------------
-     #4a5568 is the reference value, now the pillar colour. Bluer and lighter than
-     the charcoal it replaces, which matters: against the new teal it has to read as
-     a separate family rather than as a desaturated version of it. */
-  --c-commercial: #2d3648;
-  --c-partnerships: #38415a;
-  --c-people: #4a5568;
-  --c-systems: #5a647a;
-
-  /* The three reference values, unmodified. */
-  --p-growth: #c05621;
-  --p-delivery: #319795;
-  --p-operations: #4a5568;
-
-  /* Large surfaces (pillar key, menu hover). Muted, not candy. */
-  --wash-growth: rgba(192, 86, 33, 0.14);
-  --wash-delivery: rgba(49, 151, 149, 0.14);
-  --wash-operations: rgba(74, 85, 104, 0.13);
+  --wash-growth: rgba(156, 61, 30, 0.10);
+  --wash-delivery: rgba(156, 61, 30, 0.06);
+  --wash-operations: rgba(156, 61, 30, 0.035);
 
   /* --fill-growth / --fill-delivery / --fill-operations lived here: solid pastel card faces
      in the three hues. Removed 27 August 2026 with their last two consumers (.entry and
@@ -104,12 +72,11 @@
      by the left rule and the category label alone. Do not reintroduce a card-face tint here
      without changing .hairline-grid and .row-list in global.css to match. */
 
-  /* Dark-ground variants. The reference's own dark block is the source for the first
-     two (#f6ad55 / #4fd1c5); operations is lifted further than its #a0aec0 to clear 7:1
-     on --stat-ground. */
-  --p-growth-on-dark: #f6ad55;
-  --p-delivery-on-dark: #4fd1c5;
-  --p-operations-on-dark: #c8d0d4;
+  /* Dark-ground variants, for the expanded card on --stat-ground (#17140f). All three pass
+     comfortably there (7.67, 8.66 and 12.07 respectively). */
+  --p-growth-on-dark: #e8935f;
+  --p-delivery-on-dark: #d9a888;
+  --p-operations-on-dark: #eccbb8;
 }
 
 /* `hidden` is set by the page's script on elements that also carry a later
@@ -167,15 +134,6 @@
   }
 }
 
-.week-hero-note {
-  margin-top: 26px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-  max-width: 62ch;
-  font-size: var(--text-meta);
-  color: var(--ink-tertiary);
-}
-
 /* Moved out of the hero and under the calendar, 27 August 2026. In the hero it sat directly
    below the lead at 48ch, which put a second italic block at near-headline prominence before
    the reader had seen any of the work — the same "references above the fold" problem the rest
@@ -185,12 +143,42 @@
 .week-pullquote {
   margin-top: 32px;
   max-width: 54ch;
+  margin-inline: auto;
+  text-align: center;
+  align-items: center;
+  border-left: 0;
+  padding-left: 0;
+}
+
+.week-pullquote .career-quote-text {
+  font-style: normal;
+  font-size: var(--text-hero-lead);
+  line-height: 1.45;
 }
 
 @media (min-width: 62rem) {
   .week-pullquote {
     margin-top: 36px;
   }
+}
+
+/* ------------------------------------------------------------ LOGO STRIP
+   .logo-strip's base rules (global.css) size logos by per-name width
+   overrides tuned for the homepage's wordmark-only set. School crests here
+   are a mix of wordmarks, circular seals and tall stacked lockups with no
+   matching overrides, so they fell back to native aspect ratio at a fixed
+   height and rendered wildly uneven (a hawk emblem or shield reading far
+   larger than a text wordmark beside it). Every logo on this page is capped
+   to the same box instead, with contain doing the equalising. */
+.week-logo-strip li {
+  height: 48px;
+}
+
+.week-logo-strip img {
+  height: 100%;
+  width: auto;
+  max-width: 108px;
+  object-fit: contain;
 }
 
 /* --------------------------------------------------------------- ZONE LABEL */
@@ -254,11 +242,11 @@
   font-weight: 680;
   letter-spacing: -0.026em;
   line-height: 1.1;
-  color: var(--pillar-color);
+  color: var(--pillar-text);
 }
 
 .pillar-cell p {
-  font-size: var(--text-meta);
+  font-size: var(--text-body);
   color: var(--ink-secondary);
   line-height: 1.5;
   text-wrap: pretty;
@@ -277,7 +265,7 @@
   display: flex;
   align-items: center;
   gap: 9px;
-  font-size: var(--text-meta);
+  font-size: var(--text-body);
   color: var(--ink-secondary);
 }
 
@@ -448,8 +436,8 @@
 }
 
 .week-menu-trigger[data-state='all'] {
-  background: var(--pillar-color);
-  border-color: var(--pillar-color);
+  background: var(--accent);
+  border-color: var(--accent);
   color: #fff;
 }
 
@@ -595,7 +583,7 @@
   font-family: inherit;
   font-size: var(--text-meta);
   font-weight: 500;
-  color: var(--pillar-color);
+  color: var(--pillar-text);
   cursor: pointer;
 }
 
@@ -654,10 +642,10 @@
   gap: 6px;
   min-height: 26px;
   padding: 4px 6px 4px 8px;
-  border: 1px solid color-mix(in srgb, var(--cat-color) 28%, var(--line));
+  border: 1px solid var(--accent);
   border-radius: var(--r-pill);
-  background: var(--cat-wash);
-  color: var(--cat-color);
+  background: var(--accent);
+  color: #fff;
   font-family: inherit;
   font-size: var(--text-meta);
   font-weight: 600;
@@ -670,7 +658,8 @@
 }
 
 .week-menu-chip:hover {
-  border-color: var(--cat-color);
+  border-color: var(--accent-strong);
+  background: var(--accent-strong);
 }
 
 /* ---------------------------------------------------------------- CALENDAR */
@@ -719,6 +708,25 @@
   padding-bottom: 12px;
   margin-bottom: 16px;
   border-bottom: 1px solid var(--line);
+}
+
+/* One heading per slot, spanning the full grid width, not one per card and not one per day
+   column. A per-column slot heading looked aligned only when every day had the same card
+   count at the same height; in practice the five headings staggered. 29 August 2026: MORNING
+   and AFTERNOON are now single headings above their own 5-column row of day stacks, so the
+   heading and the row beneath it are always level. */
+.slot-row + .slot-row {
+  margin-top: 32px;
+}
+
+.day-slot-head {
+  margin: 0 0 14px;
+  font-size: var(--text-h3);
+  font-weight: 620;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--ink);
 }
 
 .day-stack {
@@ -807,24 +815,6 @@
   transform: none;
 }
 
-/* MORNING / AFTERNOON, sitting above the category label exactly as the reference stacks them.
-   Was an inline suffix inside .entry-cat used only by the mobile agenda; it is now the desktop
-   card's top line as well, because the AM/PM rail that used to carry this information is gone.
-   Deliberately the quietest text on the card — --ink-tertiary, uncoloured — so it reads as a
-   timestamp and does not compete with the coloured category label below it. */
-.entry-slot {
-  font-size: var(--text-enum);
-  font-weight: 560;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  line-height: 1;
-  color: var(--ink-tertiary);
-}
-
-.entry[aria-expanded='true'] .entry-slot {
-  color: rgba(255, 255, 255, 0.68);
-}
-
 .entry-cat {
   display: flex;
   align-items: baseline;
@@ -834,7 +824,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   line-height: 1.2;
-  color: var(--cat-color);
+  color: var(--cat-text);
 }
 
 .entry-open {
@@ -849,7 +839,7 @@
 }
 
 .entry:hover:not([aria-expanded='true']) .entry-open {
-  color: var(--cat-color);
+  color: var(--cat-text);
   opacity: 1;
 }
 
@@ -910,10 +900,6 @@
   border-color: var(--stat-ground);
   border-left-color: var(--pillar-on-dark);
   box-shadow: 0 2px 6px rgba(28, 25, 23, 0.12), 0 14px 32px -18px rgba(28, 25, 23, 0.4);
-}
-
-.entry[aria-expanded='true'] .entry-slot {
-  color: rgba(255, 255, 255, 0.5);
 }
 
 .entry[aria-expanded='true'] .entry-title {
@@ -1097,7 +1083,7 @@ html:has(.detail-dialog[open]) {
   font-weight: 620;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--cat-color);
+  color: var(--cat-text);
   margin-bottom: 12px;
 }
 
@@ -1298,6 +1284,12 @@ html:has(.detail-dialog[open]) {
      what gives the reference its lift: cards read as objects on a page instead of as cells
      inside a panel. The panel's border, radius and drop shadow all went with it. */
   .week-grid {
+    display: block;
+  }
+
+  /* Each slot (MORNING, AFTERNOON) is one full-width heading over one 5-column row of day
+     stacks, so the heading and the columns beneath it are always level with each other. */
+  .slot-row-cols {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 20px;
