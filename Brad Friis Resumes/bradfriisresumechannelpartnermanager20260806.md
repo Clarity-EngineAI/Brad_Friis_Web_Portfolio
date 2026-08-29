@@ -23,7 +23,7 @@ Consultancy work for Pikle, an ecommerce product discovery platform, alongside p
 ---
 
 ### General Manager, New Zealand and Australia
-**GCT Education** | *June 2015 to September 2025*
+**PowerSchool channel partner · education sector** | *June 2015 to September 2025*
 
 Channel partner for PowerSchool Schoology and itslearning across New Zealand and Australia.
 

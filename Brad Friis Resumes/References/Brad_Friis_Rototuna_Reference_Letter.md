@@ -1,7 +1,7 @@
 # A Big Thank You from Rototuna High Schools
 
 **From:** Pranesh Lad <pranesh.lad@rhs.school.nz>
-**To:** Brad Friis <brad@gct.education>
+**To:** Brad Friis <brad@[redacted]>
 **Date:** Monday, May 26, 2025, 11:56 AM
 
 ---

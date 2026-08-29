@@ -13,7 +13,7 @@ Customer success and account manager currently consulting in ecommerce product d
 * Delivered a full UX and customer experience audit of the Pikle product console, with a prioritised build order ranked by visible change per unit of work.
 * Built the positioning, messaging framework and sales kit for Pikle, covering pricing structure, four lead channels and a 12-month commercial plan.
 
-### General Manager, New Zealand and Australia · GCT Education · June 2015 to September 2025
+### General Manager, New Zealand and Australia · PowerSchool channel partner · education sector · June 2015 to September 2025
 * Channel partner for PowerSchool Schoology and itslearning across New Zealand and Australia.
 * Built the onboarding, training and adoption programme, running hands-on and remote workshops for non-technical staff across the customer base.
 * Retained a five-campus account that was actively evaluating a move to a competitor, then converted it into an expanded investment. Written reference available.

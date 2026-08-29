@@ -13,7 +13,7 @@ Consultancy work for Pikle, an ecommerce product discovery platform, alongside p
 *   Built the positioning, messaging framework and sales kit for Pikle, covering pricing structure, four lead channels and a 12-month commercial plan.
 *   Produced brand and design governance systems that keep distributed teams and tooling working to a single standard.
 
-### General Manager, New Zealand and Australia · GCT Education · June 2015 to September 2025
+### General Manager, New Zealand and Australia · PowerSchool channel partner · education sector · June 2015 to September 2025
 Channel partner for PowerSchool Schoology and itslearning across New Zealand and Australia.
 *   Grew the licensed user base from 2,800 to 29,784 across the decade.
 *   Grew revenue per account through tiered licensing, renewal pricing and upsell into additional sites and departments.

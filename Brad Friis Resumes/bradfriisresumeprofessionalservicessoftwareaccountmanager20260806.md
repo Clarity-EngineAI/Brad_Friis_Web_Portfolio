@@ -14,7 +14,7 @@ Consultancy work for Pikle, an ecommerce product discovery platform, alongside p
 *   Delivered a full UX and customer experience audit of the Pikle product console, with a prioritised build order ranked by visible change per unit of work.
 *   Produced brand and design governance systems that keep distributed teams and tooling working to a single standard.
 
-### General Manager, New Zealand and Australia · GCT Education · June 2015 to September 2025
+### General Manager, New Zealand and Australia · PowerSchool channel partner · education sector · June 2015 to September 2025
 Channel partner for PowerSchool Schoology and itslearning across New Zealand and Australia.
 
 *   Consulted with leadership to set organisation-wide goals, then worked site by site across a five-campus client to deliver one unified strategy, cutting duplicated effort.
