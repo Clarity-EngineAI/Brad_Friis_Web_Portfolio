@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import type { BlogBlock } from "../data/blog";
+import { toEmbedUrl, type BlogBlock } from "../data/blog";
 import { getBlogImage } from "../data/blogImages";
 
 interface Props {
@@ -29,6 +29,24 @@ function renderInline(text: string) {
       return (
         <figure class="blog-figure">
           <Image src={source} alt={block.alt} widths={[640, 960, 1280]} sizes="(min-width: 48rem) 40rem, 100vw" />
+          {block.caption && <figcaption>{block.caption}</figcaption>}
+        </figure>
+      );
+    }
+    if (block.kind === "video") {
+      const embedUrl = toEmbedUrl(block.url);
+      if (!embedUrl) return null;
+      return (
+        <figure class="blog-figure blog-video">
+          <div class="blog-video-frame">
+            <iframe
+              src={embedUrl}
+              title={block.caption ?? "Embedded video"}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            />
+          </div>
           {block.caption && <figcaption>{block.caption}</figcaption>}
         </figure>
       );

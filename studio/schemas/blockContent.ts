@@ -140,3 +140,45 @@ export const imageBlock = defineType({
     }),
   },
 });
+
+/* Video is embedded, not uploaded — there is no self-hosting pipeline for video the way
+   there is for images (see imageBlock above). The author pastes a normal YouTube or Vimeo
+   watch/share URL; the site turns it into a privacy-respecting embed URL at render time
+   (see toEmbedUrl in src/data/blog.ts). */
+export const videoBlock = defineType({
+  name: "videoBlock",
+  title: "Video",
+  type: "object",
+  fields: [
+    defineField({
+      name: "url",
+      title: "Video URL",
+      type: "url",
+      description: "A YouTube or Vimeo link, e.g. https://youtu.be/dQw4w9WgXcQ or https://vimeo.com/76979871.",
+      validation: (rule) =>
+        rule
+          .required()
+          .uri({ scheme: ["http", "https"] })
+          .custom((value) => {
+            if (!value) return true;
+            const isYouTube = /^https?:\/\/(www\.)?(youtube\.com|youtu\.be)\//.test(value);
+            const isVimeo = /^https?:\/\/(www\.)?vimeo\.com\//.test(value);
+            return isYouTube || isVimeo || "Must be a youtube.com, youtu.be, or vimeo.com link.";
+          }),
+    }),
+    defineField({
+      name: "caption",
+      title: "Caption",
+      type: "string",
+      description: "Optional line printed under the video.",
+      validation: (rule) => rule.max(160),
+    }),
+  ],
+  preview: {
+    select: { title: "url", subtitle: "caption" },
+    prepare: ({ title, subtitle }) => ({
+      title: title ?? "(no url)",
+      subtitle: subtitle ? `Video · ${subtitle}` : "Video",
+    }),
+  },
+});

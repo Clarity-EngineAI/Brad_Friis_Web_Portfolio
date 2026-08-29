@@ -3,7 +3,42 @@ export type BlogBlock =
   | { kind: "paragraph"; text: string }
   | { kind: "list"; style: "bullet" | "number"; items: string[] }
   | { kind: "break" }
-  | { kind: "image"; key: string; alt: string; caption?: string };
+  | { kind: "image"; key: string; alt: string; caption?: string }
+  | { kind: "video"; url: string; caption?: string };
+
+/**
+ * A YouTube or Vimeo watch/share URL, turned into its privacy-respecting embed URL.
+ *
+ * Returns null for a URL that matches neither host's known patterns, so the renderer can
+ * skip an unembeddable video rather than pointing an iframe at a page that refuses to embed.
+ */
+export function toEmbedUrl(url: string): string | null {
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.replace(/^www\./, "");
+
+    if (host === "youtu.be") {
+      const id = parsed.pathname.slice(1);
+      return id ? `https://www.youtube-nocookie.com/embed/${id}` : null;
+    }
+    if (host === "youtube.com" || host === "m.youtube.com") {
+      if (parsed.pathname === "/watch") {
+        const id = parsed.searchParams.get("v");
+        return id ? `https://www.youtube-nocookie.com/embed/${id}` : null;
+      }
+      const shortMatch = parsed.pathname.match(/^\/(shorts|embed)\/([^/]+)/);
+      if (shortMatch) return `https://www.youtube-nocookie.com/embed/${shortMatch[2]}`;
+      return null;
+    }
+    if (host === "vimeo.com") {
+      const id = parsed.pathname.match(/^\/(\d+)/)?.[1];
+      return id ? `https://player.vimeo.com/video/${id}` : null;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
 
 export interface BlogPost {
   slug: string;

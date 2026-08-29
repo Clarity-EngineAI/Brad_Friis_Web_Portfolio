@@ -55,13 +55,14 @@ export const post = defineType({
       name: "body",
       title: "Body",
       type: "array",
-      description: `Built from five kinds of block: heading, paragraph, list, section break, and image. ${GUARDRAIL_NOTE}`,
+      description: `Built from six kinds of block: heading, paragraph, list, section break, image, and video. ${GUARDRAIL_NOTE}`,
       of: [
         { type: "headingBlock" },
         { type: "paragraphBlock" },
         { type: "listBlock" },
         { type: "breakBlock" },
         { type: "imageBlock" },
+        { type: "videoBlock" },
       ],
       validation: (rule) =>
         rule.required().min(1).custom((blocks) => {

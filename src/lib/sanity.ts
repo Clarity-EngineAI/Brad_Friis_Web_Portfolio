@@ -15,13 +15,14 @@ const client = createClient({
 /* Sanity's document shape, before it is mapped to the site's BlogPost. The _type on each
    body block is the schema name; the site's discriminant is `kind`. */
 interface SanityBlock {
-  _type: "headingBlock" | "paragraphBlock" | "listBlock" | "breakBlock" | "imageBlock";
+  _type: "headingBlock" | "paragraphBlock" | "listBlock" | "breakBlock" | "imageBlock" | "videoBlock";
   text?: string;
   style?: "bullet" | "number";
   items?: string[];
   key?: string;
   alt?: string;
   caption?: string;
+  url?: string;
 }
 
 interface SanityImage {
@@ -50,7 +51,7 @@ const POSTS_QUERY = `*[_type == "post" && defined(slug.current)] | order(date de
   date,
   category,
   image{ key, alt, caption },
-  body[]{ _type, text, style, items, key, alt, caption }
+  body[]{ _type, text, style, items, key, alt, caption, url }
 }`;
 
 /** en-NZ long date, matching the hand-written dateLabel format ("15 August 2026"). */
@@ -79,6 +80,10 @@ function toBlogBlocks(blocks: SanityBlock[] | null): BlogBlock[] {
          predates the field. Dropping it beats publishing an unlabelled image. */
       if (!block.key || !block.alt) return [];
       return [{ kind: "image", key: block.key, alt: block.alt, caption: block.caption }];
+    }
+    if (block._type === "videoBlock") {
+      if (!block.url) return [];
+      return [{ kind: "video", url: block.url, caption: block.caption }];
     }
     if (block._type === "listBlock") {
       if (!block.items?.length) return [];
