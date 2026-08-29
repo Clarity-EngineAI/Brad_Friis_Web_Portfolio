@@ -33,8 +33,22 @@ const { outputText } = ts.transpileModule(source, {
 
 const moduleUrl = "data:text/javascript;base64," + Buffer.from(outputText, "utf8").toString("base64");
 
-const { scoreFit, questions, scoredQuestions, dimensions, bands, SCORE_FLOOR, SCORE_ROOF } =
-  await import(moduleUrl);
+const {
+  scoreFit,
+  questions,
+  scoredQuestions,
+  dimensions,
+  bands,
+  insufficientBand,
+  DEMAND_FLOOR,
+  SCORE_FLOOR,
+  SCORE_ROOF,
+} = await import(moduleUrl);
+
+// The insufficient band ("too many I-don't-know answers") is not in `bands` — it is a refusal
+// to score, not a scored outcome. Track it alongside the real bands so enumeration accounts for
+// every path.
+const allBands = [...bands, insufficientBand];
 
 // --- Invariants that do not need enumeration ------------------------------------------------
 
@@ -88,7 +102,7 @@ const axes = scoredQuestions.map((q) => ({ id: q.id, options: q.options.map((o) 
 const totalPaths = axes.reduce((n, axis) => n * axis.options.length, 1);
 
 const scores = [];
-const bandCounts = new Map(bands.map((b) => [b.id, 0]));
+const bandCounts = new Map(allBands.map((b) => [b.id, 0]));
 // Per-question sensitivity: how much does changing this one answer move the result?
 const swingByQuestion = new Map(axes.map((a) => [a.id, { sum: 0, n: 0 }]));
 
@@ -170,7 +184,7 @@ const report = {
   p75: round(pct(75)),
   p95: round(pct(95)),
   bands: Object.fromEntries(
-    bands.map((b) => [
+    allBands.map((b) => [
       b.id,
       { count: bandCounts.get(b.id), share: round((bandCounts.get(b.id) / scores.length) * 100) },
     ]),
@@ -233,6 +247,16 @@ if (!outbound.gaps.some((g) => g.id === "new-logo-hunting")) {
   failures.push("The outbound-led path does not surface new-logo-hunting as a gap.");
 }
 
+// The insufficient band exists to catch too many "I don't know" answers (sum(D) < DEMAND_FLOOR).
+// If it never fires across the full enumeration, either the floor is set too low to matter or a
+// question lost its skip option — either way the code is dead and should not ship silently.
+if (bandCounts.get("insufficient") === 0) {
+  failures.push(
+    `The insufficient band (sum(D) < ${DEMAND_FLOOR}) never fires across ${report.paths.toLocaleString()} ` +
+      `paths. Either raise DEMAND_FLOOR or the "I don't know" options no longer reach it.`,
+  );
+}
+
 writeFileSync(resolve(root, "scripts/fit-distribution.json"), JSON.stringify(report, null, 2) + "\n");
 
 console.log(`Enumerated ${report.paths.toLocaleString()} reachable paths.\n`);
@@ -240,9 +264,9 @@ console.log(
   `  min ${report.min}  max ${report.max}  mean ${report.mean}  median ${report.median}  sd ${report.sd}`,
 );
 console.log(`  p5 ${report.p5}  p25 ${report.p25}  p50 ${report.p50}  p75 ${report.p75}  p95 ${report.p95}\n`);
-for (const band of bands) {
+for (const band of allBands) {
   const b = report.bands[band.id];
-  console.log(`  ${band.label.padEnd(12)} ${String(b.count).padStart(6)}  ${b.share}%`);
+  console.log(`  ${band.label.padEnd(20)} ${String(b.count).padStart(6)}  ${b.share}%`);
 }
 console.log(`\n  below Substantial: ${report.belowSubstantialShare}%`);
 console.log(`  mean single-answer swing: ${report.meanSwing} points`);

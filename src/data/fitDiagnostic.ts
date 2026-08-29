@@ -68,7 +68,7 @@ export const SCORE_ROOF = 0.95;
 export const dimensions: Dimension[] = [
   {
     id: "adoption",
-    label: "Getting non-technical users to actually use the product",
+    label: "Getting non-technical users to genuinely use the product",
     ceiling: 0.95,
     reviewed: "2026-08-28",
     stage: "land",
@@ -192,29 +192,38 @@ export interface Question {
 export const questions: Question[] = [
   {
     id: "q1",
-    prompt: "Where is the revenue actually leaking?",
+    prompt: "What matters most to you in the person filling this role?",
     scored: true,
     options: [
-      { id: "a", label: "Customers leave at renewal, or threaten to", demand: { retention: 3, adoption: 1 } },
+      {
+        id: "a",
+        label: "Keeping the customers we already have happy and renewing",
+        demand: { retention: 3, adoption: 1 },
+      },
       {
         id: "b",
-        label: "Customers stay, but never spend more than they did on day one",
+        label: "Growing what our existing accounts spend with us",
         demand: { expansion: 3, "pricing-cash": 1 },
       },
       {
         id: "c",
-        label: "Our growth has to come from new customers, not existing ones",
+        label: "Bringing in new customers, not just growing old ones",
         demand: { "new-logo-hunting": 3, demand: 2 },
       },
       {
         id: "d",
-        label: "We win them, then implementation drags and the relationship sours",
+        label: "Making sure what we sell gets used and adopted",
         demand: { adoption: 3, "full-cycle": 1 },
       },
       {
         id: "e",
-        label: "The margin on each deal is thinner than it should be",
+        label: "Getting our margins and commercial terms in better shape",
         demand: { "commercial-terms": 2, "pricing-cash": 3 },
+      },
+      {
+        id: "f",
+        label: "I don't know. I'm assessing this for someone else.",
+        demand: {},
       },
     ],
   },
@@ -231,6 +240,11 @@ export const questions: Question[] = [
         id: "e",
         label: "We do not have accounts two years old. We are too young.",
         demand: { "new-logo-hunting": 3, demand: 2 },
+      },
+      {
+        id: "f",
+        label: "I don't know. I'm assessing this for someone else.",
+        demand: {},
       },
     ],
   },
@@ -260,24 +274,34 @@ export const questions: Question[] = [
         demand: { "pricing-cash": 3, "commercial-terms": 1 },
       },
       { id: "e", label: "Pricing is not the problem. Volume is.", demand: { "new-logo-hunting": 3, demand: 2 } },
+      {
+        id: "f",
+        label: "I don't know. I'm assessing this for someone else.",
+        demand: {},
+      },
     ],
   },
   {
     id: "q4",
-    prompt: "How much of what you sell actually gets used?",
+    prompt: "How would you describe adoption of what you sell?",
     scored: true,
     options: [
-      { id: "a", label: "It is bought and then barely touched", demand: { adoption: 3, retention: 2 } },
+      { id: "a", label: "Bought, then barely touched", demand: { adoption: 3, retention: 2 } },
       { id: "b", label: "The technical people use it, everybody else avoids it", demand: { adoption: 3 } },
       {
         id: "c",
-        label: "It gets used, but only because we hold their hand constantly",
+        label: "Used, but only with constant hand-holding from us",
         demand: { adoption: 2, "pricing-cash": 2, "full-cycle": 1 },
       },
       {
         id: "d",
-        label: "Usage is fine. Our problem is that nobody has heard of us.",
+        label: "Used well. What we need is more people hearing about us.",
         demand: { demand: 3, "new-logo-hunting": 2 },
+      },
+      {
+        id: "e",
+        label: "I don't know. I'm assessing this for someone else.",
+        demand: {},
       },
     ],
   },
@@ -295,6 +319,11 @@ export const questions: Question[] = [
       { id: "c", label: "New logos or new ARR", demand: { "new-logo-hunting": 4, demand: 1 } },
       { id: "d", label: "Total revenue, however it arrives", demand: { "full-cycle": 2, expansion: 1 } },
       { id: "e", label: "Activity and pipeline coverage", demand: { "new-logo-hunting": 3, demand: 2 } },
+      {
+        id: "f",
+        label: "I don't know. I'm assessing this for someone else.",
+        demand: {},
+      },
     ],
   },
   {
@@ -314,6 +343,11 @@ export const questions: Question[] = [
         demand: { "commercial-terms": 2, expansion: 1, retention: 1 },
       },
       { id: "d", label: "Self-serve, they arrive and buy", demand: { demand: 3, "new-logo-hunting": 3 } },
+      {
+        id: "e",
+        label: "I don't know. I'm assessing this for someone else.",
+        demand: {},
+      },
     ],
   },
   {
@@ -348,13 +382,18 @@ export const questions: Question[] = [
         label: "The commercials are on a better footing: terms, price, cash",
         demand: { "commercial-terms": 2, "pricing-cash": 2 },
       },
+      {
+        id: "f",
+        label: "I don't know. I'm assessing this for someone else.",
+        demand: {},
+      },
     ],
   },
 ];
 
 export const scoredQuestions = questions.filter((q) => q.scored);
 
-export type BandId = "strong" | "substantial" | "partial" | "weak";
+export type BandId = "strong" | "substantial" | "partial" | "weak" | "insufficient";
 
 export interface Band {
   id: BandId;
@@ -395,6 +434,19 @@ export const bands: Band[] = [
     verdict: "Not a good match. The main things you raised are the things I have least evidence for.",
   },
 ];
+
+/**
+ * Returned in place of a real band when `sum(D) < DEMAND_FLOOR`: too many "I don't know" answers
+ * (Q2, Q3) for the model to say anything about fit. Distinct from "weak", which is a measured
+ * verdict. This is a refusal to measure, not a measurement.
+ */
+export const insufficientBand: Band = {
+  id: "insufficient",
+  label: "Not enough to go on",
+  min: 0,
+  verdict:
+    "Too much of this came back \"I don't know\" for me to score it honestly. Answer the ones you can, or come back when you know the account's numbers.",
+};
 
 /**
  * The three permanent caveats. These render under their own heading, "Standing limitations,
@@ -506,6 +558,15 @@ export const GAP_MIN_DEMAND = 2;
 export const GAP_MAX_CEILING = 0.7;
 
 /**
+ * Minimum reachable sum(D) is 17 with every question answered with a scoring option. Below 8,
+ * too many answers were "I don't know" or left unanswered for the score to mean anything.
+ * Reinstated from the first draft now that every scored question carries an "I don't know"
+ * option, making a low sum(D) reachable; see PLAN-fit-diagnostic.md §2, "Deferred: I don't know
+ * skips".
+ */
+export const DEMAND_FLOOR = 8;
+
+/**
  * Pure. No DOM, no side effects, no clock. `answers` maps question id to option id; unanswered
  * or unknown questions are ignored rather than throwing, so a corrupt share URL degrades to a
  * partial result instead of an exception.
@@ -523,6 +584,21 @@ export function scoreFit(answers: Record<string, string>): FitResult {
   }
 
   const totalDemand = [...demandTotals.values()].reduce((sum, n) => sum + n, 0);
+
+  if (totalDemand > 0 && totalDemand < DEMAND_FLOOR) {
+    return {
+      raw: 0,
+      display: 0,
+      band: insufficientBand,
+      raised: [],
+      // Empty, not every dimension: "not raised" is a finding about a real answer set, and this
+      // one was not real enough to draw any conclusion from, including that one.
+      notRaised: [],
+      gaps: [],
+      needs: [],
+      sectorCaveat: "",
+    };
+  }
 
   const raised: DimensionResult[] = [];
   const notRaised: DimensionId[] = [];

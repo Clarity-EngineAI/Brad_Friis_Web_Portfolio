@@ -46,7 +46,7 @@ export interface EvidenceCard {
 export const evidenceCards: EvidenceCard[] = [
   {
     id: "adoption",
-    claim: "Getting non-technical people to actually use software they did not ask for",
+    claim: "Getting non-technical people to genuinely use software they did not ask for",
     evidence: [
       "At one school, 100% of teachers were onboarded to daily classroom use within a single term of signing.",
       "Through the lockdowns I ran 108 one-to-one interviews with teachers, and built a regional teacher network that reached around 600 people at its peak. Onboarding was built per school rather than from a template, because every school ran a different ecosystem, curriculum and practice.",

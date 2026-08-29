@@ -108,6 +108,20 @@ const rules = [
 const employerBar = { name: "employer named", test: (s) => /\bGCT\b/.test(s) };
 rules.push(employerBar);
 
+/**
+ * House style bars unrelated to any register row: words that creep in during editing and weaken
+ * or falsely intensify a claim. "actually" was the first: it was doing the presupposing work in
+ * "Where is the revenue actually leaking?", smuggling in a diagnosed problem the visitor had not
+ * confirmed. A single manual catch is not a rule; this makes it permanent.
+ */
+const bannedWords = ["actually"];
+for (const word of bannedWords) {
+  rules.push({
+    name: `banned word "${word}"`,
+    test: (s) => new RegExp(`\\b${word}\\b`, "i").test(s),
+  });
+}
+
 const failures = [];
 
 // --- Structural integrity of the evidence file ----------------------------------------------

@@ -667,8 +667,8 @@
     padding: 0 5mm;
     color: #000;
     background: #fff;
-    font-size: 10pt;
-    line-height: 1.4;
+    font-size: 9.5pt;
+    line-height: 1.28;
   }
 
   .site-header,
@@ -693,12 +693,30 @@
   }
 
   .fit-print-letterhead {
+    padding-bottom: 8px;
     border-bottom-color: #000;
   }
 
+  .fit-print-letter {
+    margin-top: 10px;
+    line-height: 1.32;
+  }
+
+  /* Section headings carry the CV print budget's own discipline: tight enough that
+     seven headings do not cost most of a page in whitespace alone. */
   .fit-print h2 {
+    margin: 7px 0 4px;
+    padding-top: 6px;
     border-top-color: #999;
     break-after: avoid;
+  }
+
+  .fit-print h1 {
+    margin-top: 12px;
+  }
+
+  .fit-print-qa {
+    gap: 5px;
   }
 
   .fit-print-qa li,
@@ -707,6 +725,39 @@
   #fit-print-evidence > div,
   .fit-print-meter-row {
     break-inside: avoid;
+  }
+
+  #fit-print-gaps > div,
+  #fit-print-needs > p,
+  #fit-print-evidence > div {
+    margin-bottom: 6px !important;
+  }
+
+  /* Each gap/evidence block is rendered as a heading plus one or more <p>, and the
+     browser default paragraph margin (~1em) compounds across them fast enough on
+     its own to push the report past two pages. */
+  #fit-print-gaps p,
+  #fit-print-evidence p {
+    margin: 0 0 5px;
+  }
+
+  #fit-print-gaps p:last-child,
+  #fit-print-evidence p:last-child {
+    margin-bottom: 0;
+  }
+
+  .fit-print-meter-row {
+    margin-bottom: 8px;
+  }
+
+  /* The share-link section is a heading plus one short line: never worth a page break
+     between them. */
+  #fit-print-link-heading {
+    break-after: avoid;
+  }
+
+  #fit-print-share-url {
+    break-before: avoid;
   }
 
   .fit-print-bar,

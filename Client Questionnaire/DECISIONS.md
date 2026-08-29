@@ -5,6 +5,29 @@ gets updated to match.
 
 ---
 
+## 29 August 2026: the nine-dimension split is reversed, eight dimensions stand
+
+**Decided by Brad, confirmed when the contradiction was surfaced.** The "dimension 8 is split in
+two" decision below (28 August) was never implemented and is superseded. The live model in
+`src/data/fitDiagnostic.ts` kept eight dimensions: `new-logo-hunting` restored to its post-split
+`cold-outbound` ceiling of 0.30 (not 0.25, not split into a separate `customer-base` dimension at
+0.85), and `demand` raised to 0.70 as the split entry also specified. No `customer-base` dimension
+exists in code, the question set was never reworked for one, and the shipped
+`check-fit-model.mjs` enumeration (194,400 paths, `GAP_MAX_CEILING` raised to 0.70 alongside it)
+was run against this eight-dimension model, not nine.
+
+**Why this note exists.** The split entry below says explicitly "must be reworked and the
+enumeration re-run before any code is written" — code was written against the pre-split ceilings
+instead, and neither this file nor the plan was updated to say so. Treat the split entry as
+historical only: the challenge and evidence table in it are still true (customer-base growth is
+real and multi-employer), but the model decision it proposed did not ship. `new-logo-hunting` at
+0.30 is the current, final ceiling — see `fit-ceilings-signed-off` for the full eight-value list.
+
+**Do not reopen the split** without a fresh decision — it would again require reworking the
+question set and re-running the enumeration before any code changes.
+
+---
+
 ## 28 August 2026: the 99 Corporation letter is found, and left unpublished
 
 **Decided by Brad: keep it as is.** No register edit, no new letter slug, no change to any ceiling.

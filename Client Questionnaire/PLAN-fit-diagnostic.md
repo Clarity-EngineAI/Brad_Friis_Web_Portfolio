@@ -41,18 +41,19 @@ link, and a save format a hiring manager can forward to a colleague.
 
 ## 1. The scoring model
 
-### Dimensions: nine, purpose-built
+### Dimensions: eight, purpose-built
 
-> **Revised 28 August 2026, by Brad.** This was eight dimensions. The single `new-logo-hunting`
-> dimension at 0.25 was measuring cold outbound as a daily motion while carrying evidence that is
-> really about growing a customer base, which is a different capability evidenced at four
-> employers. It has been split into `customer-base` (0.85) and `cold-outbound` (0.35), and `demand`
-> raised 0.60 to 0.70. See `Client Questionnaire/DECISIONS.md` for the full reasoning and the
-> register rows.
+> **Revised 28 August 2026, by Brad; split reversed same day, see `DECISIONS.md`.** A nine-way
+> split of `new-logo-hunting` into `customer-base` (0.85) and `cold-outbound` (0.35) was proposed
+> and briefly recorded, but never implemented — the live model kept eight dimensions with
+> `new-logo-hunting` restored to 0.30, and `demand` raised 0.60 to 0.70 as the same decision
+> specified. This is final; do not reopen the split without a fresh decision. See
+> `Client Questionnaire/DECISIONS.md` for the full reasoning and the register rows.
 >
-> **Consequence: the enumerated distribution below is stale.** It was computed on eight dimensions
-> with a question set that has no route to `customer-base`. Both the question set and the
-> enumeration must be reworked before step 1 of the build sequence.
+> **The enumerated distribution below is stale for a different reason: it predates the "I don't
+> know" skip logic.** It was computed before the skip logic and the `insufficientBand` were added
+> (29 August 2026); `check-fit-model.mjs` now enumerates 194,400 paths against the current
+> eight-dimension, skip-aware model. See PROJECT-STATUS.md §2 for that record.
 
 Not the twelve `repWeekCalendar.js` categories (four have no evidence behind them, and nobody has
 a business problem called "measurement and attribution"). Not the Demand/Land/Keep/Grow lifecycle
@@ -67,9 +68,8 @@ lifecycle survives as a colour and grouping label, not as the scoring axis.
 | `pricing-cash` | Pricing structure and cash cycle | 0.90 | Grow | Managed services billed annually in advance; buy-as-needed licensing; 50% deposit at 99 Corporation. The price-rise concession travels with it. |
 | `commercial-terms` | Contracts, licensing and vendor terms | 0.88 | Grow | Whole reseller agreement renegotiated, direct billing in local currency, 500-licence minimum removed. One vendor, one contract family. |
 | `full-cycle` | Owning the whole cycle solo, prospect to invoice | 0.85 | Land | Evidenced at Xplore and through the education decade. A sales-ops-supported enterprise motion is a different animal. |
-| `customer-base` | Growing the size of a customer base | 0.85 | Demand | **Added 28 August 2026.** 99 Corporation customers +~70% and income +~120%, owner-confirmed by Rob Nieuwland (E12, E51). Hawke's Bay Tourism advertisers +40%, revenue +60% over three years (E37). Xchange, 25-business referral network, over $70,000 across two years (E21). Canwest 10 to 20% account growth against a 10% minimum, every year (E45). Four employers. Bounded below `adoption` because none of it is sized in dollars across the whole book. |
 | `demand` | Generating new demand: campaigns, partnerships, marketing | 0.70 | Demand | Ad revenue +60% and advertiser volume +40% over three years, Gold Pages two-tier product (E32), the advertiser member-value bundle (E35), grouped advertiser campaigns and live-to-air promotions at Canwest (E42, E43), conference sponsorship, the Ministry facilitator partnership. Raised from 0.60 on 28 August: the campaign and packaging work was not counted anywhere. |
-| `cold-outbound` | High-volume cold outbound as the daily motion | 0.35 | Demand | Done at 99 Corporation, but E15 records he left partly because he did not enjoy it, and **no dial, meeting or call volume exists anywhere in the register**. Hard-capped, but no longer carrying evidence that belongs to `customer-base`. |
+| `new-logo-hunting` | High-volume net-new acquisition, cold outbound | 0.30 | Demand | This is the one Brad has least. The record from 2001 is land, keep and grow. He did grow a client base substantially at 99 Corporation and built a referral network worth over $70,000 across two years (E51, E21), but neither is high-volume cold outbound, and he left 99 Corporation partly because he did not enjoy the cold calling (E15). A nine-way split of this dimension into `customer-base` (0.85) and `cold-outbound` (0.35) was proposed 28 August and reversed the same day — see `DECISIONS.md`. Restored to 0.30 at sign-off. |
 
 Ceilings live in data with a comment naming the claims-register row that justifies each, plus the
 date last reviewed. **A visitor cannot argue a ceiling up.**
@@ -155,11 +155,11 @@ should be reinstated then, not before.
 
 A dimension enters "Where I am not your person" when `D[d] >= 2 AND ceiling[d] <= 0.60`.
 
-> **Revised 28 August 2026.** Under the nine-dimension model only `cold-outbound` (0.35) sits at or
-> below 0.60, so **only one dimension can now trip this**, where two could before. `demand` at 0.70
-> no longer trips. Decide when re-tuning whether the threshold rises to 0.70 (restoring two
-> trigger routes) or whether one honest gap is enough. Do not leave it at 0.60 by default without
-> ruling on it: a gaps section that can only ever name one thing is close to no gaps section.
+> **Resolved 29 August 2026.** The nine-dimension split referenced below (28 August) was reversed
+> the same day and never shipped — see `DECISIONS.md`, "the nine-dimension split is reversed".
+> Under the live eight-dimension model, `GAP_MAX_CEILING` was raised from 0.60 to 0.70
+> (`src/data/fitDiagnostic.ts`), restoring two trigger routes: `new-logo-hunting` (0.30) and
+> `demand` (0.70, at the boundary). This is final; do not revisit without a fresh decision.
 
 **Two headings, not one.** When a dimension genuinely trips, it renders under "Where I am not your
 person". The three permanent caveats render separately under **"Standing limitations, shown on
@@ -623,7 +623,36 @@ Steps 1 to 4 are one session. Steps 5 to 7 are one session. Step 8 to 9 close it
    review.
 3. **"I don't know" skips on Q2 and Q3** for recruiters answering on behalf of a client, which also
    resurrects the floor rule. Requires re-running the enumeration.
-4. **Two-page print polish** once `?print=1` has been used in anger.
+4. ~~Two-page print polish once `?print=1` has been used in anger.~~ **Done, 29 August 2026,**
+   with one open question below.
+
+---
+
+## Print polish, 29 August 2026
+
+`.fit-print` had screen styling and a `@media print` block, but no print-specific tightening —
+it inherited default paragraph and heading spacing, which is generous enough on its own to push
+every path past two A4 pages. Tightened in `src/styles/fit.css`: heading margins, the intro
+letter, the question list gap, and paragraph spacing inside gap/evidence cards. All changes are
+inside `@media print`; the on-screen `?print=1` preview is untouched.
+
+**Verified against real print output**, not the screen preview: rendered to PDF via headless
+Chrome (`--print-to-pdf`) at three answer sets and read the actual page count and page breaks,
+not just the on-screen layout.
+
+- SDR path (`?a=ccedcdc`, Weak 35, both gap dimensions triggered): **2 pages**, confirmed.
+- A mixed path (`?a=bbbbbba`): **3 pages**.
+- Retention path (`?a=aaaaaba`, Strong 95, the plan's own required verification walk): **3 pages**.
+
+**Open finding, not fixed this session.** The retention-led path is not a whitespace problem —
+page 2 is already full without cramping. It hits `MAX_EVIDENCE_CARDS` (4, in `fitEvidence.ts`),
+each card carrying a quote plus two to three paragraphs, on top of five meter rows and two
+"what I would need" paragraphs. Further print-CSS trimming would start compromising legibility,
+which defeats the purpose of print polish. The strongest-evidence paths — the ones most likely to
+actually get printed and handed to someone — are the ones that run long. Two ways to close this,
+neither taken without Brad's call: drop the print evidence cap to 3, or design a more compact
+print-only evidence card (claim + one line, no full quote). Not urgent: nothing is broken or
+orphaned on page 3, it is a clean continuation.
 
 ---
 

@@ -12,35 +12,30 @@ import "../styles/fit.css";
 >
   <section class="fit-intro shell" id="fit-intro" data-view="intro">
     <p class="eyebrow-pill">A self-service reference check</p>
-    <h1>Am I a fit for what you need?</h1>
+    <h1>How well do my skills match your role?</h1>
     <p class="page-intro">
-      Eight questions about your own situation, not about me. Two minutes, then a scored,
-      evidenced report showing where my twenty-five years overlaps what you described,
-      including where it does not, plus what I would need from you.
+      Eight quick questions about what you need. Around five minutes.
     </p>
 
     <div class="fit-intro-notes">
       <p>
-        <strong>This is a fixed instrument, not a pitch.</strong> The eight capabilities below
-        each carry a ceiling set in advance from documented evidence. Nothing you answer can
-        raise a ceiling. A dimension you never raise is not scored at all.
+        You'll get a downloadable report showing where my experience matches the role, where
+        it is weaker, and any obvious gaps.
       </p>
       <p>
-        Answer for the business you have, not the one you are building. A flattering answer
-        here only wastes your own time.
+        The scoring is based on documented experience and fixed in advance, so your answers
+        can't make the result more flattering.
       </p>
       <p>
-        This scores account and commercial work: keeping, growing and running the commercial
-        terms of accounts already held, plus generating new demand. It does not score
-        management, a bigger title, or team leadership.
+        I'm conscious of your time, and mine. If the fit isn't there, it is better for both of
+        us to know early.
       </p>
       <p>
-        Nothing answered here is sent anywhere or stored. It is worked out in your browser, and
-        the only record is the link the report gives you at the end.
+        Nothing you enter is stored or sent to me.
       </p>
     </div>
 
-    <button class="button" type="button" data-start>Start</button>
+    <button class="button" type="button" data-start>Check the fit</button>
 
     <noscript>
       <p class="fit-noscript">
@@ -663,17 +658,19 @@ import "../styles/fit.css";
       .join("");
 
     const printMeter = document.querySelector("#fit-print-meter")!;
-    printMeter.innerHTML = result.raised
-      .map((r) => {
-        const pct = Math.round(r.share * 100);
-        const ceilingPct = Math.round(r.ceiling * 100);
-        return `<div class="fit-print-meter-row${r.isGap ? " is-gap" : ""}">
+    printMeter.innerHTML = result.raised.length
+      ? result.raised
+          .map((r) => {
+            const pct = Math.round(r.share * 100);
+            const ceilingPct = Math.round(r.ceiling * 100);
+            return `<div class="fit-print-meter-row${r.isGap ? " is-gap" : ""}">
           <p>${escapeHtml(stageLabel[r.stage] ?? r.stage)} · ${escapeHtml(r.label)}</p>
           <div class="fit-print-bar"><div class="fit-print-fill" style="width:${pct}%"></div><div class="fit-print-rule" style="left:${ceilingPct}%"></div></div>
           <p class="fit-print-bar-note">you: ${pct}% · my evidence reaches ${ceilingPct}%${r.isGap ? " — gap" : ""}</p>
         </div>`;
-      })
-      .join("");
+          })
+          .join("")
+      : "<p>No capabilities raised.</p>";
 
     const gapsBlock = document.querySelector<HTMLElement>("#fit-print-gaps-block")!;
     const gapsList = document.querySelector("#fit-print-gaps")!;
@@ -714,8 +711,7 @@ import "../styles/fit.css";
           const letter = card.letterSlug ? getLetter(card.letterSlug) : undefined;
           return `<div>
             <p><strong>${escapeHtml(card.claim)}</strong></p>
-            ${card.evidence.map((line) => `<p>${escapeHtml(line)}</p>`).join("")}
-            ${card.concession ? `<p>${escapeHtml(card.concession)}</p>` : ""}
+            <p>${escapeHtml(card.evidence[0])}</p>
             ${
               card.letterQuote && letter
                 ? `<p>“${escapeHtml(card.letterQuote)}” — ${escapeHtml(card.letterAttribution ?? letter.referee)} (bradfriis.com/letters/${letter.slug}/)</p>`
