@@ -115,6 +115,24 @@ const roles: {
     ],
   },
   {
+    // Added 29 August 2026. Closes the 2006–2009 gap between Canwest and Xplore, which a
+    // recruiter reading LinkedIn alongside this page would otherwise see unexplained.
+    // E48–E50 are publishable in full; Brad lifted the restriction on the closure himself.
+    // The failure is his own diagnosis and is published as his, never as an analysis of him
+    // (footnote 60) — and it stays a single instance, never multiplied into a pattern.
+    title: "Founder and Director",
+    organisation: "MySimpleSiteMan",
+    dates: "2006–2009",
+    summary:
+      "Self-serve website builder letting New Zealand small businesses build and manage their own site for $399 a year.",
+    points: [
+      "Founded, priced and ran the product, with over $400,000 invested in development and maintenance before it was closed down.",
+      "Misjudged that small-business owners understood how to build a site that converted a visitor, and architected the system for three to six page brochure sites with no path to larger builds.",
+      "The one venture of mine that failed, and the education every role since has been built on.",
+    ],
+    pageLink: { label: "Read the full story", href: "/blog/simplesiteman/" },
+  },
+  {
     title: "Account Manager",
     organisation: "Canwest Media (Radioworks)",
     dates: "2003–2006",
@@ -191,6 +209,7 @@ const tools = "Salesforce, HubSpot, Pipedrive, Asana, Workflow Max, Microsoft 36
         </dl>
         <div class="cv-actions">
           <BookingButton variant="sidebar" label="Book a meeting" />
+          <a class="button button-secondary" href="/fit/">Am I a fit for what you need?</a>
           <button class="button button-secondary" type="button" data-print>Print or save PDF</button>
         </div>
       </aside>
@@ -198,12 +217,17 @@ const tools = "Salesforce, HubSpot, Pipedrive, Asana, Workflow Max, Microsoft 36
       <div>
         <section class="cv-section" aria-labelledby="cv-profile">
           <h2 id="cv-profile">Profile</h2>
+          {/* The concession sentence stays: bounding the claim is what makes it credible, and it
+              is the one line here no other candidate's CV carries. Closing sentence added
+              29 August 2026 — a recruiter scans for a stated target, and the page had none.
+              It states the seat wanted without fencing the sector (see the target-role rule). */}
           <p>
             Commercial manager with twenty-five years in software, media and agency work, ten of them
             running the New Zealand and Australian business for a United States software vendor's
             channel partner. I kept the bulk of the accounts I won, not all of them and not
             everywhere, but the billing, the contracts, the renewals and the relationship were mine
-            at every job I have had since 2001.
+            at every job I have had since 2001. I am looking for an account management seat where
+            retaining and growing the customers already won is the number, not new logos alone.
           </p>
         </section>
 
@@ -261,27 +285,37 @@ const tools = "Salesforce, HubSpot, Pipedrive, Asana, Workflow Max, Microsoft 36
           ))}
         </section>
 
+        {/* Wrapper is inert on screen (see .cv-closing-row in the print block only);
+            in print it lays these three short sections as one row to hold the
+            two-page budget after the seventh role was added, 29 August 2026. */}
+        <div class="cv-closing-row">
         <section class="cv-section" aria-labelledby="cv-tools">
           <h2 id="cv-tools">Systems and tools</h2>
           <p>{tools}</p>
         </section>
 
         <section class="cv-section" aria-labelledby="cv-development">
-          <h2 id="cv-development">Professional development and community</h2>
+          <h2 id="cv-development">Education and professional development</h2>
+          {/* Heading carries the word "Education" so ATS parsers looking for the field find it.
+              Hastings Boys High School runs without dates on Brad's call, 29 August 2026: the
+              field is satisfied without putting a 1988 date ahead of the achievements. */}
           <p>
-            Solution Selling, Sales Impact Group. Winning with Relationship Selling, Dale Carnegie.
-            Board member, Foodbank Hawke's Bay and Volunteering New Zealand.
+            Hastings Boys High School. Solution Selling, Sales Impact Group. Winning with
+            Relationship Selling, Dale Carnegie. Board member, Foodbank Hawke's Bay and
+            Volunteering New Zealand.
           </p>
         </section>
 
         <section class="cv-section" aria-labelledby="cv-references">
           <h2 id="cv-references">References</h2>
+          {/* Kept to one printed line, 29 August 2026: at two lines this block is the only
+              thing on a third sheet, because it is break-inside: avoid. */}
           <p>
-            Eight written references from customers, clients and managers, 2003 to 2025, published in
-            full at bradfriis.com/letters.{" "}
+            Eight written references, 2003 to 2025, published in full at bradfriis.com/letters.{" "}
             <span class="screen-only"><a class="text-link" href="/letters/">Read the letters</a>.</span>
           </p>
         </section>
+        </div>
       </div>
     </div>
   </div>

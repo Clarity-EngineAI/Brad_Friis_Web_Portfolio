@@ -1,0 +1,743 @@
+/* Page-scoped styles for /fit/. Imported only by fit.astro, as week.css is by week.astro.
+
+   Stage hues redeclared here rather than importing week.css for four custom properties, per
+   the plan's §5.1: Demand #c05621, Land #319795, Keep --accent #9c3d1e, Grow #4a5568. week.css
+   already records that #319795 is 3.1:1 on white and unsafe for text; these are for bar fills
+   only, never for text colour. */
+
+:root {
+  --stage-demand: #c05621;
+  --stage-land: #319795;
+  --stage-keep: #9c3d1e;
+  --stage-grow: #4a5568;
+}
+
+/* .button's `display: inline-flex` otherwise beats the UA [hidden] rule at equal specificity,
+   since author styles always win over UA styles — the Back/Next buttons stayed visually
+   present (just non-interactive) with only `hidden` set. Same fix week.css already carries
+   for its own buttons. */
+[hidden] {
+  display: none !important;
+}
+
+/* --- Intro ------------------------------------------------------------------------------- */
+
+.fit-intro {
+  padding-block: 56px 72px;
+}
+
+.fit-intro-notes {
+  max-width: 62ch;
+  margin: 28px 0 0;
+  display: grid;
+  gap: 14px;
+}
+
+.fit-intro-notes p {
+  margin: 0;
+  color: var(--ink-secondary);
+  font-size: var(--text-body);
+  line-height: 1.6;
+}
+
+.fit-intro-notes p strong {
+  color: var(--ink);
+}
+
+.fit-intro > .button {
+  margin-top: 32px;
+}
+
+.fit-noscript {
+  margin-top: 24px;
+  color: var(--ink-tertiary);
+}
+
+/* --- Question flow ------------------------------------------------------------------------ */
+
+.fit-questions {
+  padding-block: 48px 72px;
+  max-width: 46rem;
+}
+
+.fit-progress {
+  margin-bottom: 32px;
+}
+
+.fit-progress-rail {
+  display: flex;
+  gap: 6px;
+}
+
+.fit-progress-seg {
+  flex: 1;
+  height: 4px;
+  border-radius: var(--r-pill);
+  background: var(--line);
+}
+
+.fit-progress-seg.is-done {
+  background: var(--accent);
+}
+
+.fit-progress-seg.is-current {
+  background: var(--ink-tertiary);
+}
+
+.fit-progress-label {
+  margin: 10px 0 0;
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+  font-weight: 600;
+}
+
+.fit-question {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.fit-question legend {
+  padding: 0;
+  margin: 0 0 20px;
+  max-width: 28ch;
+  color: var(--ink);
+  font-size: var(--text-title);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+.fit-options {
+  display: grid;
+  gap: 10px;
+}
+
+.fit-option {
+  display: block;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.fit-option:has(input:checked) {
+  border-color: var(--accent);
+  background: var(--recessed);
+}
+
+.fit-option:hover {
+  border-color: var(--line-hover);
+}
+
+.fit-option input {
+  /* Visually hidden but present and focusable, not display:none — native radios keep arrow-key
+     navigation, roving tabindex and group semantics. */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.fit-option:has(input:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.fit-option span {
+  display: block;
+  color: var(--ink-secondary);
+  font-size: var(--text-body);
+  line-height: 1.5;
+}
+
+.fit-option:has(input:checked) span {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.fit-nav {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+/* --- Report -------------------------------------------------------------------------------- */
+
+.fit-report {
+  padding-block: 48px 72px;
+  max-width: 46rem;
+}
+
+.fit-result-head {
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+}
+
+.fit-result-band {
+  margin: 0;
+  color: var(--accent);
+  font-size: var(--text-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.fit-result-number {
+  margin: 6px 0 0;
+  color: var(--ink);
+  font-size: var(--text-hero);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.fit-result-verdict {
+  max-width: 40ch;
+  margin: 14px 0 0;
+  color: var(--ink-tertiary);
+  font-size: var(--text-lead);
+  line-height: 1.5;
+}
+
+.fit-block {
+  padding-block: 32px;
+  border-bottom: 1px solid var(--line);
+}
+
+.fit-block h3 {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-size: var(--text-title);
+  letter-spacing: -0.01em;
+}
+
+.fit-block-note {
+  max-width: 52ch;
+  margin: 0 0 18px;
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+  line-height: 1.5;
+}
+
+/* Situation list */
+
+.fit-situation-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.fit-situation-item {
+  display: block;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  background: var(--surface);
+  text-align: left;
+  cursor: pointer;
+}
+
+.fit-situation-item:hover {
+  border-color: var(--line-hover);
+  background: var(--recessed);
+}
+
+.fit-situation-q {
+  display: block;
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+}
+
+.fit-situation-a {
+  display: block;
+  margin-top: 2px;
+  color: var(--ink);
+  font-size: var(--text-body);
+  font-weight: 600;
+}
+
+/* Meter */
+
+.fit-meter {
+  display: grid;
+  gap: 22px;
+}
+
+.fit-meter-row-label {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-size: var(--text-meta);
+  font-weight: 600;
+}
+
+.fit-meter-stage {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  background: var(--stage-color);
+  color: #fff;
+  font-size: var(--text-enum);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.fit-meter-bar {
+  position: relative;
+  height: 14px;
+  border-radius: var(--r-sm);
+  background: var(--recessed);
+  overflow: visible;
+}
+
+.fit-meter-fill {
+  height: 100%;
+  border-radius: var(--r-sm);
+  background: var(--stage-color);
+}
+
+.fit-meter-fill.is-gap {
+  /* Gap rows draw identically to strength rows — no red, no warning icon. A separate
+     treatment reads as apology; identical treatment reads as measurement. */
+  background: var(--stage-color);
+}
+
+.fit-meter-ceiling {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 2px;
+  background: var(--ink);
+}
+
+.fit-meter-row-note {
+  margin: 8px 0 0;
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+}
+
+.fit-meter-summary {
+  margin: 20px 0 0;
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+}
+
+.fit-not-raised {
+  margin: 8px 0 0;
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+}
+
+/* Gaps and needs cards */
+
+.fit-gap-card,
+.fit-need-card {
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  background: var(--surface);
+}
+
+.fit-gap-card + .fit-gap-card {
+  margin-top: 10px;
+}
+
+.fit-gap-label {
+  margin: 0 0 6px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.fit-gap-card p,
+.fit-need-card {
+  margin: 0;
+  color: var(--ink-secondary);
+  font-size: var(--text-body);
+  line-height: 1.55;
+}
+
+.fit-gap-concession {
+  margin-top: 8px !important;
+  color: var(--ink-tertiary) !important;
+  font-size: var(--text-meta) !important;
+}
+
+#fit-needs-list {
+  display: grid;
+  gap: 10px;
+}
+
+.fit-standing-list {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--ink-secondary);
+  font-size: var(--text-body);
+  line-height: 1.6;
+}
+
+.fit-standing-list li + li {
+  margin-top: 8px;
+}
+
+.fit-sector-caveat {
+  margin: 16px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line-soft);
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+  line-height: 1.5;
+}
+
+/* Evidence */
+
+.fit-evidence-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.fit-evidence-card {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  background: var(--surface);
+}
+
+.fit-evidence-claim {
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-size: var(--text-title);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.fit-evidence-card p {
+  margin: 0 0 8px;
+  color: var(--ink-secondary);
+  font-size: var(--text-body);
+  line-height: 1.55;
+}
+
+.fit-evidence-concession {
+  color: var(--ink-tertiary) !important;
+  font-size: var(--text-meta) !important;
+}
+
+.fit-evidence-quote {
+  margin: 12px 0 0;
+  padding: 14px 16px;
+  border-left: 2px solid var(--accent);
+  background: var(--recessed);
+  color: var(--ink);
+  font-size: var(--text-meta);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.fit-evidence-quote cite {
+  display: block;
+  margin-top: 8px;
+  font-style: normal;
+}
+
+.fit-evidence-quote cite a {
+  font-weight: 600;
+}
+
+/* Note field */
+
+#fit-note {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--text-body);
+  line-height: 1.5;
+  resize: vertical;
+}
+
+#fit-note:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Share */
+
+.fit-share-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+/* Method disclosure */
+
+.fit-method {
+  padding-block: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.fit-method summary {
+  cursor: pointer;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.fit-method p {
+  max-width: 60ch;
+  margin: 14px 0 0;
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+  line-height: 1.6;
+}
+
+.fit-close-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 32px;
+}
+
+/* --- Print view (rendered on screen at ?print=1, and via @media print below) --------------- */
+
+.fit-print {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 56px var(--gutter) 72px;
+}
+
+.fit-print-letterhead {
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.fit-print-name {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--text-title);
+  font-weight: 700;
+}
+
+.fit-print-contact {
+  margin: 4px 0 0;
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+}
+
+.fit-print h1 {
+  margin: 24px 0 0;
+  color: var(--ink);
+  font-size: var(--text-section);
+}
+
+.fit-print-date {
+  margin: 4px 0 0;
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+}
+
+.fit-print-letter {
+  max-width: 62ch;
+  margin: 24px 0 0;
+  color: var(--ink-secondary);
+  font-size: var(--text-body);
+  line-height: 1.6;
+}
+
+.fit-print h2 {
+  margin: 32px 0 10px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  font-size: var(--text-title);
+}
+
+.fit-print-result {
+  font-weight: 600;
+}
+
+.fit-print-qa {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.fit-print-q {
+  margin: 0;
+  color: var(--ink-tertiary);
+  font-size: var(--text-meta);
+}
+
+.fit-print-a {
+  margin: 2px 0 0;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.fit-print-meter-row {
+  margin-bottom: 16px;
+}
+
+.fit-print-meter-row p {
+  margin: 0 0 4px;
+  font-size: var(--text-meta);
+}
+
+.fit-print-bar {
+  position: relative;
+  height: 10px;
+  background: var(--recessed);
+}
+
+.fit-print-fill {
+  height: 100%;
+  background: var(--ink-tertiary);
+}
+
+.fit-print-meter-row.is-gap .fit-print-fill {
+  background: var(--ink);
+}
+
+.fit-print-rule {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  background: var(--ink);
+}
+
+.fit-print-bar-note {
+  margin-top: 4px !important;
+  color: var(--ink-tertiary);
+}
+
+#fit-print-gaps > div,
+#fit-print-needs > p,
+#fit-print-evidence > div {
+  margin-bottom: 14px;
+}
+
+/* --- Responsive --------------------------------------------------------------------------- */
+
+@media (max-width: 640px) {
+  .fit-nav {
+    flex-direction: column-reverse;
+  }
+
+  .fit-nav .button,
+  .fit-nav .button-secondary {
+    width: 100%;
+  }
+}
+
+/* Reduced motion: remove the transition, keep the 150ms auto-advance delay set in JS. Less
+   motion, not less time — an instant advance on click means a mis-click has already lost the
+   screen. */
+@media (prefers-reduced-motion: reduce) {
+  .fit-option,
+  .fit-progress-seg {
+    transition: none;
+  }
+}
+
+/* --- Print media query --------------------------------------------------------------------- */
+
+@media print {
+  @page {
+    size: A4;
+  }
+
+  body {
+    padding: 0 5mm;
+    color: #000;
+    background: #fff;
+    font-size: 10pt;
+    line-height: 1.4;
+  }
+
+  .site-header,
+  .site-footer,
+  .skip-link,
+  .fit-intro,
+  .fit-questions,
+  .fit-report {
+    display: none;
+  }
+
+  .fit-print {
+    display: block !important;
+    max-width: none;
+    padding: 0;
+    color: #000;
+  }
+
+  .fit-print * {
+    color: #000 !important;
+    background: none !important;
+  }
+
+  .fit-print-letterhead {
+    border-bottom-color: #000;
+  }
+
+  .fit-print h2 {
+    border-top-color: #999;
+    break-after: avoid;
+  }
+
+  .fit-print-qa li,
+  #fit-print-gaps > div,
+  #fit-print-needs > p,
+  #fit-print-evidence > div,
+  .fit-print-meter-row {
+    break-inside: avoid;
+  }
+
+  .fit-print-bar,
+  .fit-print-fill,
+  .fit-print-rule {
+    background: #000 !important;
+  }
+
+  .fit-print-fill {
+    background: #666 !important;
+  }
+
+  /* No fill is lost with printBackground off: a hairline border plus the numeral in the note
+     line carries the same information the fill colour does on screen. */
+  .fit-print-bar {
+    border: 1px solid #000;
+  }
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  a[href^="http"]::after,
+  a[href^="/"]::after {
+    content: " (bradfriis.com" attr(href) ")";
+    font-size: 8pt;
+    color: #333 !important;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+  }
+}

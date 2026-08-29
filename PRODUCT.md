@@ -61,7 +61,7 @@ The through-line across thirty years is capability, not a hunting record: readin
 **Voice** (binding on everything except the blog, which runs its own register — see `design/09-blog-voice.md`):
 - First person; present tense for a capability claim, past tense for a finished record.
 - Specific over impressive — state numbers once, plainly; let customers do the praising.
-- No second person — the reader is never addressed as "you".
+- No second person — the reader is never addressed as "you". **One documented exemption: `/fit/`.** The diagnostic asks a hiring manager about their own business, so its questions, its option labels and the printed intro letter address the reader directly. Everything the page says back in Brad's own voice — verdict lines, evidence cards, concessions, gaps and the "what I would need from you" section — stays first person. The exemption exists because a question that cannot say "your" is not a question; it does not extend to any other route, and it does not license second person in the report's own claims.
 - No industry noun in display type (headings, hero) — "software"/"SaaS"/"edtech" stay out of headlines; body copy may name a sector where factual.
 - No advertising device — no two-part withheld-clause rhythm, no reversal, no colon-then-punchline. Plain declarative sentences.
 - Vary sentence openings across any set of headings/lines.

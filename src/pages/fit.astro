@@ -1,0 +1,778 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { contact } from "../data/contact";
+import { scoredQuestions, standingGaps } from "../data/fitDiagnostic";
+import distribution from "../../scripts/fit-distribution.json";
+import "../styles/fit.css";
+---
+
+<SiteLayout
+  title="Am I a fit? — Brad Friis"
+  description="Answer eight questions about your own business and get back a scored, evidenced report of where my twenty-five years overlaps your situation, including where it does not."
+>
+  <section class="fit-intro shell" id="fit-intro" data-view="intro">
+    <p class="eyebrow-pill">A self-service reference check</p>
+    <h1>Am I a fit for what you need?</h1>
+    <p class="page-intro">
+      Eight questions about your own situation, not about me. Two minutes, then a scored,
+      evidenced report showing where my twenty-five years overlaps what you described,
+      including where it does not, plus what I would need from you.
+    </p>
+
+    <div class="fit-intro-notes">
+      <p>
+        <strong>This is a fixed instrument, not a pitch.</strong> The eight capabilities below
+        each carry a ceiling set in advance from documented evidence. Nothing you answer can
+        raise a ceiling. A dimension you never raise is not scored at all.
+      </p>
+      <p>
+        Answer for the business you have, not the one you are building. A flattering answer
+        here only wastes your own time.
+      </p>
+      <p>
+        This scores account and commercial work: keeping, growing and running the commercial
+        terms of accounts already held, plus generating new demand. It does not score
+        management, a bigger title, or team leadership.
+      </p>
+      <p>
+        Nothing answered here is sent anywhere or stored. It is worked out in your browser, and
+        the only record is the link the report gives you at the end.
+      </p>
+    </div>
+
+    <button class="button" type="button" data-start>Start</button>
+
+    <noscript>
+      <p class="fit-noscript">
+        This page needs JavaScript to run the diagnostic. Read the
+        <a href="/cv/">CV</a> instead.
+      </p>
+    </noscript>
+  </section>
+
+  <section class="fit-questions shell" id="fit-questions" data-view="questions" hidden>
+    <div class="fit-progress">
+      <div class="fit-progress-rail" aria-hidden="true">
+        {scoredQuestions.map((_, i) => <span class="fit-progress-seg" data-seg={i}></span>)}
+      </div>
+      <p class="fit-progress-label" id="fit-progress-label"></p>
+    </div>
+
+    <p class="visually-hidden" role="status" aria-live="polite" id="fit-status"></p>
+
+    <div id="fit-question-slot"></div>
+
+    <div class="fit-nav">
+      <button class="button button-secondary" type="button" data-back hidden>Back</button>
+      <button class="button" type="button" data-next hidden>Next</button>
+    </div>
+  </section>
+
+  <section class="fit-report shell" id="fit-report" data-view="report" hidden aria-labelledby="fit-report-heading">
+    <div class="fit-result-head">
+      <p class="fit-result-band" id="fit-band"></p>
+      <p class="fit-result-number" id="fit-number"></p>
+      <h2 class="visually-hidden" id="fit-report-heading">Your fit report</h2>
+      <p class="fit-result-verdict" id="fit-verdict"></p>
+    </div>
+
+    <section class="fit-block" aria-labelledby="fit-situation-heading">
+      <h3 id="fit-situation-heading">Your situation</h3>
+      <p class="fit-block-note">Click any answer to change it.</p>
+      <ol class="fit-situation-list" id="fit-situation-list"></ol>
+    </section>
+
+    <section class="fit-block" aria-labelledby="fit-meter-heading">
+      <h3 id="fit-meter-heading">Where it overlaps</h3>
+      <p class="fit-block-note">
+        Bar length is how much you raised each capability. The rule is where my evidence
+        stops. A bar that clears the rule is a gap, not a flattering read.
+      </p>
+      <div class="fit-meter" id="fit-meter" role="img" aria-label=""></div>
+      <p class="fit-meter-summary" id="fit-meter-summary"></p>
+      <p class="fit-not-raised" id="fit-not-raised" hidden></p>
+    </section>
+
+    <section class="fit-block fit-gaps" id="fit-gaps-block" aria-labelledby="fit-gaps-heading" hidden>
+      <h3 id="fit-gaps-heading">Where I am not your person</h3>
+      <div id="fit-gaps-list"></div>
+    </section>
+
+    <section class="fit-block" aria-labelledby="fit-standing-heading">
+      <h3 id="fit-standing-heading">Standing limitations, shown on every result</h3>
+      <ul class="fit-standing-list">
+        {standingGaps.map((gap) => <li>{gap}</li>)}
+      </ul>
+      <p class="fit-sector-caveat" id="fit-sector-caveat" hidden></p>
+    </section>
+
+    <section class="fit-block" id="fit-needs-block" aria-labelledby="fit-needs-heading" hidden>
+      <h3 id="fit-needs-heading">What I would need from you</h3>
+      <div id="fit-needs-list"></div>
+    </section>
+
+    <section class="fit-block" id="fit-evidence-block" aria-labelledby="fit-evidence-heading" hidden>
+      <h3 id="fit-evidence-heading">Evidence</h3>
+      <div class="fit-evidence-grid" id="fit-evidence-list"></div>
+    </section>
+
+    <section class="fit-block" aria-labelledby="fit-note-heading">
+      <h3 id="fit-note-heading">Add a note</h3>
+      <p class="fit-block-note">
+        Shown only to you and in the printed version, if you save one. Not carried in the share
+        link and never sent anywhere.
+      </p>
+      <textarea id="fit-note" rows="3" placeholder="Anything you'd want me to see alongside this."></textarea>
+    </section>
+
+    <section class="fit-block fit-share-block" aria-labelledby="fit-share-heading">
+      <h3 id="fit-share-heading">Save or share this result</h3>
+      <p class="fit-block-note">
+        This link restores your answers and the result. It is the primary way to keep or send
+        this. Your note is not included, since a URL containing your business problems is a
+        privacy issue of its own.
+      </p>
+      <div class="fit-share-row">
+        <button class="button button-secondary" type="button" data-copy-link>Copy link</button>
+        <a class="text-link" id="fit-print-link" href="?print=1">Open the print version</a>
+      </div>
+      <p class="fit-copy-status visually-hidden" role="status" aria-live="polite" data-copy-status></p>
+    </section>
+
+    <details class="fit-method" id="fit-method">
+      <summary>How this is scored</summary>
+      <p>
+        Eight capabilities, each with a ceiling fixed in advance from documented evidence, last
+        reviewed 28 August 2026. Your answers decide which capabilities are scored and how
+        heavily each weighs. They cannot raise a ceiling. Nothing you did not raise is counted.
+      </p>
+      <p>
+        Across all {distribution.paths.toLocaleString("en-NZ")} possible sets of answers, this
+        scores between {distribution.displayMin} and {distribution.displayMax}. The median is{" "}
+        {distribution.displayMedian}. Roughly {Math.round(distribution.belowSubstantialShare)} in
+        every 100 answer sets score below 65. The route through these questions that a hiring
+        manager building an outbound team would take scores {distribution.canonical.outboundLed.display}.
+      </p>
+    </details>
+
+    <div class="fit-close-actions">
+      <a class="button button-secondary" href="/cv/">Back to the CV</a>
+      <a class="text-link" href="/letters/">Read the reference letters</a>
+    </div>
+  </section>
+
+  <section class="fit-print" id="fit-print" hidden aria-labelledby="fit-print-heading">
+    <header class="fit-print-letterhead">
+      <p class="fit-print-name">Brad Friis</p>
+      <p class="fit-print-contact">
+        {contact.email} · {contact.phone} · {contact.location}
+      </p>
+    </header>
+    <h1 id="fit-print-heading">Fit report</h1>
+    <p class="fit-print-date" id="fit-print-date"></p>
+
+    <p class="fit-print-letter" id="fit-print-letter">
+      This was generated from eight answers about your situation, on a fixed set of questions I
+      wrote in advance. Nothing in it is written to order. The scores are ceilings on what I can
+      evidence, not a rating of how well I would do the job, and the areas where those ceilings
+      are low are printed here with everything else. If the parts that matter to you are the
+      strong ones, I would be glad to talk through them properly. If they are the weak ones,
+      this page has done its job and cost you two minutes.
+    </p>
+
+    <section aria-labelledby="fit-print-result-heading">
+      <h2 id="fit-print-result-heading">Result</h2>
+      <p class="fit-print-result" id="fit-print-result"></p>
+    </section>
+
+    <section aria-labelledby="fit-print-questions-heading">
+      <h2 id="fit-print-questions-heading">Questions and answers</h2>
+      <ol class="fit-print-qa" id="fit-print-qa"></ol>
+    </section>
+
+    <section id="fit-print-meter-block" aria-labelledby="fit-print-meter-heading">
+      <h2 id="fit-print-meter-heading">Where it overlaps</h2>
+      <div id="fit-print-meter"></div>
+    </section>
+
+    <section id="fit-print-gaps-block" aria-labelledby="fit-print-gaps-heading" hidden>
+      <h2 id="fit-print-gaps-heading">Where I am not your person</h2>
+      <div id="fit-print-gaps"></div>
+    </section>
+
+    <section aria-labelledby="fit-print-standing-heading">
+      <h2 id="fit-print-standing-heading">Standing limitations, shown on every result</h2>
+      <ul id="fit-print-standing">
+        {standingGaps.map((gap) => <li>{gap}</li>)}
+      </ul>
+      <p id="fit-print-sector" hidden></p>
+    </section>
+
+    <section id="fit-print-needs-block" aria-labelledby="fit-print-needs-heading" hidden>
+      <h2 id="fit-print-needs-heading">What I would need from you</h2>
+      <div id="fit-print-needs"></div>
+    </section>
+
+    <section id="fit-print-evidence-block" aria-labelledby="fit-print-evidence-heading" hidden>
+      <h2 id="fit-print-evidence-heading">Evidence</h2>
+      <div id="fit-print-evidence"></div>
+    </section>
+
+    <section id="fit-print-note-block" hidden aria-labelledby="fit-print-note-heading">
+      <h2 id="fit-print-note-heading">Note</h2>
+      <p id="fit-print-note"></p>
+    </section>
+
+    <section aria-labelledby="fit-print-link-heading">
+      <h2 id="fit-print-link-heading">This link restores the answers and the result</h2>
+      <p id="fit-print-share-url"></p>
+    </section>
+
+    <section aria-labelledby="fit-print-method-heading">
+      <h2 id="fit-print-method-heading">How this is scored</h2>
+      <p>
+        Eight capabilities, each with a ceiling fixed in advance from documented evidence, last
+        reviewed 28 August 2026. The answers decide which capabilities are scored and how
+        heavily each weighs. They cannot raise a ceiling. Nothing that was not raised is counted.
+      </p>
+      <p>
+        Across all {distribution.paths.toLocaleString("en-NZ")} possible sets of answers, this
+        scores between {distribution.displayMin} and {distribution.displayMax}. The median is{" "}
+        {distribution.displayMedian}. Roughly {Math.round(distribution.belowSubstantialShare)} in
+        every 100 answer sets score below 65. The route through these questions that a hiring
+        manager building an outbound team would take scores {distribution.canonical.outboundLed.display}.
+      </p>
+    </section>
+  </section>
+</SiteLayout>
+
+<script>
+  import { dimensions, dimensionById, scoredQuestions, scoreFit } from "../data/fitDiagnostic";
+  import { evidenceById, MAX_EVIDENCE_CARDS } from "../data/fitEvidence";
+  import { getLetter } from "../data/letters";
+
+  const stageLabel: Record<string, string> = {
+    demand: "Demand",
+    land: "Land",
+    keep: "Keep",
+    grow: "Grow",
+  };
+
+  type View = "intro" | "questions" | "report";
+
+  const state = {
+    step: 0,
+    answers: {} as Record<string, string>,
+    note: "",
+    view: "intro" as View,
+  };
+
+  const el = {
+    intro: document.querySelector<HTMLElement>("#fit-intro")!,
+    questionsSection: document.querySelector<HTMLElement>("#fit-questions")!,
+    report: document.querySelector<HTMLElement>("#fit-report")!,
+    printSection: document.querySelector<HTMLElement>("#fit-print")!,
+    startButton: document.querySelector<HTMLButtonElement>("[data-start]")!,
+    slot: document.querySelector<HTMLElement>("#fit-question-slot")!,
+    progressLabel: document.querySelector<HTMLElement>("#fit-progress-label")!,
+    status: document.querySelector<HTMLElement>("#fit-status")!,
+    backButton: document.querySelector<HTMLButtonElement>("[data-back]")!,
+    nextButton: document.querySelector<HTMLButtonElement>("[data-next]")!,
+    noteField: document.querySelector<HTMLTextAreaElement>("#fit-note")!,
+    copyButton: document.querySelector<HTMLButtonElement>("[data-copy-link]")!,
+    copyStatus: document.querySelector<HTMLElement>("[data-copy-status]")!,
+  };
+
+  document.documentElement.classList.add("js-ready");
+
+  function escapeHtml(value: string) {
+    return value.replace(
+      /[&<>"']/g,
+      (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]!,
+    );
+  }
+
+  // --- URL state ------------------------------------------------------------------------
+
+  function encodeAnswers(): string {
+    return scoredQuestions
+      .map((q) => {
+        const chosen = state.answers[q.id];
+        const index = q.options.findIndex((o) => o.id === chosen);
+        return index >= 0 ? String.fromCharCode(97 + index) : "";
+      })
+      .join("");
+  }
+
+  function decodeAnswers(code: string): Record<string, string> | null {
+    if (!code || code.length !== scoredQuestions.length) return null;
+    const result: Record<string, string> = {};
+    for (let i = 0; i < scoredQuestions.length; i++) {
+      const char = code[i];
+      const charCode = char ? char.charCodeAt(0) - 97 : -1;
+      const question = scoredQuestions[i];
+      if (!question) return null;
+      const option = question.options[charCode];
+      if (!option) return null;
+      result[question.id] = option.id;
+    }
+    return result;
+  }
+
+  function currentUrl(): string {
+    const url = new URL(window.location.href);
+    url.search = "";
+    const code = encodeAnswers();
+    if (code) url.searchParams.set("a", code);
+    return url.toString();
+  }
+
+  function syncUrl({ push = false } = {}) {
+    const url = new URL(window.location.href);
+    const code = encodeAnswers();
+    if (code) url.searchParams.set("a", code);
+    else url.searchParams.delete("a");
+    if (push) window.history.pushState(state, "", url);
+    else window.history.replaceState(state, "", url);
+  }
+
+  // --- Rendering: intro / questions / report switch --------------------------------------
+
+  function setView(view: View) {
+    state.view = view;
+    el.intro.hidden = view !== "intro";
+    el.questionsSection.hidden = view !== "questions";
+    el.report.hidden = view !== "report";
+  }
+
+  function announce(message: string) {
+    el.status.textContent = message;
+  }
+
+  // --- Question rendering ------------------------------------------------------------------
+
+  // The site header is `position: sticky` and can grow to two lines on narrow viewports
+  // (global.css documents it wrapping at 390px). Without this, advancing a question while
+  // scrolled down left the progress rail and question heading rendering underneath the
+  // sticky header instead of below it.
+  function scrollToTop(el: HTMLElement) {
+    const header = document.querySelector<HTMLElement>(".site-header");
+    const headerHeight = header ? header.getBoundingClientRect().height : 0;
+    const top = el.getBoundingClientRect().top + window.scrollY - headerHeight - 16;
+    window.scrollTo({ top: Math.max(0, top), behavior: "auto" });
+  }
+
+  function renderQuestion() {
+    const question = scoredQuestions[state.step];
+    if (!question) return;
+
+    scrollToTop(el.questionsSection);
+
+    document.querySelectorAll<HTMLElement>("[data-seg]").forEach((seg) => {
+      const i = Number(seg.dataset.seg);
+      seg.classList.toggle("is-done", i < state.step);
+      seg.classList.toggle("is-current", i === state.step);
+    });
+    el.progressLabel.textContent = `Question ${state.step + 1} of ${scoredQuestions.length}`;
+
+    const chosen = state.answers[question.id];
+
+    el.slot.innerHTML = `
+      <fieldset class="fit-question">
+        <legend>${escapeHtml(question.prompt)}</legend>
+        <div class="fit-options">
+          ${question.options
+            .map(
+              (option) => `
+            <label class="fit-option">
+              <input type="radio" name="${question.id}" value="${option.id}" ${
+                chosen === option.id ? "checked" : ""
+              } />
+              <span>${escapeHtml(option.label)}</span>
+            </label>`,
+            )
+            .join("")}
+        </div>
+      </fieldset>
+    `;
+
+    el.backButton.hidden = state.step === 0;
+    el.nextButton.hidden = !chosen;
+
+    // `change` covers every selection path, including arrow-key navigation of the radio
+    // group, and just records state. Auto-advance is wired separately to `pointerup` only,
+    // so arrowing through options never fires it — arrow-keying changes the checked input,
+    // and advancing on that would trap a keyboard user mid-navigation.
+    el.slot.querySelectorAll<HTMLInputElement>('input[type="radio"]').forEach((input) => {
+      input.addEventListener("change", () => {
+        state.answers[question.id] = input.value;
+        el.nextButton.hidden = false;
+        syncUrl();
+      });
+    });
+
+    el.slot.querySelectorAll<HTMLLabelElement>(".fit-option").forEach((label) => {
+      label.addEventListener("pointerup", () => scheduleAutoAdvance());
+    });
+  }
+
+  let pointerAdvanceTimer: number | null = null;
+
+  function scheduleAutoAdvance() {
+    if (pointerAdvanceTimer) window.clearTimeout(pointerAdvanceTimer);
+    pointerAdvanceTimer = window.setTimeout(() => goNext(), 150) as unknown as number;
+  }
+
+  function goNext() {
+    const question = scoredQuestions[state.step];
+    if (!question || !state.answers[question.id]) return;
+    if (state.step < scoredQuestions.length - 1) {
+      state.step += 1;
+      renderQuestion();
+      announce(`Question ${state.step + 1} of ${scoredQuestions.length}`);
+    } else {
+      showReport({ push: true });
+    }
+  }
+
+  function goBack() {
+    if (state.step === 0) return;
+    state.step -= 1;
+    renderQuestion();
+    announce(`Question ${state.step + 1} of ${scoredQuestions.length}`);
+  }
+
+  el.startButton.addEventListener("click", () => {
+    setView("questions");
+    state.step = 0;
+    renderQuestion();
+    syncUrl();
+  });
+
+  el.nextButton.addEventListener("click", goNext);
+  el.backButton.addEventListener("click", goBack);
+
+  // --- Report -------------------------------------------------------------------------------
+
+  function meterRow(share: number, ceilingShare: number, isGap: boolean, label: string, stage: string) {
+    const pct = Math.round(share * 100);
+    const ceilingPct = Math.round(ceilingShare * 100);
+    return `
+      <div class="fit-meter-row" style="--stage-color: var(--stage-${stage});">
+        <p class="fit-meter-row-label">
+          <span class="fit-meter-stage">${escapeHtml(stageLabel[stage] ?? stage)}</span>
+          ${escapeHtml(label)}
+        </p>
+        <div class="fit-meter-bar" role="img" aria-label="${escapeHtml(
+          `${label}: you raised this at ${pct}%. My evidence reaches ${ceilingPct}%.${isGap ? " This is a gap." : ""}`,
+        )}">
+          <div class="fit-meter-fill${isGap ? " is-gap" : ""}" style="width: ${pct}%;"></div>
+          <div class="fit-meter-ceiling" style="left: ${ceilingPct}%;"></div>
+        </div>
+        <p class="fit-meter-row-note">you: ${pct}% · my evidence reaches ${ceilingPct}%${isGap ? " — gap" : ""}</p>
+      </div>
+    `;
+  }
+
+  function showReport({ push = false } = {}) {
+    const result = scoreFit(state.answers);
+    setView("report");
+
+    document.querySelector("#fit-band")!.textContent = result.band.label;
+    document.querySelector("#fit-number")!.textContent = String(result.display);
+    document.querySelector("#fit-verdict")!.textContent = result.band.verdict;
+
+    // Situation list
+    const situationList = document.querySelector("#fit-situation-list")!;
+    situationList.innerHTML = scoredQuestions
+      .map((q, i) => {
+        const chosen = q.options.find((o) => o.id === state.answers[q.id]);
+        return `
+        <li>
+          <button type="button" class="fit-situation-item" data-jump="${i}">
+            <span class="fit-situation-q">${escapeHtml(q.prompt)}</span>
+            <span class="fit-situation-a">${escapeHtml(chosen?.label ?? "")}</span>
+          </button>
+        </li>`;
+      })
+      .join("");
+
+    // Meter
+    const meterEl = document.querySelector("#fit-meter")!;
+    meterEl.innerHTML = result.raised
+      .map((r) => meterRow(r.share, r.ceiling, r.isGap, r.label, r.stage))
+      .join("");
+    meterEl.setAttribute(
+      "aria-label",
+      `Fit meter. ${result.raised.map((r) => `${r.label}: you raised this at ${Math.round(r.share * 100)}%, my evidence reaches ${Math.round(r.ceiling * 100)}%.`).join(" ")}`,
+    );
+    document.querySelector("#fit-meter-summary")!.textContent =
+      result.raised.length > 0
+        ? `${result.raised.length} of ${dimensions.length} capabilities raised by your answers.`
+        : "No capabilities raised.";
+
+    const notRaisedEl = document.querySelector<HTMLElement>("#fit-not-raised")!;
+    if (result.notRaised.length > 0) {
+      notRaisedEl.hidden = false;
+      notRaisedEl.textContent = `You did not raise: ${result.notRaised
+        .map((id) => dimensionById[id as keyof typeof dimensionById].label)
+        .join(", ")}.`;
+    } else {
+      notRaisedEl.hidden = true;
+    }
+
+    // Gaps
+    const gapsBlock = document.querySelector<HTMLElement>("#fit-gaps-block")!;
+    const gapsList = document.querySelector("#fit-gaps-list")!;
+    if (result.gaps.length > 0) {
+      gapsBlock.hidden = false;
+      gapsList.innerHTML = result.gaps
+        .map((gap) => {
+          const dim = dimensionById[gap.id as keyof typeof dimensionById];
+          const evidence = evidenceById[gap.id as keyof typeof evidenceById];
+          return `
+          <div class="fit-gap-card">
+            <p class="fit-gap-label">${escapeHtml(gap.label)}</p>
+            <p>${escapeHtml(dim.bound)}</p>
+            ${evidence?.concession ? `<p class="fit-gap-concession">${escapeHtml(evidence.concession)}</p>` : ""}
+          </div>`;
+        })
+        .join("");
+    } else {
+      gapsBlock.hidden = true;
+      gapsList.innerHTML = "";
+    }
+
+    // Sector caveat
+    const sectorEl = document.querySelector<HTMLElement>("#fit-sector-caveat")!;
+    if (result.sectorCaveat) {
+      sectorEl.hidden = false;
+      sectorEl.textContent = result.sectorCaveat;
+    } else {
+      sectorEl.hidden = true;
+    }
+
+    // Needs from you
+    const needsBlock = document.querySelector<HTMLElement>("#fit-needs-block")!;
+    const needsList = document.querySelector("#fit-needs-list")!;
+    if (result.needs.length > 0) {
+      needsBlock.hidden = false;
+      needsList.innerHTML = result.needs.map((n) => `<p class="fit-need-card">${escapeHtml(n)}</p>`).join("");
+    } else {
+      needsBlock.hidden = true;
+      needsList.innerHTML = "";
+    }
+
+    // Evidence, capped at MAX_EVIDENCE_CARDS, ceiling >= 0.85, matched dimensions only
+    const evidenceBlock = document.querySelector<HTMLElement>("#fit-evidence-block")!;
+    const evidenceList = document.querySelector("#fit-evidence-list")!;
+    const matchedEvidence = result.raised
+      .filter((r) => r.ceiling >= 0.85)
+      .slice(0, MAX_EVIDENCE_CARDS)
+      .map((r) => evidenceById[r.id as keyof typeof evidenceById])
+      .filter(Boolean);
+
+    if (matchedEvidence.length > 0) {
+      evidenceBlock.hidden = false;
+      evidenceList.innerHTML = matchedEvidence
+        .map((card) => {
+          const letter = card.letterSlug ? getLetter(card.letterSlug) : undefined;
+          return `
+          <article class="fit-evidence-card">
+            <p class="fit-evidence-claim">${escapeHtml(card.claim)}</p>
+            ${card.evidence.map((line) => `<p>${escapeHtml(line)}</p>`).join("")}
+            ${card.concession ? `<p class="fit-evidence-concession">${escapeHtml(card.concession)}</p>` : ""}
+            ${
+              card.letterQuote && letter
+                ? `<blockquote class="fit-evidence-quote">
+                    “${escapeHtml(card.letterQuote)}”
+                    <cite>
+                      <a href="/letters/${letter.slug}/">${escapeHtml(card.letterAttribution ?? letter.referee)}</a>
+                    </cite>
+                  </blockquote>`
+                : ""
+            }
+          </article>`;
+        })
+        .join("");
+    } else {
+      evidenceBlock.hidden = true;
+      evidenceList.innerHTML = "";
+    }
+
+    document.querySelector("#fit-print-link")!.setAttribute("href", `?print=1&a=${encodeAnswers()}`);
+
+    if (push) syncUrl({ push: true });
+    else syncUrl();
+
+    scrollToTop(el.report);
+    const heading = document.querySelector<HTMLElement>("#fit-report-heading")!;
+    heading.setAttribute("tabindex", "-1");
+    heading.focus({ preventScroll: true });
+    announce(`Result: ${result.band.label}, ${result.display}.`);
+  }
+
+  document.querySelector("#fit-situation-list")!.addEventListener("click", (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLElement>("[data-jump]");
+    if (!button) return;
+    state.step = Number(button.dataset.jump);
+    setView("questions");
+    renderQuestion();
+    syncUrl();
+  });
+
+  el.noteField.addEventListener("input", () => {
+    state.note = el.noteField.value;
+  });
+
+  el.copyButton.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(currentUrl());
+      el.copyStatus.textContent = "Link copied.";
+    } catch {
+      el.copyStatus.textContent = currentUrl();
+    }
+  });
+
+  // --- Print view -----------------------------------------------------------------------
+
+  function renderPrint() {
+    const result = scoreFit(state.answers);
+    el.printSection.hidden = false;
+    el.intro.hidden = true;
+    el.questionsSection.hidden = true;
+    el.report.hidden = true;
+
+    document.querySelector("#fit-print-date")!.textContent = new Intl.DateTimeFormat("en-NZ", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }).format(new Date());
+
+    document.querySelector("#fit-print-result")!.textContent =
+      `${result.band.label}, ${result.display}. ${result.band.verdict}`;
+
+    const qaList = document.querySelector("#fit-print-qa")!;
+    qaList.innerHTML = scoredQuestions
+      .map((q) => {
+        const chosen = q.options.find((o) => o.id === state.answers[q.id]);
+        return `<li><p class="fit-print-q">${escapeHtml(q.prompt)}</p><p class="fit-print-a">${escapeHtml(
+          chosen?.label ?? "Not answered",
+        )}</p></li>`;
+      })
+      .join("");
+
+    const printMeter = document.querySelector("#fit-print-meter")!;
+    printMeter.innerHTML = result.raised
+      .map((r) => {
+        const pct = Math.round(r.share * 100);
+        const ceilingPct = Math.round(r.ceiling * 100);
+        return `<div class="fit-print-meter-row${r.isGap ? " is-gap" : ""}">
+          <p>${escapeHtml(stageLabel[r.stage] ?? r.stage)} · ${escapeHtml(r.label)}</p>
+          <div class="fit-print-bar"><div class="fit-print-fill" style="width:${pct}%"></div><div class="fit-print-rule" style="left:${ceilingPct}%"></div></div>
+          <p class="fit-print-bar-note">you: ${pct}% · my evidence reaches ${ceilingPct}%${r.isGap ? " — gap" : ""}</p>
+        </div>`;
+      })
+      .join("");
+
+    const gapsBlock = document.querySelector<HTMLElement>("#fit-print-gaps-block")!;
+    const gapsList = document.querySelector("#fit-print-gaps")!;
+    if (result.gaps.length > 0) {
+      gapsBlock.hidden = false;
+      gapsList.innerHTML = result.gaps
+        .map((gap) => {
+          const dim = dimensionById[gap.id as keyof typeof dimensionById];
+          return `<div><p><strong>${escapeHtml(gap.label)}</strong></p><p>${escapeHtml(dim.bound)}</p></div>`;
+        })
+        .join("");
+    }
+
+    const sectorEl = document.querySelector<HTMLElement>("#fit-print-sector")!;
+    if (result.sectorCaveat) {
+      sectorEl.hidden = false;
+      sectorEl.textContent = result.sectorCaveat;
+    }
+
+    const needsBlock = document.querySelector<HTMLElement>("#fit-print-needs-block")!;
+    const needsList = document.querySelector("#fit-print-needs")!;
+    if (result.needs.length > 0) {
+      needsBlock.hidden = false;
+      needsList.innerHTML = result.needs.map((n) => `<p>${escapeHtml(n)}</p>`).join("");
+    }
+
+    const evidenceBlock = document.querySelector<HTMLElement>("#fit-print-evidence-block")!;
+    const evidenceList = document.querySelector("#fit-print-evidence")!;
+    const matchedEvidence = result.raised
+      .filter((r) => r.ceiling >= 0.85)
+      .slice(0, MAX_EVIDENCE_CARDS)
+      .map((r) => evidenceById[r.id as keyof typeof evidenceById])
+      .filter(Boolean);
+    if (matchedEvidence.length > 0) {
+      evidenceBlock.hidden = false;
+      evidenceList.innerHTML = matchedEvidence
+        .map((card) => {
+          const letter = card.letterSlug ? getLetter(card.letterSlug) : undefined;
+          return `<div>
+            <p><strong>${escapeHtml(card.claim)}</strong></p>
+            ${card.evidence.map((line) => `<p>${escapeHtml(line)}</p>`).join("")}
+            ${card.concession ? `<p>${escapeHtml(card.concession)}</p>` : ""}
+            ${
+              card.letterQuote && letter
+                ? `<p>“${escapeHtml(card.letterQuote)}” — ${escapeHtml(card.letterAttribution ?? letter.referee)} (bradfriis.com/letters/${letter.slug}/)</p>`
+                : ""
+            }
+          </div>`;
+        })
+        .join("");
+    }
+
+    const noteBlock = document.querySelector<HTMLElement>("#fit-print-note-block")!;
+    if (state.note.trim()) {
+      noteBlock.hidden = false;
+      document.querySelector("#fit-print-note")!.textContent = state.note.trim();
+    }
+
+    document.querySelector("#fit-print-share-url")!.textContent = currentUrl();
+  }
+
+  // --- Boot: parse URL, decide starting view -----------------------------------------------
+
+  function boot() {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("a");
+    const isPrint = params.get("print") === "1";
+    const decoded = code ? decodeAnswers(code) : null;
+
+    if (decoded) {
+      state.answers = decoded;
+      state.step = scoredQuestions.length - 1;
+    }
+
+    if (isPrint && decoded) {
+      renderPrint();
+      return;
+    }
+
+    if (decoded) {
+      showReport();
+    } else {
+      setView("intro");
+    }
+  }
+
+  window.addEventListener("popstate", () => {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("a");
+    const decoded = code ? decodeAnswers(code) : null;
+    if (decoded) {
+      state.answers = decoded;
+      showReport();
+    } else {
+      state.answers = {};
+      state.step = 0;
+      setView("intro");
+    }
+  });
+
+  boot();
+</script>

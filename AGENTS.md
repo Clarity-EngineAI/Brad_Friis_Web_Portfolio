@@ -31,6 +31,8 @@ These are not style preferences. Full list is in `README.md` and `PRODUCT.md`.
 
 Voice (everything except the blog): first person; no second person; no industry noun in display type; no advertising-device rhythm. Spec: `design/01-positioning-brief.md` §7.
 
+Voice exemption — `/fit/` only: the diagnostic's questions, option labels and printed intro letter address the reader as "you", because they ask about the reader's own business. The report's verdict lines, evidence, concessions, gaps and "what I would need from you" stay first person. Recorded in PRODUCT.md under Brand Commitments. No other route is exempt.
+
 ## Cursor Cloud specific instructions
 
 - Dev server: `http://localhost:4321` (started from `.cursor/environment.json` `terminals`).
