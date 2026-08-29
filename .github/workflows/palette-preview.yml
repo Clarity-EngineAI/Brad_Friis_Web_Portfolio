@@ -15,6 +15,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm install --no-save playwright@1.62.1
       - run: npx playwright install --with-deps chromium
       - name: Create palette preview script
         run: |
