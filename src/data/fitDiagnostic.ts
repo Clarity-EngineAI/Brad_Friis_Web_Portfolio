@@ -585,7 +585,7 @@ export function scoreFit(answers: Record<string, string>): FitResult {
 
   const totalDemand = [...demandTotals.values()].reduce((sum, n) => sum + n, 0);
 
-  if (totalDemand > 0 && totalDemand < DEMAND_FLOOR) {
+  if (totalDemand < DEMAND_FLOOR) {
     return {
       raw: 0,
       display: 0,

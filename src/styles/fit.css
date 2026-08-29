@@ -164,8 +164,14 @@
 
 .fit-nav {
   display: flex;
+  flex-direction: column-reverse;
   gap: 12px;
   margin-top: 28px;
+}
+
+.fit-nav .button,
+.fit-nav .button-secondary {
+  width: 100%;
 }
 
 /* --- Report -------------------------------------------------------------------------------- */
@@ -635,14 +641,14 @@
 
 /* --- Responsive --------------------------------------------------------------------------- */
 
-@media (max-width: 640px) {
+@media (min-width: 641px) {
   .fit-nav {
-    flex-direction: column-reverse;
+    flex-direction: row;
   }
 
   .fit-nav .button,
   .fit-nav .button-secondary {
-    width: 100%;
+    width: auto;
   }
 }
 

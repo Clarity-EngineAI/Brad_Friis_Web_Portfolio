@@ -7,7 +7,7 @@ import "../styles/fit.css";
 ---
 
 <SiteLayout
-  title="Am I a fit? — Brad Friis"
+  title="Am I a fit? Brad Friis"
   description="Answer eight questions about your own business and get back a scored, evidenced report of where my twenty-five years overlaps your situation, including where it does not."
 >
   <section class="fit-intro shell" id="fit-intro" data-view="intro">
@@ -464,7 +464,7 @@ import "../styles/fit.css";
           <div class="fit-meter-fill${isGap ? " is-gap" : ""}" style="width: ${pct}%;"></div>
           <div class="fit-meter-ceiling" style="left: ${ceilingPct}%;"></div>
         </div>
-        <p class="fit-meter-row-note">you: ${pct}% · my evidence reaches ${ceilingPct}%${isGap ? " — gap" : ""}</p>
+        <p class="fit-meter-row-note">you: ${pct}% · my evidence reaches ${ceilingPct}%${isGap ? " (gap)" : ""}</p>
       </div>
     `;
   }
@@ -666,7 +666,7 @@ import "../styles/fit.css";
             return `<div class="fit-print-meter-row${r.isGap ? " is-gap" : ""}">
           <p>${escapeHtml(stageLabel[r.stage] ?? r.stage)} · ${escapeHtml(r.label)}</p>
           <div class="fit-print-bar"><div class="fit-print-fill" style="width:${pct}%"></div><div class="fit-print-rule" style="left:${ceilingPct}%"></div></div>
-          <p class="fit-print-bar-note">you: ${pct}% · my evidence reaches ${ceilingPct}%${r.isGap ? " — gap" : ""}</p>
+          <p class="fit-print-bar-note">you: ${pct}% · my evidence reaches ${ceilingPct}%${r.isGap ? " (gap)" : ""}</p>
         </div>`;
           })
           .join("")
@@ -714,7 +714,7 @@ import "../styles/fit.css";
             <p>${escapeHtml(card.evidence[0])}</p>
             ${
               card.letterQuote && letter
-                ? `<p>“${escapeHtml(card.letterQuote)}” — ${escapeHtml(card.letterAttribution ?? letter.referee)} (bradfriis.com/letters/${letter.slug}/)</p>`
+                ? `<p>“${escapeHtml(card.letterQuote)}”, ${escapeHtml(card.letterAttribution ?? letter.referee)} (bradfriis.com/letters/${letter.slug}/)</p>`
                 : ""
             }
           </div>`;

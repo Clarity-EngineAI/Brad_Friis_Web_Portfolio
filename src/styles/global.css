@@ -1709,10 +1709,6 @@ main {
 
 /* Blog rows carry title/category/date, one line thinner than the reference rows
    (name/role/org/date) this grid proportion was tuned for. 28 August 2026. */
-.blog-index .letter-row {
-  grid-template-columns: minmax(140px, 0.22fr) minmax(0, 1fr);
-}
-
 .letter-row blockquote,
 .letter-row .dek {
   margin: 0 0 12px;
