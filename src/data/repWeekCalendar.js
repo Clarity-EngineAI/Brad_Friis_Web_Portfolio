@@ -21,6 +21,10 @@
  * @typedef {Object} PillarMeta
  * @property {string} label
  * @property {string} standfirst
+ * @property {string} pillarKeyNote  Second line for the pillar-key section further down the
+ *                                   page. Deliberately distinct from standfirst (which the
+ *                                   filter panel also shows) so the two sections don't repeat
+ *                                   each other verbatim.
  * @property {string[]} categories   Ordered child sub-category ids.
  *
  * @typedef {Object} CategoryMeta
@@ -56,16 +60,19 @@ export const pillars = Object.freeze({
   growth: {
     label: 'Growth',
     standfirst: 'Finding the right schools, winning them, and keeping them at renewal time.',
+    pillarKeyNote: 'Shows up as renewal conversations, the campaigns that feed the pipeline, and the reporting that tells us whether either is working.',
     categories: Object.freeze(['pipeline', 'targeting', 'campaigns', 'measurement'])
   },
   delivery: {
     label: 'Delivery',
     standfirst: 'Getting schools set up, trained and confident enough that the platform actually got used.',
+    pillarKeyNote: 'Shows up as the technical setup, the training that follows it, and the support tickets that come after both.',
     categories: Object.freeze(['implementation', 'enablement', 'learning-design', 'support'])
   },
   operations: {
     label: 'Operations',
     standfirst: 'The money, the contracts, the vendor relationship and the team behind all of it.',
+    pillarKeyNote: 'Mostly commercial work this week, contracts and pricing, plus the partner and internal-systems admin that sits behind the scenes.',
     categories: Object.freeze(['commercial', 'partnerships', 'people', 'systems'])
   }
 });
