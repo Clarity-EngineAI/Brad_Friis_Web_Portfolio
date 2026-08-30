@@ -37,7 +37,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
       <div class="week-menu-bar">
         <div class="week-menu-primary">
           <h2 id="filter-heading" class="week-menu-kicker">View the week</h2>
-          <div class="week-menu-triggers" role="menubar" aria-label="Filter the week by area">
+          <div class="week-menu-triggers" role="group" aria-label="Filter the week by area">
             {vocabulary.pillars.map((pillarId) => {
               const pillar = pillars[pillarId as keyof typeof pillars];
               return (
@@ -51,7 +51,6 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
                     type="button"
                     data-menu-trigger={pillarId}
                     data-state="none"
-                    aria-haspopup="true"
                     aria-expanded="false"
                     aria-controls={`week-menu-panel-${pillarId}`}
                   >
@@ -71,7 +70,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
                       />
                     </svg>
                   </button>
-                  <div class="week-menu-panel" id={`week-menu-panel-${pillarId}`} role="menu" hidden>
+                  <div class="week-menu-panel" id={`week-menu-panel-${pillarId}`} hidden>
                     <div class="week-menu-panel-head">
                       <p class="week-menu-panel-title">{pillar.label}</p>
                       <p class="week-menu-panel-standfirst">{pillar.standfirst}</p>
@@ -81,7 +80,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
                         <button
                           class="week-menu-option"
                           type="button"
-                          role="menuitemcheckbox"
+                          role="checkbox"
                           data-cat-toggle={catId}
                           aria-checked="false"
                           style={`--cat-color: var(--p-${pillarId}); --cat-text: var(--p-${pillarId}-text); --cat-wash: var(--wash-${pillarId});`}
@@ -139,6 +138,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
       </svg>
       Each card opens.
     </p>
+    <p class="week-grid-summary" data-week-summary hidden></p>
     <div class="week-grid" id="week-grid"></div>
     <div class="agenda" id="agenda"></div>
     <p class="career-quote week-pullquote">
@@ -281,6 +281,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
   const el = {
     grid: document.querySelector("#week-grid")!,
     agenda: document.querySelector("#agenda")!,
+    gridSummary: document.querySelector<HTMLElement>("[data-week-summary]")!,
     status: document.querySelector<HTMLElement>("[data-filter-status]")!,
     chips: document.querySelector<HTMLElement>("[data-active-chips]")!,
     resetButton: document.querySelector<HTMLButtonElement>("[data-reset]")!,
@@ -358,7 +359,7 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
         aria-expanded="${selected}"
         aria-controls="detail-dialog"
         aria-label="${escapeHtml(
-          `${dayLabels[entry.day]} ${slotShort(entry.slot)}. ${entry.title}. ${category.label}, under ${pillarsByKey[pillar].label}.${linkNote}`,
+          `${entry.title}. ${dayLabels[entry.day]} ${slotShort(entry.slot)}, ${category.label}, under ${pillarsByKey[pillar].label}.${linkNote}`,
         )}"
       >
         <span class="entry-cat">${escapeHtml(category.shortLabel)}</span>
@@ -483,6 +484,16 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
   function render() {
     const entries = visibleEntries();
     const linked = linkedIds();
+
+    if (noSelection() || everythingSelected()) {
+      el.gridSummary.hidden = true;
+      el.gridSummary.textContent = "";
+    } else {
+      const filledSlots = new Set(entries.map((entry) => `${entry.day}-${entry.slot}`)).size;
+      const totalSlots = vocabulary.days.length * vocabulary.slots.length;
+      el.gridSummary.hidden = false;
+      el.gridSummary.textContent = `This filter landed on ${filledSlots} of ${totalSlots} slots this week.`;
+    }
 
     /* Rebuilt 27 August 2026 to the V3 reference structure, then 29 August 2026 to drop the
        repeated MORNING/AFTERNOON eyebrow from every card, then again same day once the

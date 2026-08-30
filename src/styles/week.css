@@ -776,6 +776,12 @@
   margin: 0 0 12px;
 }
 
+.week-grid-summary {
+  margin: 0 0 12px;
+  font-size: var(--text-meta);
+  color: var(--ink-tertiary);
+}
+
 
 /* -------------------------------------------------------------------- CARD */
 
@@ -1343,11 +1349,24 @@ html:has(.detail-dialog[open]) {
     flex: 1 1 calc(50% - 8px);
   }
 
-  .week-menu-panel {
+  /* .week-menu-panel is position:absolute, so it doesn't affect the flex sizing of its own
+     item box — anchoring it to the individual .week-menu-item (as desktop does) meant an open
+     panel painted only 4px below its own trigger, still inside the two-column row, covering
+     the sibling trigger beside it. Anchoring to .week-menu-triggers instead clears the whole
+     row's bottom edge regardless of which pillar opened it. 30 August 2026. */
+  .week-menu-triggers {
+    position: relative;
+  }
+
+  .week-menu-item {
     position: static;
-    width: auto;
-    margin-top: 8px;
-    box-shadow: none;
+  }
+
+  .week-menu-panel {
+    top: calc(100% + 4px);
+    left: auto;
+    right: 0;
+    width: min(20rem, calc(100vw - 2 * var(--gutter)));
   }
 
   .week-menu-item.is-open {
