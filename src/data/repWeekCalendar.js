@@ -185,7 +185,7 @@ export const calendarEntries = Object.freeze([
     slot: 'afternoon',
     displayTime: 'Afternoon',
     title: 'Sales pipeline review',
-    summary: 'Go through every open opportunity: what is the next step, and is it real?',
+    summary: 'Go through every open opportunity and check the next step is real.',
     detail:
       'Sit down with the pipeline once a week and be honest about it. Some opportunities need a call, some need a proposal, some need to be parked because the school is not going to move this year. Doing that every week keeps the pipeline something I can plan the business around, not a list of hopeful names.',
     category: 'pipeline',
@@ -200,7 +200,7 @@ export const calendarEntries = Object.freeze([
     title: 'New feature launch: media and promotion plan',
     summary: 'Prepare the launch material for a new billable feature and plan how customers will hear about it.',
     detail:
-      'The platform has a new feature we can bill for, so build the launch around it: a one-pager, an email sequence, a short video showing what the feature does in a real school context, and a plan for which customers hear about it first. A feature only becomes revenue when schools understand what it does for them, so plan the promotion, the training and the pricing together as one piece of work.',
+      'The platform has a new feature we can bill for, so shape the launch around it: a one-pager, an email sequence, a short video showing what the feature does in a real school context, and a plan for which customers hear about it first. A feature only becomes revenue when schools understand what it does for them, so plan the promotion, the training and the pricing together as one piece of work.',
     category: 'campaigns',
     alsoRanInto: ['delivery', 'operations'],
     connections: ['feature-training-design', 'feature-billing-plan', 'marketing-automation-review']
@@ -213,7 +213,7 @@ export const calendarEntries = Object.freeze([
     title: 'Teacher network and partner calls',
     summary: 'Keep up the nationwide network of teachers and school leaders that most of our referrals come through.',
     detail:
-      'Run calls with the network of teachers and school leaders across the country who use it to share resources and ideas with each other. Keep the relationships genuine: help people with things that have nothing to sell attached. Most of our best introductions come from someone in that network mentioning us to a colleague, and that only happens if you are useful to people between sales.',
+      'Run calls with the network of teachers and school leaders across the country who use it to share resources and ideas with each other. Keep the relationships genuine: help people with things that have nothing to sell attached. Most of our best introductions come from someone in that network mentioning us to a colleague, and that only happens if I am useful to people between sales.',
     category: 'pipeline',
     alsoRanInto: ['delivery'],
     connections: ['sales-strategy-pipeline-review', 'funded-programme-facilitation']
@@ -330,7 +330,7 @@ export const calendarEntries = Object.freeze([
     slot: 'morning',
     displayTime: 'Morning',
     title: 'New feature: design the training',
-    summary: 'Build the training that goes out with the new billable feature: video, self-paced material, workshops.',
+    summary: 'Shape the training that goes out with the new billable feature: video, self-paced material, workshops.',
     detail:
       'Design the training to go with the feature we are launching: short videos, self-paced material and workshop content, depending on who the audience is. Schools do not keep paying for a feature they cannot confidently use, so the training is part of the product, not an afterthought. Have it ready before the first customer hears the announcement.',
     category: 'learning-design',
@@ -384,7 +384,7 @@ export const calendarEntries = Object.freeze([
     title: 'Ministry integration tool: design and support',
     summary: 'Design and support a tool that takes days of manual database work off every school that uses it.',
     detail:
-      'Schools are losing days of manual database work getting their student data where it needs to be. Design an integration tool that connects the platform to the Ministry of Education’s systems and does that work for them, and provide the technical support behind it. Nobody asks you to build this kind of thing. Notice the problem, build the fix, and every school that uses it gets days of their year back.',
+      'Schools are losing days of manual database work getting their student data where it needs to be. Design an integration tool that connects the platform to the Ministry of Education’s systems and does that work for them, and provide the technical support behind it. Nobody asked for this one. I noticed the problem, got the fix made, and every school that uses it gets days of their year back.',
     category: 'implementation',
     alsoRanInto: ['operations'],
     connections: ['funded-programme-facilitation', 'technical-implementation-new-accounts', 'implementation-blockers-qa']
@@ -451,7 +451,7 @@ export const calendarEntries = Object.freeze([
     title: 'Financial strategy and forecasting',
     summary: 'Model the year around the school funding cycle rather than a straight line.',
     detail:
-      'School budgets run on their own calendar, and it does not look like a standard sales year. Build our financial projections around when schools can actually commit money. That changes when we invest in pipeline and how we staff delivery through the quieter months. The forecasting is mine end to end: modelling, projections and the decisions that come out of them.',
+      'School budgets run on their own calendar, and it does not look like a standard sales year. Shape our financial projections around when schools can actually commit money. That changes when we invest in pipeline and how we staff delivery through the quieter months. The forecasting is mine end to end: modelling, projections and the decisions that come out of them.',
     category: 'commercial',
     alsoRanInto: ['growth'],
     connections: ['sla-billing-strategy', 'annual-uplift-planning', 'board-reporting-compilation']
@@ -477,7 +477,7 @@ export const calendarEntries = Object.freeze([
     title: 'Website content for a new AI feature',
     summary: 'Write the copy and source the imagery that make a new AI feature land as a benefit, not a buzzword.',
     detail:
-      'The platform is shipping a new AI feature and the website page announcing it is mine to build: the copy, the imagery, the whole argument for why a school should care. "AI" on its own means nothing to a principal, so the page has to earn its place by naming the actual problem it removes and showing, not claiming, what changes for a teacher who uses it. That is the difference between a feature page and a hype page.',
+      'The platform is shipping a new AI feature and the website page announcing it is mine: the copy, the imagery, the whole argument for why a school should care. "AI" on its own means nothing to a principal, so the page has to earn its place by naming the actual problem it removes and showing, not claiming, what changes for a teacher who uses it. That is the difference between a feature page and a hype page.',
     category: 'campaigns',
     alsoRanInto: ['delivery'],
     connections: ['feature-launch-media', 'lead-generation-hooks-assets']
@@ -503,7 +503,7 @@ export const calendarEntries = Object.freeze([
     title: 'Suppliers and contractors',
     summary: 'Hold our suppliers and contractors to dates and standards, so their slippage never reaches a customer.',
     detail:
-      'Beyond the platform vendor there is a ring of suppliers and contractors: production, print, technical contractors, service providers. A supplier missing a deadline becomes your missed deadline in the customer’s eyes, so keep timelines explicit, review the work against what was agreed, and replace relationships that repeatedly cost us. Referral partners sit in this mix too, and those I invest in.',
+      'Beyond the platform vendor there is a ring of suppliers and contractors: production, print, technical contractors, service providers. A supplier missing a deadline becomes my missed deadline in the customer’s eyes, so keep timelines explicit, review the work against what was agreed, and replace relationships that repeatedly cost us. Referral partners sit in this mix too, and those I invest in.',
     category: 'partnerships',
     alsoRanInto: ['delivery'],
     connections: ['international-reseller-sync', 'operational-workflows-tooling']
@@ -529,7 +529,7 @@ export const calendarEntries = Object.freeze([
     title: 'Resource allocation',
     summary: 'Set the week’s priorities against real availability, and say out loud what we will not do.',
     detail:
-      'Allocation is mostly the discipline of naming what gets dropped. Set the week’s commitments against the time we actually have, and make the trade-offs visible, so nobody is quietly holding three things that have each been called the priority. The team can push back on a visible plan; they cannot push back on an assumption.',
+      'Allocation is mostly the discipline of naming what gets dropped. Set the week’s commitments against the time we actually have, and make the trade-offs visible, so nobody is quietly holding three things that have each been called the priority. A visible plan gives the team something to push back on. An assumption does not.',
     category: 'people',
     alsoRanInto: ['delivery'],
     connections: ['delivery-capacity-planning']
