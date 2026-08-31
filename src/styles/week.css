@@ -1326,8 +1326,29 @@ html:has(.detail-dialog[open]) {
 /* ================================================================= MOBILE */
 
 @media (max-width: 40rem) {
+  /* "View the week" is redundant beside three self-explanatory pillar pills once space is
+     tight — the three colour-coded triggers read as a filter row without the label. Kept
+     for screen readers (the section already carries aria-labelledby="filter-heading"), just
+     not painted. Recovers a full row's height above the fold on mobile only; desktop keeps
+     the visible kicker where the row has room for it. 31 August 2026. */
   .week-menu-kicker {
-    flex-basis: 100%;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .filter-section {
+    padding-block: 12px 4px;
+  }
+
+  .week-menu {
+    gap: 6px;
   }
 
   .week-menu-bar {
