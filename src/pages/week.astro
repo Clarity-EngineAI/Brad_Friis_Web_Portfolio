@@ -515,14 +515,14 @@ const pillarMarks: Record<(typeof vocabulary.pillars)[number], string> = {
               : `<p class="day-empty">Nothing this slot in the current filter.</p>`;
             return `
             <div class="day-col">
-              <h3 class="day-name">${dayLabels[day]}</h3>
+              <h4 class="day-name">${dayLabels[day]}</h4>
               ${stack}
             </div>`;
           })
           .join("");
         return `
         <div class="slot-row">
-          <h4 class="day-slot-head">${slotLabels[slot]}</h4>
+          <h3 class="day-slot-head">${slotLabels[slot]}</h3>
           <div class="slot-row-cols">${dayCols}</div>
         </div>`;
       })
