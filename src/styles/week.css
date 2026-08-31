@@ -252,32 +252,6 @@
   text-wrap: pretty;
 }
 
-.pillar-cats {
-  list-style: none;
-  margin: 16px 0 0;
-  padding: 14px 0 0;
-  border-top: 1px solid var(--line-soft);
-  display: grid;
-  gap: 7px;
-}
-
-.pillar-cats li {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  font-size: var(--text-body);
-  color: var(--ink-secondary);
-}
-
-.pillar-cats li::before {
-  content: '';
-  flex: none;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--dot);
-}
-
 /* ------------------------------------------------------------- FILTER MENU
    A graphic command bar, not a labelled card. Three colour-marked pillar
    menus open onto the twelve areas; the live selection is the chips row.
