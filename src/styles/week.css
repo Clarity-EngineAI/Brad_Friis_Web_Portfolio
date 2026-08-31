@@ -491,10 +491,14 @@
   border-bottom: 1px solid var(--line-soft);
 }
 
+/* Weight bumped 400 to 600, 31 August 2026 — matched font-weight:400 read as unstyled
+   default text, lighter than the checkbox labels it headed. .entry-title sets the site's
+   card-title precedent (--text-body/600) for exactly this reason: the heading needs to
+   outweigh its own body copy, not just sit larger. */
 .week-menu-panel-title {
   margin: 0;
   font-size: var(--text-nav);
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.014em;
   line-height: 1.2;
   color: var(--ink);
